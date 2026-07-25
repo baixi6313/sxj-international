@@ -1,0 +1,24 @@
+{
+  "name": "寰宇光锥舟 · 共创论",
+  "short_name": "光锥舟",
+  "description": "过程可验证：从追问到基础设施 — 光锥约束定义生存底线，贡献值驱动文明演化，事现鉴确保一切不遗忘。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230a0a0f'/><polygon points='96,20 172,152 20,152' fill='none' stroke='%23d4a853' stroke-width='6'/><circle cx='96' cy='95' r='4' fill='%23d4a853'/><text x='96' y='175' text-anchor='middle' fill='%23d4a853' font-size='20' font-family='sans-serif'>光锥舟</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230a0a0f'/><polygon points='256,60 452,400 60,400' fill='none' stroke='%23d4a853' stroke-width='12'/><circle cx='256' cy='260' r='10' fill='%23d4a853'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
