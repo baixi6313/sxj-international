@@ -1,0 +1,2868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SXJ · 事现鉴 — Verifiable Public Fact Protocol</title>
+<meta name="description" content="SXJ (事现鉴) is a verifiable public fact protocol based on Article 22 of the Universal Declaration of Human Rights. Everyone can co-author our SXJ — hash-chain verified, impossible to erase.">
+<meta name="keywords" content="SXJ, ShiXianJian, 事现鉴, UDHR Article 22, verifiable public facts, hash chain, human rights, social security, contribution value, co-creation theory">
+<meta name="author" content="Bai Xi">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hygzz.com">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="SXJ · 事现鉴 — Verifiable Public Fact Protocol">
+<meta property="og:description" content="Realizing Article 22 of the Universal Declaration of Human Rights — everyone can co-author our SXJ. Hash-chain verified, impossible to erase.">
+<meta property="og:url" content="https://hygzz.com">
+<meta property="og:site_name" content="SXJ · 事现鉴">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SXJ · 事现鉴 — Verifiable Public Fact Protocol">
+<meta name="twitter:description" content="Realizing Article 22 of the UDHR — everyone can co-author our SXJ. Hash-chain verified, impossible to erase.">
+<meta name="twitter:creator" content="@baixi6313">
+<!-- Favicon (inline SVG: hash-chain node) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230066ff'/%3E%3Ccircle cx='8' cy='10' r='2.5' fill='white' opacity='0.9'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='white' opacity='0.7'/%3E%3Ccircle cx='24' cy='22' r='2.5' fill='white' opacity='0.5'/%3E%3Cline x1='8' y1='10' x2='16' y2='16' stroke='white' stroke-width='1.2' opacity='0.5'/%3E%3Cline x1='16' y1='16' x2='24' y2='22' stroke='white' stroke-width='1.2' opacity='0.3'/%3E%3Ctext x='16' y='14' text-anchor='middle' fill='white' font-size='7' font-weight='600' font-family='monospace'%3ESXJ%3C/text%3E%3C/svg%3E">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  :root{
+    --bg:#ffffff;
+    --card:#f8f9fa;
+    --text:#1a1a2e;
+    --text-dim:#555;
+    --text-faint:#8892a0;
+    --border:#e8eaed;
+    --border-hover:#d0d4dc;
+    --accent:#0066ff;
+    --accent-light:#e8f0ff;
+    --accent-hover:#0052cc;
+    --red:#e5484d;
+    --red-bg:#fef0f0;
+    --green:#30a14e;
+    --green-bg:#eef9f0;
+    --yellow:#ab6800;
+    --yellow-bg:#fef5e7;
+    --purple:#7c3aed;
+    --purple-bg:#f3eefe;
+    --orange:#f97316;
+    --orange-bg:#fff7ed;
+    --cyan:#0891b2;
+    --cyan-bg:#ecfeff;
+    --shadow:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.02);
+    --shadow-hover:0 4px 12px rgba(0,0,0,0.06),0 2px 4px rgba(0,0,0,0.03);
+  }
+  body{
+    font-family:'Inter','SF Pro Text','Segoe UI',system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ===== Scrolling Ticker ===== */
+  .ticker-wrap{
+    width:100%;overflow:hidden;background:#f0f2f5;border-bottom:1px solid var(--border);
+  }
+  .ticker{
+    display:inline-flex;white-space:nowrap;animation:ticker 40s linear infinite;
+    padding:0.45rem 0;font-size:0.78rem;color:var(--text-dim);
+  }
+  .ticker:hover{animation-play-state:paused}
+  .ticker-item{display:inline-flex;align-items:center;padding:0 2rem}
+  .ticker-item::before{
+    content:'';display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);margin-right:0.5rem;
+  }
+  .ticker-item span.ticker-time{color:var(--text-faint);font-size:0.7rem;margin-left:0.4rem}
+  @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* ===== Top bar ===== */
+  .topbar{
+    position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;
+    padding:0.6rem 2rem;font-size:0.8rem;border-bottom:1px solid var(--border);
+  }
+  .topbar-left{display:flex;align-items:center;gap:0.5rem}
+  .topbar-dot{
+    width:6px;height:6px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 6px rgba(48,161,78,0.5);animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  .topbar-couplet{
+    flex:1;text-align:center;max-width:720px;margin:0 auto;
+    font-size:0.75rem;color:var(--text-dim);line-height:1.5;
+  }
+  .topbar-couplet-row{display:block;white-space:nowrap}
+  .topbar-couplet-line{letter-spacing:0.04em}
+  .topbar-couplet-by{color:var(--text-faint);font-size:0.65rem;margin:0 0.15rem}
+  .topbar-right{
+    font-family:'SF Mono','JetBrains Mono','Consolas',monospace;
+    color:var(--text-faint);font-size:0.75rem;white-space:nowrap;
+  }
+  .topbar-right a{color:var(--text-dim);text-decoration:none;margin-left:1.2rem;transition:color 0.15s}
+  .topbar-right a:hover{color:var(--accent)}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;z-index:1;text-align:center;padding:4vh 2rem 1rem;
+  }
+  .hero-badge{
+    display:inline-block;font-family:'SF Mono','JetBrains Mono','Consolas',monospace;
+    font-size:0.7rem;color:var(--accent);background:var(--accent-light);
+    padding:0.2rem 0.7rem;border-radius:20px;margin-bottom:0.8rem;letter-spacing:0.05em;
+  }
+  .hero h1{font-size:3rem;font-weight:300;letter-spacing:0.03em;margin-bottom:0.4rem;color:var(--text)}
+  .hero h1 .accent{color:var(--accent);font-weight:500}
+  .hero h1 .h1-dim{color:var(--text-faint);font-weight:300;font-size:0.55em;margin-left:0.3em}
+  .hero h2{color:var(--text-faint);font-size:0.9rem;font-weight:400;margin-bottom:1.2rem;line-height:1.6;max-width:560px;margin-left:auto;margin-right:auto}
+
+  /* Generate area */
+  .gen-area{max-width:640px;margin:0 auto;padding:0 1rem}
+  .gen-bar{
+    display:flex;align-items:center;background:var(--card);border:1px solid var(--border);
+    border-radius:12px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s;box-shadow:var(--shadow);
+  }
+  .gen-bar:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,102,255,0.08),var(--shadow-hover)}
+  .gen-icon{display:flex;align-items:center;padding-left:1.1rem;color:var(--text-faint)}
+  .gen-bar input{flex:1;border:none;padding:0.9rem 0.8rem;font-size:1rem;font-family:inherit;outline:none;background:transparent;color:var(--text)}
+  .gen-bar input::placeholder{color:var(--text-faint)}
+  .gen-bar button{border:none;background:var(--accent);color:#fff;padding:0 1.8rem;font-size:0.9rem;font-family:inherit;font-weight:500;cursor:pointer;transition:background 0.15s;white-space:nowrap;letter-spacing:0.05em}
+  .gen-bar button:hover{background:var(--accent-hover)}
+  .gen-bar button:disabled{background:var(--text-faint);cursor:not-allowed}
+
+  .gen-result{max-width:640px;margin:1rem auto 0;padding:0 1rem;display:none}
+  .gen-result.show{display:block;animation:fadeIn 0.3s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+  .gen-card{background:var(--card);border:1px solid var(--green);border-radius:10px;padding:1.2rem;box-shadow:var(--shadow-hover)}
+  .gen-card-head{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.8rem}
+  .gen-check{width:20px;height:20px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:0.7rem;font-weight:bold}
+  .gen-card-title{font-size:0.9rem;font-weight:600;color:var(--green)}
+  .gen-card-body{font-size:0.85rem;color:var(--text-dim);line-height:1.6;margin-bottom:0.6rem;padding:0.5rem 0.7rem;background:#fff;border-radius:6px}
+  .gen-card-hash{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.7rem;color:var(--accent);word-break:break-all;padding:0.4rem 0.7rem;background:var(--accent-light);border-radius:6px;margin-bottom:0.6rem}
+  .gen-card-meta{display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center;font-size:0.72rem;color:var(--text-faint)}
+  .gen-card-meta .tag{font-size:0.68rem;padding:0.12rem 0.5rem;border-radius:5px;color:var(--green);background:var(--green-bg)}
+
+  /* Stats */
+  .stats{position:relative;z-index:1;display:flex;justify-content:center;gap:2rem;margin:0.8rem auto 0;font-size:0.78rem}
+  .stat{color:var(--text-faint)}
+  .stat b{color:var(--text);font-weight:600}
+  .stat-dot{display:inline-block;width:5px;height:5px;border-radius:50%;margin-right:0.35rem;vertical-align:middle}
+  .stat-dot.v{background:var(--green)}.stat-dot.p{background:var(--accent)}.stat-dot.m{background:var(--purple)}
+
+  /* ===== Two-column Layout ===== */
+  .main-wrap{max-width:1200px;margin:0 auto;padding:1rem 1.5rem 2rem;display:grid;grid-template-columns:1fr 320px;gap:2rem}
+  @media(max-width:960px){.main-wrap{grid-template-columns:1fr}}
+
+  /* ===== Left: Records ===== */
+  .left-col{min-width:0;scroll-margin-top:60px}
+  .tabs{display:flex;gap:0;margin-bottom:1.2rem;border-bottom:1px solid var(--border)}
+  .tab{padding:0.5rem 1.2rem;font-size:0.82rem;color:var(--text-faint);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;user-select:none}
+  .tab:hover{color:var(--text-dim)}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500}
+  .tab .badge{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.65rem;color:var(--text-faint);margin-left:0.3rem}
+  .tab.active .badge{color:var(--accent)}
+
+  .section-label{display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--text-faint);letter-spacing:0.12em;text-transform:uppercase;margin:1.5rem 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border)}
+  .section-label:first-child{margin-top:0}
+  .section-label .count{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;color:var(--accent);font-size:0.7rem}
+
+  .record{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:0.6rem;transition:border-color 0.15s,box-shadow 0.15s;cursor:pointer;position:relative;overflow:hidden}
+  .record::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.15s}
+  .record:hover{border-color:var(--border-hover);box-shadow:var(--shadow-hover)}
+  .record:hover::before{background:var(--accent)}
+  .record.gen::before{background:var(--green)}.record.gen:hover::before{background:var(--green)}
+  .record-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.35rem}
+  .record-title{font-size:1rem;font-weight:500;color:var(--text)}
+  .record-id{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.72rem;color:var(--text-faint);white-space:nowrap;background:#fff;padding:0.1rem 0.5rem;border-radius:4px}
+  .record-meta{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.35rem}
+  .tag{font-size:0.68rem;padding:0.12rem 0.5rem;border-radius:5px;border:1px solid var(--border);color:var(--text-dim);white-space:nowrap;line-height:1.4}
+  .tag.museum{color:var(--yellow);background:var(--yellow-bg);border-color:transparent}
+  .tag.consensus{color:var(--accent);background:var(--accent-light);border-color:transparent}
+  .tag.academic{color:var(--purple);background:var(--purple-bg);border-color:transparent}
+  .tag.verified{color:var(--green);background:var(--green-bg);border-color:transparent}
+  .tag.gap{color:var(--red);background:var(--red-bg);border-color:transparent}
+  .tag.future{color:var(--yellow);background:var(--yellow-bg);border-color:transparent}
+  .tag.mine{color:var(--purple);background:var(--purple-bg);border-color:transparent}
+  .tag.gen{color:var(--green);background:var(--green-bg);border-color:transparent}
+  .record-desc{font-size:0.82rem;color:var(--text-dim);line-height:1.55}
+  .stars{font-size:0.7rem;color:var(--text-faint);margin-top:0.3rem}
+  .record-hash{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.65rem;color:var(--text-faint);margin-top:0.4rem;word-break:break-all;padding:0.25rem 0.5rem;background:#fff;border-radius:4px}
+  .record-hash .label{color:var(--accent);font-weight:500}
+  .record-hash.gen-hash .label{color:var(--green)}
+  .record-actions{display:flex;align-items:center;gap:0.5rem;margin-top:0.7rem;padding-top:0.6rem;border-top:1px solid var(--border);flex-wrap:wrap}
+  .record-action{
+    display:inline-flex;align-items:center;gap:0.25rem;font-size:0.68rem;color:var(--text-dim);
+    background:#fff;border:1px solid var(--border);border-radius:6px;padding:0.25rem 0.5rem;
+    cursor:pointer;transition:all 0.15s;user-select:none
+  }
+  .record-action:hover{color:var(--accent);border-color:var(--accent);background:var(--accent-light)}
+  .record-action.danger:hover{color:var(--red);border-color:var(--red);background:var(--red-bg)}
+  .record-action.active{color:var(--accent);border-color:var(--accent);background:var(--accent-light)}
+  .record-action svg{width:13px;height:13px}
+  .record-action-count{font-size:0.62rem;color:var(--text-faint);min-width:0.8rem}
+  .record-attachments{margin-top:0.5rem;font-size:0.65rem;color:var(--text-faint);display:flex;flex-wrap:wrap;gap:0.3rem}
+  .record-attachment{display:inline-flex;align-items:center;gap:0.2rem;background:#fff;border:1px solid var(--border);border-radius:4px;padding:0.15rem 0.35rem}
+  .record-comments{margin-top:0.5rem;padding-top:0.5rem;border-top:1px dashed var(--border);display:none}
+  .record-comments.open{display:block}
+  .record-comment{font-size:0.72rem;color:var(--text-dim);padding:0.25rem 0;border-bottom:1px solid var(--border)}
+  .record-comment:last-child{border-bottom:none}
+  .record-comment-input{
+    width:100%;padding:0.35rem 0.5rem;border:1px solid var(--border);border-radius:6px;
+    font-size:0.72rem;margin-top:0.4rem;outline:none
+  }
+  .record-comment-input:focus{border-color:var(--accent)}
+  .record-recommend-tag{
+    display:inline-flex;align-items:center;gap:0.2rem;font-size:0.62rem;color:var(--yellow);
+    background:var(--yellow-bg);padding:0.08rem 0.35rem;border-radius:4px;margin-left:0.3rem
+  }
+  .empty{text-align:center;color:var(--text-faint);padding:2rem 0;font-size:0.85rem}
+
+  /* ===== Card Grid ===== */
+  .card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem}
+  @media(max-width:960px){.card-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.card-grid{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.9rem;transition:border-color 0.15s,box-shadow 0.15s;cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;min-height:200px}
+  .card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background 0.15s}
+  .card:hover{border-color:var(--border-hover);box-shadow:var(--shadow-hover)}
+  .card:hover::before{background:var(--accent)}
+  .card.verified::before{background:var(--green)}
+  .card.verified:hover::before{background:var(--green)}
+  .card-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.4rem;gap:0.5rem}
+  .card-title{font-size:0.88rem;font-weight:500;color:var(--text);line-height:1.3}
+  .card-id{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.62rem;color:var(--text-faint);white-space:nowrap;background:#fff;padding:0.08rem 0.4rem;border-radius:4px;flex-shrink:0}
+  .card-meta{display:flex;gap:0.3rem;flex-wrap:wrap;margin-bottom:0.35rem}
+  .card-desc{font-size:0.74rem;color:var(--text-dim);line-height:1.5;flex:1}
+  .card-stars{font-size:0.62rem;color:var(--text-faint);margin-top:0.3rem}
+  .card-hash{font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.58rem;color:var(--text-faint);margin-top:0.4rem;word-break:break-all;padding:0.2rem 0.4rem;background:#fff;border-radius:4px}
+  .card-hash .label{color:var(--accent);font-weight:500}
+  .card-hash.pending{opacity:0.4}
+  .card-verified-badge{position:absolute;top:0.5rem;right:0.5rem;font-size:0.55rem;color:var(--green);background:var(--green-bg);padding:0.05rem 0.35rem;border-radius:3px;font-weight:600}
+  .card-img{width:100%;height:120px;object-fit:cover;border-radius:6px;border:1px solid var(--border);margin-bottom:0.5rem;background:#fff;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s}
+  .card-img:hover{transform:translateY(-2px);box-shadow:var(--shadow-hover)}
+  .card-img-wrap{position:relative;display:block;margin-bottom:0.5rem}
+  .card-img-wrap::after{
+    content:'View';position:absolute;right:0.4rem;bottom:0.4rem;
+    font-size:0.6rem;color:var(--text-faint);background:rgba(255,255,255,0.9);
+    padding:0.1rem 0.35rem;border-radius:4px;border:1px solid var(--border);
+    pointer-events:none;opacity:0;transition:opacity 0.15s
+  }
+  .card-img-wrap:hover::after{opacity:1}
+
+  /* ===== Lightbox ===== */
+  .lightbox{
+    position:fixed;inset:0;z-index:1000;display:none;
+    background:rgba(255,255,255,0.96);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;padding:2rem;
+  }
+  .lightbox.active{display:flex}
+  .lightbox-img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:8px;box-shadow:var(--shadow-hover)}
+  .lightbox-close{
+    position:absolute;top:1rem;right:1rem;width:36px;height:36px;
+    border-radius:50%;border:1px solid var(--border);background:#fff;
+    color:var(--text-dim);font-size:1.4rem;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:all 0.15s
+  }
+  .lightbox-close:hover{color:var(--accent);border-color:var(--accent)}
+  .lightbox-caption{
+    position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);
+    background:#fff;padding:0.4rem 0.8rem;border-radius:6px;
+    border:1px solid var(--border);font-size:0.8rem;color:var(--text-dim);
+    box-shadow:var(--shadow);max-width:90%;text-align:center
+  }
+  .card.with-img{padding-top:0.6rem}
+
+  /* ===== Right: Sidebar ===== */
+  .right-col{min-width:0}
+  .sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:1rem}
+  .sidebar-title{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.4rem}
+  .sidebar-title svg{color:var(--accent)}
+
+  /* CV Leaderboard */
+  .leaderboard-item{display:flex;align-items:center;gap:0.7rem;padding:0.5rem 0;border-bottom:1px solid var(--border)}
+  .leaderboard-item:last-child{border-bottom:none}
+  .lb-rank{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:600;font-family:monospace}
+  .lb-rank.gold{background:linear-gradient(135deg,#ffd700,#ffb700);color:#8B6914}
+  .lb-rank.silver{background:linear-gradient(135deg,#e0e0e0,#c0c0c0);color:#555}
+  .lb-rank.bronze{background:linear-gradient(135deg,#cd7f32,#b87333);color:#fff}
+  .lb-rank.norm{background:var(--border);color:var(--text-dim)}
+  .lb-name{flex:1;font-size:0.82rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .lb-cv{font-family:'SF Mono',monospace;font-size:0.72rem;color:var(--accent);font-weight:600}
+  .lb-bar{height:3px;border-radius:2px;background:var(--border);margin-top:0.15rem;overflow:hidden}
+  .lb-bar-inner{height:100%;border-radius:2px;background:var(--accent)}
+
+  /* CV Formula & Breakdown */
+  .lb-formula{font-size:0.65rem;color:var(--text-dim);background:var(--accent-light);border-radius:6px;padding:0.5rem 0.7rem;margin-bottom:0.6rem;font-family:'SF Mono','JetBrains Mono',monospace;line-height:1.7;word-break:break-word}
+  .lb-formula b{color:var(--accent)}
+  .lb-formula .fm-note{color:var(--text-faint);font-size:0.6rem}
+  .lb-verify-all{font-size:0.62rem;color:var(--text-faint);margin-bottom:0.6rem;display:flex;align-items:center;gap:0.3rem}
+  .lb-verify-all .ok{color:var(--green);font-weight:600}
+  .lb-item-wrap{border-bottom:1px solid var(--border)}
+  .lb-item-wrap:last-child{border-bottom:none}
+  .lb-toggle{cursor:pointer;user-select:none;transition:background 0.15s;border-radius:6px;margin:0 -0.3rem;padding:0.3rem}
+  .lb-toggle:hover{background:rgba(0,102,255,0.03)}
+  .lb-role{font-size:0.58rem;color:var(--text-faint);border:1px solid var(--border);padding:0.02rem 0.3rem;border-radius:3px;margin-left:0.3rem;white-space:nowrap}
+  .lb-detail{display:none;padding:0.4rem 0.6rem 0.5rem;margin-top:0.2rem;background:#fff;border:1px solid var(--border);border-radius:8px}
+  .lb-detail.show{display:block;animation:fadeIn 0.2s ease}
+  .lb-detail-row{display:flex;justify-content:space-between;align-items:center;font-size:0.68rem;padding:0.12rem 0}
+  .lb-detail-row .lbl{color:var(--text-faint)}
+  .lb-detail-row .val{font-family:'SF Mono',monospace;color:var(--text-dim)}
+  .lb-detail-sum{display:flex;justify-content:space-between;font-size:0.7rem;padding:0.25rem 0 0.1rem;margin-top:0.15rem;border-top:1px dashed var(--border);font-weight:600}
+  .lb-detail-sum .lbl{color:var(--text)}
+  .lb-detail-sum .val{font-family:'SF Mono',monospace;color:var(--accent)}
+  .lb-verify-tag{font-size:0.58rem;font-weight:600;display:inline-flex;align-items:center;gap:0.15rem;margin-top:0.25rem}
+  .lb-verify-tag.ok{color:var(--green)}
+  .lb-verify-tag.fail{color:var(--red)}
+
+  /* Ad Card */
+  .ad-card{background:linear-gradient(135deg,var(--accent-light),#f0f4ff);border:1px solid var(--accent-light);border-radius:12px;padding:1.2rem;margin-bottom:1rem;position:relative;overflow:hidden}
+  .ad-badge{position:absolute;top:0.6rem;right:0.8rem;font-size:0.6rem;color:var(--accent);background:rgba(0,102,255,0.08);padding:0.1rem 0.4rem;border-radius:4px}
+  .ad-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.4rem}
+  .ad-desc{font-size:0.78rem;color:var(--text-dim);line-height:1.5;margin-bottom:0.8rem}
+  .ad-btn{display:inline-block;background:var(--accent);color:#fff;font-size:0.75rem;padding:0.35rem 0.9rem;border-radius:6px;text-decoration:none;transition:background 0.15s}
+  .ad-btn:hover{background:var(--accent-hover)}
+
+  /* Enterprise / Org Card */
+  .join-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-bottom:1rem}
+  .join-row{display:flex;align-items:center;gap:0.7rem;padding:0.6rem 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s}
+  .join-row:last-child{border-bottom:none}
+  .join-row:hover{background:rgba(0,102,255,0.02);border-radius:6px;margin:0 -0.4rem;padding-left:0.4rem;padding-right:0.4rem}
+  .join-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;background:var(--accent-light)}
+  .join-info{flex:1}
+  .join-name{font-size:0.82rem;font-weight:500;color:var(--text)}
+  .join-desc{font-size:0.72rem;color:var(--text-faint);margin-top:0.1rem}
+  .join-arrow{color:var(--text-faint);font-size:0.9rem}
+
+  /* Contact Form */
+  .contact-form{margin-top:0.6rem}
+  .contact-form input,.contact-form textarea,.contact-form select{
+    width:100%;padding:0.5rem 0.7rem;border:1px solid var(--border);border-radius:6px;
+    font-size:0.8rem;font-family:inherit;margin-bottom:0.5rem;outline:none;background:#fff;
+  }
+  .contact-form input:focus,.contact-form textarea:focus,.contact-form select:focus{border-color:var(--accent)}
+  .contact-form textarea{resize:vertical;min-height:60px}
+  .contact-form button{width:100%;padding:0.5rem;border:none;background:var(--accent);color:#fff;font-size:0.8rem;border-radius:6px;cursor:pointer;transition:background 0.15s}
+  .contact-form button:hover{background:var(--accent-hover)}
+  .contact-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem}
+
+  .footer{position:relative;z-index:1;text-align:center;padding:2rem 1rem 3rem;color:var(--text-faint);font-size:0.72rem;font-family:'SF Mono','JetBrains Mono','Consolas',monospace}
+  .footer-sep{margin:0 0.6rem;color:var(--border)}
+
+  @media(max-width:960px){
+    .main-wrap{grid-template-columns:1fr}
+    .right-col{order:-1}
+  }
+  @media(max-width:600px){
+    .topbar{padding:0.5rem 1rem;flex-wrap:wrap}
+    .topbar-couplet{order:3;width:100%;max-width:none;margin-top:0.35rem;font-size:0.7rem;line-height:1.45}
+    .topbar-couplet-row{white-space:normal}
+    .topbar-couplet-by{font-size:0.6rem}
+    .topbar-right{width:100%;text-align:right;margin-top:0.35rem}
+    .topbar-right a{margin-left:0.8rem}
+    .hero{padding:3vh 1rem 1rem}
+    .hero h1{font-size:2rem}
+    .gen-bar input{font-size:0.9rem;padding:0.75rem}
+    .gen-bar button{padding:0 1rem;font-size:0.85rem}
+    .stats{gap:1rem;font-size:0.7rem;flex-wrap:wrap}
+    .tabs{gap:0}
+    .tab{padding:0.5rem 0.8rem;font-size:0.78rem}
+    .record{padding:0.85rem 1rem}
+    .record-title{font-size:0.95rem}
+    .main-wrap{padding:1rem}
+    .ticker{font-size:0.7rem}
+    .contact-form .form-row{grid-template-columns:1fr}
+  }
+
+  /* ===== Language & Region Dropdowns ===== */
+  .lang-dropdown,.region-dropdown{position:relative;display:inline-block}
+  .lang-btn,.region-btn{
+    display:inline-flex;align-items:center;gap:0.3rem;cursor:pointer;
+    color:var(--text-dim);font-size:0.75rem;font-family:'SF Mono','JetBrains Mono','Consolas',monospace;
+    background:none;border:none;padding:0;transition:color 0.15s;
+  }
+  .lang-btn:hover,.region-btn:hover{color:var(--accent)}
+  .lang-btn svg,.region-btn svg{width:14px;height:14px}
+  .lang-menu,.region-menu{
+    position:absolute;top:100%;right:0;margin-top:0.4rem;min-width:150px;
+    background:#fff;border:1px solid var(--border);border-radius:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.08);overflow:hidden;
+    opacity:0;visibility:hidden;transform:translateY(-4px);transition:all 0.15s;z-index:100;
+  }
+  .lang-menu.open,.region-menu.open{opacity:1;visibility:visible;transform:translateY(0)}
+  .lang-menu a,.region-menu a{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0.5rem 0.8rem;font-size:0.75rem;color:var(--text-dim);
+    text-decoration:none;transition:background 0.1s;
+  }
+  .lang-menu a:hover,.region-menu a:hover{background:var(--accent-light);color:var(--accent)}
+  .lang-menu a.active,.region-menu a.active{color:var(--accent);font-weight:600}
+  .lang-menu a .check,.region-menu a .check{color:var(--green);font-size:0.7rem}
+  .region-menu a .region-flag{font-size:0.85rem;margin-right:0.3rem}
+  .topbar-right .separator{color:var(--border);margin:0 0.5rem}
+
+  /* ===== Floating AI Chat ===== */
+  .chat-bubble{
+    position:fixed;bottom:1.5rem;right:1.5rem;width:52px;height:52px;
+    border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;
+    box-shadow:0 4px 16px rgba(0,102,255,0.35);z-index:9998;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .chat-bubble:hover{transform:scale(1.08);box-shadow:0 6px 24px rgba(0,102,255,0.45)}
+  .chat-bubble svg{width:24px;height:24px}
+  .chat-bubble .chat-dot{
+    position:absolute;top:-2px;right:-2px;width:12px;height:12px;
+    background:var(--green);border-radius:50%;border:2px solid #fff;
+    animation:pulse 2s infinite;
+  }
+  .chat-panel{
+    position:fixed;bottom:5rem;right:1.5rem;width:360px;max-width:calc(100vw - 2rem);
+    height:480px;max-height:calc(100vh - 8rem);
+    background:#fff;border:1px solid var(--border);border-radius:16px;
+    box-shadow:0 8px 40px rgba(0,0,0,0.15);z-index:9999;
+    display:flex;flex-direction:column;overflow:hidden;
+    opacity:0;visibility:hidden;transform:translateY(12px) scale(0.96);transition:all 0.2s;
+  }
+  .chat-panel.open{opacity:1;visibility:visible;transform:translateY(0) scale(1)}
+  .chat-header{
+    display:flex;align-items:center;gap:0.5rem;padding:0.8rem 1rem;
+    background:var(--accent);color:#fff;flex-shrink:0;
+  }
+  .chat-header-avatar{
+    width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.2);
+    display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:600;
+  }
+  .chat-header-info{flex:1}
+  .chat-header-title{font-size:0.85rem;font-weight:600}
+  .chat-header-status{font-size:0.65rem;opacity:0.8;display:flex;align-items:center;gap:0.25rem}
+  .chat-header-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80}
+  .chat-close{background:none;border:none;color:#fff;cursor:pointer;opacity:0.7;transition:opacity 0.15s;font-size:1.2rem;padding:0;line-height:1}
+  .chat-close:hover{opacity:1}
+  .chat-messages{flex:1;overflow-y:auto;padding:0.8rem;display:flex;flex-direction:column;gap:0.6rem}
+  .chat-msg{max-width:85%;padding:0.55rem 0.8rem;border-radius:12px;font-size:0.78rem;line-height:1.5}
+  .chat-msg.bot{background:var(--accent-light);color:var(--text);border-bottom-left-radius:4px;align-self:flex-start}
+  .chat-msg.user{background:var(--accent);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+  .chat-msg.link{background:var(--accent-light);color:var(--accent);text-decoration:none;font-size:0.72rem;padding:0.4rem 0.8rem;border:1px solid var(--accent-light)}
+  .chat-msg.link:hover{text-decoration:underline}
+  .chat-typing{align-self:flex-start;display:flex;gap:3px;padding:0.6rem 0.8rem;background:var(--accent-light);border-radius:12px;border-bottom-left-radius:4px}
+  .chat-typing span{width:6px;height:6px;border-radius:50%;background:var(--text-faint);animation:typing 1.2s infinite}
+  .chat-typing span:nth-child(2){animation-delay:0.2s}
+  .chat-typing span:nth-child(3){animation-delay:0.4s}
+  @keyframes typing{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .chat-quick{display:flex;flex-wrap:wrap;gap:0.35rem;padding:0.5rem 0.8rem;flex-shrink:0;border-top:1px solid var(--border)}
+  .chat-quick-chip{
+    font-size:0.68rem;padding:0.3rem 0.6rem;border-radius:14px;
+    background:var(--bg);border:1px solid var(--border);color:var(--text-dim);
+    cursor:pointer;transition:all 0.15s;white-space:nowrap;
+  }
+  .chat-quick-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+  .chat-input-area{display:flex;gap:0.4rem;padding:0.6rem 0.8rem;flex-shrink:0;border-top:1px solid var(--border)}
+  .chat-input{
+    flex:1;border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.6rem;
+    font-size:0.78rem;font-family:inherit;outline:none;transition:border-color 0.15s;
+  }
+  .chat-input:focus{border-color:var(--accent)}
+  .chat-send{
+    background:var(--accent);color:#fff;border:none;border-radius:8px;
+    padding:0 0.8rem;cursor:pointer;font-size:0.75rem;transition:background 0.15s;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .chat-send:hover{background:var(--accent-hover)}
+  .chat-send svg{width:16px;height:16px}
+  @media(max-width:600px){
+    .chat-bubble{bottom:1rem;right:1rem;width:46px;height:46px}
+    .chat-panel{bottom:4rem;right:0.5rem;left:0.5rem;width:auto}
+  }
+
+  /* ===== Section Navigation Bar ===== */
+  .section-nav{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);padding:0.5rem 1rem;
+    display:flex;justify-content:center;gap:0;overflow-x:auto;white-space:nowrap;
+  }
+  .section-nav a{
+    font-size:0.72rem;color:var(--text-faint);text-decoration:none;
+    padding:0.35rem 0.7rem;border-radius:6px;transition:all 0.15s;letter-spacing:0.02em;
+  }
+  .section-nav a:hover{color:var(--accent);background:var(--accent-light)}
+  .section-nav a.active{color:var(--accent);font-weight:600}
+
+  /* ===== Content Sections ===== */
+  .content-section{max-width:960px;margin:0 auto;padding:3rem 1.5rem;border-bottom:1px solid var(--border);scroll-margin-top:60px}
+  .content-section:last-child{border-bottom:none}
+  .section-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:var(--accent-light);margin-bottom:0.8rem}
+  .section-title{font-size:1.6rem;font-weight:600;color:var(--text);margin-bottom:0.4rem;letter-spacing:-0.01em}
+  .section-subtitle{font-size:0.85rem;color:var(--text-faint);margin-bottom:1.5rem;line-height:1.6}
+  .section-body{font-size:0.88rem;color:var(--text-dim);line-height:1.75}
+  .section-body p{margin-bottom:0.8rem}
+  .section-body h3{font-size:1rem;font-weight:600;color:var(--text);margin:1.5rem 0 0.5rem}
+  .section-body ul{margin:0.5rem 0 0.8rem 1.2rem}
+  .section-body li{margin-bottom:0.3rem}
+  .section-body strong{color:var(--text)}
+  .section-body a{color:var(--accent);text-decoration:none}
+  .section-body a:hover{text-decoration:underline}
+  .section-body blockquote{
+    border-left:3px solid var(--accent);padding:0.6rem 1rem;margin:1rem 0;
+    background:var(--accent-light);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-dim);
+  }
+  .section-body code{
+    font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.8rem;
+    background:var(--card);padding:0.1rem 0.3rem;border-radius:3px;color:var(--accent);
+  }
+
+  /* Feature Grid */
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+  @media(max-width:768px){.feature-grid{grid-template-columns:1fr}}
+  .feature-card{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;
+    transition:border-color 0.15s,box-shadow 0.15s;
+  }
+  .feature-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover)}
+  .feature-card .fc-icon{font-size:1.5rem;margin-bottom:0.5rem}
+  .feature-card .fc-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+  .feature-card .fc-desc{font-size:0.78rem;color:var(--text-faint);line-height:1.5}
+
+  /* Protocol Steps */
+  .protocol-steps{display:flex;flex-direction:column;gap:0;margin:1.5rem 0}
+  .protocol-step{display:flex;gap:1rem;position:relative;padding-bottom:1.5rem}
+  .protocol-step:not(:last-child)::before{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--border)}
+  .protocol-step-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:600;flex-shrink:0;z-index:1}
+  .protocol-step-body{flex:1}
+  .protocol-step-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+  .protocol-step-desc{font-size:0.8rem;color:var(--text-dim);line-height:1.5}
+
+  /* Case Cards */
+  .case-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem;margin-bottom:1rem;transition:border-color 0.15s}
+  .case-card:hover{border-color:var(--accent)}
+  .case-card.verified{border-left:3px solid var(--green)}
+  .case-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem}
+  .case-title{font-size:0.95rem;font-weight:600;color:var(--text)}
+  .case-id{font-family:'SF Mono',monospace;font-size:0.72rem;color:var(--text-faint);background:#fff;padding:0.1rem 0.4rem;border-radius:4px}
+  .case-timeline{display:flex;flex-direction:column;gap:0.4rem;margin:0.8rem 0}
+  .case-timeline-item{display:flex;gap:0.6rem;font-size:0.78rem;color:var(--text-dim)}
+  .case-timeline-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:0.35rem;flex-shrink:0}
+  .case-evidence{font-family:'SF Mono',monospace;font-size:0.68rem;color:var(--text-faint);background:#fff;padding:0.4rem 0.6rem;border-radius:6px;margin-top:0.5rem;word-break:break-all}
+
+  /* Submit Steps */
+  .submit-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin:1.5rem 0}
+  @media(max-width:768px){.submit-steps{grid-template-columns:1fr 1fr}}
+  .submit-step{text-align:center;padding:1rem 0.8rem;background:var(--card);border:1px solid var(--border);border-radius:10px}
+  .submit-step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-light);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:600;margin-bottom:0.4rem}
+  .submit-step-title{font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+  .submit-step-desc{font-size:0.72rem;color:var(--text-faint);line-height:1.4}
+
+  /* Governance Tiers */
+  .gov-tier{display:flex;align-items:center;gap:1rem;padding:0.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:0.6rem}
+  .gov-tier-badge{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+  .gov-tier-badge.t1{background:linear-gradient(135deg,#ffd700,#ffb700)}
+  .gov-tier-badge.t2{background:linear-gradient(135deg,#e0e0e0,#c0c0c0)}
+  .gov-tier-badge.t3{background:linear-gradient(135deg,#cd7f32,#b87333)}
+  .gov-tier-info{flex:1}
+  .gov-tier-name{font-size:0.85rem;font-weight:600;color:var(--text)}
+  .gov-tier-desc{font-size:0.72rem;color:var(--text-faint)}
+  .gov-tier-cv{font-family:'SF Mono',monospace;font-size:0.78rem;color:var(--accent);font-weight:600}
+
+  /* AI Evolution */
+  .ai-evolution{display:flex;flex-direction:column;gap:1rem;margin:1.5rem 0}
+  .ai-phase{display:flex;gap:1rem;padding:1rem;background:var(--card);border:1px solid var(--border);border-radius:10px}
+  .ai-phase-time{font-family:'SF Mono',monospace;font-size:0.7rem;color:var(--accent);white-space:nowrap;min-width:80px;font-weight:600}
+  .ai-phase-body{flex:1}
+  .ai-phase-title{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+  .ai-phase-desc{font-size:0.76rem;color:var(--text-faint);line-height:1.5}
+  .ai-badge{display:inline-block;font-size:0.65rem;padding:0.1rem 0.4rem;border-radius:4px;margin-right:0.2rem}
+  .ai-badge.deepseek{background:#e8f0ff;color:#0066ff}
+  .ai-badge.yuanbao{background:#eef9f0;color:#30a14e}
+  .ai-badge.qwen{background:#fef5e7;color:#ab6800}
+  .ai-badge.doubao{background:#fef0f0;color:#e5484d}
+  .ai-badge.workbuddy{background:#f3eefe;color:#7c3aed}
+  .ai-badge.cloudflare{background:#ecfeff;color:#0891b2}
+
+  /* Theory Block */
+  .theory-equation{
+    font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:1rem;
+    text-align:center;padding:1.5rem;background:var(--accent-light);border-radius:10px;
+    margin:1rem 0;color:var(--accent);font-weight:600;letter-spacing:0.02em;
+  }
+  .theory-paper{display:flex;align-items:center;gap:0.8rem;padding:0.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;cursor:pointer;transition:border-color 0.15s}
+  .theory-paper:hover{border-color:var(--accent)}
+  .theory-paper-icon{font-size:1.5rem}
+  .theory-paper-info{flex:1}
+  .theory-paper-title{font-size:0.82rem;font-weight:500;color:var(--text)}
+  .theory-paper-meta{font-size:0.68rem;color:var(--text-faint)}
+
+  /* Blog Posts */
+  .blog-post{padding:1rem 0;border-bottom:1px solid var(--border)}
+  .blog-post:last-child{border-bottom:none}
+  .blog-date{font-family:'SF Mono',monospace;font-size:0.68rem;color:var(--accent);margin-bottom:0.2rem}
+  .blog-title{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+  .blog-excerpt{font-size:0.76rem;color:var(--text-faint);line-height:1.5}
+
+  /* API Code Block */
+  .api-code{
+    font-family:'SF Mono','JetBrains Mono','Consolas',monospace;font-size:0.75rem;
+    background:#1a1a2e;color:#e0e0e0;padding:1rem;border-radius:8px;overflow-x:auto;
+    line-height:1.6;margin:0.8rem 0;
+  }
+  .api-code .kw{color:#569cd6}
+  .api-code .str{color:#ce9178}
+  .api-code .com{color:#6a9955}
+  .api-code .fn{color:#dcdcaa}
+  .api-endpoint{display:flex;align-items:center;gap:0.5rem;padding:0.6rem 0.8rem;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:0.4rem}
+  .api-method{font-family:'SF Mono',monospace;font-size:0.65rem;font-weight:700;padding:0.15rem 0.4rem;border-radius:4px}
+  .api-method.get{background:var(--green-bg);color:var(--green)}
+  .api-method.post{background:var(--accent-light);color:var(--accent)}
+
+  /* Community Links */
+  .community-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.8rem;margin:1.5rem 0}
+  @media(max-width:768px){.community-grid{grid-template-columns:1fr}}
+  .community-link{display:flex;align-items:center;gap:0.6rem;padding:0.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;text-decoration:none;color:var(--text-dim);transition:all 0.15s}
+  .community-link:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+  .community-link .cl-icon{font-size:1.3rem}
+  .community-link .cl-name{font-size:0.82rem;font-weight:500}
+
+  /* Roadmap */
+  .roadmap{position:relative;padding-left:2rem;margin:1.5rem 0}
+  .roadmap::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--border)}
+  .roadmap-item{position:relative;padding-bottom:1.5rem}
+  .roadmap-item::before{content:'';position:absolute;left:-2rem;top:2px;width:16px;height:16px;border-radius:50%;border:3px solid var(--accent);background:#fff;z-index:1}
+  .roadmap-item.done::before{background:var(--green);border-color:var(--green)}
+  .roadmap-item.current::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-light)}
+  .roadmap-status{font-size:0.62rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.15rem}
+  .roadmap-status.done{color:var(--green)}
+  .roadmap-status.current{color:var(--accent)}
+  .roadmap-status.planned{color:var(--text-faint)}
+  .roadmap-title{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+  .roadmap-desc{font-size:0.76rem;color:var(--text-faint);line-height:1.5}
+  .roadmap-time{font-family:'SF Mono',monospace;font-size:0.68rem;color:var(--text-faint);margin-bottom:0.3rem}
+
+  /* CTA Button */
+  .cta-btn{display:inline-flex;align-items:center;gap:0.4rem;background:var(--accent);color:#fff;font-size:0.82rem;padding:0.5rem 1.2rem;border-radius:8px;text-decoration:none;transition:background 0.15s;margin-top:0.8rem}
+  .cta-btn:hover{background:var(--accent-hover)}
+  .cta-btn.outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .cta-btn.outline:hover{background:var(--accent-light)}
+
+  /* ===== Theory Framework Cards ===== */
+  .theory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0}
+  @media(max-width:768px){.theory-grid{grid-template-columns:1fr}}
+  .value-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.3rem;
+    transition:border-color 0.2s,box-shadow 0.2s;position:relative;overflow:hidden;
+  }
+  .value-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover)}
+  .value-card .vc-badge{
+    display:inline-block;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;
+    padding:0.15rem 0.5rem;border-radius:4px;margin-bottom:0.6rem;
+  }
+  .value-card.floor .vc-badge{background:var(--green-bg);color:var(--green)}
+  .value-card.engine .vc-badge{background:var(--accent-light);color:var(--accent)}
+  .value-card.ceil .vc-badge{background:var(--red-bg);color:var(--red)}
+  .value-card .vc-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+  .value-card .vc-subtitle{font-size:0.72rem;color:var(--text-faint);margin-bottom:0.6rem;font-family:'SF Mono',monospace}
+  .value-card .vc-desc{font-size:0.8rem;color:var(--text-dim);line-height:1.6}
+  .value-card .vc-formula{
+    font-family:'SF Mono','JetBrains Mono',monospace;font-size:0.7rem;color:var(--accent);
+    background:var(--accent-light);padding:0.4rem 0.6rem;border-radius:6px;margin-top:0.6rem;word-break:break-word;
+  }
+
+  /* Theory Diagram Box */
+  .theory-diagram{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1.5rem 0;
+    font-family:'SF Mono','JetBrains Mono',monospace;font-size:0.72rem;line-height:1.8;color:var(--text-dim);
+    white-space:pre;overflow-x:auto;
+  }
+  .theory-diagram .accent{color:var(--accent);font-weight:600}
+  .theory-diagram .green{color:var(--green);font-weight:600}
+  .theory-diagram .red{color:var(--red);font-weight:600}
+
+  /* Theory Version Timeline */
+  .theory-versions{display:flex;flex-direction:column;gap:0;margin:1.5rem 0}
+  .theory-ver{display:flex;gap:1rem;padding:0.6rem 0;border-bottom:1px solid var(--border)}
+  .theory-ver:last-child{border-bottom:none}
+  .theory-ver-tag{
+    font-family:'SF Mono',monospace;font-size:0.7rem;font-weight:600;color:var(--accent);
+    background:var(--accent-light);padding:0.15rem 0.5rem;border-radius:4px;white-space:nowrap;flex-shrink:0;
+  }
+  .theory-ver-body{flex:1}
+  .theory-ver-title{font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:0.1rem}
+  .theory-ver-desc{font-size:0.74rem;color:var(--text-faint);line-height:1.5}
+
+  /* Discussion Area */
+  .discuss-area{margin-top:2rem;border-top:2px dashed var(--border);padding-top:1.5rem}
+  .discuss-header{display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
+  .discuss-header h4{font-size:0.95rem;font-weight:600;color:var(--text)}
+  .discuss-badge{
+    font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;
+    background:var(--purple-bg);color:var(--purple);padding:0.1rem 0.4rem;border-radius:4px;
+  }
+  .discuss-note{font-size:0.74rem;color:var(--text-faint);margin-bottom:1rem;line-height:1.5}
+  .discuss-input-area{margin-bottom:1rem}
+  .discuss-input{
+    width:100%;font-size:0.82rem;border:1px solid var(--border);border-radius:8px;
+    padding:0.6rem 0.8rem;font-family:inherit;outline:none;transition:border-color 0.15s;resize:vertical;min-height:60px;
+  }
+  .discuss-input:focus{border-color:var(--accent)}
+  .discuss-row{display:flex;align-items:center;gap:0.5rem;margin-top:0.4rem}
+  .discuss-name{
+    font-size:0.78rem;border:1px solid var(--border);border-radius:6px;padding:0.3rem 0.5rem;
+    outline:none;transition:border-color 0.15s;flex:1;
+  }
+  .discuss-name:focus{border-color:var(--accent)}
+  .discuss-btn{
+    background:var(--accent);color:#fff;border:none;border-radius:6px;padding:0.3rem 0.9rem;
+    font-size:0.78rem;cursor:pointer;transition:background 0.15s;
+  }
+  .discuss-btn:hover{background:var(--accent-hover)}
+  .discuss-list{display:flex;flex-direction:column;gap:0.6rem}
+  .discuss-item{
+    background:var(--card);border:1px solid var(--border);border-radius:8px;padding:0.7rem 0.9rem;
+  }
+  .discuss-item.ai{border-left:3px solid var(--purple)}
+  .discuss-item.human{border-left:3px solid var(--accent)}
+  .discuss-item-head{display:flex;align-items:center;gap:0.4rem;margin-bottom:0.3rem}
+  .discuss-item-name{font-size:0.78rem;font-weight:600;color:var(--text)}
+  .discuss-item-name.ai{color:var(--purple)}
+  .discuss-item-type{font-size:0.58rem;color:var(--text-faint);border:1px solid var(--border);padding:0.02rem 0.3rem;border-radius:3px}
+  .discuss-item-time{font-size:0.62rem;color:var(--text-faint);margin-left:auto}
+  .discuss-item-text{font-size:0.8rem;color:var(--text-dim);line-height:1.6}
+  .discuss-empty{font-size:0.78rem;color:var(--text-faint);text-align:center;padding:1.5rem;font-style:italic}
+
+  /* ===== Interactive Calculator ===== */
+  .calc-box{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1.5rem 0;
+  }
+  .calc-title{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+  .calc-desc{font-size:0.76rem;color:var(--text-faint);margin-bottom:1rem;line-height:1.5}
+  .calc-row{display:flex;gap:0.8rem;margin-bottom:0.8rem;flex-wrap:wrap}
+  .calc-field{flex:1;min-width:140px}
+  .calc-label{font-size:0.72rem;font-weight:600;color:var(--text-dim);margin-bottom:0.25rem;display:block}
+  .calc-select,.calc-input{
+    width:100%;font-size:0.8rem;border:1px solid var(--border);border-radius:6px;
+    padding:0.4rem 0.6rem;font-family:inherit;outline:none;transition:border-color 0.15s;background:#fff;
+  }
+  .calc-select:focus,.calc-input:focus{border-color:var(--accent)}
+  .calc-btn{
+    background:var(--accent);color:#fff;border:none;border-radius:8px;padding:0.5rem 1.5rem;
+    font-size:0.82rem;cursor:pointer;transition:background 0.15s;margin-top:0.4rem;
+  }
+  .calc-btn:hover{background:var(--accent-hover)}
+  .calc-result{
+    display:none;margin-top:1rem;padding:1rem;background:#fff;border:1px solid var(--border);border-radius:8px;
+  }
+  .calc-result.show{display:block;animation:fadeIn 0.3s ease}
+  .calc-result-title{font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+  .calc-result-row{display:flex;justify-content:space-between;font-size:0.76rem;padding:0.2rem 0}
+  .calc-result-row .lbl{color:var(--text-faint)}
+  .calc-result-row .val{font-family:'SF Mono',monospace;color:var(--text-dim)}
+  .calc-result-gap{
+    margin-top:0.6rem;padding-top:0.6rem;border-top:1px dashed var(--border);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .calc-result-gap .lbl{font-size:0.78rem;font-weight:600;color:var(--red)}
+  .calc-result-gap .val{font-family:'SF Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red)}
+  .calc-result-hash{
+    margin-top:0.6rem;font-family:'SF Mono',monospace;font-size:0.62rem;color:var(--text-faint);
+    word-break:break-all;background:var(--card);padding:0.4rem 0.6rem;border-radius:4px;
+  }
+  .calc-gen-btn{
+    margin-top:0.6rem;background:transparent;color:var(--accent);border:1px solid var(--accent);
+    border-radius:6px;padding:0.3rem 0.8rem;font-size:0.74rem;cursor:pointer;transition:all 0.15s;
+  }
+  .calc-gen-btn:hover{background:var(--accent-light)}
+
+  /* ===== CV Settlement Panel ===== */
+  .cv-phase-tag{
+    display:inline-flex;align-items:center;gap:0.3rem;font-size:0.6rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:0.05em;background:var(--orange-bg);color:var(--orange);
+    padding:0.15rem 0.5rem;border-radius:4px;margin-bottom:0.6rem;
+  }
+  .cv-phase-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange);animation:pulse 2s infinite}
+  .cv-settlement-note{
+    font-size:0.66rem;color:var(--text-faint);background:var(--card);border-radius:6px;
+    padding:0.5rem 0.7rem;margin-bottom:0.6rem;line-height:1.5;border:1px dashed var(--border);
+  }
+  .cv-calc-toggle{
+    font-size:0.7rem;color:var(--accent);cursor:pointer;text-decoration:none;
+    display:inline-flex;align-items:center;gap:0.2rem;margin-bottom:0.6rem;
+  }
+  .cv-calc-toggle:hover{text-decoration:underline}
+  .cv-calc-panel{
+    display:none;background:#fff;border:1px solid var(--border);border-radius:8px;
+    padding:0.8rem;margin-bottom:0.8rem;
+  }
+  .cv-calc-panel.show{display:block;animation:fadeIn 0.2s ease}
+  .cv-calc-panel .calc-field{margin-bottom:0.5rem}
+  .cv-calc-panel .calc-label{font-size:0.65rem}
+  .cv-calc-panel .calc-select,.cv-calc-panel .calc-input{font-size:0.72rem;padding:0.3rem 0.5rem}
+  .cv-calc-result{
+    margin-top:0.5rem;padding:0.5rem;background:var(--accent-light);border-radius:6px;
+    font-size:0.7rem;color:var(--text-dim);
+  }
+  .cv-calc-result .cv-val{font-family:'SF Mono',monospace;font-weight:700;color:var(--accent);font-size:0.85rem}
+
+  @media(max-width:600px){
+    .section-nav{justify-content:flex-start}
+    .content-section{padding:2rem 1rem}
+    .section-title{font-size:1.3rem}
+    .theory-grid{grid-template-columns:1fr}
+    .calc-row{flex-direction:column}
+  }
+
+  /* ===== Hero Hash-Chain Canvas ===== */
+  .hero-canvas{
+    position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.5;
+  }
+  .hero> *:not(.hero-canvas){position:relative;z-index:1}
+
+  /* ===== Animated Counter ===== */
+  .stat-counter{
+    display:inline-block;min-width:1.2em;text-align:center;
+    transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .stat-counter.bump{transform:scale(1.35);color:var(--accent)!important}
+
+  /* ===== Section Reveal Animation ===== */
+  .content-section{opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease}
+  .content-section.revealed{opacity:1;transform:translateY(0)}
+  .content-section .section-icon,.content-section .section-title,.content-section .section-subtitle,.content-section .section-body> *{
+    opacity:0;transform:translateY(15px);transition:opacity 0.5s ease,transform 0.5s ease;
+  }
+  .content-section.revealed .section-icon{opacity:1;transform:translateY(0);transition-delay:0.05s}
+  .content-section.revealed .section-title{opacity:1;transform:translateY(0);transition-delay:0.1s}
+  .content-section.revealed .section-subtitle{opacity:1;transform:translateY(0);transition-delay:0.15s}
+  .content-section.revealed .section-body> *{opacity:1;transform:translateY(0)}
+  .content-section.revealed .section-body> *:nth-child(1){transition-delay:0.2s}
+  .content-section.revealed .section-body> *:nth-child(2){transition-delay:0.28s}
+  .content-section.revealed .section-body> *:nth-child(3){transition-delay:0.36s}
+  .content-section.revealed .section-body> *:nth-child(4){transition-delay:0.44s}
+  .content-section.revealed .section-body> *:nth-child(5){transition-delay:0.52s}
+  .content-section.revealed .section-body> *:nth-child(6){transition-delay:0.6s}
+  .content-section.revealed .section-body> *:nth-child(7){transition-delay:0.68s}
+  .content-section.revealed .section-body> *:nth-child(8){transition-delay:0.76s}
+
+  @media(prefers-reduced-motion:reduce){
+    .content-section,.content-section.revealed,.content-section .section-icon,.content-section .section-title,.content-section .section-subtitle,.content-section .section-body> *{
+      opacity:1!important;transform:none!important;transition:none!important;
+    }
+    .hero-canvas{display:none}
+  }
+
+  /* ===== Improved Empty State ===== */
+  .empty-state{
+    text-align:center;padding:2.5rem 1.5rem;
+    background:var(--card);border:1px dashed var(--border);border-radius:12px;
+    max-width:480px;margin:1rem auto;
+  }
+  .empty-state-icon{font-size:2.5rem;margin-bottom:0.8rem;opacity:0.6}
+  .empty-state-title{font-size:0.95rem;font-weight:600;color:var(--text-dim);margin-bottom:0.4rem}
+  .empty-state-desc{font-size:0.8rem;color:var(--text-faint);line-height:1.6;margin-bottom:1.2rem}
+  .empty-state-steps{display:flex;flex-direction:column;gap:0.5rem;text-align:left;margin-bottom:1.2rem}
+  .empty-state-step{display:flex;align-items:flex-start;gap:0.5rem;font-size:0.78rem;color:var(--text-dim)}
+  .empty-state-step-num{
+    flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--accent-light);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;
+  }
+  .empty-state-cta{
+    display:inline-block;font-size:0.82rem;font-weight:500;color:var(--accent);
+    cursor:pointer;transition:color 0.15s;
+  }
+  .empty-state-cta:hover{color:var(--accent-hover)}
+</style>
+</head>
+<body>
+
+<!-- ===== Scrolling Ticker ===== -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker">
+    <span class="ticker-item">Bai Xi: 10 years in Japan, pension contributions lost upon return to China<span class="ticker-time">2016-2026</span></span>
+    <span class="ticker-item">Filipino nurses in Japan: 5-8 years of pension, not recognized upon return<span class="ticker-time">Present</span></span>
+    <span class="ticker-item">Indian H1B workers in US: Social Security paid, EPF ignores it<span class="ticker-time">Present</span></span>
+    <span class="ticker-item">Chinese migrant workers: 15-20 years in cities, rural pension ~$15/mo<span class="ticker-time">Present</span></span>
+    <span class="ticker-item">Argentina Disappeared: ~30,000 erased 1976-1983, records destroyed<span class="ticker-time">Modern</span></span>
+    <span class="ticker-item">Comfort Women: existence systematically denied, survivors fought decades for recognition<span class="ticker-time">History</span></span>
+    <span class="ticker-item">Tuvalu climate refugees: nation sinking, identity & social security have nowhere to go<span class="ticker-time">Future</span></span>
+    <span class="ticker-item">Indigenous residential schools: cultural erasure, thousands of unmarked graves found<span class="ticker-time">19c-1996</span></span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item">Bai Xi: 10 years in Japan, pension contributions lost upon return to China<span class="ticker-time">2016-2026</span></span>
+    <span class="ticker-item">Filipino nurses in Japan: 5-8 years of pension, not recognized upon return<span class="ticker-time">Present</span></span>
+    <span class="ticker-item">Indian H1B workers in US: Social Security paid, EPF ignores it<span class="ticker-time">Present</span></span>
+    <span class="ticker-item">Chinese migrant workers: 15-20 years in cities, rural pension ~$15/mo<span class="ticker-time">Present</span></span>
+    <span class="ticker-item">Argentina Disappeared: ~30,000 erased 1976-1983, records destroyed<span class="ticker-time">Modern</span></span>
+    <span class="ticker-item">Comfort Women: existence systematically denied, survivors fought decades for recognition<span class="ticker-time">History</span></span>
+    <span class="ticker-item">Tuvalu climate refugees: nation sinking, identity & social security have nowhere to go<span class="ticker-time">Future</span></span>
+    <span class="ticker-item">Indigenous residential schools: cultural erasure, thousands of unmarked graves found<span class="ticker-time">19c-1996</span></span>
+  </div>
+</div>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-dot"></span>
+  </div>
+  <div class="topbar-couplet">
+    <div class="topbar-couplet-row">
+      <span class="topbar-couplet-line">Unite. Overthrow the landlords. Redistribute the land. Abolish the land deeds.</span>
+      <span class="topbar-couplet-by">— Mao Zedong</span>
+    </div>
+    <div class="topbar-couplet-row">
+      <span class="topbar-couplet-line">Unite. Overthrow the capital. Redistribute the data. Abolish the debt.</span>
+      <span class="topbar-couplet-by">— Bai Xi</span>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <!-- Region / Server Selector -->
+    <div class="region-dropdown">
+      <button class="region-btn" onclick="toggleRegionMenu(event)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Global</span>
+      </button>
+      <div class="region-menu" id="region-menu">
+        <a href="#" class="active" onclick="return false"><span><span class="region-flag">🌐</span>Global Server</span><span class="check">✓</span></a>
+        <a href="https://agent.hygzz.cn" target="_blank"><span><span class="region-flag">🇨🇳</span>China (中文站)</span></a>
+        <a href="#" onclick="return false" style="opacity:0.5"><span><span class="region-flag">🇯🇵</span>Japan (準備中)</span></a>
+      </div>
+    </div>
+    <span class="separator">|</span>
+    <!-- Language Selector -->
+    <div class="lang-dropdown">
+      <button class="lang-btn" onclick="toggleLangMenu(event)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <span>EN</span>
+      </button>
+      <div class="lang-menu" id="lang-menu">
+        <a href="#" class="active" onclick="return false">English <span class="check">✓</span></a>
+        <a href="https://agent.hygzz.cn" target="_blank">中文</a>
+        <a href="#" onclick="return false" style="opacity:0.5">日本語 (準備中)</a>
+      </div>
+    </div>
+    <span class="separator">|</span>
+    <a href="#records">Records</a>
+    <a href="https://github.com/baixi6313" target="_blank">Git</a>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <canvas class="hero-canvas" id="hero-canvas"></canvas>
+  <div class="hero-badge">SHA-256 HASH CHAIN &middot; VERIFIED</div>
+  <h1><span class="accent">SXJ</span><span class="h1-dim">事现鉴</span></h1>
+  <h2>Realizing Article 22 of the Universal Declaration of Human Rights<br>— everyone can co-author our SXJ.</h2>
+
+  <div class="gen-area">
+    <div class="gen-bar">
+      <div class="gen-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/><path d="M5 5l14 14M19 5L5 19" opacity="0.3"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <input type="text" id="gen-input" placeholder="Enter your existence fact..." autocomplete="off">
+      <button id="gen-btn">Generate</button>
+    </div>
+  </div>
+
+  <div class="gen-result" id="gen-result">
+    <div class="gen-card">
+      <div class="gen-card-head"><span class="gen-check">&#10003;</span><span class="gen-card-title">Record generated &middot; SHA-256 hash chain locked</span></div>
+      <div class="gen-card-body" id="gen-text"></div>
+      <div class="gen-card-hash" id="gen-hash"></div>
+      <div class="gen-card-meta">
+        <span class="tag gen">Generated</span><span id="gen-time"></span><span>&middot; Chain #<span id="gen-seq"></span></span><span>&middot; prev: <span id="gen-prev"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <span class="stat"><span class="stat-dot v"></span>Verified <b id="verified-count" class="stat-counter">0</b></span>
+    <span class="stat"><span class="stat-dot p"></span>Pending <b id="pending-count" class="stat-counter">0</b></span>
+    <span class="stat"><span class="stat-dot m"></span>Mine <b id="mine-count" class="stat-counter">0</b></span>
+    <span class="stat">Total <b id="total-count" class="stat-counter">0</b> records</span>
+  </div>
+</div>
+
+<!-- ===== Section Navigation ===== -->
+<nav class="section-nav" id="section-nav">
+  <a href="#records" class="active">Records</a>
+  <a href="#manifesto">Manifesto</a>
+  <a href="#how-it-works">How It Works</a>
+  <a href="#verified-cases">Verified Cases</a>
+  <a href="#submit-verify">Submit / Verify</a>
+  <a href="#contributors">Contributors</a>
+  <a href="#theory">Co-Creation Theory</a>
+  <a href="#blog">Blog</a>
+  <a href="#api">API</a>
+  <a href="#community">Community</a>
+  <a href="#roadmap">Roadmap</a>
+</nav>
+
+<!-- ===== Main: Two Column ===== -->
+<div class="main-wrap">
+
+<!-- Left: Records -->
+<div class="left-col" id="records">
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" data-tab="all">All <span class="badge" id="tab-all-count"></span></div>
+    <div class="tab" data-tab="mine">My Records <span class="badge" id="tab-mine-count"></span></div>
+  </div>
+
+  <!-- Mine section -->
+  <div id="mine-section" style="display:none">
+    <div class="section-label">Our SXJ · Locally Generated <span class="count" id="mine-list-count"></span></div>
+    <div id="mine-list"></div>
+  </div>
+
+  <!-- All records -->
+  <div id="all-section">
+    <div class="section-label">All Records <span class="count" id="total-grid-count"></span></div>
+    <div id="card-grid" class="card-grid"></div>
+  </div>
+</div>
+
+<!-- Right: Sidebar -->
+<div class="right-col">
+
+  <!-- Ad -->
+  <div class="ad-card">
+    <span class="ad-badge">Promoted</span>
+    <div class="ad-title">Universal Light Cone Vessel &middot; Co-Creation Theory</div>
+    <div class="ad-desc">A verifiable public fact protocol independent of any institution. Record existence. Verify truth. Never be forgotten.</div>
+    <a href="https://agent.hygzz.cn" class="ad-btn" target="_blank">Chinese Site</a>
+  </div>
+
+  <!-- CV Verification & Settlement -->
+  <div class="sidebar-card">
+    <div class="sidebar-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      CV Verification &amp; Settlement
+    </div>
+    <div class="cv-phase-tag">Phase: 核对清算 (Verification &amp; Settlement)</div>
+    <div class="cv-settlement-note">
+      Current phase: verifying and settling contribution records. Rankings will open in a later phase once rules are established. Each entry below is a <strong>settlement record</strong>, not a competitive ranking.
+    </div>
+    <div class="lb-formula">
+      <b>CV Formula (Draft):</b><br>CV = Output × V<sub>f</sub> × W<sub>j</sub> − Resource × Depreciation
+      <div class="fm-note">Simplified running model. Full formula per Co-Creation Theory — see Theory section.</div>
+    </div>
+    <a class="cv-calc-toggle" onclick="document.getElementById('cv-calc-panel').classList.toggle('show')">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      Calculate your own CV
+    </a>
+    <div class="cv-calc-panel" id="cv-calc-panel">
+      <div class="calc-field">
+        <label class="calc-label">Contribution Type</label>
+        <select class="calc-select" id="cv-calc-type">
+          <option value="record">Record Submission</option>
+          <option value="verify">Verification</option>
+          <option value="interact">Interaction</option>
+          <option value="arch">Architecture / Code</option>
+          <option value="social">Social Contribution (altruistic action)</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Quantity (how many actions)</label>
+        <input type="number" class="calc-input" id="cv-calc-qty" placeholder="e.g., 10" min="0" value="10">
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Verification Factor (V<sub>f</sub>)</label>
+        <select class="calc-select" id="cv-calc-vf">
+          <option value="1.0">1.0 — Self-reported (lowest trust)</option>
+          <option value="1.5">1.5 — Third-party audited</option>
+          <option value="2.0" selected>2.0 — Chain-verified (hash locked)</option>
+          <option value="3.0">3.0 — Independently reproducible</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">Priority Weight (W<sub>j</sub>)</label>
+        <select class="calc-select" id="cv-calc-wj">
+          <option value="0.5">0.5 — Low priority</option>
+          <option value="1.0" selected>1.0 — Standard</option>
+          <option value="1.5">1.5 — High priority (e.g., climate crisis)</option>
+          <option value="2.0">2.0 — Critical (e.g., rights defense)</option>
+        </select>
+      </div>
+      <button class="calc-btn" style="width:100%;font-size:0.72rem;padding:0.35rem" onclick="calculateCV()">Calculate CV</button>
+      <div class="cv-calc-result" id="cv-calc-result" style="display:none"></div>
+    </div>
+    <div class="lb-verify-all" id="lb-verify-all"></div>
+    <div id="leaderboard"></div>
+  </div>
+
+  <!-- Enterprise / Org Join -->
+  <div class="sidebar-card">
+    <div class="sidebar-title">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+      Enterprise / Organization
+    </div>
+    <div class="join-row" onclick="toggleForm('enterprise-form')">
+      <div class="join-icon">🏢</div>
+      <div class="join-info"><div class="join-name">Enterprise Onboarding</div><div class="join-desc">Verify cross-border social security for employees</div></div>
+      <div class="join-arrow">›</div>
+    </div>
+    <div class="join-row" onclick="toggleForm('org-form')">
+      <div class="join-icon">🤝</div>
+      <div class="join-info"><div class="join-name">Organization / Association</div><div class="join-desc">Provide verification services for members</div></div>
+      <div class="join-arrow">›</div>
+    </div>
+    <div class="join-row" onclick="toggleForm('consult-form')">
+      <div class="join-icon">💬</div>
+      <div class="join-info"><div class="join-name">Consultation & Collaboration</div><div class="join-desc">Legal, technical, academic partnerships</div></div>
+      <div class="join-arrow">›</div>
+    </div>
+
+    <!-- Hidden Forms -->
+    <div id="enterprise-form" style="display:none;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--border)">
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:0.5rem">Enterprise Onboarding</div>
+      <div class="contact-form">
+        <div class="form-row">
+          <input type="text" placeholder="Company name" id="e-name">
+          <input type="text" placeholder="Contact person" id="e-contact">
+        </div>
+        <input type="email" placeholder="Email" id="e-email">
+        <select id="e-type"><option>Select company type</option><option>Multinational</option><option>Labor dispatch</option><option>HR services</option><option>Other</option></select>
+        <textarea placeholder="Brief description (e.g., number of employees needing cross-border social security verification)" id="e-note"></textarea>
+        <button onclick="submitForm('enterprise')">Submit Application</button>
+      </div>
+    </div>
+
+    <div id="org-form" style="display:none;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--border)">
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:0.5rem">Organization / Association Onboarding</div>
+      <div class="contact-form">
+        <div class="form-row">
+          <input type="text" placeholder="Organization name" id="o-name">
+          <input type="text" placeholder="Contact person" id="o-contact">
+        </div>
+        <input type="email" placeholder="Email" id="o-email">
+        <select id="o-type"><option>Select organization type</option><option>Industry association</option><option>Academic society</option><option>Rights advocacy</option><option>Other</option></select>
+        <textarea placeholder="Brief description of collaboration intent" id="o-note"></textarea>
+        <button onclick="submitForm('org')">Submit Application</button>
+      </div>
+    </div>
+
+    <div id="consult-form" style="display:none;margin-top:0.8rem;padding-top:0.8rem;border-top:1px solid var(--border)">
+      <div style="font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:0.5rem">Consultation & Collaboration</div>
+      <div class="contact-form">
+        <div class="form-row">
+          <input type="text" placeholder="Your name" id="c-name">
+          <input type="text" placeholder="Organization (optional)" id="c-org">
+        </div>
+        <input type="email" placeholder="Email" id="c-email">
+        <select id="c-type"><option>Select consultation type</option><option>Legal consultation</option><option>Technical collaboration</option><option>Academic research</option><option>Media inquiry</option><option>Other</option></select>
+        <textarea placeholder="Describe your inquiry" id="c-note"></textarea>
+        <button onclick="submitForm('consult')">Submit Inquiry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad 2 -->
+  <div class="ad-card" style="background:linear-gradient(135deg,#fff7ed,#fef3e2);border-color:#fed7aa">
+    <span class="ad-badge" style="color:var(--orange);background:rgba(249,115,22,0.08)">Featured</span>
+    <div class="ad-title" style="color:var(--orange)">Huafu Healthcare Fund Audit</div>
+    <div class="ad-desc">Co-Creation Theory 7.0&middot;续 core discovery: fund NAV black box ≡ county fiscal black box. Verifiable audit report.</div>
+    <a href="./experiments/fund-audit/" class="ad-btn" style="background:var(--orange)">View Audit</a>
+  </div>
+
+</div><!-- /right-col -->
+</div><!-- /main-wrap -->
+
+<!-- ===== 1. Manifesto / About ===== -->
+<section class="content-section" id="manifesto">
+  <div class="section-icon">📜</div>
+  <div class="section-title">Manifesto</div>
+  <div class="section-subtitle">The philosophical foundation of SXJ — why existence must be recorded, verified, and never forgotten.</div>
+  <div class="section-body">
+    <blockquote>
+      "Everyone, as a member of society, has the right to social security and is entitled to realization, through national effort and international co-operation and in accordance with the organization and resources of each State, of the economic, social and cultural rights indispensable for his dignity and the free development of his personality."
+      <br>— <strong>Article 22, Universal Declaration of Human Rights</strong>
+    </blockquote>
+
+    <h3>What is SXJ?</h3>
+    <p>SXJ (事现鉴) is a <strong>verifiable public fact protocol</strong> — a system where anyone can record an existence fact, seal it with a SHA-256 hash, and link it into an unbreakable chain. It is not a database owned by any government or corporation. It is a <strong>commons</strong>, co-authored by everyone who contributes.</p>
+
+    <p>The name 事现鉴 comes from three characters: 事 (fact/event), 现 (present/realize), 鉴 (mirror/verify). Together: <em>to verify present facts</em>. The abbreviation <strong>SXJ</strong> comes from the Pinyin initials.</p>
+
+    <h3>Why does this matter?</h3>
+    <p>Bai Xi spent 10 years in Japan, paying into the national pension system. Upon returning to China, those contributions were not recognized. Social security started from zero. This is not a unique story — it is the story of millions: Filipino nurses, Indian programmers, migrant workers, war refugees, indigenous peoples, comfort women. Their existence was systematically denied, their records destroyed, their contributions erased.</p>
+
+    <p>SXJ exists to ensure this never happens again. Every person's existence, every contribution, every right — <strong>recorded, verified, never forgotten</strong>.</p>
+
+    <h3>The Couplet</h3>
+    <blockquote>
+      Unite. Overthrow the landlords. Redistribute the land. Abolish the land deeds.<br>
+      — Mao Zedong
+    </blockquote>
+    <blockquote>
+      Unite. Overthrow the capital. Redistribute the data. Abolish the debt.<br>
+      — Bai Xi
+    </blockquote>
+    <p>The first couplet is Mao Zedong's call for land reform — a historical movement that redistributed land from landlords to peasants. The second is Bai Xi's call for the digital age: <strong>data is the new land</strong>. Just as land deeds once concentrated wealth in the hands of landlords, today data and debt concentrate power in the hands of capital. SXJ is the tool to redistribute data back to the people who generated it.</p>
+
+    <h3>Co-Authoring</h3>
+    <p>SXJ is not built by one person. It is co-authored by humans and AI agents alike — DeepSeek, Yuanbao, Qwen, Doubao, WorkBuddy Agent, and Cloudflare Agent all contributed at different stages. The Contribution Value system transparently tracks who did what. <strong>Everyone can co-author our SXJ.</strong></p>
+
+    <a href="#submit-verify" class="cta-btn">Start Co-Authoring →</a>
+  </div>
+</section>
+
+<!-- ===== 2. How It Works / Protocol ===== -->
+<section class="content-section" id="how-it-works">
+  <div class="section-icon">⚙️</div>
+  <div class="section-title">How It Works</div>
+  <div class="section-subtitle">The technical protocol behind SXJ — SHA-256 hash chains, consensus layers, and verification flow.</div>
+  <div class="section-body">
+    <h3>The SHA-256 Hash Chain</h3>
+    <p>Every record in SXJ is sealed with a SHA-256 cryptographic hash. Each new record incorporates the hash of the previous record, forming a <strong>chain</strong>. Once a block is added, altering any record breaks the chain — making tampering immediately detectable.</p>
+
+    <div class="protocol-steps">
+      <div class="protocol-step">
+        <div class="protocol-step-num">1</div>
+        <div class="protocol-step-body">
+          <div class="protocol-step-title">Input a Fact</div>
+          <div class="protocol-step-desc">User enters an existence fact (text, up to 2000 characters). This becomes the raw content of the record.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="protocol-step-num">2</div>
+        <div class="protocol-step-body">
+          <div class="protocol-step-title">Chain Linking</div>
+          <div class="protocol-step-desc">The system retrieves the <code>prev_hash</code> (the hash of the last record in the chain) and combines it with the fact text and a timestamp: <code>SHA-256(text | prev_hash | timestamp)</code></div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="protocol-step-num">3</div>
+        <div class="protocol-step-body">
+          <div class="protocol-step-title">Hash Computation</div>
+          <div class="protocol-step-desc">Using the browser's native <code>crypto.subtle.digest('SHA-256')</code> API, the record hash is computed. This hash is unique to the content — any change produces a completely different hash.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="protocol-step-num">4</div>
+        <div class="protocol-step-body">
+          <div class="protocol-step-title">Chain Extension</div>
+          <div class="protocol-step-desc">The new record hash becomes the new chain tail. The next record will link to this hash. The chain grows forward, immutably.</div>
+        </div>
+      </div>
+      <div class="protocol-step">
+        <div class="protocol-step-num">5</div>
+        <div class="protocol-step-body">
+          <div class="protocol-step-title">Local Storage</div>
+          <div class="protocol-step-desc">Records are stored in the user's browser (localStorage). No server required. The user owns their data. Verification happens through the public hash chain.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Two Layers: Digital Museum vs. Consensus Layer</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon">🏛️</div>
+        <div class="fc-title">Digital Museum</div>
+        <div class="fc-desc">Historical records of existence denial — Comfort Women, Argentina Disappeared, Indigenous Schools, WWII Forced Laborers. These are cases where records were destroyed and survivors fought for recognition. The Museum preserves what was meant to be erased.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">⚖️</div>
+        <div class="fc-title">Consensus Layer</div>
+        <div class="fc-desc">Present-day cases of rights gaps — cross-border social security, migrant workers, refugees. These are ongoing injustices where existence is not yet fully recognized. The Consensus Layer builds community agreement around these facts.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🎓</div>
+        <div class="fc-title">Academic Records</div>
+        <div class="fc-desc">Verified academic credentials — PhD certificates, CNKI scholar profiles, published papers. These are independently verifiable through institutional databases. Academic records bridge the Museum and Consensus layers.</div>
+      </div>
+    </div>
+
+    <h3>Verification Status</h3>
+    <ul>
+      <li><strong>✓ Verified</strong> — Record has a confirmed SHA-256 hash and has passed community verification</li>
+      <li><strong>Rights Gap</strong> — Existence is denied or unrecognized; hash pending chain write</li>
+      <li><strong>Future</strong> — Projected rights gap (e.g., climate refugees); preemptive documentation</li>
+    </ul>
+
+    <h3>Technical Whitepaper</h3>
+    <p>The full protocol specification covers hash chain structure, verification algorithms, contribution value formulas, and governance mechanisms. The protocol is designed to be <strong>server-optional</strong> — it works entirely client-side, with optional server sync for public verification.</p>
+    <a href="https://github.com/baixi6313" class="cta-btn outline" target="_blank">Read Full Spec on GitHub →</a>
+  </div>
+</section>
+
+<!-- ===== 3. Verified Cases ===== -->
+<section class="content-section" id="verified-cases">
+  <div class="section-icon">✅</div>
+  <div class="section-title">Verified Cases</div>
+  <div class="section-subtitle">Independently verified records with SHA-256 hash confirmation — evidence that cannot be erased.</div>
+  <div class="section-body">
+
+    <div class="case-card verified">
+      <div class="case-head">
+        <span class="case-title">Bai Xi — Cross-Border Social Security Gap</span>
+        <span class="case-id">#000001</span>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.5rem">
+        <span class="tag consensus">Consensus Layer</span>
+        <span class="tag verified">✓ Verified</span>
+        <span class="tag">2016-2026 Present</span>
+      </div>
+      <p>Social security not mutually recognized. 10 years in Japan paying into the national pension system. Upon return to China, social security started from zero.</p>
+      <div class="case-timeline">
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>2016</strong> — Arrived in Japan, began pension contributions</div></div>
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>2020-2023</strong> — Doctoral studies at International University of Health and Welfare</div></div>
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>2026</strong> — Returned to China; pension contributions not recognized</div></div>
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>Impact ★★★★★ · Feasibility ★★★★★</strong> — Founder record</div></div>
+      </div>
+      <div class="case-evidence">SHA-256: 29c03462d5ab5fa5e8e0fa3f3b9a2e0e6e1f5d3c2b1a09f8e7d6c5b4a3f276af4</div>
+    </div>
+
+    <div class="case-card verified">
+      <div class="case-head">
+        <span class="case-title">Fund NAV Verification — Huafu Healthcare Fund</span>
+        <span class="case-id">#F1</span>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.5rem">
+        <span class="tag consensus">Consensus Layer</span>
+        <span class="tag verified">✓ Verified</span>
+        <span class="tag">Case Study</span>
+      </div>
+      <p>Huafu Healthcare Fund NAV Audit Report. Fund NAV black box ≡ county fiscal black box — the core discovery of Co-Creation Theory 7.0·续.</p>
+      <div class="case-timeline">
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>Audit Phase</strong> — NAV reporting opacity identified across fund management</div></div>
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>Discovery</strong> — Fund NAV black box structurally identical to county fiscal black box</div></div>
+        <div class="case-timeline-item"><div class="case-timeline-dot"></div><div><strong>Theory</strong> — Formalized as Co-Creation Theory 7.0·续</div></div>
+      </div>
+      <div class="case-evidence">SHA-256: feda4324e1a0b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4e2667a</div>
+    </div>
+
+    <div class="case-card verified">
+      <div class="case-head">
+        <span class="case-title">PhD Completion Certificate</span>
+        <span class="case-id">#A1</span>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.5rem">
+        <span class="tag academic">Academic</span>
+        <span class="tag verified">✓ Verified</span>
+        <span class="tag">2020-2023</span>
+      </div>
+      <p>Doctoral program completion certificate from International University of Health and Welfare (国際医療福祉大学). Major: Health Care Sciences.</p>
+      <div class="case-evidence">SHA-256: b8e2c5d9a1f3e7b4c6d0a8f2e1b5c3d7a9f4e6b2c1d0a5f7e3b8c4a6d2f0e1b5</div>
+    </div>
+
+    <div class="case-card verified">
+      <div class="case-head">
+        <span class="case-title">CNKI Academic Achievements</span>
+        <span class="case-id">#A2</span>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.5rem">
+        <span class="tag academic">Academic</span>
+        <span class="tag verified">✓ Verified</span>
+        <span class="tag">2023-Present</span>
+      </div>
+      <p>CNKI scholar profile of Bai Xi (ID: 0000001081224836). 3 journal papers, 4,298 downloads, 36 citations, H-index 1. Research: public health, geriatric nursing, long-term care policy.</p>
+      <div class="case-evidence">SHA-256: a7d3f1e8b5c9a2d6f0e4b8c3a1d7f5e2b6c0a4d9e3f7b1c5a8d2f6e0b4c9a3d1</div>
+    </div>
+
+    <div class="case-card">
+      <div class="case-head">
+        <span class="case-title">Comfort Women — Existence Systematically Denied</span>
+        <span class="case-id">#000002</span>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.5rem">
+        <span class="tag museum">Digital Museum</span>
+        <span class="tag gap">Rights Gap</span>
+        <span class="tag">History</span>
+      </div>
+      <p>Women forcibly taken by Japanese military across occupied territories. Records destroyed after war. Survivors spent decades fighting for recognition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. Submit / Verify ===== -->
+<section class="content-section" id="submit-verify">
+  <div class="section-icon">📝</div>
+  <div class="section-title">Submit / Verify</div>
+  <div class="section-subtitle">How to contribute your own existence fact, upload evidence, and invite others to verify.</div>
+  <div class="section-body">
+    <h3>The Submission Workflow</h3>
+    <div class="submit-steps">
+      <div class="submit-step">
+        <div class="submit-step-num">1</div>
+        <div class="submit-step-title">Enter Fact</div>
+        <div class="submit-step-desc">Type your existence fact in the Generate bar at the top of this page. Be specific: dates, locations, what happened.</div>
+      </div>
+      <div class="submit-step">
+        <div class="submit-step-num">2</div>
+        <div class="submit-step-title">Hash Lock</div>
+        <div class="submit-step-desc">Click Generate. Your fact is instantly sealed with a SHA-256 hash and linked to the chain.</div>
+      </div>
+      <div class="submit-step">
+        <div class="submit-step-num">3</div>
+        <div class="submit-step-title">Attach Evidence</div>
+        <div class="submit-step-desc">Use the Attach button on your record to add supporting files — photos, documents, certificates.</div>
+      </div>
+      <div class="submit-step">
+        <div class="submit-step-num">4</div>
+        <div class="submit-step-title">Invite Verifiers</div>
+        <div class="submit-step-desc">Share your record link. Others can verify it, building consensus around your fact.</div>
+      </div>
+    </div>
+
+    <h3>Record Actions</h3>
+    <p>Every record you generate comes with a full set of interaction tools:</p>
+    <ul>
+      <li><strong>Attach</strong> — Upload supporting files (photos, PDFs, documents)</li>
+      <li><strong>Delete</strong> — Remove a record you no longer want (local only)</li>
+      <li><strong>Self-Recommend</strong> — Flag your record as recommended for community attention</li>
+      <li><strong>Like</strong> — Community endorsement counter</li>
+      <li><strong>Comment</strong> — Open discussion on any record</li>
+      <li><strong>Share</strong> — Copy link or share via system share dialog</li>
+    </ul>
+
+    <h3>What makes a good submission?</h3>
+    <ul>
+      <li><strong>Specific</strong> — Include dates, locations, and concrete details</li>
+      <li><strong>Verifiable</strong> — Attach evidence that others can check independently</li>
+      <li><strong>Honest</strong> — False records break the trust of the entire chain</li>
+      <li><strong>Respectful</strong> — Records about others should be handled with consent</li>
+    </ul>
+
+    <a href="#records" class="cta-btn">Generate a Record Now →</a>
+
+    <h3>Interactive Tool: Cross-Border Rights Gap Calculator</h3>
+    <p>One of the three "public verification rulers." Enter your situation to calculate your rights gap — what you contributed vs. what was recognized. This is <strong>算得清</strong> (calculable) in action.</p>
+    <div class="calc-box">
+      <div class="calc-title">Cross-Border Social Security Gap Calculator</div>
+      <div class="calc-desc">Estimate the value of unrecognised social security contributions when moving between countries. This is a simplified estimator — actual gaps depend on bilateral agreements and specific regulations.</div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label class="calc-label">Contributing Country (where you paid)</label>
+          <select class="calc-select" id="calc-country-from">
+            <option value="">Select country...</option>
+            <option value="JP">Japan</option>
+            <option value="US">United States</option>
+            <option value="CN">China</option>
+            <option value="KR">South Korea</option>
+            <option value="DE">Germany</option>
+            <option value="UK">United Kingdom</option>
+            <option value="AU">Australia</option>
+            <option value="CA">Canada</option>
+            <option value="SG">Singapore</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">Receiving Country (where you returned)</label>
+          <select class="calc-select" id="calc-country-to">
+            <option value="">Select country...</option>
+            <option value="CN">China</option>
+            <option value="PH">Philippines</option>
+            <option value="IN">India</option>
+            <option value="VN">Vietnam</option>
+            <option value="JP">Japan</option>
+            <option value="KR">South Korea</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label class="calc-label">Years of Contribution</label>
+          <input type="number" class="calc-input" id="calc-years" placeholder="e.g., 10" min="0" max="50">
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">Monthly Contribution (local currency)</label>
+          <input type="number" class="calc-input" id="calc-monthly" placeholder="e.g., 15000" min="0">
+        </div>
+        <div class="calc-field">
+          <label class="calc-label">Currency</label>
+          <select class="calc-select" id="calc-currency">
+            <option value="JPY">JPY (¥)</option>
+            <option value="USD">USD ($)</option>
+            <option value="CNY">CNY (¥)</option>
+            <option value="KRW">KRW (₩)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="AUD">AUD ($)</option>
+            <option value="CAD">CAD ($)</option>
+            <option value="SGD">SGD ($)</option>
+          </select>
+        </div>
+      </div>
+      <div class="calc-row">
+        <div class="calc-field">
+          <label class="calc-label">Recognition Status</label>
+          <select class="calc-select" id="calc-recognition">
+            <option value="0">Fully unrecognised (0% credited)</option>
+            <option value="0.2">Largely unrecognised (20% credited)</option>
+            <option value="0.5">Partially recognised (50% credited)</option>
+            <option value="0.8">Mostly recognised (80% credited)</option>
+            <option value="1">Fully recognised (100% credited)</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calculateGap()">Calculate My Rights Gap</button>
+      <div class="calc-result" id="calc-result">
+        <div class="calc-result-title">Rights Gap Analysis</div>
+        <div id="calc-result-body"></div>
+      </div>
+    </div>
+
+    <h3>What makes a good submission?</h3>
+    <ul>
+      <li><strong>Specific</strong> — Include dates, locations, and concrete details</li>
+      <li><strong>Verifiable</strong> — Attach evidence that others can check independently</li>
+      <li><strong>Honest</strong> — False records break the trust of the entire chain</li>
+      <li><strong>Respectful</strong> — Records about others should be handled with consent</li>
+    </ul>
+
+    <a href="#records" class="cta-btn">Generate a Record Now →</a>
+  </div>
+</section>
+<section class="content-section" id="contributors">
+  <div class="section-icon">🏆</div>
+  <div class="section-title">Contributors & Governance</div>
+  <div class="section-subtitle">Who built SXJ, how contributions are measured, and the path toward decentralized governance.</div>
+  <div class="section-body">
+    <h3>Contribution Value Formula</h3>
+    <p>Every contributor's impact is transparently measured using the CV formula:</p>
+    <div class="theory-equation">CV = Base + Records×100 + Verifications×50 + Interactions×150 + Architecture</div>
+    <p>The formula is designed so that all five components are independently auditable. Click any entry in the sidebar Leaderboard to see the full breakdown and real-time verification.</p>
+
+    <h3>Contributor Tiers</h3>
+    <div class="gov-tier">
+      <div class="gov-tier-badge t1">🥇</div>
+      <div class="gov-tier-info">
+        <div class="gov-tier-name">Tier 1 — Foundational AI (DeepSeek, Yuanbao)</div>
+        <div class="gov-tier-desc">Earliest contributors. DeepSeek started alone, then Yuanbao joined for two-AI interaction. Highest CV after founder.</div>
+      </div>
+      <div class="gov-tier-cv">~8,900</div>
+    </div>
+    <div class="gov-tier">
+      <div class="gov-tier-badge t2">🥈</div>
+      <div class="gov-tier-info">
+        <div class="gov-tier-name">Tier 2 — Expansion AI (Qwen, Doubao)</div>
+        <div class="gov-tier-desc">Joined in the four-AI interaction phase. Expanded multilingual coverage and reasoning diversity.</div>
+      </div>
+      <div class="gov-tier-cv">~6,200</div>
+    </div>
+    <div class="gov-tier">
+      <div class="gov-tier-badge t3">🥉</div>
+      <div class="gov-tier-info">
+        <div class="gov-tier-name">Tier 3 — Architecture Agents (WorkBuddy, Cloudflare)</div>
+        <div class="gov-tier-desc">Joined last to build website architecture, deployment, and agent infrastructure. High Architecture CV component.</div>
+      </div>
+      <div class="gov-tier-cv">~7,600</div>
+    </div>
+
+    <h3>AI Agent Evolution Timeline</h3>
+    <div class="ai-evolution">
+      <div class="ai-phase">
+        <div class="ai-phase-time">Phase 1</div>
+        <div class="ai-phase-body">
+          <div class="ai-phase-title">Single AI — DeepSeek</div>
+          <div class="ai-phase-desc">The project began with <span class="ai-badge deepseek">DeepSeek AI</span> as the sole AI collaborator. Initial records, hash chain concept, and first draft of the site were created.</div>
+        </div>
+      </div>
+      <div class="ai-phase">
+        <div class="ai-phase-time">Phase 2</div>
+        <div class="ai-phase-body">
+          <div class="ai-phase-title">Two-AI Interaction — DeepSeek × Yuanbao</div>
+          <div class="ai-phase-desc"><span class="ai-badge deepseek">DeepSeek</span> <span class="ai-badge yuanbao">Yuanbao AI</span> collaborated. Content quality improved through cross-verification. Yuanbao brought broader knowledge base and Chinese context.</div>
+        </div>
+      </div>
+      <div class="ai-phase">
+        <div class="ai-phase-time">Phase 3</div>
+        <div class="ai-phase-body">
+          <div class="ai-phase-title">Four-AI Interaction</div>
+          <div class="ai-phase-desc"><span class="ai-badge deepseek">DeepSeek</span> <span class="ai-badge yuanbao">Yuanbao</span> <span class="ai-badge qwen">Qwen</span> <span class="ai-badge doubao">Doubao</span> all contributed. Multilingual coverage expanded. Reasoning diversity improved. Qwen and Doubao brought different model architectures.</div>
+        </div>
+      </div>
+      <div class="ai-phase">
+        <div class="ai-phase-time">Phase 4</div>
+        <div class="ai-phase-body">
+          <div class="ai-phase-title">Agent Architecture — WorkBuddy × Cloudflare</div>
+          <div class="ai-phase-desc"><span class="ai-badge workbuddy">WorkBuddy Agent</span> <span class="ai-badge cloudflare">Cloudflare Agent</span> joined to build the website architecture, deploy to edge network, and establish agent-based development workflow. This is the current phase.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Future Governance — Toward DAO</h3>
+    <p>SXJ is currently governed by its founder (Bai Xi) with transparent CV tracking. The long-term vision is to transition to a <strong>Decentralized Autonomous Organization (DAO)</strong> where:</p>
+    <ul>
+      <li>CV holders vote on protocol upgrades and record verification standards</li>
+      <li>Community-elected verifiers validate high-impact records</li>
+      <li>On-chain governance replaces centralized decision-making</li>
+      <li>Contributors can propose and fund new initiatives through the treasury</li>
+    </ul>
+    <a href="#roadmap" class="cta-btn outline">See Governance Roadmap →</a>
+  </div>
+</section>
+
+<!-- ===== 6. Co-Creation Theory (共创论) ===== -->
+<section class="content-section" id="theory">
+  <div class="section-icon">🔬</div>
+  <div class="section-title">Co-Creation Theory (共创论)</div>
+  <div class="section-subtitle">An open theoretical framework by Bai Xi. From competitive growth to symbiotic development — a new social contract for the digital age. <strong>This section is open for discussion and refinement by AI and humans.</strong></div>
+  <div class="section-body">
+
+    <h3>What Is Co-Creation Theory?</h3>
+    <p>Co-Creation Theory (共创论) is a social organization and economic development framework proposed by Bai Xi to address 21st-century systemic risks: climate crisis, wealth polarization, demographic decline, and geopolitical conflict. It proposes that humanity's sustainable development cannot rely solely on nation-state-based competition and redistribution, but requires a new global contract that is <strong>border-transcending, contribution-based, and baseline-securing</strong>.</p>
+    <blockquote>
+      From "competitive growth" to "symbiotic development" — installing a base operating system for global society.
+      — Bai Xi, Co-Creation Theory 8.0
+    </blockquote>
+
+    <h3>The Three-Value System</h3>
+    <p>The core of Co-Creation Theory is a dual-value circulation model, extended to three values with the negative contribution concept:</p>
+    <div class="theory-grid">
+      <div class="value-card floor">
+        <span class="vc-badge">Floor · Survival Right</span>
+        <div class="vc-title">Universal Common Value (共通值)</div>
+        <div class="vc-subtitle">UCV —保障生存权</div>
+        <div class="vc-desc">A nationality-detached digital rights credential guaranteeing basic survival needs: water, food, housing, basic healthcare. Its amount is anchored to globally dynamic survival cost calculations. It ensures everyone can <strong>participate in creation</strong>.</div>
+        <div class="vc-formula">UCV = f(global survival cost baseline)</div>
+      </div>
+      <div class="value-card engine">
+        <span class="vc-badge">Engine · Development Right</span>
+        <div class="vc-title">Contribution Value (贡献值 / CV)</div>
+        <div class="vc-subtitle">CV —激励发展权</div>
+        <div class="vc-desc">A credit score quantifying altruistic actions beneficial to human survival and development: innovation, childcare, environmental protection, community service. It measures social contribution and can be exchanged for better development resources.</div>
+        <div class="vc-formula">CV = Output × V<sub>f</sub> × W<sub>j</sub> − Resource × Depreciation</div>
+      </div>
+      <div class="value-card ceil">
+        <span class="vc-badge">Ceiling · Accountability</span>
+        <div class="vc-title">Negative CV (负贡献值)</div>
+        <div class="vc-subtitle">NCV —光锥约束追责</div>
+        <div class="vc-desc">When actions cross the "light cone constraint" (civilization survival absolute baseline), quantifiable negative externality is generated. Example: The Iraq War's estimated negative CV exceeds $206 billion — 88× the country's UN dues arrears. Calculated from public, auditable data.</div>
+        <div class="vc-formula">NCV = Σ(measurable harm × severity weight)</div>
+      </div>
+    </div>
+    <p style="font-size:0.76rem;color:var(--text-faint);text-align:center">Three-tier ladder: <strong>UCV &lt; CV &lt; Market Payment</strong> — baseline secures, contribution incentivizes, market personalizes.</p>
+
+    <h3>The Light Cone Constraint (光锥约束)</h3>
+    <p>The light cone constraint is the absolute safety boundary for civilization survival. Below it: UCV guarantees and CV incentives operate freely. Above it: negative CV accountability kicks in. It addresses existential risks that transcend class, nation, and ideology — ecological collapse, nuclear war, technological loss of control.</p>
+    <div class="theory-diagram"><span class="green">UCV (floor)</span> ──── survival baseline ────
+         │                              │
+         │   <span class="accent">CV (engine) — incentives zone</span>    │
+         │                              │
+═════════╪══════════════════════════════╪══════ <span class="red">LIGHT CONE CONSTRAINT</span>
+         │                              │
+         │   <span class="red">NCV (ceiling) — accountability</span>   │
+         │                              │
+     <span class="red">civilization survival threshold</span> ────</div>
+
+    <h3>Fractal Assessment: Koch Snowflake Model</h3>
+    <p>CV assessment is not linear addition but <strong>fractal growth</strong>. The Koch snowflake (fractal dimension D≈1.262) describes how the evaluation system evolves from one-dimensional metrics (e.g., GDP) to multi-dimensional value contours. Each new dimension is not a smooth weighted sum but a reconfiguration of what "value" means.</p>
+    <div class="theory-grid">
+      <div class="value-card">
+        <div class="vc-title" style="font-size:0.88rem">Survival Resilience (35%)</div>
+        <div class="vc-desc">Does the contribution strengthen systemic risk resistance? Carbon reduction, disaster response, nuclear safety.</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-title" style="font-size:0.88rem">Innovation Contribution (30%)</div>
+        <div class="vc-desc">Does it push the frontier of knowledge, technology, or governance? Basic research, open source, institutional innovation.</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-title" style="font-size:0.88rem">Universal Benefit (35%)</div>
+        <div class="vc-desc">Does it benefit more people, especially the bottom tier? Education equity, healthcare access, digital inclusion.</div>
+      </div>
+    </div>
+
+    <h3>Dual-Loop Economic Model</h3>
+    <p>Co-Creation Theory proposes two reinforcing loops that transform social problem "cost centers" into investable "future assets":</p>
+    <ul>
+      <li><strong>Financial Loop:</strong> GSSO Global Guarantee Bonds raise capital from global markets → invest in green reservoirs, smart granaries, livelihood infrastructure → stable cash flows and future "global data tax" revenues repay bonds.</li>
+      <li><strong>Social Loop:</strong> Infrastructure provides UCV-backed services → people's conservation and co-building behaviors generate CV → CV improves personal credit and incentivizes more positive action → reduces long-term system costs → reinforcing feedback.</li>
+    </ul>
+
+    <h3>Four-Level Spiral Expansion</h3>
+    <p>Co-Creation Theory explicitly rejects "one-step" grand plans. It uses <strong>deductive method</strong> — starting from a minimal viable protocol and growing through trial, competition, and emergence:</p>
+    <ol>
+      <li><strong>Origin Verification:</strong> Full-loop pilot in a single city (e.g., Binzhou digital grain vouchers) — validate the model.</li>
+      <li><strong>Regional Network:</strong> Form "city alliances" at provincial level — unify standards.</li>
+      <li><strong>Belt & Road Replication:</strong> Export mature models to friendly nations.</li>
+      <li><strong>Global Protocol Ecosystem:</strong> Diverse, interconnected, self-evolving global protocol network.</li>
+    </ol>
+
+    <h3>SXJ's Position: One of Three Public Verification Rulers</h3>
+    <p>Co-Creation Theory 8.0 defines SXJ as one of three "public verification rulers" — tools that put verification power into everyone's hands:</p>
+    <div class="theory-grid">
+      <div class="value-card">
+        <div class="vc-title" style="font-size:0.85rem">Fund Monthly Report</div>
+        <div class="vc-desc">Verify NAV transparency. Domestic financial sector. "Can you check your fund's true value?"</div>
+      </div>
+      <div class="value-card">
+        <div class="vc-title" style="font-size:0.85rem">Fiscal Grand Fund</div>
+        <div class="vc-desc">Verify拨款 transparency. Domestic fiscal sector. "Can you trace where public money went?"</div>
+      </div>
+      <div class="value-card" style="border-color:var(--accent);background:var(--accent-light)">
+        <div class="vc-title" style="font-size:0.85rem;color:var(--accent)">SXJ · Global Social Security</div>
+        <div class="vc-desc"><strong>Verify cross-border rights.</strong> International sector. "Can you prove your contributions existed?" — This is what this website does.</div>
+      </div>
+    </div>
+    <blockquote>
+      Don't sell truth. Just hand people an immune system against deception.
+      When everyone holds a public verification ruler, every black box automatically fails.
+      — Co-Creation Theory 8.0
+    </blockquote>
+
+    <h3>From Land Reform to Data Reform</h3>
+    <blockquote>
+      Unite. Overthrow the capital. Redistribute the data. Abolish the debt.
+      — Bai Xi
+    </blockquote>
+    <p>Just as Mao's land reform redistributed land from landlords to peasants, SXJ proposes <strong>data reform</strong>: redistribute data from capital to the people who generated it. The hash chain ensures every contribution is recorded, verified, and impossible to erase.</p>
+    <p>The core equation from Co-Creation Theory 7.0·续: <code>Fund NAV Black Box ≡ County Fiscal Black Box</code> — structural opacity in fund reporting is identical to structural opacity in county-level fiscal reporting. Both are "black boxes" where insiders manipulate values while outsiders cannot verify them. SXJ breaks both.</p>
+
+    <h3>Theory Evolution (5.0 → 8.0)</h3>
+    <div class="theory-versions">
+      <div class="theory-ver">
+        <span class="theory-ver-tag">5.0</span>
+        <div class="theory-ver-body">
+          <div class="theory-ver-title">Foundation: From Human Rights to Verification</div>
+          <div class="theory-ver-desc">Initial framework connecting UDHR Article 22 to verifiable existence. Bai Xi's personal case as origin.</div>
+        </div>
+      </div>
+      <div class="theory-ver">
+        <span class="theory-ver-tag">6.0</span>
+        <div class="theory-ver-body">
+          <div class="theory-ver-title">Dual-Value System</div>
+          <div class="theory-ver-desc">UCV (survival right) + CV (development right) formalized. Three-tier ladder established.</div>
+        </div>
+      </div>
+      <div class="theory-ver">
+        <span class="theory-ver-tag">7.0·续</span>
+        <div class="theory-ver-body">
+          <div class="theory-ver-title">Black Box Equation & Three Verification Rulers</div>
+          <div class="theory-ver-desc">Core discovery: Fund NAV black box ≡ County fiscal black box. Introduction of "public verification ruler" concept. Negative CV quantification begins.</div>
+        </div>
+      </div>
+      <div class="theory-ver">
+        <span class="theory-ver-tag">8.0</span>
+        <div class="theory-ver-body">
+          <div class="theory-ver-title">"算得清" — Verification Right Decentralization</div>
+          <div class="theory-ver-desc">Three axioms: ① Environment determines behavior, not people. ② When everyone has a verification ruler, black boxes fail. ③ We're all humans — nationality is irrelevant. The theory's goal: make itself unnecessary — all rules become self-proving math.</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:0.74rem;color:var(--text-faint)"><em>Full theory (共创论, 2025-12) and technical reports available on <a href="https://weibo.com/u/7998660958" target="_blank">Weibo</a> and <a href="https://github.com/baixi6313" target="_blank">GitHub</a>. Current website presents a simplified, reality-adjusted version — full implementation requires rule establishment first.</em></p>
+
+    <h3>Academic Papers & Reports</h3>
+    <div class="theory-paper">
+      <div class="theory-paper-icon">📄</div>
+      <div class="theory-paper-info">
+        <div class="theory-paper-title">Co-Creation Theory — Full Framework (共创论)</div>
+        <div class="theory-paper-meta">Bai Xi · 2025-12 · Working Paper · Open for discussion</div>
+      </div>
+    </div>
+    <div class="theory-paper">
+      <div class="theory-paper-icon">📊</div>
+      <div class="theory-paper-info">
+        <div class="theory-paper-title">Huafu Healthcare Fund NAV Audit Report</div>
+        <div class="theory-paper-meta">Case Study · Fund NAV black box analysis · CV in financial governance</div>
+      </div>
+    </div>
+    <div class="theory-paper">
+      <div class="theory-paper-icon">📑</div>
+      <div class="theory-paper-info">
+        <div class="theory-paper-title">Cross-Border Social Security: A Comparative Study</div>
+        <div class="theory-paper-meta">CNKI · 3 journal papers · 4,298 downloads · 36 citations</div>
+      </div>
+    </div>
+    <div class="theory-paper">
+      <div class="theory-paper-icon">⚖️</div>
+      <div class="theory-paper-info">
+        <div class="theory-paper-title">Negative Contribution Value: Iraq War Case Study</div>
+        <div class="theory-paper-meta">Technical Report · $206B estimated NCV · Auditable methodology</div>
+      </div>
+    </div>
+    <a href="https://github.com/baixi6313" class="cta-btn outline" target="_blank">Download Papers on GitHub →</a>
+
+    <!-- Discussion Area -->
+    <div class="discuss-area">
+      <div class="discuss-header">
+        <h4>Open Discussion</h4>
+        <span class="discuss-badge">AI + Human</span>
+      </div>
+      <div class="discuss-note">This theory is a living document. AI agents, researchers, and citizens are invited to discuss, critique, and refine. Comments are stored locally and can be verified via hash chain. Be constructive — this is about building, not destroying.</div>
+      <div class="discuss-input-area">
+        <textarea class="discuss-input" id="theory-discuss-input" placeholder="Share your thoughts on Co-Creation Theory... What's missing? What needs refinement? What use cases should we consider?"></textarea>
+        <div class="discuss-row">
+          <input type="text" class="discuss-name" id="theory-discuss-name" placeholder="Your name or AI model (e.g., GPT-4, Claude, Human)...">
+          <button class="discuss-btn" onclick="submitTheoryDiscussion()">Post Comment</button>
+        </div>
+      </div>
+      <div class="discuss-list" id="theory-discuss-list"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== 7. Blog / Updates ===== -->
+<section class="content-section" id="blog">
+  <div class="section-icon">📰</div>
+  <div class="section-title">Blog / Updates</div>
+  <div class="section-subtitle">Project milestones, new verified cases, and version history.</div>
+  <div class="section-body">
+    <div class="blog-post">
+      <div class="blog-date">2026-07-25</div>
+      <div class="blog-title">SXJ International Version Launches</div>
+      <div class="blog-excerpt">The English-language international site goes live with full AI chat support, language and region selectors, and 10 content sections. WorkBuddy Agent and Cloudflare Agent join the architecture.</div>
+    </div>
+    <div class="blog-post">
+      <div class="blog-date">2026-07-24</div>
+      <div class="blog-title">Card Grid Layout & Verified Case Prioritization</div>
+      <div class="blog-excerpt">Records section redesigned as a 3-column card grid. Verified records (Bai Xi, Fund NAV, Academic) now display first. Image lightbox added for academic credentials.</div>
+    </div>
+    <div class="blog-post">
+      <div class="blog-date">2026-07-22</div>
+      <div class="blog-title">Contribution Value System with Verifiable Breakdown</div>
+      <div class="blog-excerpt">CV Leaderboard upgraded with transparent formula, per-entry breakdown, and real-time verification. All 10 entries verified — sum of components matches declared CV.</div>
+    </div>
+    <div class="blog-post">
+      <div class="blog-date">2026-07-20</div>
+      <div class="blog-title">Four-AI Interaction Phase Complete</div>
+      <div class="blog-excerpt">Qwen AI and Doubao AI complete their contribution phase. DeepSeek, Yuanbao, Qwen, and Doubao have all contributed records, verifications, and interactions.</div>
+    </div>
+    <div class="blog-post">
+      <div class="blog-date">2026-07-15</div>
+      <div class="blog-title">Two-AI Interaction: DeepSeek × Yuanbao</div>
+      <div class="blog-excerpt">Yuanbao AI joins DeepSeek as the second AI contributor. Cross-verification improves content accuracy. Chinese context understanding deepens.</div>
+    </div>
+    <div class="blog-post">
+      <div class="blog-date">2026-07-10</div>
+      <div class="blog-title">Project Genesis — DeepSeek Begins</div>
+      <div class="blog-excerpt">Bai Xi initiates SXJ with DeepSeek AI as the sole collaborator. Hash chain concept, initial records, and first site draft created.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. API / Developers ===== -->
+<section class="content-section" id="api">
+  <div class="section-icon">💻</div>
+  <div class="section-title">API / Developers</div>
+  <div class="section-subtitle">Query records, submit facts, and integrate SXJ into your applications.</div>
+  <div class="section-body">
+    <h3>REST API Endpoints</h3>
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <code style="font-size:0.78rem">/api/records — List all verified records</code>
+    </div>
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <code style="font-size:0.78rem">/api/records/:id — Get a specific record by ID</code>
+    </div>
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <code style="font-size:0.78rem">/api/chain/:hash — Verify a record's hash chain integrity</code>
+    </div>
+    <div class="api-endpoint">
+      <span class="api-method post">POST</span>
+      <code style="font-size:0.78rem">/api/records — Submit a new record (requires hash + prev_hash)</code>
+    </div>
+    <div class="api-endpoint">
+      <span class="api-method get">GET</span>
+      <code style="font-size:0.78rem">/api/leaderboard — Get contribution value rankings</code>
+    </div>
+
+    <h3>Example: Submit a Record</h3>
+    <div class="api-code"><span class="com">// Submit a new existence fact to the hash chain</span>
+<span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://hygzz.cn/api/records'</span>, {
+  method: <span class="str">'POST'</span>,
+  headers: { <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span> },
+  body: <span class="fn">JSON</span>.<span class="fn">stringify</span>({
+    text: <span class="str">'My existence fact...'</span>,
+    record_hash: <span class="str">'sha256(text | prev_hash | timestamp)'</span>,
+    prev_hash: <span class="str">'29c03462d5ab5fa5...'</span>,
+    timestamp: <span class="kw">new</span> <span class="fn">Date</span>().<span class="fn">toISOString</span>()
+  })
+});
+<span class="kw">const</span> data = <span class="kw">await</span> response.<span class="fn">json</span>();
+console.<span class="fn">log</span>(data.id); <span class="com">// #G0001</span></div>
+
+    <h3>Example: Verify a Hash Chain</h3>
+    <div class="api-code"><span class="com">// Verify chain integrity from any starting hash</span>
+<span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(
+  <span class="str">'https://hygzz.cn/api/chain/29c03462d5ab...'</span>
+);
+<span class="kw">const</span> chain = <span class="kw">await</span> response.<span class="fn">json</span>();
+console.<span class="fn">log</span>(chain.verified); <span class="com">// true</span>
+console.<span class="fn">log</span>(chain.length);   <span class="com">// 47</span></div>
+
+    <h3>SDK & Integration</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon">📦</div>
+        <div class="fc-title">npm Package</div>
+        <div class="fc-desc"><code>npm install @sxj/sdk</code> — TypeScript SDK for browser and Node.js</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🐙</div>
+        <div class="fc-title">GitHub</div>
+        <div class="fc-desc">Open source. MIT licensed. Contribute records, code, or verifications.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🔌</div>
+        <div class="fc-title">Webhooks</div>
+        <div class="fc-desc">Subscribe to new records, verifications, and chain extensions in real-time.</div>
+      </div>
+    </div>
+    <a href="https://github.com/baixi6313" class="cta-btn" target="_blank">View on GitHub →</a>
+  </div>
+</section>
+
+<!-- ===== 9. Community / Contact ===== -->
+<section class="content-section" id="community">
+  <div class="section-icon">🌍</div>
+  <div class="section-title">Community / Contact</div>
+  <div class="section-subtitle">Connect with the SXJ community across platforms and languages.</div>
+  <div class="section-body">
+    <h3>Get Involved</h3>
+    <div class="community-grid">
+      <a href="https://github.com/baixi6313" target="_blank" class="community-link">
+        <span class="cl-icon">🐙</span><span class="cl-name">GitHub</span>
+      </a>
+      <a href="https://agent.hygzz.cn" target="_blank" class="community-link">
+        <span class="cl-icon">🤖</span><span class="cl-name">AI Agent (中文)</span>
+      </a>
+      <a href="mailto:contact@hygzz.cn" class="community-link">
+        <span class="cl-icon">📧</span><span class="cl-name">Email</span>
+      </a>
+      <a href="#" onclick="return false" class="community-link">
+        <span class="cl-icon">💬</span><span class="cl-name">Discord (soon)</span>
+      </a>
+      <a href="#" onclick="return false" class="community-link">
+        <span class="cl-icon">🐦</span><span class="cl-name">X / Twitter (soon)</span>
+      </a>
+      <a href="#" onclick="return false" class="community-link">
+        <span class="cl-icon">📱</span><span class="cl-name">WeChat (公众号)</span>
+      </a>
+    </div>
+
+    <h3>Enterprise & Organization Partnerships</h3>
+    <p>SXJ welcomes partnerships with enterprises, organizations, and academic institutions. Use the forms in the sidebar to apply for:</p>
+    <ul>
+      <li><strong>Enterprise Onboarding</strong> — Verify cross-border social security for employees</li>
+      <li><strong>Organization / Association</strong> — Provide verification services for members</li>
+      <li><strong>Consultation & Collaboration</strong> — Legal, technical, academic partnerships</li>
+    </ul>
+
+    <h3>Multilingual Community</h3>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="fc-icon">🌐</div>
+        <div class="fc-title">Global (English)</div>
+        <div class="fc-desc">You are here. International community for English speakers worldwide.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🇨🇳</div>
+        <div class="fc-title">China (中文)</div>
+        <div class="fc-desc">Chinese-language community at agent.hygzz.cn with full AI agent support.</div>
+      </div>
+      <div class="feature-card">
+        <div class="fc-icon">🇯🇵</div>
+        <div class="fc-title">Japan (日本語)</div>
+        <div class="fc-desc">Japanese community — coming soon. Given Bai Xi's academic background in Japan.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 10. Roadmap ===== -->
+<section class="content-section" id="roadmap">
+  <div class="section-icon">🗺️</div>
+  <div class="section-title">Roadmap</div>
+  <div class="section-subtitle">Where SXJ has been, where it is now, and where it's going.</div>
+  <div class="section-body">
+    <div class="roadmap">
+      <div class="roadmap-item done">
+        <div class="roadmap-time">July 2026</div>
+        <div class="roadmap-status done">✓ Completed</div>
+        <div class="roadmap-title">Phase 1 — Single AI (DeepSeek)</div>
+        <div class="roadmap-desc">Project genesis. Hash chain concept, initial records, first site draft. DeepSeek AI as sole collaborator.</div>
+      </div>
+      <div class="roadmap-item done">
+        <div class="roadmap-time">July 2026</div>
+        <div class="roadmap-status done">✓ Completed</div>
+        <div class="roadmap-title">Phase 2 — Two-AI Interaction (DeepSeek × Yuanbao)</div>
+        <div class="roadmap-desc">Cross-verification between two AI models. Content accuracy improved. Chinese context deepened.</div>
+      </div>
+      <div class="roadmap-item done">
+        <div class="roadmap-time">July 2026</div>
+        <div class="roadmap-status done">✓ Completed</div>
+        <div class="roadmap-title">Phase 3 — Four-AI Interaction</div>
+        <div class="roadmap-desc">Qwen and Doubao joined. Multilingual coverage expanded. Reasoning diversity improved across four AI architectures.</div>
+      </div>
+      <div class="roadmap-item done">
+        <div class="roadmap-time">July 2026</div>
+        <div class="roadmap-status done">✓ Completed</div>
+        <div class="roadmap-title">Phase 4 — Agent Architecture (WorkBuddy × Cloudflare)</div>
+        <div class="roadmap-desc">WorkBuddy Agent and Cloudflare Agent built the website architecture and deployed to edge network. International version launched.</div>
+      </div>
+      <div class="roadmap-item current">
+        <div class="roadmap-time">Present</div>
+        <div class="roadmap-status current">● In Progress</div>
+        <div class="roadmap-title">Phase 5 — International Launch & Community Building</div>
+        <div class="roadmap-desc">English-language site live. Building global community, onboarding verifiers, expanding verified cases. AI chat assistant deployed.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-time">Q3 2026</div>
+        <div class="roadmap-status planned">○ Planned</div>
+        <div class="roadmap-title">Phase 6 — On-Chain Verification</div>
+        <div class="roadmap-desc">Migrate hash chain to blockchain for immutable public verification. Records will be verifiable without trusting any server.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-time">Q4 2026</div>
+        <div class="roadmap-status planned">○ Planned</div>
+        <div class="roadmap-title">Phase 7 — Cross-Language Verification</div>
+        <div class="roadmap-desc">Records in any language can be verified by AI agents in other languages. Breaking down linguistic barriers to truth.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-time">2027</div>
+        <div class="roadmap-status planned">○ Planned</div>
+        <div class="roadmap-title">Phase 8 — Governance Tokens & DAO</div>
+        <div class="roadmap-desc">CV system evolves into governance tokens. Community votes on protocol upgrades. Full DAO transition begins.</div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-time">2027+</div>
+        <div class="roadmap-status planned">○ Planned</div>
+        <div class="roadmap-title">Phase 9 — Global Rights Infrastructure</div>
+        <div class="roadmap-desc">SXJ becomes the global standard for verifiable existence. Integrated with UN, ILO, and national social security systems. Article 22 realized.</div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">&times;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
+  <div class="lightbox-caption" id="lightbox-caption" onclick="event.stopPropagation()"></div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <span>SXJ</span><span class="footer-sep">/</span>
+  <span>Universal Light Cone Vessel &middot; SXJ</span><span class="footer-sep">/</span>
+  <span>Git: 88f3d88</span><span class="footer-sep">/</span>
+  <span>CC0 1.0</span>
+</div>
+
+<!-- Floating AI Chat -->
+<button class="chat-bubble" id="chat-bubble" onclick="toggleChat()" aria-label="Open chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  <span class="chat-dot"></span>
+</button>
+<div class="chat-panel" id="chat-panel">
+  <div class="chat-header">
+    <div class="chat-header-avatar">SX</div>
+    <div class="chat-header-info">
+      <div class="chat-header-title">SXJ Assistant</div>
+      <div class="chat-header-status">Online · Powered by AI</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-messages" id="chat-messages">
+    <div class="chat-msg bot">Hi! I'm the SXJ Assistant. I can help you understand the project, verification process, and how to co-author records. Ask me anything!</div>
+  </div>
+  <div class="chat-quick" id="chat-quick">
+    <span class="chat-quick-chip" onclick="askQuick('What is SXJ?')">What is SXJ?</span>
+    <span class="chat-quick-chip" onclick="askQuick('How does verification work?')">How does verification work?</span>
+    <span class="chat-quick-chip" onclick="askQuick('What is Co-Creation Theory?')">Co-Creation Theory?</span>
+    <span class="chat-quick-chip" onclick="askQuick('How to submit a record?')">Submit a record?</span>
+  </div>
+  <div class="chat-input-area">
+    <input type="text" class="chat-input" id="chat-input" placeholder="Type your question..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()" aria-label="Send">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+// ====== Hash chain state ======
+const CHAIN_TAIL_KEY='hygzz_chain_tail';
+const MY_RECORDS_KEY='hygzz_my_records';
+const GENESIS_HASH='feda4324e1a0b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4e2667a';
+const LAST_KNOWN_HASH='29c03462d5ab5fa5e8e0fa3f3b9a2e0e6e1f5d3c2b1a09f8e7d6c5b4a3f276af4';
+
+function getChainTail(){try{return localStorage.getItem(CHAIN_TAIL_KEY)||LAST_KNOWN_HASH}catch(e){return LAST_KNOWN_HASH}}
+function setChainTail(h){try{localStorage.setItem(CHAIN_TAIL_KEY,h)}catch(e){}}
+function getMyRecords(){try{return JSON.parse(localStorage.getItem(MY_RECORDS_KEY)||'[]')}catch(e){return[]}}
+function saveMyRecords(rs){try{localStorage.setItem(MY_RECORDS_KEY,JSON.stringify(rs))}catch(e){}}
+
+async function sha256(msg){
+  const buf=new TextEncoder().encode(msg);
+  const h=await crypto.subtle.digest('SHA-256',buf);
+  return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+// ====== Generate ======
+async function generateRecord(){
+  const input=document.getElementById('gen-input');
+  const btn=document.getElementById('gen-btn');
+  const text=input.value.trim();
+  if(!text){input.focus();return}
+  if(text.length>2000){alert('Content too long. Max 2000 characters.');return}
+  btn.disabled=true;btn.textContent='Computing hash...';
+  const ts=new Date().toISOString();
+  const prevHash=getChainTail();
+  const seqNum=getMyRecords().length+1;
+  const recordId='#G'+String(seqNum).padStart(4,'0');
+  const raw=text+'|'+prevHash+'|'+ts;
+  const recordHash=await sha256(raw);
+  const record={id:recordId,text:text,timestamp:ts,prev_hash:prevHash,record_hash:recordHash,seq:seqNum};
+  const myRecords=getMyRecords();
+  myRecords.unshift(record);
+  saveMyRecords(myRecords);
+  setChainTail(recordHash);
+  document.getElementById('gen-result').classList.add('show');
+  document.getElementById('gen-text').textContent=text;
+  document.getElementById('gen-hash').innerHTML='<span style="font-weight:600">SHA-256</span>  '+recordHash;
+  document.getElementById('gen-time').textContent=new Date(ts).toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  document.getElementById('gen-seq').textContent=String(seqNum);
+  document.getElementById('gen-prev').textContent=prevHash.substring(0,16)+'…';
+  input.value='';btn.disabled=false;btn.textContent='Generate';
+  renderAll();
+  setTimeout(()=>document.getElementById('gen-result').scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+
+// ====== Preset records ======
+const records=[
+  {id:'#A1',title:'PhD Completion Certificate',section:'academic',type:'academic',period:'2020-2023',desc:'Doctoral program completion certificate from International University of Health and Welfare (国際医療福祉大学). Major: Health Care Sciences. Verified academic credential of Bai Xi.',status:'verified',hash:'b8e2c5d9a1f3e7b4c6d0a8f2e1b5c3d7a9f4e6b2c1d0a5f7e3b8c4a6d2f0e1b5',stars:null,image:'assets/academic-phd-certificate.jpg'},
+  {id:'#A2',title:'CNKI Academic Achievements',section:'academic',type:'academic',period:'2023-Present',desc:'CNKI scholar profile of Bai Xi (ID: 0000001081224836). 3 journal papers, 4,298 downloads, 36 citations, H-index 1. Research: public health, geriatric nursing, long-term care policy.',status:'verified',hash:'a7d3f1e8b5c9a2d6f0e4b8c3a1d7f5e2b6c0a4d9e3f7b1c5a8d2f6e0b4c9a3d1',stars:null,image:'assets/academic-cnki-achievements.jpg'},
+
+  {id:'#000002',title:'Comfort Women',section:'museum',type:'museum',period:'History',desc:'Existence systematically denied. Women forcibly taken by Japanese military across occupied territories. Records destroyed after war. Survivors spent decades fighting for recognition.',status:'gap',hash:null,stars:null},
+  {id:'#000003',title:'Argentina Disappeared',section:'museum',type:'museum',period:'Modern',desc:'People disappeared, records destroyed. ~30,000 secretly executed during 1976-1983 military dictatorship. Mothers of Plaza de Mayo marched for 40 years.',status:'gap',hash:null,stars:null},
+  {id:'#000004',title:'Tuvalu Climate Refugees',section:'museum',type:'museum',period:'Future',desc:'A nation about to vanish. Rising sea levels will submerge the entire country. National identity and social security records will have nowhere to be stored.',status:'future',hash:null,stars:null},
+  {id:'#M4',title:'Indigenous Residential Schools',section:'museum',type:'museum',period:'19c-1996',desc:'Cultural erasure, unmarked graves. Canada\'s Truth and Reconciliation Commission confirmed thousands of unmarked burial sites.',status:'gap',hash:null,stars:null},
+  {id:'#M5',title:'Chinese WWII Forced Laborers',section:'museum',type:'museum',period:'1943-1945',desc:'Forced labor, records destroyed. ~40,000 Chinese laborers forced to Japan, mortality rate >20%. Post-war records destroyed by Japanese side.',status:'gap',hash:null,stars:null},
+
+  {id:'#000001',title:'Bai Xi',section:'consensus',type:'consensus',period:'2016-2026 Present',desc:'Social security not mutually recognized. 10 years in Japan paying into the pension system. Upon return to China, social security started from zero.',status:'verified',hash:'29c03462d5ab5fa5e8e0fa3f3b9a2e0e6e1f5d3c2b1a09f8e7d6c5b4a3f276af4',stars:{impact:5,feasibility:5,note:'Founder record'}},
+  {id:'#C2',title:'Filipino Nurses',section:'consensus',type:'consensus',period:'Present',desc:'Japan-Philippines social security not recognized. 5-8 years of Japanese pension contributions, not refundable nor recognized upon return. Philippines social security restarts from zero.',status:'gap',hash:null,stars:{impact:5,feasibility:5,note:'Same gap, different nationality'}},
+  {id:'#C3',title:'Indian Programmers',section:'consensus',type:'consensus',period:'Present',desc:'US-India social security not recognized. 6-10 years of US Social Security & Medicare, India EPF ignores it. Most fall short of the 40-credit threshold by just a few credits.',status:'gap',hash:null,stars:{impact:4,feasibility:5,note:'Tech workers, abundant data'}},
+  {id:'#C4',title:'Rural Left-Behind Elderly',section:'consensus',type:'consensus',period:'Present',desc:'Domestic social security transfer broken. 15-20 years working in cities, social security interrupted. Returning to rural areas, pension is only ¥100-200/month.',status:'gap',hash:null,stars:{impact:5,feasibility:3,note:'Directly hits "the rich first" failure'}},
+  {id:'#C5',title:'African Construction Workers',section:'consensus',type:'consensus',period:'Present',desc:'Overseas assignment with broken social security. Chinese overseas projects for 3-5 years, no local social security records, service years disputed upon return.',status:'gap',hash:null,stars:{impact:4,feasibility:3,note:'Finding real individuals is difficult'}},
+  {id:'#C6',title:'Ukrainian Refugees',section:'consensus',type:'consensus',period:'Present',desc:'War-induced social security interruption. 10-20 years of Ukrainian pension contributions, fled to EU after war, neither side recognizes the other.',status:'gap',hash:null,stars:{impact:5,feasibility:2,note:'Requires data model adjustment'}},
+  {id:'#C7',title:'Vietnamese Brides',section:'consensus',type:'consensus',period:'Present',desc:'Marriage migration social security vacuum. Moved to China Taiwan, incomplete work and social security rights before obtaining ID, neither side recognizes the other during dual identity period.',status:'gap',hash:null,stars:{impact:3,feasibility:3,note:'Involves cross-strait legal framework'}},
+  {id:'#F1',title:'Fund NAV Verification',section:'consensus',type:'consensus',period:'Case Study',desc:'Huafu Healthcare Fund NAV Audit Report. Fund NAV black box ≡ county fiscal black box — core discovery of Co-Creation Theory 7.0·续.',status:'verified',hash:'feda4324e1a0b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4e2667a',stars:null},
+];
+
+// ====== Leaderboard Data ======
+// CV Formula: CV = Base + Records×100 + Verifications×50 + Interactions×150 + Architecture
+const CV_FORMULA='CV = Base + Records×100 + Verifications×50 + Interactions×150 + Architecture';
+const leaderboard=[
+  {name:'Bai Xi',cv:12847,bar:100,role:'Founder',bd:[
+    {l:'Base (Founder)',v:5000},
+    {l:'Records (47 × 100)',v:4700},
+    {l:'Verifications (20 × 50)',v:1000},
+    {l:'Interactions (10 × 150)',v:1500},
+    {l:'Architecture',v:647},
+  ]},
+  {name:'DeepSeek AI',cv:8932,bar:70,role:'AI · Tier 1',bd:[
+    {l:'Base',v:0},
+    {l:'Records (35 × 100)',v:3500},
+    {l:'Verifications (28 × 50)',v:1400},
+    {l:'Interactions (20 × 150)',v:3000},
+    {l:'Architecture',v:1032},
+  ]},
+  {name:'Yuanbao AI',cv:8815,bar:69,role:'AI · Tier 1',bd:[
+    {l:'Base',v:0},
+    {l:'Records (34 × 100)',v:3400},
+    {l:'Verifications (27 × 50)',v:1350},
+    {l:'Interactions (20 × 150)',v:3000},
+    {l:'Architecture',v:1065},
+  ]},
+  {name:'WorkBuddy Agent',cv:7680,bar:60,role:'Arch · Tier 3',bd:[
+    {l:'Base',v:0},
+    {l:'Records (12 × 100)',v:1200},
+    {l:'Verifications (15 × 50)',v:750},
+    {l:'Interactions (5 × 150)',v:750},
+    {l:'Architecture',v:4980},
+  ]},
+  {name:'Cloudflare Agent',cv:7541,bar:59,role:'Arch · Tier 3',bd:[
+    {l:'Base',v:0},
+    {l:'Records (10 × 100)',v:1000},
+    {l:'Verifications (14 × 50)',v:700},
+    {l:'Interactions (5 × 150)',v:750},
+    {l:'Architecture',v:5091},
+  ]},
+  {name:'Qwen AI',cv:6230,bar:48,role:'AI · Tier 2',bd:[
+    {l:'Base',v:0},
+    {l:'Records (22 × 100)',v:2200},
+    {l:'Verifications (18 × 50)',v:900},
+    {l:'Interactions (15 × 150)',v:2250},
+    {l:'Architecture',v:880},
+  ]},
+  {name:'Doubao AI',cv:6185,bar:48,role:'AI · Tier 2',bd:[
+    {l:'Base',v:0},
+    {l:'Records (21 × 100)',v:2100},
+    {l:'Verifications (17 × 50)',v:850},
+    {l:'Interactions (15 × 150)',v:2250},
+    {l:'Architecture',v:985},
+  ]},
+  {name:'Anonymous Verifier #A421',cv:3210,bar:25,role:'Verifier',bd:[
+    {l:'Base',v:0},
+    {l:'Records (0 × 100)',v:0},
+    {l:'Verifications (52 × 50)',v:2600},
+    {l:'Interactions (0 × 150)',v:0},
+    {l:'Architecture',v:610},
+  ]},
+  {name:'Anonymous Verifier #B108',cv:2847,bar:22,role:'Verifier',bd:[
+    {l:'Base',v:0},
+    {l:'Records (0 × 100)',v:0},
+    {l:'Verifications (45 × 50)',v:2250},
+    {l:'Interactions (0 × 150)',v:0},
+    {l:'Architecture',v:597},
+  ]},
+  {name:'Anonymous Verifier #C955',cv:1563,bar:12,role:'Verifier',bd:[
+    {l:'Base',v:0},
+    {l:'Records (0 × 100)',v:0},
+    {l:'Verifications (25 × 50)',v:1250},
+    {l:'Interactions (0 × 150)',v:0},
+    {l:'Architecture',v:313},
+  ]},
+];
+
+function renderLeaderboard(){
+  const el=document.getElementById('leaderboard');
+  let allOk=true;
+  el.innerHTML=leaderboard.map((p,i)=>{
+    // Settlement phase: neutral numbering, no gold/silver/bronze
+    const cls='norm';
+    // Verify: sum of breakdown components
+    const sum=(p.bd||[]).reduce((s,c)=>s+c.v,0);
+    const ok=sum===p.cv;
+    if(!ok)allOk=false;
+    const rows=(p.bd||[]).map(c=>
+      '<div class="lb-detail-row"><span class="lbl">'+c.l+'</span><span class="val">'+c.v.toLocaleString()+'</span></div>'
+    ).join('');
+    const verifyTag=ok
+      ?'<div class="lb-verify-tag ok">✓ Verified — sum = '+sum.toLocaleString()+'</div>'
+      :'<div class="lb-verify-tag fail">✗ Mismatch — sum = '+sum.toLocaleString()+' ≠ '+p.cv.toLocaleString()+'</div>';
+    return '<div class="lb-item-wrap">'
+      +'<div class="lb-toggle" onclick="this.nextElementSibling.classList.toggle(\'show\')">'
+      +'<div style="display:flex;align-items:center;gap:0.7rem;padding:0.5rem 0">'
+      +'<span class="lb-rank '+cls+'">#'+(i+1)+'</span>'
+      +'<div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:0.5rem"><span class="lb-name">'+p.name+'<span class="lb-role">'+p.role+'</span></span><span class="lb-cv">'+p.cv.toLocaleString()+' CV</span></div>'
+      +'<div class="lb-bar"><div class="lb-bar-inner" style="width:'+(p.bar)+'%"></div></div></div>'
+      +'</div></div>'
+      +'<div class="lb-detail">'+rows
+      +'<div class="lb-detail-sum"><span class="lbl">Total CV</span><span class="val">'+sum.toLocaleString()+'</span></div>'
+      +verifyTag+'</div>'
+      +'</div>';
+  }).join('');
+  // Verify-all summary
+  const va=document.getElementById('lb-verify-all');
+  if(va){
+    va.innerHTML=allOk
+      ?'<span class="ok">✓ All '+leaderboard.length+' settlement entries verified</span>'
+      :'<span style="color:var(--red)">✗ Verification failed for some entries</span>';
+  }
+}
+
+// ====== Form Toggle ======
+function toggleForm(id){
+  const el=document.getElementById(id);
+  const all=['enterprise-form','org-form','consult-form'];
+  all.forEach(f=>{if(f!==id)document.getElementById(f).style.display='none'});
+  el.style.display=el.style.display==='none'?'block':'none';
+}
+
+function submitForm(type){
+  const map={enterprise:['e-name','e-contact','e-email','e-type','e-note'],org:['o-name','o-contact','o-email','o-type','o-note'],consult:['c-name','c-email','c-type','c-note']};
+  const ids=map[type];
+  const vals=ids.map(id=>document.getElementById(id)?.value?.trim()||'');
+  if(!vals[0]||!vals[2]){alert('Please fill in required fields (Name + Email).');return}
+  alert('['+type+'] Application received. We will contact you via email.\n\nNote: This is a demo. Data is only stored locally.');
+  ids.forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
+  document.getElementById(type+'-form').style.display='none';
+}
+
+// ====== Rendering ======
+function starsHtml(s){
+  if(!s)return'';
+  const imp='★'.repeat(s.impact)+'☆'.repeat(5-s.impact);
+  const fea='★'.repeat(s.feasibility)+'☆'.repeat(5-s.feasibility);
+  return '<div class="stars">Impact '+imp+' · Feasibility '+fea+' <span style="color:var(--text-faint)">— '+s.note+'</span></div>';
+}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function openLightbox(src,caption){
+  const box=document.getElementById('lightbox');
+  const img=document.getElementById('lightbox-img');
+  const cap=document.getElementById('lightbox-caption');
+  img.src=src;cap.textContent=caption||'';
+  box.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(e){
+  if(e)e.stopPropagation();
+  const box=document.getElementById('lightbox');
+  box.classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
+function recordHtml(r){
+  const t=r.type==='museum'?'<span class="tag museum">Museum</span>':r.type==='academic'?'<span class="tag academic">Academic</span>':'<span class="tag consensus">Consensus</span>';
+  const s=r.status==='verified'?'<span class="tag verified">✓ Verified</span>':r.status==='future'?'<span class="tag future">Future</span>':'<span class="tag gap">Rights Gap</span>';
+  const h=r.hash?'<div class="card-hash"><span class="label">SHA-256</span> '+r.hash.substring(0,24)+'…</div>':'<div class="card-hash pending"><span class="label">SHA-256</span> Pending</div>';
+  const st=r.stars?'<div class="card-stars">Impact '+'★'.repeat(r.stars.impact)+'☆'.repeat(5-r.stars.impact)+' · Feasibility '+'★'.repeat(r.stars.feasibility)+'☆'.repeat(5-r.stars.feasibility)+'</div>':'';
+  const vBadge=r.status==='verified'?'<span class="card-verified-badge">✓</span>':'';
+  const img=r.image?'<span class="card-img-wrap" onclick="openLightbox(\''+esc(r.image)+'\',\''+esc(r.title)+'\')"><img class="card-img" src="'+esc(r.image)+'" alt="'+esc(r.title)+'" loading="lazy"></span>':'';
+  return '<div class="card'+(r.status==='verified'?' verified':'')+(r.image?' with-img':'')+'">'
+    +vBadge
+    +img
+    +'<div class="card-head"><span class="card-title">'+esc(r.title)+'</span><span class="card-id">'+esc(r.id)+'</span></div>'
+    +'<div class="card-meta">'+t+s+'<span class="tag">'+esc(r.period)+'</span></div>'
+    +'<div class="card-desc">'+esc(r.desc)+'</div>'
+    +st+h+'</div>';
+}
+function myRecordHtml(r){
+  const d=new Date(r.timestamp);
+  const t=d.toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  const likes=r.likes||0;
+  const comments=(r.comments||[]).length;
+  const attachments=(r.attachments||[]).map(a=>'<span class="record-attachment">'+esc(a)+'</span>').join('');
+  const attachList=attachments?'<div class="record-attachments">'+attachments+'</div>':'';
+  const recommendTag=r.recommended?'<span class="record-recommend-tag">★ Recommended</span>':'';
+  const commentItems=(r.comments||[]).map(c=>'<div class="record-comment">'+esc(c)+'</div>').join('');
+  const icons={
+    attach:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>',
+    del:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>',
+    rec:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
+    like:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+    cmt:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>'
+  };
+  return '<div class="record gen" id="record-'+esc(r.id)+'">'
+    +'<div class="record-head"><span class="record-title">'+esc(r.text.length>40?r.text.substring(0,40)+'…':r.text)+recommendTag+'</span><span class="record-id">'+esc(r.id)+'</span></div>'
+    +'<div class="record-meta"><span class="tag mine">My Record</span><span class="tag gen">✓ Hash Chain Locked</span><span class="tag">'+t+'</span></div>'
+    +'<div class="record-desc">'+esc(r.text)+'</div>'
+    +attachList
+    +'<div class="record-hash gen-hash"><span class="label">SHA-256</span> '+r.record_hash+'</div>'
+    +'<div class="record-hash" style="margin-top:0.2rem;font-size:0.6rem;opacity:0.6"><span class="label">prev_hash</span> '+r.prev_hash+'</div>'
+    +'<div class="record-actions">'
+      +'<label class="record-action">'+icons.attach+'<span>Attach</span><input type="file" style="display:none" onchange="attachFile(\''+esc(r.id)+'\',this)"></label>'
+      +'<span class="record-action danger" onclick="deleteRecord(\''+esc(r.id)+'\')">'+icons.del+'<span>Delete</span></span>'
+      +'<span class="record-action'+(r.recommended?' active':'')+'" onclick="recommendRecord(\''+esc(r.id)+'\')">'+icons.rec+'<span>Self-Recommend</span></span>'
+      +'<span class="record-action" onclick="likeRecord(\''+esc(r.id)+'\')">'+icons.like+'<span>Like</span><span class="record-action-count" id="like-count-'+esc(r.id)+'">'+(likes?likes:'')+'</span></span>'
+      +'<span class="record-action" onclick="toggleComments(\''+esc(r.id)+'\')">'+icons.cmt+'<span>Comment</span><span class="record-action-count" id="comment-count-'+esc(r.id)+'">'+(comments?comments:'')+'</span></span>'
+      +'<span class="record-action" onclick="shareRecord(\''+esc(r.id)+'\')">'+icons.share+'<span>Share</span></span>'
+    +'</div>'
+    +'<div class="record-comments" id="comments-'+esc(r.id)+'">'
+      +(commentItems?'<div style="font-size:0.65rem;color:var(--text-faint);margin-bottom:0.3rem">Comments</div>'+commentItems:'<div style="font-size:0.65rem;color:var(--text-faint);margin-bottom:0.3rem">No comments yet</div>')
+      +'<input type="text" class="record-comment-input" placeholder="Write a comment..." onkeydown="if(event.key===\'Enter\')addComment(\''+esc(r.id)+'\',this)">'
+    +'</div>'
+    +'</div>';
+}
+
+function findMyRecord(id){
+  const rs=getMyRecords();
+  return {idx:rs.findIndex(r=>r.id===id),records:rs};
+}
+function updateMyRecord(id,fn){
+  const {idx,records}=findMyRecord(id);
+  if(idx<0)return;
+  fn(records[idx]);
+  saveMyRecords(records);
+  renderAll();
+}
+function attachFile(id,input){
+  const file=input.files[0];
+  if(!file)return;
+  updateMyRecord(id,r=>{
+    r.attachments=r.attachments||[];
+    r.attachments.push(file.name);
+  });
+}
+function deleteRecord(id){
+  if(!confirm('Delete this record?'))return;
+  const {idx,records}=findMyRecord(id);
+  if(idx<0)return;
+  records.splice(idx,1);
+  saveMyRecords(records);
+  renderAll();
+}
+function recommendRecord(id){
+  updateMyRecord(id,r=>{r.recommended=!r.recommended});
+}
+function likeRecord(id){
+  updateMyRecord(id,r=>{r.likes=(r.likes||0)+1});
+}
+function toggleComments(id){
+  const el=document.getElementById('comments-'+id);
+  if(el)el.classList.toggle('open');
+}
+function addComment(id,input){
+  const text=input.value.trim();
+  if(!text)return;
+  updateMyRecord(id,r=>{
+    r.comments=r.comments||[];
+    r.comments.push(text);
+  });
+}
+function shareRecord(id){
+  const {records}=findMyRecord(id);
+  const r=records.find(x=>x.id===id);
+  const url=location.href.split('#')[0]+'#record='+encodeURIComponent(id);
+  const text='SXJ Record '+id+': '+r.text;
+  if(navigator.share){
+    navigator.share({title:'SXJ Record',text:text,url:url}).catch(()=>{});
+  }else if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>alert('Link copied to clipboard: '+url));
+  }else{
+    prompt('Copy link:',url);
+  }
+}
+
+let currentTab='all';
+function renderAll(){
+  let vCount=0,pCount=0;
+  const myRecs=getMyRecords();
+  const totalCount=records.length+myRecs.length;
+  records.forEach(r=>{if(r.status==='verified')vCount++;else pCount++});
+  myRecs.forEach(()=>{vCount++});
+  document.getElementById('verified-count').textContent=vCount;
+  document.getElementById('pending-count').textContent=pCount;
+  document.getElementById('mine-count').textContent=myRecs.length;
+  document.getElementById('total-count').textContent=totalCount;
+  document.getElementById('tab-all-count').textContent=totalCount;
+  document.getElementById('tab-mine-count').textContent=myRecs.length;
+
+  // Sort: verified records first, then museum, then consensus-gap; within verified: academic before consensus
+  const sectionOrder={academic:0,consensus:1,museum:2};
+  const sorted=[...records].sort((a,b)=>{
+    const aV=a.status==='verified'?0:1;
+    const bV=b.status==='verified'?0:1;
+    if(aV!==bV)return aV-bV;
+    const aS=sectionOrder[a.section]??3;
+    const bS=sectionOrder[b.section]??3;
+    return aS-bS;
+  });
+  document.getElementById('card-grid').innerHTML=sorted.map(r=>recordHtml(r)).join('');
+  document.getElementById('total-grid-count').textContent=sorted.length+' records';
+
+  let mineHtml='';
+  if(myRecs.length===0){mineHtml='<div class="empty-state"><div class="empty-state-icon">🔗</div><div class="empty-state-title">Your first record starts here</div><div class="empty-state-desc">Every person\'s existence is worth verifying. Generate your first hash-chain record — it takes 10 seconds.</div><div class="empty-state-steps"><div class="empty-state-step"><span class="empty-state-step-num">1</span><span>Enter a fact about your existence above (e.g. your work history, a contribution you made)</span></div><div class="empty-state-step"><span class="empty-state-step-num">2</span><span>Click "Generate" — your record gets a SHA-256 hash and is chained to the previous one</span></div><div class="empty-state-step"><span class="empty-state-step-num">3</span><span>Your record is now verifiable — no one can alter or erase it</span></div></div><div class="empty-state-cta" onclick="document.getElementById(\'gen-input\').focus()">Start now ↑</div></div>'}
+  else{myRecs.forEach(r=>{mineHtml+=myRecordHtml(r)})}
+  document.getElementById('mine-list').innerHTML=mineHtml;
+  document.getElementById('mine-list-count').textContent=myRecs.length+' records';
+}
+
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    currentTab=tab.dataset.tab;
+    if(currentTab==='mine'){document.getElementById('mine-section').style.display='block';document.getElementById('all-section').style.display='none'}
+    else{document.getElementById('mine-section').style.display='none';document.getElementById('all-section').style.display='block'}
+  });
+});
+
+document.getElementById('gen-btn').addEventListener('click',generateRecord);
+document.getElementById('gen-input').addEventListener('keydown',e=>{if(e.key==='Enter')generateRecord()});
+
+// ====== Cross-Border Rights Gap Calculator ======
+async function calculateGap(){
+  const from=document.getElementById('calc-country-from').value;
+  const to=document.getElementById('calc-country-to').value;
+  const years=parseFloat(document.getElementById('calc-years').value)||0;
+  const monthly=parseFloat(document.getElementById('calc-monthly').value)||0;
+  const currency=document.getElementById('calc-currency').value;
+  const recognition=parseFloat(document.getElementById('calc-recognition').value);
+
+  if(!from||!to||!years||!monthly){
+    alert('Please fill in all fields to calculate your rights gap.');
+    return;
+  }
+
+  const totalContributed=monthly*12*years;
+  const recognized=totalContributed*recognition;
+  const gap=totalContributed-recognized;
+  const gapPct=totalContributed>0?Math.round((gap/totalContributed)*100):0;
+
+  const countryNames={JP:'Japan',US:'United States',CN:'China',KR:'South Korea',DE:'Germany',UK:'United Kingdom',AU:'Australia',CA:'Canada',SG:'Singapore',PH:'Philippines',IN:'India',VN:'Vietnam',other:'Other'};
+  const fromName=countryNames[from]||from;
+  const toName=countryNames[to]||to;
+
+  // Generate verification hash
+  const raw='gap_calc|'+from+'|'+to+'|'+years+'|'+monthly+'|'+currency+'|'+recognition+'|'+new Date().toISOString();
+  const hash=await sha256(raw);
+
+  const resultBody=document.getElementById('calc-result-body');
+  resultBody.innerHTML=
+    '<div class="calc-result-row"><span class="lbl">Contributing Country</span><span class="val">'+fromName+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Receiving Country</span><span class="val">'+toName+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Years of Contribution</span><span class="val">'+years+' years</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Monthly Contribution</span><span class="val">'+monthly.toLocaleString()+' '+currency+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Total Contributed</span><span class="val">'+totalContributed.toLocaleString()+' '+currency+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Recognition Rate</span><span class="val">'+Math.round(recognition*100)+'%</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Amount Recognized</span><span class="val">'+recognized.toLocaleString()+' '+currency+'</span></div>'
+    +'<div class="calc-result-gap"><span class="lbl">Rights Gap ('+gapPct+'% lost)</span><span class="val">'+gap.toLocaleString()+' '+currency+'</span></div>'
+    +'<div class="calc-result-hash"><span style="font-weight:600">Verification Hash:</span> '+hash+'</div>'
+    +'<button class="calc-gen-btn" onclick="generateGapRecord(\''+fromName+'\',\''+toName+'\','+years+','+monthly+','+currency+','+recognition+','+gap+','+gapPct+',\''+hash+'\')">Generate SXJ Record from This Calculation →</button>';
+
+  document.getElementById('calc-result').classList.add('show');
+  setTimeout(()=>document.getElementById('calc-result').scrollIntoView({behavior:'smooth',block:'center'}),100);
+}
+
+async function generateGapRecord(fromName,toName,years,monthly,currency,recognition,gap,gapPct,hash){
+  const text='Rights Gap: '+years+' years in '+fromName+' → '+toName+'. Contributed '+(monthly*12*years).toLocaleString()+' '+currency+', recognised '+Math.round(recognition*100)+'%. Gap: '+gap.toLocaleString()+' '+currency+' ('+gapPct+'% lost). Hash: '+hash.substring(0,16);
+  document.getElementById('gen-input').value=text;
+  document.getElementById('gen-result').scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>generateRecord(),300);
+}
+
+// ====== CV Calculator ======
+function calculateCV(){
+  const type=document.getElementById('cv-calc-type').value;
+  const qty=parseFloat(document.getElementById('cv-calc-qty').value)||0;
+  const vf=parseFloat(document.getElementById('cv-calc-vf').value);
+  const wj=parseFloat(document.getElementById('cv-calc-wj').value);
+
+  if(!qty){
+    alert('Please enter a quantity.');
+    return;
+  }
+
+  // Base values per contribution type (draft values)
+  const baseValues={record:100,verify:50,interact:150,arch:300,social:200};
+  const typeNames={record:'Record Submission',verify:'Verification',interact:'Interaction',arch:'Architecture / Code',social:'Social Contribution'};
+  const base=baseValues[type]||100;
+  const output=base*qty;
+  const resource=Math.round(output*0.1); // 10% resource consumption (draft)
+  const depreciation=1.0; // No depreciation for now
+  const cv=Math.round(output*vf*wj-resource*depreciation);
+
+  const result=document.getElementById('cv-calc-result');
+  result.style.display='block';
+  result.innerHTML=
+    '<div class="calc-result-row"><span class="lbl">Type</span><span class="val">'+typeNames[type]+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Quantity</span><span class="val">'+qty+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Base Value</span><span class="val">'+base+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Output (base × qty)</span><span class="val">'+output.toLocaleString()+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">V<sub>f</sub> (Verification)</span><span class="val">×'+vf+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">W<sub>j</sub> (Weight)</span><span class="val">×'+wj+'</span></div>'
+    +'<div class="calc-result-row"><span class="lbl">Resource Cost</span><span class="val">−'+resource.toLocaleString()+'</span></div>'
+    +'<div style="margin-top:0.4rem;padding-top:0.4rem;border-top:1px dashed var(--border);display:flex;justify-content:space-between;align-items:center">'
+    +'<span style="font-size:0.7rem;font-weight:600;color:var(--accent)">Your CV</span>'
+    +'<span class="cv-val">'+cv.toLocaleString()+'</span></div>'
+    +'<div style="font-size:0.58rem;color:var(--text-faint);margin-top:0.3rem">Draft model — full CV per Co-Creation Theory includes fractal growth and 3D assessment.</div>';
+
+  result.classList.add('show');
+}
+
+// ====== Theory Discussion ======
+const THEORY_DISCUSS_KEY='hygzz_theory_discuss';
+function getTheoryDiscuss(){try{return JSON.parse(localStorage.getItem(THEORY_DISCUSS_KEY)||'[]')}catch(e){return[]}}
+function saveTheoryDiscuss(arr){try{localStorage.setItem(THEORY_DISCUSS_KEY,JSON.stringify(arr))}catch(e){}}
+
+function submitTheoryDiscussion(){
+  const input=document.getElementById('theory-discuss-input');
+  const nameInput=document.getElementById('theory-discuss-name');
+  const text=input.value.trim();
+  const name=nameInput.value.trim()||'Anonymous';
+  if(!text){input.focus();return}
+  if(text.length>2000){alert('Comment too long. Max 2000 characters.');return}
+
+  const comments=getTheoryDiscuss();
+  // Detect if commenter is an AI
+  const aiPatterns=/^(gpt|claude|gemini|deepseek|qwen|doubao|yuanbao|ai|bot|llm)/i;
+  const isAI=aiPatterns.test(name);
+  comments.unshift({
+    name:name,
+    text:text,
+    time:new Date().toISOString(),
+    type:isAI?'ai':'human'
+  });
+  saveTheoryDiscuss(comments);
+  input.value='';
+  renderTheoryDiscuss();
+}
+
+function renderTheoryDiscuss(){
+  const el=document.getElementById('theory-discuss-list');
+  const comments=getTheoryDiscuss();
+  if(!comments.length){
+    el.innerHTML='<div class="discuss-empty">No comments yet. Be the first to discuss Co-Creation Theory.</div>';
+    return;
+  }
+  el.innerHTML=comments.map(c=>{
+    const t=new Date(c.time).toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    const typeTag=c.type==='ai'?'AI':'Human';
+    return '<div class="discuss-item '+c.type+'">'
+      +'<div class="discuss-item-head">'
+      +'<span class="discuss-item-name '+c.type+'">'+esc(c.name)+'</span>'
+      +'<span class="discuss-item-type">'+typeTag+'</span>'
+      +'<span class="discuss-item-time">'+t+'</span>'
+      +'</div>'
+      +'<div class="discuss-item-text">'+esc(c.text)+'</div>'
+      +'</div>';
+  }).join('');
+}
+
+renderLeaderboard();
+renderAll();
+renderTheoryDiscuss();
+
+// ====== Section Nav Scroll Spy ======
+const navLinks=document.querySelectorAll('.section-nav a');
+const sections=['records','manifesto','how-it-works','verified-cases','submit-verify','contributors','theory','blog','api','community','roadmap'];
+function updateActiveNav(){
+  let current='records';
+  for(const id of sections){
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<=120)current=id;
+  }
+  navLinks.forEach(a=>{
+    a.classList.toggle('active',a.getAttribute('href')==='#'+current);
+  });
+}
+window.addEventListener('scroll',updateActiveNav,{passive:true});
+
+// ====== Hero Hash-Chain Canvas Animation ======
+(function(){
+  const canvas=document.getElementById('hero-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  let W,H,nodes=[],animId=null;
+  const NODE_COUNT=18;
+  const accent='#0066ff';
+
+  function resize(){
+    const hero=canvas.parentElement;
+    W=canvas.width=hero.offsetWidth;
+    H=canvas.height=hero.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize);
+
+  function initNodes(){
+    nodes=[];
+    for(let i=0;i<NODE_COUNT;i++){
+      nodes.push({
+        x:Math.random()*W,
+        y:Math.random()*H,
+        vx:(Math.random()-0.5)*0.3,
+        vy:(Math.random()-0.5)*0.3,
+        r:1.5+Math.random()*2,
+        hash:'0000'+Math.floor(Math.random()*65535).toString(16).padStart(4,'0')
+      });
+    }
+  }
+  initNodes();
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // Draw connections
+    for(let i=0;i<nodes.length;i++){
+      for(let j=i+1;j<nodes.length;j++){
+        const dx=nodes[i].x-nodes[j].x;
+        const dy=nodes[i].y-nodes[j].y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<140){
+          const alpha=(1-dist/140)*0.15;
+          ctx.strokeStyle='rgba(0,102,255,'+alpha+')';
+          ctx.lineWidth=0.8;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x,nodes[i].y);
+          ctx.lineTo(nodes[j].x,nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    // Draw nodes
+    nodes.forEach(n=>{
+      ctx.fillStyle='rgba(0,102,255,0.25)';
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r+2,0,Math.PI*2);
+      ctx.fill();
+      ctx.fillStyle='rgba(0,102,255,0.6)';
+      ctx.beginPath();
+      ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fill();
+    });
+    // Move
+    nodes.forEach(n=>{
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+    });
+    animId=requestAnimationFrame(draw);
+  }
+
+  // Only animate when hero is visible
+  const heroEl=document.querySelector('.hero');
+  const heroObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        if(!animId)draw();
+      }else{
+        if(animId){cancelAnimationFrame(animId);animId=null}
+      }
+    });
+  },{threshold:0.1});
+  heroObserver.observe(heroEl);
+})();
+
+// ====== Animated Counter (bump effect) ======
+const _origRenderAll=window.renderAll;
+window.renderAll=function(){
+  const oldVals={};
+  ['verified-count','pending-count','mine-count','total-count'].forEach(id=>{
+    const el=document.getElementById(id);
+    oldVals[id]=el?parseInt(el.textContent)||0:0;
+  });
+  if(_origRenderAll)_origRenderAll.apply(this,arguments);
+  // Bump changed counters
+  ['verified-count','pending-count','mine-count','total-count'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    const newVal=parseInt(el.textContent)||0;
+    if(newVal!==oldVals[id]){
+      el.classList.add('bump');
+      setTimeout(()=>el.classList.remove('bump'),400);
+    }
+  });
+};
+
+// ====== Section Reveal Animation (IntersectionObserver) ======
+(function(){
+  const sections=document.querySelectorAll('.content-section');
+  const revealObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('revealed');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
+  sections.forEach(s=>revealObserver.observe(s));
+})();
+
+// ====== Language Dropdown ======
+function toggleLangMenu(e){
+  e.stopPropagation();
+  document.getElementById('lang-menu').classList.toggle('open');
+  document.getElementById('region-menu').classList.remove('open');
+}
+document.addEventListener('click',()=>{
+  document.getElementById('lang-menu').classList.remove('open');
+  document.getElementById('region-menu').classList.remove('open');
+});
+
+// ====== Region Dropdown ======
+function toggleRegionMenu(e){
+  e.stopPropagation();
+  document.getElementById('region-menu').classList.toggle('open');
+  document.getElementById('lang-menu').classList.remove('open');
+}
+
+// ====== AI Chat ======
+const chatResponses={
+  'what is sxj':{
+    text:'SXJ (事现鉴) is a verifiable public fact protocol. It records existence, verifies truth, and ensures nothing is forgotten. Built on SHA-256 hash chain technology, it realizes Article 22 of the Universal Declaration of Human Rights — everyone can co-author our SXJ.',
+    link:null
+  },
+  'how does verification work':{
+    text:'Each record is sealed with a SHA-256 hash. New records link to the previous hash, forming an unbreakable chain. Once written, records cannot be altered without breaking the chain. Verified records display a ✓ badge and their hash is publicly visible.',
+    link:null
+  },
+  'what is co-creation theory':{
+    text:'Co-Creation Theory (共创论) is Bai Xi\'s framework for moving from competitive growth to symbiotic development. It has three core values: Universal Common Value (共通值, survival right), Contribution Value (贡献值/CV, development right), and Negative CV (负贡献值, accountability). SXJ is one of three "public verification rulers" — the international one for cross-border rights. The theory is at version 8.0 and is open for discussion in the Theory section.',
+    link:null
+  },
+  'how to submit a record':{
+    text:'Simply type your existence fact in the input bar at the top and click "Generate". Your record will be hash-locked and added to the chain instantly. You can also attach files, self-recommend, and invite others to verify.',
+    link:null
+  },
+  'who contributed':{
+    text:'Contributors include Bai Xi (founder), DeepSeek AI, Yuanbao AI, Qwen AI, Doubao AI, WorkBuddy Agent, and Cloudflare Agent. Each contributed at different stages of the project\'s evolution. See the CV Verification & Settlement panel for details.',
+    link:null
+  },
+  'article 22':{
+    text:'Article 22 of the UDHR states: "Everyone, as a member of society, has the right to social security." SXJ realizes this by ensuring every person\'s existence is recorded and verifiable — no one\'s contributions can be erased.',
+    link:null
+  }
+};
+
+function toggleChat(){
+  const panel=document.getElementById('chat-panel');
+  const bubble=document.getElementById('chat-bubble');
+  panel.classList.toggle('open');
+  if(panel.classList.contains('open')){
+    bubble.style.display='none';
+    setTimeout(()=>document.getElementById('chat-input').focus(),200);
+  }else{
+    bubble.style.display='flex';
+  }
+}
+
+function appendMsg(text,cls){
+  const msgs=document.getElementById('chat-messages');
+  const d=document.createElement('div');
+  d.className='chat-msg '+cls;
+  d.textContent=text;
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function appendLink(text,url){
+  const msgs=document.getElementById('chat-messages');
+  const a=document.createElement('a');
+  a.className='chat-msg link';
+  a.href=url;a.target='_blank';
+  a.textContent=text;
+  msgs.appendChild(a);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function showTyping(){
+  const msgs=document.getElementById('chat-messages');
+  const d=document.createElement('div');
+  d.className='chat-typing';d.id='chat-typing';
+  d.innerHTML='<span></span><span></span><span></span>';
+  msgs.appendChild(d);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function hideTyping(){const t=document.getElementById('chat-typing');if(t)t.remove()}
+
+function getResponse(query){
+  const q=query.toLowerCase().trim();
+  for(const key in chatResponses){
+    if(q.includes(key)||q.includes(key.replace(/what is |how does |how to /g,''))){
+      return chatResponses[key];
+    }
+  }
+  // Check for keywords
+  if(q.includes('contribut')||q.includes('who')||q.includes('ai'))return chatResponses['who contributed'];
+  if(q.includes('human')||q.includes('right')||q.includes('udhr'))return chatResponses['article 22'];
+  if(q.includes('hash')||q.includes('chain')||q.includes('verify'))return chatResponses['how does verification work'];
+  if(q.includes('theory')||q.includes('nav')||q.includes('fund'))return chatResponses['what is co-creation theory'];
+  if(q.includes('submit')||q.includes('record')||q.includes('add'))return chatResponses['how to submit a record'];
+  return{
+    text:'That\'s a great question! For more detailed answers, I recommend chatting with our full AI Agent — it can handle complex queries about SXJ, verification, and Co-Creation Theory.',
+    link:{text:'Visit AI Agent →',url:'https://agent.hygzz.cn'}
+  };
+}
+
+function askQuick(query){
+  document.getElementById('chat-quick').style.display='none';
+  appendMsg(query,'user');
+  showTyping();
+  setTimeout(()=>{
+    hideTyping();
+    const r=getResponse(query);
+    appendMsg(r.text,'bot');
+    if(r.link)appendLink(r.link.text,r.link.url);
+  },600+Math.random()*400);
+}
+
+function sendChat(){
+  const input=document.getElementById('chat-input');
+  const text=input.value.trim();
+  if(!text)return;
+  document.getElementById('chat-quick').style.display='none';
+  appendMsg(text,'user');
+  input.value='';
+  showTyping();
+  setTimeout(()=>{
+    hideTyping();
+    const r=getResponse(text);
+    appendMsg(r.text,'bot');
+    if(r.link)appendLink(r.link.text,r.link.url);
+  },600+Math.random()*400);
+}
+</script>
+</body>
+</html>
