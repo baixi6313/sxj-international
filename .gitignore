@@ -1,0 +1,16 @@
+# 构建产物 / 依赖
+wrangler-tmp/
+whitepaper-dist/
+npm_tmp/
+
+# 日志
+*.log
+
+# 本地缓存
+.wrangler/
+
+# 记忆目录(不入库)
+.workbuddy/
+
+# 微信小程序上传私钥(敏感凭证)
+sxj-mini/weapp/private.wx22ec573cb69acc7a.key

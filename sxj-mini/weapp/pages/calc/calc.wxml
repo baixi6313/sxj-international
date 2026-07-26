@@ -1,0 +1,26 @@
+<!-- 算一笔账 -->
+<view class="pill">300元/日食 · 共通值其实很便宜</view>
+
+<view class="card">
+  <view class="card-h3">算一笔账：一个人的"现金共通值"</view>
+  <view class="muted">按最宽裕的食标，一个人一年的现金共通值约为：</view>
+  <view class="calc-item"><text class="ci-label">食（300元/天）</text><text class="ci-num">109,500<text style="font-size:22rpx;font-weight:600;color:#6b6b7b"> 元/年</text></text></view>
+  <view class="calc-item"><text class="ci-label">衣</text><text class="ci-num">5,000–10,000<text style="font-size:22rpx;font-weight:600;color:#6b6b7b"> 元/年</text></text></view>
+  <view class="calc-item"><text class="ci-label">行（基础交通）</text><text class="ci-num">3,000–5,000<text style="font-size:22rpx;font-weight:600;color:#6b6b7b"> 元/年</text></text></view>
+  <view class="calc-item"><text class="ci-label">住 / 上学 / 医疗</text><text class="ci-num">≈0<text style="font-size:22rpx;font-weight:600;color:#6b6b7b"> 现金</text></text></view>
+  <view class="calc-total">现金共通值（最宽裕标准）≈ 12万元 / 人 / 年</view>
+</view>
+
+<view class="card">
+  <view class="card-h3">这个共通值，远未到不可负担</view>
+  <view class="p">对比：中国2023年人均 GDP 约 <text>8.9万元</text>，但那是"平均"不是"底线"。即便按最奢侈的食标，共通值也远未不可负担。</view>
+  <view class="p">而且当住 / 教 / 医作为<text>公共权利</text>提供，实际需现金转移的部分更小。</view>
+  <view class="muted">现在没人真能"每天消费300块"，不是因为没钱，而是因为消费系统找不到标的。</view>
+</view>
+
+<view class="closing">
+  <text class="big">共通值其实很便宜。</text>
+  丰裕时代本就具备的物质能力，用验证协议兑现出来——人人从下方达到它，而不是把顶部拽下来。
+</view>
+
+<view class="footer-note">共创论 · 共通值测算</view>

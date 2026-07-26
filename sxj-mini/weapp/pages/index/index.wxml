@@ -1,0 +1,46 @@
+<!-- 首页 -->
+<view class="hook">
+  <view class="hook-before">银行征信只看你能借多少钱</view>
+  <view class="hook-arrow">↓</view>
+  <view class="hook-after">事现鉴征信看你创造多少价值</view>
+  <view class="hook-sub">你创造的价值，最终会变成你享有的权益</view>
+</view>
+
+<view class="card">
+  <view class="card-h3">从稀缺到丰裕，锁死贫富的是债务</view>
+  <view class="p"><text>马克思的时代：</text>物质稀缺，核心矛盾是"生产不足"——东西不够分。</view>
+  <view class="p"><text>今天：</text>物质极丰裕、技术极高效，但<text>债务把贫富差距锁死</text>。矛盾转移了：不是生产不出来，而是分配被债务锁死。</view>
+  <view class="muted">事现鉴不解决"生产"，而是用验证重新定义"分配"。</view>
+</view>
+
+<view class="card">
+  <view class="card-h3">每个人都能变成"我"</view>
+  <view class="ym-grid">
+    <view class="ym-card ym-you">
+      <view class="ym-label">现在的你</view>
+      <text>工资被低估，剩余价值被拿走</text>
+      <text>信用 = 你能借多少钱</text>
+      <text>有钱也找不到值得消费的标的</text>
+      <text>差距看起来是"命"，其实是"没算清"</text>
+    </view>
+    <view class="ym-mid">
+      <view class="ym-circle">↔</view>
+      <text>双向验证</text>
+    </view>
+    <view class="ym-card ym-me">
+      <view class="ym-label">未来的你</view>
+      <text>每次贡献都被不可篡改地记录</text>
+      <text>权益 = 你创造的真实价值</text>
+      <text>衣食住行教医成为可验证共通值</text>
+      <text>每个人都能达到今天"我"的水平</text>
+    </view>
+  </view>
+  <view class="muted">不是因为谁更优秀，只是因为差距本可以被记录、被验证、被消除。</view>
+</view>
+
+<view class="closing">
+  <text class="big">目标不是把任何人拉下来，而是让每个人都能上来。</text>
+  当贡献被算清、权益被验证，今天的"我"就是明天的"你"。
+</view>
+
+<view class="footer-note">事现鉴 · 共创论 · 公共验算尺</view>

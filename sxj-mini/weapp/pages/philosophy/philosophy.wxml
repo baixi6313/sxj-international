@@ -1,0 +1,53 @@
+<!-- 哲学基础 -->
+<view class="pill">哲学地基 · 七命题定调</view>
+
+<view class="card">
+  <view class="card-h3">七命题，把共创论哲学地基钉死</view>
+  <view class="muted">纲 · 方法 · 路径 · 终局，环环相扣。与五大竞争对手的根本区别不在技术，而在哲学地基。</view>
+  <view class="compare">
+    <view class="c-box c-old"><text class="c-tag">马克思时代</text>物质稀缺，矛盾是生产不足</view>
+    <view class="c-box c-new"><text class="c-tag">今天</text>物质丰裕，但债务锁死分配</view>
+  </view>
+</view>
+
+<view class="prop">
+  <view class="p-no">①</view>
+  <view class="p-title">双向反射论</view>
+  <view class="p-body">共创论是世界人民<text>自下而上共同制定</text>的权利。数字世界达成统一后，反射回现实世界。与五大对手的根本区别：他们是<text>单向垄断</text>（我定规则你遵守），共创论是<text>双向协议</text>（规则由参与者共同验证形成）。</view>
+</view>
+
+<view class="prop">
+  <view class="p-no">②</view>
+  <view class="p-title">共通值先行</view>
+  <view class="p-body">可验证的起点<text>仅为共通值</text>——最基础的生存权。当保障基线的绝对水平超过<text>今日的中位数</text>生活水平时，强制就失去对象：天花板资源 + 中间大多数日常实践，自会把共通值顶上去。</view>
+</view>
+
+<view class="prop">
+  <view class="p-no">③</view>
+  <view class="p-title">记录本体论</view>
+  <view class="p-body"><text>不清算，只记录。</text>记录动态均衡给予与清算的关系。极端案例：资本与非资本极限值拉满后只能同涨同缩——金融数字空转，实际物质效率趋零，故清算不可行。Gzz 的代币化，是链接主权与债务、现实与数字的<text>枢纽</text>。</view>
+</view>
+
+<view class="prop">
+  <view class="p-no">⑤</view>
+  <view class="p-title">货币消亡论</view>
+  <view class="p-body">推到极致——<text>货币本身也会消失</text>。货币与外汇存在的唯一原因，是缺少统一度量单位。当 CV 净值成为统一度量，交换直接以净值进行。虚拟货币是单向数字化，事现鉴是<text>双向净值化</text>。</view>
+</view>
+
+<view class="prop">
+  <view class="p-no">⑥</view>
+  <view class="p-title">动态抵消论</view>
+  <view class="p-body">历史正义与未来公平<text>并不冲突</text>。机制是动态抵消，而非一次性清算。这无需自上而下的执行者——自下而上的协议约束，本身就让两者在账本上并行。</view>
+</view>
+
+<view class="prop key">
+  <view class="p-no">⑦</view>
+  <view class="p-title">使用效率本体论<text class="p-tag">纲</text></view>
+  <view class="p-body">不争<text>所有权</text>，只算<text>使用效率</text>。资本垄断与国家垄断，最终都要经过消费才能实现价值——而消费，就是自下而上的验证行为。所以真正的轴不是"归谁所有"，而是"<text>谁用得效率最高</text>"。</view>
+</view>
+
+<view class="card" style="background:#f7f7fb">
+  <view class="p" style="margin:0;font-size:26rpx;color:#3a3a4d"><text>命题四（中心化引力）被①⑦联手消解：</text>中心化的引力来源是<text>信息的单向性</text>；双向验证抽走了这个信息垄断。中心化不是被"推翻"，而是被"抽空"。</view>
+</view>
+
+<view class="footer-note">共创论 · 哲学地基</view>

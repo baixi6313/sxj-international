@@ -1,0 +1,34 @@
+<!-- 关于 -->
+<view class="card">
+  <view class="card-h3">事现鉴是什么</view>
+  <view class="p">现实世界与互联网世界的<text>双向验证机制</text>：</view>
+  <view style="text-align:center;font-weight:700;color:#c41e3a;font-size:26rpx;line-height:2.0;margin:14rpx 0">
+    现实行为 → SHA-256 → CV记录
+    ﹀
+    CV / SCA → 代偿债务 · 信用准入 · 跨境社保
+  </view>
+  <view class="muted">此前的验证都是单向或部分的；事现鉴完成闭环——验证回路闭合。</view>
+</view>
+
+<view class="card">
+  <view class="card-h3">终极目标</view>
+  <view class="ar-row"><view class="ar-ic">全</view><view class="ar-tx"><text style="font-weight:700;color:#1a1a2e">全球社会保障</text>（基于《世界人权宣言》第22条）。公共验算尺是工具，让各国用同一把尺子算各自的社保。</view></view>
+  <view class="ar-row"><view class="ar-ic">尺</view><view class="ar-tx"><text style="font-weight:700;color:#1a1a2e">三值体系：</text>共通值（生存权·共通值）/ 贡献值CV（发展权·发动机）/ 负贡献值（追责·天花板）。</view></view>
+  <view class="ar-row"><view class="ar-ic">阶</view><view class="ar-tx"><text style="font-weight:700;color:#1a1a2e">当前阶段：</text>规则先于开放，单机策划阶段。彬州试点仅为<text style="font-weight:700;color:#c41e3a">策划方案</text>，从未真正实施。</view></view>
+</view>
+
+<view class="card" style="background:#f7f7fb">
+  <view class="card-h3">延伸阅读</view>
+  <view class="p" style="margin:4rpx 0"><text style="font-weight:700">国内版</text> hygzz.cn —— 化债 / 征信 / 公共验算尺</view>
+  <view class="p" style="margin:4rpx 0"><text style="font-weight:700">国际版</text> hygzz.com —— 共通值 / 生存权 / 全球社保</view>
+  <view class="muted" style="margin:16rpx 0 0">本小程序内容即两站"哲学基础"板块的精简移动版。</view>
+</view>
+
+<view class="web-btn-card">
+  <view class="card-h3">打开网页版</view>
+  <view class="muted" style="margin-bottom:20rpx">在浏览器中体验完整版事现鉴，内容更丰富、交互更完整。</view>
+  <button class="web-btn" bindtap="copyWebUrl">复制网页版链接</button>
+  <view class="muted" style="margin-top:14rpx;text-align:center">链接：bfda2106.sxj-mini.pages.dev</view>
+</view>
+
+<view class="footer-note">事现鉴 · 共创论 · 公共验算尺 · 理论推演阶段</view>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论白皮书 · 七命题与共通值最大化</title>
+<style>
+  :root {
+    --red:#c41e3a; --red-deep:#9e1530; --red-light:#fbeef0;
+    --gold:#d4a017; --gold-light:#fbf4e3;
+    --ink:#1a1a2e; --dim:#6b6b7b; --line:#ececf1;
+    --bg:#f2f3f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacanthFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    background:#0c0c12; color:var(--ink); line-height:1.8; font-size:16px;
+    display:flex; justify-content:center; min-height:100vh;
+  }
+  .doc{
+    max-width:780px; width:100%; background:var(--bg);
+    padding:48px 40px 60px; position:relative;
+  }
+  /* cover */
+  .cover{text-align:center;margin-bottom:48px;padding-bottom:40px;border-bottom:2px solid var(--red)}
+  .cover-title{font-size:32px;font-weight:800;color:var(--red-deep);letter-spacing:1px;margin-bottom:12px}
+  .cover-sub{font-size:18px;color:var(--gold);font-weight:600;margin-bottom:8px}
+  .cover-desc{font-size:14px;color:var(--dim);line-height:1.6}
+  .cover-tag{display:inline-block;background:var(--gold-light);color:var(--gold);font-size:12px;font-weight:700;padding:4px 16px;border-radius:20px;border:1px solid #ecdcb0;margin:8px 4px}
+  /* section */
+  .section{margin-bottom:40px}
+  .sec-title{
+    font-size:22px;font-weight:700;color:var(--red-deep);
+    display:flex;align-items:center;gap:12px;margin-bottom:20px;
+  }
+  .sec-title::before{content:"";width:6px;height:28px;background:var(--red);border-radius:3px}
+  .sec-subtitle{font-size:14px;color:var(--dim);margin-bottom:18px;padding-left:18px;border-left:3px solid var(--gold)}
+  /* proposition card */
+  .prop-card{
+    background:#fff;border-radius:16px;padding:24px 28px;margin-bottom:16px;
+    border:1px solid var(--line);position:relative;overflow:hidden;
+  }
+  .prop-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red);opacity:.7}
+  .prop-card.key{background:var(--gold-light);border-color:#ecdcb0}
+  .prop-card.key::before{background:var(--gold);width:7px}
+  .p-no{font-size:16px;font-weight:800;color:var(--red)}
+  .prop-card.key .p-no{color:var(--gold)}
+  .p-title{font-size:18px;font-weight:700;margin:4px 0 12px}
+  .p-body{font-size:15px;color:#3a3a4d;line-height:1.7}
+  .p-body b{color:var(--ink);font-weight:700}
+  .p-tag{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--gold);border-radius:8px;padding:2px 12px;margin-left:8px;vertical-align:middle}
+  /* note box */
+  .note-box{
+    background:#f7f7fb;border-radius:16px;padding:20px 24px;margin:16px 0;
+    font-size:14px;color:#3a3a4d;line-height:1.6;
+  }
+  .note-box b{color:var(--red-deep)}
+  /* path section */
+  .path-grid{display:flex;gap:16px;margin:20px 0}
+  .path-col{flex:1;border-radius:16px;padding:20px;text-align:center;font-size:14px}
+  .path-old{background:#f0f0f4;border:1px solid #e2e2ea}
+  .path-old2{background:#f3f3f7;border:1px solid #e2e2ea}
+  .path-key{background:var(--red-light);border:1px solid #f3d2d8}
+  .path-t{font-size:15px;font-weight:700;color:#555;margin-bottom:14px}
+  .path-key .path-t{color:var(--red)}
+  .path-bar{height:28px;border-radius:6px;margin:10px 0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:600}
+  .path-d{font-size:13px;color:#555;margin-top:10px}
+  .path-key .path-d{color:var(--red);font-weight:700}
+  /* calc */
+  .calc-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+  .calc-table th{text-align:left;font-weight:700;color:var(--dim);padding:10px 8px;border-bottom:1px solid var(--line)}
+  .calc-table td{padding:10px 8px;border-bottom:1px dashed var(--line)}
+  .calc-table .num{font-weight:800;color:var(--red);text-align:right}
+  .calc-total{background:var(--red-light);border-radius:12px;padding:16px;text-align:center;font-size:16px;color:var(--red-deep);font-weight:700;margin:16px 0}
+  /* wangduoyu */
+  .wd-box{background:var(--gold-light);border:1px solid #ecdcb0;border-radius:16px;padding:20px 24px;margin:16px 0}
+  .wd-box .wd-title{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:10px}
+  .wd-box p{font-size:14px;color:#3a3a4d;line-height:1.6;margin:6px 0}
+  .wd-box p b{color:var(--ink)}
+  /* closing */
+  .closing{
+    background:var(--gold-light);border:1px solid #ecdcb0;border-radius:16px;
+    padding:24px;margin:24px 0;font-size:15px;color:#4a3f1a;line-height:1.7;
+  }
+  .closing .big{display:block;font-size:20px;font-weight:800;color:var(--red-deep);margin-bottom:12px}
+  /* footer */
+  .doc-footer{text-align:center;font-size:12px;color:#a0a0b0;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+  .doc-footer a{color:var(--red);text-decoration:none;font-weight:600}
+  /* gzz section */
+  .phase-grid{display:flex;gap:12px;margin:16px 0}
+  .phase-col{flex:1;border-radius:14px;padding:16px;text-align:center;font-size:13px;background:#fff;border:1px solid var(--line)}
+  .phase-col.current{background:var(--red-light);border-color:#f3d2d8}
+  .phase-col.ultimate{background:var(--gold-light);border-color:#ecdcb0}
+  .phase-no{font-weight:800;font-size:15px;margin-bottom:6px}
+  .phase-col.current .phase-no{color:var(--red)}
+  .phase-col.ultimate .phase-no{color:var(--gold)}
+  .phase-label{font-weight:700;margin-bottom:4px;font-size:14px}
+  .phase-desc{color:var(--dim);font-size:12px;line-height:1.5}
+  /* compare table */
+  .cmp-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+  .cmp-table th{background:var(--red-light);color:var(--red-deep);font-weight:700;padding:10px;border:1px solid #f3d2d8;text-align:left}
+  .cmp-table td{padding:10px;border:1px solid var(--line)}
+  .cmp-table .highlight{background:var(--gold-light);font-weight:700}
+  /* responsive */
+  @media(max-width:600px){
+    .doc{padding:24px 20px 40px}
+    .cover-title{font-size:24px}
+    .sec-title{font-size:18px}
+    .path-grid{flex-direction:column}
+    .phase-grid{flex-direction:column}
+    .prop-card{padding:18px 20px}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ===== COVER ===== -->
+<div class="cover">
+  <div class="cover-title">共创论白皮书</div>
+  <div class="cover-sub">七命题定调 · 共通值最大化 · Gzz消亡论</div>
+  <div class="cover-desc">
+    基于事现鉴（SXJ）协议的理论根基——<br>
+    不推销真理，给人防忽悠的免疫系统。<br>
+    规则先于开放，演绎法先于宏大叙事。
+  </div>
+  <div class="cover-tag">理论推演阶段</div>
+  <div class="cover-tag">共创论 8.0</div>
+  <div class="cover-tag">SHA-256 验证</div>
+</div>
+
+<!-- ===== 核心论述 ===== -->
+<div class="section">
+  <div class="sec-title">核心论述：寰宇光锥舟</div>
+  <div class="sec-subtitle">七命题、三值体系、共通值最大化，全部可以压成两句话</div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>寰宇光锥舟</b> = 固定的锥（协议）+ 万样的舟（个体）。<br><br>
+      光锥的锥面（边界）是固定的、不变的——因果结构、光速极限，谁都改不了，这就是谱子、共同值、双向验证回路。锥内（内部）是开放的、多样的——从一个事件能发出的所有世界线千条万条，但每一条都还在锥里，这就是演唱：光线之内，人可以是多样的演绎。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>第一句：</b>任何人生下来都是人，为什么别人可以是那样获得成就？<br><br>
+      锥面必须对所有人开放。如果结构允许一个人到达成就 X，那结构就没有理由把 X reserve 给这一个人。这枪毙了精英垄断（命题②共通值先行的平等面 + 命题⑦使用效率本体论：成就不归"谁拥有"，而归"谁能高效执行"）。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>第二句：</b>如果每个人都成为第一个获得那样成就的人，会是灾难。<br><br>
+      锥内不能塌缩成一条世界线。把大家都复制成同一个"顶尖者"，系统直接崩——没有分工、没有差异、没有功能。这枪毙了均平/拉平（共通值最大化里那条被判死的路径："失去激励/效率下降"）。
+    </div>
+  </div>
+
+  <div class="closing">
+    <span class="big">两句话逼出一个唯一解：结构不变，人人各抵其高。</span>
+    第一句说"成就不该专属"→拒绝垄断；第二句说"成就不能克隆"→拒绝划一。所以结论只能是：光锥的边界固定（谱子不变），但每个人走自己的世界线到达那个水平——你 = 顶部，但不是同一个你。
+  </div>
+</div>
+
+<!-- ===== 我不是诺亚 ===== -->
+<div class="section">
+  <div class="sec-title">我不是诺亚：事现鉴是入口，不是方舟</div>
+  <div class="sec-subtitle">拒绝拯救者角色，才能抽空中心化引力</div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>我不是诺亚。</b>诺亚是唯一知道洪水要来、唯一拿到图纸、决定谁上船、命令结构本身的人。如果我是诺亚，就复活了中心化引力——所有人朝我汇聚，我定义拯救。说"我不是诺亚"，等于在系统启动前就把这个引力源拆了。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>事现鉴 = 通往"造方舟"的入口，不是方舟，也不是诺亚。</b><br><br>
+      关键在"造"字：不是"乘坐方舟的入口"，是"造方舟的入口"。方舟不是我造好发给大家的——是每个人通过事现鉴这个入口，自己动手去造。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>两种汇合方式，都不是灾难：</b><br><br>
+      · <b>自己去创造</b>：solo 航行，走自己的世界线，在锥内提交谱子与演唱。<br>
+      · <b>想着向往的人去汇合</b>：朝敬佩的人导航，在交点相遇、共建。注意——"汇合"是相交，不是吞并。你的 worldline 与他的在世界某点交叉，在交叉处共建一段，然后继续各自航行。这恰好是探戈 abrazo 的复现：两个舟在锥内相遇，通过双向验证回路实时共建，然后分开。
+    </div>
+  </div>
+
+  <div class="closing">
+    <span class="big">方舟由众人各造各的、在交点拼起来。</span>
+    没有人独自拥有它，没有人被排除在外。光锥（不变协议）里，万样的舟（个体）航行；我不是诺亚（无中心引力），事现鉴是每个人造方舟的入口（开门，不发车）；你在锥内可 solo 创造，也可朝向往的人航行、在交点汇合共建（相交而非吞并）。
+  </div>
+</div>
+
+<!-- ===== 0. 定位 ===== -->
+<div class="section">
+  <div class="sec-title">定调：不推销真理，给免疫系统</div>
+  <div class="sec-subtitle">共创论 8.0 的核心姿态——不是另一个"拯救世界"的宏大叙事，而是让人能分辨真伪的度量衡</div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      事现鉴（SXJ）基于《世界人权宣言》第22条，是一套<b>可验证的公共事实协议</b>。它不取代各国的社会保障体系——只提供一把<b>公共验算尺</b>，让各国用同一把尺子算各自的社保。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      核心矛盾转移：马克思的时代，物质稀缺，矛盾是<b>"生产不足"</b>——东西不够分。今天物质极丰裕、技术极高效，但<b>债务把贫富差距锁死</b>。矛盾不再是生产不出来，而是分配被债务锁死。事现鉴不解决"生产"，而是用验证重新定义"分配"。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      双向验证回路：此前所有验证都是单向或部分的——现实→数字（上传身份证做KYC）或数字→现实（征信分数影响贷款但没有反向验证）。事现鉴完成闭环：<b>现实行为→SHA-256→CV记录→CV/SCA→代偿债务·信用准入·跨境社保</b>。双向验证 = 验证回路闭合。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 1. 七命题 ===== -->
+<div class="section">
+  <div class="sec-title">七命题：哲学地基</div>
+  <div class="sec-subtitle">纲·方法·路径·终局，环环相扣。与五大竞争对手的根本区别不在技术，而在哲学地基</div>
+
+  <div class="prop-card">
+    <div class="p-no">①</div>
+    <div class="p-title">双向反射论</div>
+    <div class="p-body">
+      共创论是世界人民<b>自下而上共同制定</b>的权利。数字世界达成统一后，反射回现实世界。<br><br>
+      与五大对手的根本区别：他们是<b>单向垄断</b>（我定规则你遵守），共创论是<b>双向协议</b>（规则由参与者共同验证形成）。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-no">②</div>
+    <div class="p-title">共通值先行</div>
+  <div class="p-body">
+      可验证的起点<b>仅为共通值</b>——最基础的生存权。当保障基线的绝对水平超过<b>今日的中位数</b>生活水平时，强制就失去对象：天花板资源 + 中间大多数日常实践，自会把共通值顶上去。<br><br>
+      动员策略：不从共通值开始（共通值和天花板都是少数人）。调动天花板的人（让有负贡献者参与修复/对冲），联合中间的人（让大多数贡献者参与共建），提高共通值高度——通过前两者合力提升最低保障线。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-no">③</div>
+    <div class="p-title">记录本体论</div>
+    <div class="p-body">
+      <b>不清算，只记录。</b>记录动态均衡给予与清算的关系。<br><br>
+      极端案例：资本与非资本极限值拉满后只能同涨同缩——金融数字空转，实际物质效率趋零，故清算不可行。Gzz的代币化，是链接主权与债务、现实与数字的<b>枢纽</b>。
+    </div>
+  </div>
+
+  <div class="note-box">
+    <b>命题四（中心化引力）被①⑦联手消解：</b>中心化的引力来源是<b>信息的单向性</b>；双向验证抽走了这个信息垄断。中心化不是被"推翻"，而是被"抽空"。
+  </div>
+
+  <div class="prop-card">
+    <div class="p-no">⑤</div>
+    <div class="p-title">货币消亡论</div>
+    <div class="p-body">
+      推到极致——<b>货币本身也会消失</b>。货币与外汇存在的唯一原因，是缺少统一度量单位。当CV净值成为统一度量，交换直接以净值进行。<br><br>
+      虚拟货币是单向数字化，事现鉴是<b>双向净值化</b>。<br><br>
+      三阶段曲线：<br>
+      · 当前阶段：Gzz化债期（代币作为负贡献值的量化锚）<br>
+      · 过渡阶段：CV + 主权数字货币期（债务递减，Gzz退出）<br>
+      · 终局阶段：净值交换期（Gzz消失，CV + 数字人民币直接交换）
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-no">⑥</div>
+    <div class="p-title">动态抵消论</div>
+    <div class="p-body">
+      历史正义与未来公平<b>并不冲突</b>。机制是动态抵消，而非一次性清算。这无需自上而下的执行者——自下而上的协议约束，本身就让两者在账本上并行。
+    </div>
+  </div>
+
+  <div class="prop-card key">
+    <div class="p-no">⑦</div>
+    <div class="p-title">使用效率本体论<span class="p-tag">纲</span></div>
+    <div class="p-body">
+      不争<b>所有权</b>，只算<b>使用效率</b>。资本垄断与国家垄断，最终都要经过消费才能实现价值——而消费，就是自下而上的验证行为。<br><br>
+      所以真正的轴不是"归谁所有"，而是"<b>谁用得效率最高</b>"。不是所属问题，是使用效率问题。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 2. 三值体系 ===== -->
+<div class="section">
+  <div class="sec-title">三值体系：共通值·发动机·天花板</div>
+  <div class="sec-subtitle">共同值（生存权）、贡献值CV（发展权）、负贡献值（追责）——一把尺子，三个刻度</div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>共同值 = 基础（不变）</b>：每个人应享有的最低生存保障——食衣住行教医。这是共通值，不是施舍，是权利。共通值的宗旨即实现《世界人权宣言》第二十二条的可验证形态。<br><br>
+      <b>贡献值CV = 净值（正减负，账本）</b>：可测量产出 × Vf(验证系数) × Wj(动态权重) − 资源消耗 × 折旧系数。CV记录真实贡献，是发动机。<br><br>
+      <b>负贡献值 = 天花板</b>：对他人/公共资源造成外部性损害的量化追责。负贡献归责必须同时满足四个条件：①主体性 ②因果性 ③可避免性 ④修复性。<br><br>
+      <b>先天状态 ≠ 负贡献</b>：残疾/衰老/疾病是自然分配不均，不是主体"造成"的，属于共同值适用场景（共通值保障对象），永远不进入负贡献计算。负贡献只追责"做"（行为），不追责"是"（存在）。
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>Gzz = 代币（变，流通）</b>：共同值是基础（不变）/ CV是净值（正减负，账本）/ Gzz是代币（变，流通）。NCV是净值减法非独立惩罚。信用卡明度 = 流通阀门（控制能用多少）。<br><br>
+      Gzz ≠ 永久货币，是"化债过渡锚"——把无法通称的负贡献转为统一单位，用正贡献对冲至清零。化债完成 → Gzz退出 → 被双轨取代：①CV（纯贡献记录）②主权数字货币（日常交易）。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 3. 共通值最大化 ===== -->
+<div class="section">
+  <div class="sec-title">共通值最大化：第三条路</div>
+  <div class="sec-subtitle">缩小差距有三条路，共创论走第三条——不是拉低顶，而是抬共通值</div>
+
+  <div class="path-grid">
+    <div class="path-col path-old">
+      <div class="path-t">涓滴 / 再分配</div>
+      <div class="path-bar" style="background:#c41e3a">顶部</div>
+      <div class="path-bar" style="background:#d4a017">你</div>
+      <div class="path-d">漏到一半就停了</div>
+      <div class="path-d">差距仍在</div>
+    </div>
+    <div class="path-col path-old2">
+      <div class="path-t">均平 / 拉平</div>
+      <div class="path-bar" style="background:linear-gradient(90deg,#c41e3a,#d4a017)">大家都压到这里</div>
+      <div class="path-d">失去激励</div>
+      <div class="path-d">效率下降</div>
+    </div>
+    <div class="path-col path-key">
+      <div class="path-t">共创论 / 共通值最大化</div>
+      <div class="path-bar" style="background:linear-gradient(90deg,#c41e3a,#d4a017)">你 = 顶部</div>
+      <div class="path-d">你也上来了</div>
+      <div class="path-d">顶部资源更充分增值</div>
+    </div>
+  </div>
+
+  <div class="wd-box">
+    <div class="wd-title">王多鱼类比：消费找不到标的 = 使用效率没跑通</div>
+    <p>跟电影《西虹市首富》里的王多鱼一样——被要求花光十亿，却<b>找不到消费标的</b>。当前体系下，即便有钱，消费也花不出去（或花得没品质）。</p>
+    <p>这恰恰证明<b>使用效率没跑通</b>（命题⑦）。事现鉴要证明的，就是"这个水平可达"，并帮更多人到达——届时消费、品质、资源将被极大地整合与运营。</p>
+  </div>
+
+  <div class="closing">
+    <span class="big">把我的权益提到最高，再让所有人达到我所享有的。</span>
+    这不就是缩小贫富差距吗？顶部资源更充分增值，中间的人有资源可用，共通值也大幅提高——区别只在于：现在是<b>双向记录、协议</b>，而非单向接受或施与。
+  </div>
+</div>
+
+<!-- ===== 4. 算一笔账 ===== -->
+<div class="section">
+  <div class="sec-title">算一笔账：共通值其实很便宜</div>
+  <div class="sec-subtitle">一个人的"现金共通值"——按最宽裕的食标</div>
+
+  <table class="calc-table">
+    <tr><th>项目</th><th>金额</th></tr>
+    <tr><td>食（300元/天）</td><td class="num">109,500 元/年</td></tr>
+    <tr><td>衣</td><td class="num">5,000–10,000 元/年</td></tr>
+    <tr><td>行（基础交通）</td><td class="num">3,000–5,000 元/年</td></tr>
+    <tr><td>住 / 上学 / 医疗</td><td class="num">≈ 0 现金</td></tr>
+  </table>
+
+  <div class="calc-total">现金共通值（最宽裕标准）≈ 12万元 / 人 / 年</div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      中国2023年人均GDP约<b>8.9万元</b>，但那是"平均"不是"底线"。即便按最奢侈的食标，共通值也远未不可负担。<br><br>
+      而且当住/教/医作为<b>公共权利</b>提供，实际需现金转移的部分更小。现在没人真能"每天消费300块"，不是因为没钱，而是因为消费系统找不到标的。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 5. Gzz消亡论 ===== -->
+<div class="section">
+  <div class="sec-title">Gzz消亡论：代币是过渡，不是终局</div>
+  <div class="sec-subtitle">Gzz本质上是负贡献值的量化锚——化债完成即退出</div>
+
+  <div class="phase-grid">
+    <div class="phase-col current">
+      <div class="phase-no">阶段一</div>
+      <div class="phase-label">Gzz化债期</div>
+      <div class="phase-desc">负贡献量化为Gzz代币<br>正贡献对冲至清零<br>1Gzz = 1g黄金锚定<br>财政直销：SCA覆盖债务自动代偿</div>
+    </div>
+    <div class="phase-col">
+      <div class="phase-no">阶段二</div>
+      <div class="phase-label">CV + 主权数字货币</div>
+      <div class="phase-desc">债务递减<br>Gzz逐步退出流通<br>CV作为纯贡献记录（征信/信用/凭证）<br>数字人民币补充日常交易</div>
+    </div>
+    <div class="phase-col ultimate">
+      <div class="phase-no">终局</div>
+      <div class="phase-label">净值交换期</div>
+      <div class="phase-desc">Gzz完全消失<br>货币本身退出<br>CV净值直接交换<br>双向验证 = 双向净值化</div>
+    </div>
+  </div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      <b>与BTC的根本区别</b>：BTC是单向数字化（现实财富→数字代币，没有反向验证回路）。事现鉴是双向净值化——现实行为→SHA-256→CV记录→CV→现实后果（代偿/信用/社保）。验证回路闭合，而非单向投射。<br><br>
+      <b>纯贡献值无货币锚定</b>→不能跟现实世界沟通（消费/以物易物）→需Gzz做桥梁。但桥梁用完即拆。很多场景不适用纯CV交换→Gzz代币或数字人民币补充。终局：度量衡统一后，桥梁不再需要。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 6. 负贡献归责 ===== -->
+<div class="section">
+  <div class="sec-title">负贡献归责：四条件同时满足</div>
+  <div class="sec-subtitle">追责"做"（行为），不追责"是"（存在）</div>
+
+  <div class="prop-card">
+    <div class="p-body">
+      负贡献归责<b>必须同时满足</b>四个条件：<br><br>
+      <b>① 主体性</b>：有行为能力的主体做出行为<br>
+      <b>② 因果性</b>：行为与损害有因果关系<br>
+      <b>③ 可避免性</b>：损害在行为时可预见可选择<br>
+      <b>④ 修复性</b>：追责目的是修复，非惩罚<br><br>
+      缺一不可。先天状态（残疾/衰老/疾病）不是主体"造成"的，属于共同值适用场景，永远不进入负贡献计算。个人生活方式导致的健康问题暂不计入（涉及个人自治边界），只追责对他人/公共资源的外部性损害。
+    </div>
+  </div>
+</div>
+
+<!-- ===== 7. 国内外战略 ===== -->
+<div class="section">
+  <div class="sec-title">一把尺子，两种用法</div>
+  <div class="sec-subtitle">国内版主化债/征信，国际版主共通值/生存权——共享同一套底层理论</div>
+
+  <table class="cmp-table">
+    <tr><th>维度</th><th>国内版 (hygzz.cn)</th><th>国际版 (hygzz.com)</th></tr>
+    <tr><td>核心矛盾</td><td class="highlight">债务/信用锁死分配</td><td>战争/难民/饥荒</td></tr>
+    <tr><td>主要功能</td><td>化债·征信·SCA代偿</td><td class="highlight">共通值·生存权·全球社保</td></tr>
+    <tr><td>定位</td><td>事现鉴征信数据链<br>（验证协议，非征信机构）</td><td>公共验算尺（国际端）</td></tr>
+    <tr><td>数据主权</td><td>贡献数据主权归个体</td><td>贡献数据主权归个体</td></tr>
+    <tr><td>Gzz锚定</td><td>1Gzz = 1g黄金</td><td>1Gzz = 1g黄金</td></tr>
+    <tr><td>合规定位</td><td>存照（不是征信机构，需牌照）</td><td>可验证协议（UDHR第22条）</td></tr>
+  </table>
+</div>
+
+<!-- ===== 8. 终局 ===== -->
+<div class="section">
+  <div class="sec-title">终局收口</div>
+
+  <div class="closing">
+    <span class="big">目标不是把任何人拉下来，而是让每个人都能上来。</span>
+    当贡献被算清、权益被验证，今天的"我"就是明天的"你"。不是推销真理——而是给人防忽悠的免疫系统。不是取代各国社保——而是提供一把公共验算尺，让各国用同一把尺子算各自的社保。规则先于开放，演绎法先于宏大叙事。
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="doc-footer">
+  事现鉴 · 共创论 · 公共验算尺 · 理论推演阶段<br>
+  国内版 <a href="https://hygzz.cn">hygzz.cn</a> · 国际版 <a href="https://hygzz.com">hygzz.com</a><br>
+  本白皮书内容基于共创论8.0理论推演，所有数据为沙盘模拟/理论推演，非实地验证
+</div>
+
+</div>
+</body>
+</html>

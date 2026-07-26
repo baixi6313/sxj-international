@@ -1,0 +1,20 @@
+{
+  "description": "事现鉴小程序 - 共创论哲学基础移动版（国内用户）",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "bigPackageSizeSupport": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.0.0",
+  "appid": "wx22ec573cb69acc7a",
+  "projectname": "sxj-mini",
+  "condition": {}
+}

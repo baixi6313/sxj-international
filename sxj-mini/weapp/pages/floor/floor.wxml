@@ -1,0 +1,41 @@
+<!-- 共通值最大化 -->
+<view class="pill">收口 · 不是拉低顶，而是抬共通值</view>
+
+<view class="card">
+  <view class="card-h3">缩小差距有三条路，共创论走第三条</view>
+  <view class="muted">传统左右之争困在前两条，事现鉴让你直接"上来"。</view>
+  <view class="path-row">
+    <view class="path-col path-old">
+      <view class="path-t">涓滴 / 再分配</view>
+      <view class="path-bar" style="background:#c41e3a">顶部</view>
+      <view class="path-bar" style="background:#d4a017">你</view>
+      <view class="path-d">漏到一半就停了</view>
+      <view class="path-d">差距仍在</view>
+    </view>
+    <view class="path-col path-old2">
+      <view class="path-t">均平 / 拉平</view>
+      <view class="path-bar" style="background:linear-gradient(90deg,#c41e3a,#d4a017)">大家都压到这里</view>
+      <view class="path-d">失去激励</view>
+      <view class="path-d">效率下降</view>
+    </view>
+    <view class="path-col path-key">
+      <view class="path-t">共创论 / 共通值最大化</view>
+      <view class="path-bar" style="background:linear-gradient(90deg,#c41e3a,#d4a017)">你 = 顶部</view>
+      <view class="path-d" style="color:#c41e3a;font-weight:700">你也上来了</view>
+      <view class="path-d" style="color:#c41e3a">顶部资源更充分增值</view>
+    </view>
+  </view>
+</view>
+
+<view class="card">
+  <view class="card-h3">王多鱼：消费找不到标的 = 使用效率没跑通</view>
+  <view class="p">跟电影《西虹市首富》里的王多鱼一样——被要求花光十亿，却<text>找不到消费标的</text>。当前体系下，即便有钱，消费也花不出去（或花得没品质）。</view>
+  <view class="p">这恰恰证明<text>使用效率没跑通</text>。事现鉴要证明的，就是"这个水平可达"，并帮更多人到达——届时消费、品质、资源将被极大地整合与运营。</view>
+</view>
+
+<view class="closing">
+  <text class="big">把我的权益提到最高，再让所有人达到我所享有的。</text>
+  这不就是缩小贫富差距吗？顶部资源更充分增值，中间的人有资源可用，共通值也大幅提高——区别只在于：现在是<text>双向记录、协议</text>，而非单向接受或施与。
+</view>
+
+<view class="footer-note">共创论 · 共通值最大化</view>
