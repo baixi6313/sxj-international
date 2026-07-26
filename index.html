@@ -18,11 +18,16 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:image" content="https://hygzz.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SXJ — Verifiable Public Fact Protocol">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SXJ · 事现鉴 — Verifiable Public Fact Protocol">
 <meta name="twitter:description" content="Realizing Article 22 of the UDHR — everyone can co-author our SXJ. Hash-chain verified, impossible to erase.">
 <meta name="twitter:creator" content="@baixi6313">
+<meta name="twitter:image" content="https://hygzz.com/assets/og-image.png">
 <!-- Favicon (inline SVG: hash-chain node) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230066ff'/%3E%3Ccircle cx='8' cy='10' r='2.5' fill='white' opacity='0.9'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='white' opacity='0.7'/%3E%3Ccircle cx='24' cy='22' r='2.5' fill='white' opacity='0.5'/%3E%3Cline x1='8' y1='10' x2='16' y2='16' stroke='white' stroke-width='1.2' opacity='0.5'/%3E%3Cline x1='16' y1='16' x2='24' y2='22' stroke='white' stroke-width='1.2' opacity='0.3'/%3E%3Ctext x='16' y='14' text-anchor='middle' fill='white' font-size='7' font-weight='600' font-family='monospace'%3ESXJ%3C/text%3E%3C/svg%3E">
 <style>
@@ -866,9 +871,286 @@
     cursor:pointer;transition:color 0.15s;
   }
   .empty-state-cta:hover{color:var(--accent-hover)}
+
+  /* ===== Scroll Progress Bar ===== */
+  .scroll-progress{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:linear-gradient(90deg,var(--accent),var(--purple));
+    z-index:9997;transition:width 0.1s ease;
+  }
+
+  /* ===== Back to Top Button ===== */
+  .back-to-top{
+    position:fixed;bottom:5.5rem;right:1.5rem;width:44px;height:44px;
+    border-radius:50%;background:var(--card);border:1px solid var(--border);
+    color:var(--text-dim);font-size:1.2rem;cursor:pointer;z-index:9997;
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transform:translateY(10px);
+    transition:all 0.2s;box-shadow:var(--shadow);
+  }
+  .back-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+  .back-to-top:hover{border-color:var(--accent);color:var(--accent);box-shadow:var(--shadow-hover)}
+  @media(max-width:600px){
+    .back-to-top{bottom:4.5rem;right:0.8rem;width:40px;height:40px;font-size:1.1rem}
+  }
+
+  /* ===== Three Sentences (What is SXJ) ===== */
+  .three-sentences{
+    max-width:960px;margin:0 auto;padding:2.5rem 1.5rem;
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;
+  }
+  @media(max-width:768px){.three-sentences{grid-template-columns:1fr;padding:2rem 1rem}}
+  .ts-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.5rem;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;
+    display:flex;flex-direction:column;
+  }
+  .ts-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-3px)}
+  .ts-num{
+    font-family:'SF Mono','JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;
+    color:var(--accent);background:var(--accent-light);border-radius:6px;
+    padding:0.15rem 0.5rem;display:inline-block;margin-bottom:0.7rem;align-self:flex-start;
+  }
+  .ts-label{font-size:0.72rem;font-weight:600;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem}
+  .ts-text{font-size:0.88rem;color:var(--text);line-height:1.65;flex:1}
+  .ts-cta{display:flex;gap:0.6rem;margin-top:1.2rem;flex-wrap:wrap}
+  @media(max-width:600px){.ts-cta{flex-direction:column}}
+  .ts-cta-btn{
+    display:inline-flex;align-items:center;gap:0.3rem;font-size:0.8rem;font-weight:500;
+    padding:0.5rem 1.1rem;border-radius:8px;text-decoration:none;transition:all 0.15s;
+  }
+  .ts-cta-btn.primary{background:var(--accent);color:#fff}
+  .ts-cta-btn.primary:hover{background:var(--accent-hover)}
+  .ts-cta-btn.secondary{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  .ts-cta-btn.secondary:hover{background:var(--accent-light)}
+
+  /* ===== Audience Entry (For You) ===== */
+  .audience-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.5rem 0;
+  }
+  @media(max-width:960px){.audience-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:600px){.audience-grid{grid-template-columns:1fr}}
+  .audience-card{
+    background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:1.3rem;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;
+    display:flex;flex-direction:column;
+  }
+  .audience-card:hover{border-color:var(--accent);box-shadow:var(--shadow-hover);transform:translateY(-3px)}
+  .audience-card .ac-icon{font-size:1.8rem;margin-bottom:0.5rem}
+  .audience-card .ac-title{font-size:0.95rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+  .audience-card .ac-pain{font-size:0.78rem;color:var(--red);line-height:1.5;margin-bottom:0.5rem}
+  .audience-card .ac-benefit{font-size:0.8rem;color:var(--text-dim);line-height:1.55;flex:1}
+  .audience-card .ac-disclaimer{
+    font-size:0.68rem;color:var(--text-faint);margin-top:0.7rem;padding-top:0.6rem;
+    border-top:1px dashed var(--border);font-style:italic;line-height:1.4;
+  }
+  .audience-card.individual{border-top:3px solid var(--accent)}
+  .audience-card.enterprise{border-top:3px solid var(--green)}
+  .audience-card.gov{border-top:3px solid var(--orange)}
+  .audience-card.npo{border-top:3px solid var(--purple)}
+  .audience-card.dev{border-top:3px solid var(--cyan)}
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:760px;margin:1.5rem auto;display:flex;flex-direction:column;gap:0.6rem}
+  .faq-group-label{
+    font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;
+    letter-spacing:0.1em;margin:1.2rem 0 0.5rem;padding-bottom:0.3rem;border-bottom:1px solid var(--border);
+  }
+  .faq-group-label:first-child{margin-top:0}
+  .faq-item{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;
+    transition:border-color 0.15s;
+  }
+  .faq-item:hover{border-color:var(--border-hover)}
+  .faq-q{
+    padding:0.8rem 1rem;font-size:0.85rem;font-weight:500;color:var(--text);cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;gap:0.5rem;user-select:none;
+    transition:background 0.15s;
+  }
+  .faq-q:hover{background:rgba(0,102,255,0.02)}
+  .faq-q .faq-toggle{color:var(--text-faint);font-size:1.1rem;transition:transform 0.2s;flex-shrink:0}
+  .faq-item.open .faq-q .faq-toggle{transform:rotate(45deg);color:var(--accent)}
+  .faq-a{
+    max-height:0;overflow:hidden;transition:max-height 0.3s ease,padding 0.3s ease;
+    padding:0 1rem;font-size:0.8rem;color:var(--text-dim);line-height:1.65;
+  }
+  .faq-item.open .faq-a{max-height:400px;padding:0 1rem 0.9rem}
+
+  /* ===== What We Are Not (Comparison) ===== */
+  .not-compare{display:grid;grid-template-columns:repeat(2,1fr);gap:0.8rem;margin:1.5rem 0}
+  @media(max-width:600px){.not-compare{grid-template-columns:1fr}}
+  .nc-item{
+    background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;
+    display:flex;align-items:center;gap:0.8rem;transition:border-color 0.15s,transform 0.15s;
+  }
+  .nc-item:hover{border-color:var(--accent);transform:translateX(2px)}
+  .nc-item .nc-left{flex:1;font-size:0.82rem;color:var(--text-faint)}
+  .nc-item .nc-left s{color:var(--red);text-decoration:line-through}
+  .nc-item .nc-arrow{color:var(--text-faint);font-size:0.9rem}
+  .nc-item .nc-right{flex:1;font-size:0.82rem;font-weight:500;color:var(--accent)}
+
+  /* ===== Comparison Table ===== */
+  .comp-table-wrap{overflow-x:auto;margin:1.5rem 0;border:1px solid var(--border);border-radius:10px}
+  .comp-table{width:100%;border-collapse:collapse;font-size:0.78rem;min-width:640px}
+  .comp-table th,.comp-table td{padding:0.7rem 0.9rem;text-align:left;border-bottom:1px solid var(--border)}
+  .comp-table th{background:var(--card);font-weight:600;color:var(--text);font-size:0.75rem;white-space:nowrap}
+  .comp-table td{color:var(--text-dim);line-height:1.5}
+  .comp-table tr:last-child td{border-bottom:none}
+  .comp-table .col-sxj{background:var(--accent-light);font-weight:500;color:var(--accent)}
+  .comp-table .yes{color:var(--green);font-weight:600}
+  .comp-table .no{color:var(--red);font-weight:600}
+
+  /* ===== Roadmap Timeline (new style) ===== */
+  .roadmap-timeline{position:relative;padding-left:2rem;margin:1.5rem 0}
+  .roadmap-timeline::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--border)}
+  .rm-item{position:relative;padding-bottom:1.3rem}
+  .rm-item::before{content:'';position:absolute;left:-2rem;top:3px;width:16px;height:16px;border-radius:50%;border:3px solid var(--text-faint);background:#fff;z-index:1}
+  .rm-item.done::before{background:var(--green);border-color:var(--green)}
+  .rm-item.active::before{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-light)}
+  .rm-item.planned::before{background:#fff;border-color:var(--yellow)}
+  .rm-item.future::before{background:#fff;border-color:var(--purple)}
+  .rm-status{font-size:0.62rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.15rem}
+  .rm-status.done{color:var(--green)}
+  .rm-status.active{color:var(--accent)}
+  .rm-status.planned{color:var(--yellow)}
+  .rm-status.future{color:var(--purple)}
+  .rm-title{font-size:0.88rem;font-weight:600;color:var(--text);margin-bottom:0.2rem}
+  .rm-desc{font-size:0.76rem;color:var(--text-faint);line-height:1.5}
+
+  /* ===== Sponsor / Co-build ===== */
+  .sponsor-box{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin:1.5rem 0}
+  .sponsor-honest{
+    background:var(--yellow-bg);border:1px solid transparent;border-left:3px solid var(--yellow);
+    border-radius:8px;padding:0.8rem 1rem;margin:1rem 0;font-size:0.78rem;color:var(--text-dim);line-height:1.6;
+  }
+  .sponsor-honest strong{color:var(--yellow)}
+  .sponsor-tiers{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.5rem 0}
+  @media(max-width:600px){.sponsor-tiers{grid-template-columns:1fr}}
+  .sponsor-tier{
+    background:#fff;border:1px solid var(--border);border-radius:10px;padding:1.2rem;
+    transition:border-color 0.15s,transform 0.15s;
+  }
+  .sponsor-tier:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .sponsor-tier .st-badge{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;padding:0.15rem 0.5rem;border-radius:4px;display:inline-block;margin-bottom:0.5rem}
+  .sponsor-tier.seed .st-badge{background:var(--green-bg);color:var(--green)}
+  .sponsor-tier.co-build .st-badge{background:var(--accent-light);color:var(--accent)}
+  .sponsor-tier.pilot .st-badge{background:var(--orange-bg);color:var(--orange)}
+  .sponsor-tier.tech .st-badge{background:var(--purple-bg);color:var(--purple)}
+  .sponsor-tier .st-name{font-size:0.9rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
+  .sponsor-tier .st-price{font-size:0.78rem;color:var(--accent);font-weight:600;margin-bottom:0.5rem;font-family:'SF Mono',monospace}
+  .sponsor-tier .st-desc{font-size:0.76rem;color:var(--text-dim);line-height:1.5}
+  .sponsor-tier .st-perks{margin-top:0.6rem;font-size:0.72rem;color:var(--text-faint);line-height:1.6}
+
+  /* ===== Limitations Box ===== */
+  .limitations-box{
+    background:#fff;border:1px dashed var(--border);border-radius:10px;padding:1rem 1.2rem;margin:1.2rem 0;
+  }
+  .limitations-box .lb-title{font-size:0.8rem;font-weight:600;color:var(--text);margin-bottom:0.5rem}
+  .lim-list{margin:0;padding-left:1.1rem}
+  .lim-list li{font-size:0.76rem;color:var(--text-dim);line-height:1.6;margin-bottom:0.3rem}
+
+  /* ===== Subscribe Box ===== */
+  .subscribe-box{
+    background:var(--accent-light);border-radius:10px;padding:1.2rem;margin:1.2rem 0;
+    display:flex;flex-direction:column;gap:0.6rem;
+  }
+  @media(min-width:600px){.subscribe-box{flex-direction:row;align-items:center}}
+  .subscribe-box .sub-label{font-size:0.82rem;font-weight:600;color:var(--text);white-space:nowrap}
+  .subscribe-form{display:flex;gap:0.4rem;flex:1}
+  .subscribe-form input{
+    flex:1;border:1px solid var(--border);border-radius:6px;padding:0.45rem 0.7rem;
+    font-size:0.78rem;font-family:inherit;outline:none;background:#fff;
+  }
+  .subscribe-form input:focus{border-color:var(--accent)}
+  .subscribe-form button{
+    background:var(--accent);color:#fff;border:none;border-radius:6px;padding:0.45rem 1rem;
+    font-size:0.78rem;cursor:pointer;transition:background 0.15s;white-space:nowrap;
+  }
+  .subscribe-form button:hover{background:var(--accent-hover)}
+
+  /* ===== Share Bar ===== */
+  .share-bar{display:flex;gap:0.5rem;align-items:center;margin-top:1rem;flex-wrap:wrap}
+  .share-bar .share-label{font-size:0.72rem;color:var(--text-faint);margin-right:0.3rem}
+  .share-btn{
+    display:inline-flex;align-items:center;gap:0.3rem;font-size:0.72rem;
+    padding:0.35rem 0.7rem;border-radius:6px;border:1px solid var(--border);
+    background:#fff;color:var(--text-dim);cursor:pointer;transition:all 0.15s;text-decoration:none;
+  }
+  .share-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
+
+  /* ===== Changelog ===== */
+  .changelog-box{background:#fff;border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin:1.2rem 0}
+  .changelog-entry{display:flex;gap:0.8rem;padding:0.5rem 0;border-bottom:1px solid var(--border);font-size:0.76rem}
+  .changelog-entry:last-child{border-bottom:none}
+  .changelog-entry .cl-date{font-family:'SF Mono',monospace;font-size:0.68rem;color:var(--accent);white-space:nowrap;min-width:80px;font-weight:600}
+  .changelog-entry .cl-text{color:var(--text-dim);line-height:1.5}
+
+  /* ===== Mobile CTA Float ===== */
+  .mobile-cta-float{
+    display:none;position:fixed;bottom:0;left:0;right:0;z-index:9996;
+    background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
+    border-top:1px solid var(--border);padding:0.6rem 1rem;justify-content:center;gap:0.5rem;
+  }
+  .mobile-cta-float a{
+    flex:1;text-align:center;background:var(--accent);color:#fff;font-size:0.78rem;font-weight:500;
+    padding:0.6rem;border-radius:8px;text-decoration:none;transition:background 0.15s;
+  }
+  .mobile-cta-float a:hover{background:var(--accent-hover)}
+  .mobile-cta-float a.outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+  @media(max-width:600px){
+    .mobile-cta-float{display:flex}
+    .back-to-top{bottom:5rem}
+    .chat-bubble{bottom:4.5rem}
+    body{padding-bottom:3.5rem}
+    table{overflow-x:auto;display:block;max-width:100%}
+  }
+
+  /* ===== Card hover lift (micro-interaction) ===== */
+  .feature-card,.value-card,.case-card,.community-link,.theory-paper{
+    transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;
+  }
+  .feature-card:hover,.value-card:hover,.case-card:hover,.community-link:hover,.theory-paper:hover{
+    transform:translateY(-2px);
+  }
+
+  /* ===== Section fade-in for new sections ===== */
+  .three-sentences,.audience-section,.faq-section,.not-what-section,.sponsor-section,.new-roadmap-section{
+    opacity:0;transform:translateY(30px);transition:opacity 0.6s ease,transform 0.6s ease;
+  }
+  .three-sentences.revealed,.audience-section.revealed,.faq-section.revealed,
+  .not-what-section.revealed,.sponsor-section.revealed,.new-roadmap-section.revealed{
+    opacity:1;transform:translateY(0);
+  }
+
+/* ===== Philosophical Foundation ===== */
+.prop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:24px 0}
+.prop-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;transition:all .2s;position:relative;overflow:hidden}
+.prop-card:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px)}
+.prop-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--accent);opacity:.7}
+.prop-card.prop-keystone::before{background:var(--purple);width:4px;opacity:1}
+.prop-card.prop-keystone{background:var(--purple-bg);border-color:var(--purple)}
+.prop-num{font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:6px}
+.prop-card.prop-keystone .prop-num{color:var(--purple)}
+.prop-head{font-size:1.02rem;font-weight:700;margin-bottom:8px;color:var(--text)}
+.prop-body{font-size:.88rem;line-height:1.7;color:var(--text-dim)}
+.phil-h3{font-size:1.2rem;font-weight:700;margin:36px 0 14px;color:var(--text);padding-left:12px;border-left:3px solid var(--accent)}
+.path-svg{width:100%;max-width:680px;margin:16px auto;display:block;height:auto}
+.calc-block{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin:16px 0}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);font-size:.9rem;color:var(--text-dim)}
+.calc-row:last-child{border-bottom:none}
+.calc-row span:first-child{color:var(--text-dim)}
+.calc-row span:last-child{color:var(--text);font-weight:500}
+.calc-total{background:var(--accent-light);border-radius:6px;padding:10px 12px;margin-top:8px;font-weight:600}
+.calc-total span:last-child{color:var(--accent)}
+.phil-closing{background:var(--purple-bg);border:1px solid var(--purple);border-radius:10px;padding:18px 22px;margin-top:28px;font-size:.92rem;line-height:1.7;color:var(--text-dim)}
+.phil-closing strong{color:var(--purple)}
+
 </style>
 </head>
 <body>
+
+<!-- Scroll Progress Bar -->
+<div class="scroll-progress" id="scroll-progress"></div>
 
 <!-- ===== Scrolling Ticker ===== -->
 <div class="ticker-wrap">
@@ -976,19 +1258,85 @@
   </div>
 </div>
 
+<!-- ===== What is SXJ? (Three Sentences) ===== -->
+<section class="three-sentences" id="what-is">
+  <div class="ts-card">
+    <span class="ts-num">01</span>
+    <div class="ts-label">What it is</div>
+    <div class="ts-text">SXJ is an open protocol for verifiable public facts &mdash; turning real-world contribution into tamper-proof digital records.</div>
+  </div>
+  <div class="ts-card">
+    <span class="ts-num">02</span>
+    <div class="ts-label">Why it's different</div>
+    <div class="ts-text">Credit scores measure how much you can borrow. SXJ measures what you've actually contributed.</div>
+  </div>
+  <div class="ts-card">
+    <span class="ts-num">03</span>
+    <div class="ts-label">Current status</div>
+    <div class="ts-text">Currently in the rule-making phase. All models are open and auditable. No app, no platform &mdash; just an open protocol design.</div>
+  </div>
+  <div class="ts-cta" style="grid-column:1/-1">
+    <a href="#for-you" class="ts-cta-btn primary">What's in it for me?</a>
+    <a href="#theory" class="ts-cta-btn secondary">Explore the protocol</a>
+  </div>
+</section>
+
+<!-- ===== For You (Audience Entry) ===== -->
+<section class="content-section audience-section" id="for-you">
+  <div class="section-icon">👥</div>
+  <div class="section-title">Who Is This For?</div>
+  <div class="section-subtitle">Whether you're an individual, an enterprise, a government, a foundation, or a developer &mdash; SXJ has a role for you.</div>
+  <div class="section-body">
+    <div class="audience-grid">
+      <div class="audience-card individual">
+        <div class="ac-icon">🧑</div>
+        <div class="ac-title">Individual</div>
+        <div class="ac-pain">Your contributions &mdash; pension payments, work history, community service &mdash; get lost when you cross borders or change jobs.</div>
+        <div class="ac-benefit">Record your existence facts with SHA-256 hash chain. Build a verifiable, portable contribution record that no institution can erase.</div>
+        <div class="ac-disclaimer">SXJ records are verifiable but not legally binding. They complement, not replace, official documents.</div>
+      </div>
+      <div class="audience-card enterprise">
+        <div class="ac-icon">🏢</div>
+        <div class="ac-title">Enterprise</div>
+        <div class="ac-pain">Cross-border employee social security verification is expensive, manual, and error-prone. No standard protocol exists.</div>
+        <div class="ac-benefit">Adopt an open verification protocol. Reduce compliance costs. Provide employees with portable, verifiable contribution records.</div>
+        <div class="ac-disclaimer">Enterprise onboarding is in planning stage. No production deployment yet &mdash; sandbox simulation only.</div>
+      </div>
+      <div class="audience-card gov">
+        <div class="ac-icon">🏛️</div>
+        <div class="ac-title">Government</div>
+        <div class="ac-pain">Citizens' social security records are fragmented across jurisdictions. Cross-border recognition agreements are slow and incomplete.</div>
+        <div class="ac-benefit">Co-build an open verification standard. Improve citizen trust through transparent, auditable record-keeping.</div>
+        <div class="ac-disclaimer">Binzhou pilot is planning stage only, not yet implemented. No government has adopted this protocol.</div>
+      </div>
+      <div class="audience-card npo">
+        <div class="ac-icon">🤝</div>
+        <div class="ac-title">NPO / Foundation</div>
+        <div class="ac-pain">Beneficiaries' contributions and outcomes are hard to verify. Impact reporting lacks transparency and cross-verification.</div>
+        <div class="ac-benefit">Use SXJ to create verifiable impact records. Donors can independently audit outcomes. Build trust through open data.</div>
+        <div class="ac-disclaimer">No NPO has integrated SXJ yet. Integration requires technical setup and governance agreement.</div>
+      </div>
+      <div class="audience-card dev">
+        <div class="ac-icon">💻</div>
+        <div class="ac-title">Developer / Researcher</div>
+        <div class="ac-pain">Closed verification systems are opaque. You can't audit the algorithms, inspect the data, or build on top of them.</div>
+        <div class="ac-benefit">SXJ is an open protocol. Inspect the hash chain. Build tools. Contribute to the commons. All code is open source (MIT).</div>
+        <div class="ac-disclaimer">Protocol spec is still being drafted. API is in design phase &mdash; not yet stable for production use.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== Section Navigation ===== -->
 <nav class="section-nav" id="section-nav">
-  <a href="#records" class="active">Records</a>
-  <a href="#manifesto">Manifesto</a>
-  <a href="#how-it-works">How It Works</a>
-  <a href="#verified-cases">Verified Cases</a>
-  <a href="#submit-verify">Submit / Verify</a>
-  <a href="#contributors">Contributors</a>
-  <a href="#theory">Co-Creation Theory</a>
-  <a href="#blog">Blog</a>
-  <a href="#api">API</a>
-  <a href="#community">Community</a>
+  <a href="#what-is" class="active">What is this</a>
+  <a href="#for-you">For you</a>
+  <a href="#how-it-works">How it works</a>
+  <a href="#submit-verify">Tools</a>
+  <a href="#faq">FAQ</a>
   <a href="#roadmap">Roadmap</a>
+  <a href="#sponsor">Build with us</a>
+  <a href="#theory">Theory</a>
 </nav>
 
 <!-- ===== Main: Two Column ===== -->
@@ -1591,6 +1939,124 @@
 </section>
 
 <!-- ===== 6. Co-Creation Theory (共创论) ===== -->
+<section class="content-section" id="philosophy">
+  <div class="section-icon">📜</div>
+  <div class="section-title">Philosophical Foundation — Seven Propositions</div>
+  <div class="section-subtitle">What fundamentally separates Co-Creation Theory from its five competitors is not technology — it is the philosophical bedrock</div>
+
+  <div class="section-body">
+    <p>The core contradiction in Marx's era was <strong>scarcity of production</strong>. Today, material abundance and technological efficiency are extreme — yet debt locks wealth inequality in place. SXJ does not solve "production"; it redefines "distribution" through <strong>verification</strong>. The seven propositions below are the philosophical bedrock of Co-Creation Theory, settled through repeated discussion — keystone, method, path, and end-state, interlocking ring by ring.</p>
+
+    <div class="prop-grid">
+      <div class="prop-card">
+        <div class="prop-num">①</div>
+        <div class="prop-head">Bidirectional Reflection</div>
+        <div class="prop-body">Co-Creation is rights <strong>co-authored bottom-up by the world's people</strong>. Once unified in the digital world, they reflect back into the physical one. The root difference from the five competitors: they practice <strong>one-way monopoly</strong> (I set the rules, you obey); SXJ is a <strong>two-way protocol</strong> (rules are co-verified by participants).</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-num">②</div>
+        <div class="prop-head">Floor-First</div>
+        <div class="prop-body">The only verifiable starting point is <strong>the floor</strong> — the most basic right to survival. When the absolute level of the guaranteed baseline exceeds <strong>today's median</strong> living standard, coercion loses its object: the ceiling's resources plus the daily practice of the vast middle will naturally push the floor upward.</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-num">③</div>
+        <div class="prop-head">Record Ontology</div>
+        <div class="prop-body"><strong>No settlement — only recording.</strong> Recording dynamically balances giving and settling. Extreme case: when capital and non-capital both hit their limit values, they can only rise and fall together — financial empty-circulation with near-zero real material efficiency, so settlement is infeasible. Gzz's tokenization is the <strong>hub</strong> linking sovereignty and debt, reality and digital.</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-num">⑤</div>
+        <div class="prop-head">Currency Disappearance</div>
+        <div class="prop-body">Pushed to the extreme — <strong>currency itself disappears</strong>. The only reason money and forex exist is the absence of a unified unit of measure. Once CV net value becomes that unit, exchange happens directly in net value. Virtual currency is one-way digitization; SXJ is <strong>two-way net-value-ization</strong>.</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-num">⑥</div>
+        <div class="prop-head">Dynamic Offset</div>
+        <div class="prop-body">Historical justice and future fairness <strong>do not conflict</strong>. The mechanism is dynamic offset, not one-time settlement. No top-down executor is needed — bottom-up protocol constraints let both run in parallel on the same ledger.</div>
+      </div>
+      <div class="prop-card prop-keystone">
+        <div class="prop-num">⑦</div>
+        <div class="prop-head">Usage-Efficiency Ontology · Keystone</div>
+        <div class="prop-body">Do not contest <strong>ownership</strong>; only calculate <strong>usage efficiency</strong>. Both capital monopoly and state monopoly must pass through consumption to realize value — and consumption is itself the bottom-up verification act. So the real axis is not "who owns it" but "who uses it most efficiently".</div>
+      </div>
+    </div>
+
+    <p style="margin-top:20px">Proposition 4 (the gravitational constant of centralization) is dissolved by ① and ⑦ together: centralization's gravity source is <strong>one-way information flow</strong>; two-way verification drains that information monopoly. Centralization is not overthrown — it is hollowed out.</p>
+
+    <h3 class="phil-h3">Floor-Maximalism: not lowering the top, but raising the floor</h3>
+    <p>There are three paths to narrowing wealth gaps. The traditional left-right debate is stuck on the first two; Co-Creation Theory takes the third:</p>
+
+    <svg class="path-svg" viewBox="0 0 680 420" role="img" aria-label="Three paths to narrowing wealth gaps">
+      <text x="340" y="26" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a2e">Three Paths: How to Narrow Wealth Gaps</text>
+      <g>
+        <rect x="40" y="50" width="190" height="250" rx="12" fill="#f8f9fa" stroke="#e8eaed" stroke-width="1"/>
+        <text x="135" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#555">Trickle / Redistribute</text>
+        <line x1="135" y1="95" x2="135" y2="285" stroke="#e8eaed" stroke-width="1"/>
+        <line x1="115" y1="110" x2="155" y2="110" stroke="#0066ff" stroke-width="2"/>
+        <text x="135" y="103" text-anchor="middle" font-size="11" fill="#0066ff">Top</text>
+        <line x1="115" y1="275" x2="155" y2="275" stroke="#30a14e" stroke-width="2"/>
+        <text x="135" y="290" text-anchor="middle" font-size="11" fill="#30a14e">Floor</text>
+        <line x1="135" y1="120" x2="135" y2="195" stroke="#8892a0" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-intl)"/>
+        <text x="170" y="158" text-anchor="middle" font-size="11" fill="#8892a0">trickle</text>
+        <text x="135" y="315" text-anchor="middle" font-size="11" fill="#555">gap remains</text>
+        <text x="135" y="333" text-anchor="middle" font-size="11" fill="#555">or breeds resentment</text>
+      </g>
+      <g>
+        <rect x="245" y="50" width="190" height="250" rx="12" fill="#f8f9fa" stroke="#e8eaed" stroke-width="1"/>
+        <text x="340" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#555">Leveling / Flatten</text>
+        <line x1="340" y1="95" x2="340" y2="285" stroke="#e8eaed" stroke-width="1"/>
+        <line x1="320" y1="195" x2="360" y2="195" stroke="#0066ff" stroke-width="2"/>
+        <line x1="320" y1="195" x2="360" y2="195" stroke="#30a14e" stroke-width="2"/>
+        <text x="340" y="186" text-anchor="middle" font-size="11" fill="#1a1a2e">top = floor</text>
+        <text x="340" y="315" text-anchor="middle" font-size="11" fill="#555">loses incentive</text>
+        <text x="340" y="333" text-anchor="middle" font-size="11" fill="#555">efficiency drops</text>
+      </g>
+      <g>
+        <rect x="450" y="50" width="190" height="250" rx="12" fill="#e8f0ff" stroke="#0066ff" stroke-width="1"/>
+        <text x="545" y="74" text-anchor="middle" font-size="13" font-weight="700" fill="#0066ff">Floor-Maximalism</text>
+        <text x="545" y="90" text-anchor="middle" font-size="11" fill="#7c3aed">Co-Creation</text>
+        <line x1="545" y1="100" x2="545" y2="285" stroke="#e8eaed" stroke-width="1"/>
+        <line x1="525" y1="108" x2="565" y2="108" stroke="#0066ff" stroke-width="2"/>
+        <text x="545" y="100" text-anchor="middle" font-size="11" fill="#0066ff">Top</text>
+        <line x1="525" y1="125" x2="565" y2="125" stroke="#30a14e" stroke-width="2"/>
+        <text x="545" y="142" text-anchor="middle" font-size="11" fill="#30a14e">floor = old top</text>
+        <text x="545" y="172" text-anchor="middle" font-size="11" fill="#0066ff">everyone reaches</text>
+        <text x="545" y="190" text-anchor="middle" font-size="11" fill="#0066ff">two-way record</text>
+        <text x="545" y="315" text-anchor="middle" font-size="11" fill="#0066ff">top's resources</text>
+        <text x="545" y="333" text-anchor="middle" font-size="11" fill="#0066ff">gain more value</text>
+      </g>
+      <g>
+        <rect x="80" y="348" width="520" height="55" rx="8" fill="#f8f9fa" stroke="#0066ff" stroke-width="1"/>
+        <text x="340" y="370" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a2e">Not lowering the top, but raising the floor to the top's level</text>
+        <text x="340" y="392" text-anchor="middle" font-size="11" fill="#555">food / clothing / shelter / transit + education + healthcare = verifiable floor · 300 RMB/day food as upper bound</text>
+      </g>
+      <defs>
+        <marker id="arr-intl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#8892a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+    </svg>
+
+    <p>Raise my own rights to the maximum, then let everyone reach what I already enjoy — isn't that narrowing the wealth gap? Meanwhile the top's resources gain <strong>more value</strong>, the middle gains resources to use, and the floor rises sharply. The only difference: this is now <strong>two-way recording, a protocol</strong> — not one-way acceptance or giving.</p>
+
+    <h3 class="phil-h3">Do the math: the floor is actually cheap</h3>
+    <div class="calc-block">
+      <div class="calc-row"><span>Food (upper-bound standard)</span><span>300 RMB/day × 365 = <strong>109,500 RMB/year</strong></span></div>
+      <div class="calc-row"><span>Clothing</span><span>≈ 5,000–10,000 RMB/year</span></div>
+      <div class="calc-row"><span>Transit (basic)</span><span>≈ 3,000–5,000 RMB/year</span></div>
+      <div class="calc-row"><span>Shelter / Education / Healthcare</span><span>As public rights, near 0 cash at point of service</span></div>
+      <div class="calc-row calc-total"><span>Cash floor (most generous standard)</span><span>≈ <strong>120k RMB/person/year</strong></span></div>
+    </div>
+    <p>For comparison: China's 2023 per-capita GDP was ≈ 89k RMB, but that is an "average", not a "floor". Even at the most luxurious food standard, the floor is far from unaffordable. And when shelter/education/healthcare are provided as public rights, the cash-transfer portion needed is even smaller.</p>
+
+    <h3 class="phil-h3">Why can no one today really "spend 300 a day"?</h3>
+    <p>This is like Wang Duoyu in the film "Hello Mr. Billionaire" (西虹市首富) — tasked with spending a billion, yet <strong>unable to find anything worth spending on</strong>. Under the current system, even with money, consumption cannot be spent well (or spent with quality). This precisely proves that <strong>usage efficiency has not been switched on</strong>. What SXJ proves is that "this level is reachable", and helps more people get there — at which point consumption, quality, and resources will be massively integrated and operationalized.</p>
+
+    <div class="phil-closing">
+      <strong>End-state:</strong> When the baseline absolute level exceeds today's median, coercion dissolves; when currency disappears for lack of a unified measure, exchange returns to net value. People no longer worry about material needs — not a utopian promise, but the natural byproduct of this mechanism actually running.
+    </div>
+  </div>
+</section>
+
 <section class="content-section" id="theory">
   <div class="section-icon">🔬</div>
   <div class="section-title">Co-Creation Theory (共创论)</div>
@@ -1681,7 +2147,7 @@
     <p>Fiscal Direct-to-Value replaces traditional financial intermediaries (banks, venture capital). When a subject's <strong>Social Confirmation Asset (SCA)</strong> covers their debt, the system triggers automatic compensation — <strong>no cash passes through hands</strong>.</p>
     <div class="theory-diagram" style="text-align:left;line-height:1.8">
 Seed funding <span class="accent">¥5M</span> → resident consumption → auto-tax → points rebuy → <span class="green">debt resolution</span><br>
-│ 5-round cycle · Recovery rate <span class="accent">67%</span> · Debt resolved <span class="accent">2× principal</span><br>
+│ 5-round cycle · Recovery rate <span class="accent">67%</span> <em style="font-size:0.62rem;color:var(--text-faint)">(sandbox simulation, not field-verified)</em> · Debt resolved <span class="accent">2× principal</span><br>
 │<br>
 Case: Bai Xi debt <span class="red">¥5,000</span><br>
 → Teach Tai Chi to 20 people → Merit Card <span class="accent">10,000 co-creation points</span><br>
@@ -1723,7 +2189,7 @@ Case: Bai Xi debt <span class="red">¥5,000</span><br>
     <h3>Four-Level Spiral Expansion</h3>
     <p>Co-Creation Theory explicitly rejects "one-step" grand plans. It uses <strong>deductive method</strong> — starting from a minimal viable protocol and growing through trial, competition, and emergence:</p>
     <ol>
-      <li><strong>Origin Verification:</strong> Full-loop pilot in a single city (e.g., Binzhou digital grain vouchers) — validate the model.</li>
+      <li><strong>Origin Verification:</strong> Full-loop pilot in a single city (e.g., Binzhou digital grain vouchers <em style="font-size:0.74rem;color:var(--text-faint)">— planning stage, not yet implemented</em>) — validate the model.</li>
       <li><strong>Regional Network:</strong> Form "city alliances" at provincial level — unify standards.</li>
       <li><strong>Belt & Road Replication:</strong> Export mature models to friendly nations.</li>
       <li><strong>Global Protocol Ecosystem:</strong> Diverse, interconnected, self-evolving global protocol network.</li>
@@ -1839,6 +2305,148 @@ Case: Bai Xi debt <span class="red">¥5,000</span><br>
       </div>
       <div class="discuss-list" id="theory-discuss-list"></div>
     </div>
+
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="content-section faq-section" id="faq">
+  <div class="section-icon">❓</div>
+  <div class="section-title">Frequently Asked Questions</div>
+  <div class="section-subtitle">Straight answers about SXJ &mdash; what it is, whether you can trust it, and how to get involved.</div>
+  <div class="section-body">
+    <div class="faq-list">
+
+      <div class="faq-group-label">What it is</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is SXJ a credit bureau? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">No. A credit bureau scores how much you can borrow. SXJ records what you've actually contributed. Credit bureaus serve lenders; SXJ serves you &mdash; the contributor. SXJ does not issue credit scores, does not sell data to lenders, and does not determine loan eligibility.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Does it cost money? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">No. The SXJ protocol is open and free to use. You can generate hash-chain records in your browser at no cost. There is no subscription, no paywall, no premium tier. Sponsorship is optional and does not unlock features &mdash; it supports rule-making work.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What's the relationship to blockchain? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">SXJ uses a SHA-256 hash chain &mdash; a cryptographic data structure similar to blockchain's chain of blocks. However, SXJ is not a blockchain project. There is no cryptocurrency, no consensus mechanism, no mining, no token. The hash chain runs entirely in your browser using the native Web Crypto API. Think of it as a lightweight, server-optional attestation chain.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is Gzz a cryptocurrency? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">No. Gzz (共证值, "co-attestation value") is a theoretical unit in Co-Creation Theory. It is designed to be extinguished when a debt is resolved &mdash; the opposite of a cryptocurrency, which is designed to be permanent and appreciate. Gzz cannot be bought, sold, mined, or traded. It exists only as a conceptual tool in the theoretical framework.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do you have an app? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">No. SXJ is a protocol design, not a product. There is no app to download, no platform to sign up for. This website is a demonstration and documentation tool. The protocol is designed to be implemented by anyone &mdash; enterprises, governments, developers &mdash; using open specifications.</div>
+      </div>
+
+      <div class="faq-group-label">Is it trustworthy</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is the Binzhou pilot real? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">No &mdash; the Binzhou pilot is in the planning stage only, not yet implemented. All figures (67% recovery rate, SCA=11,000, 5-round cycle) are sandbox simulation results based on theoretical models, not field-verified data. No government has adopted or endorsed this protocol. We are transparent about this: the models are open and auditable, but they have not been tested in real-world deployment.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Who's behind it? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">SXJ was initiated by Bai Xi, a researcher with a doctoral background from the International University of Health and Welfare (Japan). The project has been co-authored with multiple AI agents (DeepSeek, Yuanbao, Qwen, Doubao, WorkBuddy, Cloudflare) at different phases. All contributors and their contribution values are transparently listed on the site. There is no hidden team, no offshore entity, no anonymous founder.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Will you rug-pull? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">There is nothing to rug-pull. There is no token, no investment contract, no promise of financial return. Sponsorship is a donation to support rule-making work, not an investment. If the project ends tomorrow, your locally-stored hash-chain records still work &mdash; they're in your browser, not on our server. The protocol is designed to be server-optional precisely so that it cannot be shut down by any single party.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is the code open source? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">The website code is visible in your browser (View Source). Full protocol documentation and reference implementations are being prepared for open-source release under MIT license. The current website itself is CC0 1.0 (public domain). See the Roadmap section for the open-source release timeline. You can inspect the hash chain logic, the CV formula, and all data structures right now.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can the hash chain be faked? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Each record's hash depends on the previous record's hash. Changing any record breaks every subsequent hash in the chain. You can verify chain integrity by recomputing SHA-256(text | prev_hash | timestamp) and comparing it to the declared hash. This verification can be done by anyone, anywhere, with any SHA-256 tool. The cryptography is standard and battle-tested.</div>
+      </div>
+
+      <div class="faq-group-label">How to participate</div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I register a CV account? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Not yet. Individual CV account registration is in the "Future" phase of our roadmap. Currently, you can generate hash-chain records (which are stored locally in your browser) and use the CV calculator to estimate your contribution value. When the account system is ready, existing locally-stored records will be migratable. Follow the Blog section or subscribe to our newsletter for updates.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How can enterprises cooperate? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Enterprises can apply through the "Enterprise Onboarding" form in the sidebar. We're looking for 1-3 enterprise partners for sandbox pilot testing (not production deployment). Cooperation areas include: cross-border social security verification for employees, contribution record portability, and protocol feedback. All pilots are sandbox simulations &mdash; no production data integration yet.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What does sponsorship return? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Sponsorship does not return equity, tokens, profit-sharing, or any financial instrument. It returns: (1) your name on the sponsors list (optional), (2) priority access to protocol documentation and sandbox pilots, (3) direct communication with the founder on governance questions. That's it. If you're looking for investment returns, this is not the right project. See the Sponsor section for full transparency.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How can developers and researchers get involved? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Developers and researchers can: (1) inspect the protocol and hash chain logic (View Source on this page), (2) join the discussion in the Theory section, (3) propose improvements via GitHub, (4) build tools on top of the protocol. We're looking for researchers in cryptography, social science, and public policy to peer-review the theoretical framework. See the Build with Us section for details.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can governments participate? <span class="faq-toggle">+</span></div>
+        <div class="faq-a">Yes, through the "Pilot Partner" sponsorship tier. Government participation is essential for the Binzhou pilot to move from planning stage to field implementation. However, no government has endorsed or adopted SXJ. Any government partnership would be publicly announced with full transparency. The protocol is designed to complement, not replace, government social security systems.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6.5 Competitive Landscape ===== -->
+<section class="content-section" id="competitors">
+  <div class="section-icon">📊</div>
+  <div class="section-title">Competitive Landscape</div>
+  <div class="section-subtitle">Why SXJ is not competing for the same pie — it's redefining what a pie is.</div>
+  <div class="section-body">
+
+    <h4>The Verification Spectrum</h4>
+    <p>All existing systems operate at <strong>Layer 1-3</strong> (identity, scoring, asset). SXJ operates at <strong>Layer 4</strong> (protocol) — redefining the framework itself.</p>
+
+    <div class="theory-grid">
+      <div class="value-card" style="border-color:var(--text-faint);opacity:0.7">
+        <span class="vc-badge" style="background:var(--text-faint)">Layer 1 · Identity</span>
+        <div class="vc-title">World Foundation</div>
+        <div class="vc-desc">$52.5M funded. Verifies "what you are" (human/AI) via iris scan. Binary answer. Static — once verified, always "human". No contribution tracking, no accountability.</div>
+      </div>
+      <div class="value-card" style="border-color:var(--text-faint);opacity:0.7">
+        <span class="vc-badge" style="background:var(--text-faint)">Layer 2 · Scoring</span>
+        <div class="vc-title">Creditlink</div>
+        <div class="vc-desc">$53M pre-sold. On-chain credit scoring — still "can you borrow?" not "did you contribute?". No NCV mechanism. Score optimization ≠ value creation.</div>
+      </div>
+      <div class="value-card" style="border-color:var(--text-faint);opacity:0.7">
+        <span class="vc-badge" style="background:var(--text-faint)">Layer 3 · Asset</span>
+        <div class="vc-title">Sharon AI / Jiaye</div>
+        <div class="vc-desc">$500M / $3M. Capital-driven growth (more loans, more GPUs) or broader access to existing debt framework. Users still owe money with interest — debt cycle continues.</div>
+      </div>
+      <div class="value-card" style="border-color:var(--red);background:var(--red-light)">
+        <span class="vc-badge" style="background:var(--red)">Layer 4 · Protocol</span>
+        <div class="vc-title">SXJ 事现鉴</div>
+        <div class="vc-desc"><strong>Redefines credit = contribution ability.</strong> Bidirectional verification: reality→SHA-256→CV→debt auto-resolution. NCV accountability ceiling. SCA covers debt without cash. Data sovereignty = individual.</div>
+      </div>
+    </div>
+
+    <h4>What All Competitors Lack</h4>
+    <div class="theory-grid">
+      <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>NCV (Negative Contribution Value)</b> — nobody has a "ceiling". Systematic destruction goes unmeasured.</div></div>
+      <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>SCA auto-resolution</b> — nobody resolves debt by contribution, only by repayment.</div></div>
+      <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>Gzz extinction design</b> — all tokens (BTC/WLD/ETH) are designed to be permanent. Gzz is designed to disappear.</div></div>
+      <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>Bidirectional verification</b> — all are one-way: reality→digital (attest) or digital→reality (score applied). No loop closure.</div></div>
+    </div>
+
+    <blockquote>
+      <b>They optimize within existing credit frameworks. SXJ rewrites the framework itself.</b><br>
+      Binzhou pilot (SCA=11,000, 5-round 67% recovery, same-month zeroing — <em style="font-size:0.76rem;color:var(--text-faint)">sandbox simulation, planning stage, not yet implemented</em>) is the first theoretical data point showing how the new framework could work.
+    </blockquote>
 
   </div>
 </section>
@@ -2013,70 +2621,329 @@ console.<span class="fn">log</span>(chain.length);   <span class="com">// 47</sp
   </div>
 </section>
 
+<!-- ===== What We Are Not ===== -->
+<section class="content-section not-what-section" id="not-what">
+  <div class="section-icon">🚫</div>
+  <div class="section-title">What SXJ Is Not</div>
+  <div class="section-subtitle">Clear boundaries prevent misunderstandings. Here's what SXJ is not &mdash; and how it differs from existing systems.</div>
+  <div class="section-body">
+
+    <div class="not-compare">
+      <div class="nc-item">
+        <div class="nc-left"><s>SXJ = Credit bureau</s></div>
+        <div class="nc-arrow">&rarr;</div>
+        <div class="nc-right">Verification protocol</div>
+      </div>
+      <div class="nc-item">
+        <div class="nc-left"><s>SXJ = Blockchain project</s></div>
+        <div class="nc-arrow">&rarr;</div>
+        <div class="nc-right">Hash chain attestation</div>
+      </div>
+      <div class="nc-item">
+        <div class="nc-left"><s>SXJ = Worldcoin</s></div>
+        <div class="nc-arrow">&rarr;</div>
+        <div class="nc-right">Behavior verification</div>
+      </div>
+      <div class="nc-item">
+        <div class="nc-left"><s>SXJ = ESG report</s></div>
+        <div class="nc-arrow">&rarr;</div>
+        <div class="nc-right">Cross-verifiable</div>
+      </div>
+      <div class="nc-item">
+        <div class="nc-left"><s>SXJ = Credit score</s></div>
+        <div class="nc-arrow">&rarr;</div>
+        <div class="nc-right">Self-verifiable contribution record</div>
+      </div>
+    </div>
+
+    <h3>Competitor Comparison</h3>
+    <div class="comp-table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Traditional Credit</th>
+            <th>Worldcoin</th>
+            <th>ESG Report</th>
+            <th class="col-sxj">SXJ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>What it measures</td>
+            <td>Borrowing capacity</td>
+            <td>Human uniqueness (iris)</td>
+            <td>Corporate sustainability</td>
+            <td class="col-sxj">Actual contribution</td>
+          </tr>
+          <tr>
+            <td>Who controls data</td>
+            <td>Bureaus / lenders</td>
+            <td>World Foundation</td>
+            <td>Corporations</td>
+            <td class="col-sxj">Individual (local storage)</td>
+          </tr>
+          <tr>
+            <td>Verification method</td>
+            <td>Closed scoring algorithm</td>
+            <td>Iris scan (binary)</td>
+            <td>Self-reported + auditor</td>
+            <td class="col-sxj">SHA-256 hash chain (open)</td>
+          </tr>
+          <tr>
+            <td>Cross-verifiable</td>
+            <td class="no">No</td>
+            <td class="no">No</td>
+            <td class="no">Limited</td>
+            <td class="col-sxj yes">Yes (anyone, anytime)</td>
+          </tr>
+          <tr>
+            <td>Negative accountability</td>
+            <td class="no">No</td>
+            <td class="no">No</td>
+            <td class="no">No</td>
+            <td class="col-sxj yes">Yes (NCV ceiling)</td>
+          </tr>
+          <tr>
+            <td>Cost to user</td>
+            <td>Hidden (in interest rates)</td>
+            <td>Free (but data = price)</td>
+            <td>N/A</td>
+            <td class="col-sxj">Free (open protocol)</td>
+          </tr>
+          <tr>
+            <td>Token / cryptocurrency</td>
+            <td class="no">No</td>
+            <td>Yes (WLD)</td>
+            <td class="no">No</td>
+            <td class="col-sxj">No (Gzz is theoretical, designed to extinguish)</td>
+          </tr>
+          <tr>
+            <td>Implementation status</td>
+            <td>Production (decades)</td>
+            <td>Production</td>
+            <td>Production</td>
+            <td class="col-sxj">Rule-making phase (sandbox simulation)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <blockquote>
+      They optimize within existing credit frameworks. SXJ rewrites the framework itself &mdash; from "how much can you borrow?" to "what have you actually contributed?"
+    </blockquote>
+
+  </div>
+</section>
+
 <!-- ===== 10. Roadmap ===== -->
-<section class="content-section" id="roadmap">
+<section class="content-section new-roadmap-section" id="roadmap">
   <div class="section-icon">🗺️</div>
   <div class="section-title">Roadmap</div>
-  <div class="section-subtitle">Where SXJ has been, where it is now, and where it's going.</div>
+  <div class="section-subtitle">Where SXJ has been, where it is now, and where it's going. Honest status, no hype.</div>
   <div class="section-body">
-    <div class="roadmap">
-      <div class="roadmap-item done">
-        <div class="roadmap-time">July 2026</div>
-        <div class="roadmap-status done">✓ Completed</div>
-        <div class="roadmap-title">Phase 1 — Single AI (DeepSeek)</div>
-        <div class="roadmap-desc">Project genesis. Hash chain concept, initial records, first site draft. DeepSeek AI as sole collaborator.</div>
+    <div class="roadmap-timeline">
+
+      <div class="rm-item done">
+        <div class="rm-status done">✓ Done</div>
+        <div class="rm-title">Theory framework 5.0 &rarr; 8.0</div>
+        <div class="rm-desc">Co-Creation Theory evolved from initial framework (5.0) through dual-value system (6.0), black box equation (7.0), to verification-right decentralization (8.0). Open for discussion and refinement.</div>
       </div>
-      <div class="roadmap-item done">
-        <div class="roadmap-time">July 2026</div>
-        <div class="roadmap-status done">✓ Completed</div>
-        <div class="roadmap-title">Phase 2 — Two-AI Interaction (DeepSeek × Yuanbao)</div>
-        <div class="roadmap-desc">Cross-verification between two AI models. Content accuracy improved. Chinese context deepened.</div>
+
+      <div class="rm-item done">
+        <div class="rm-status done">✓ Done</div>
+        <div class="rm-title">Fiscal direct-sales sandbox simulation</div>
+        <div class="rm-desc">Theoretical model completed: SCA, 5-round cycle, 67% recovery rate (sandbox simulation, not field-verified). All formulas and assumptions are open and auditable.</div>
       </div>
-      <div class="roadmap-item done">
-        <div class="roadmap-time">July 2026</div>
-        <div class="roadmap-status done">✓ Completed</div>
-        <div class="roadmap-title">Phase 3 — Four-AI Interaction</div>
-        <div class="roadmap-desc">Qwen and Doubao joined. Multilingual coverage expanded. Reasoning diversity improved across four AI architectures.</div>
+
+      <div class="rm-item done">
+        <div class="rm-status done">✓ Done</div>
+        <div class="rm-title">Website launch (Chinese + International)</div>
+        <div class="rm-desc">Chinese site (agent.hygzz.cn) and international English site (hygzz.com) live. Hash chain demo, CV leaderboard, AI chat assistant, and 10+ content sections deployed.</div>
       </div>
-      <div class="roadmap-item done">
-        <div class="roadmap-time">July 2026</div>
-        <div class="roadmap-status done">✓ Completed</div>
-        <div class="roadmap-title">Phase 4 — Agent Architecture (WorkBuddy × Cloudflare)</div>
-        <div class="roadmap-desc">WorkBuddy Agent and Cloudflare Agent built the website architecture and deployed to edge network. International version launched.</div>
+
+      <div class="rm-item active">
+        <div class="rm-status active">● In progress</div>
+        <div class="rm-title">Website UX optimization</div>
+        <div class="rm-desc">Adding FAQ, audience entry, comparison tables, mobile CTA, scroll progress, and back-to-top. Improving navigation and content structure based on user feedback.</div>
       </div>
-      <div class="roadmap-item current">
-        <div class="roadmap-time">Present</div>
-        <div class="roadmap-status current">● In Progress</div>
-        <div class="roadmap-title">Phase 5 — International Launch & Community Building</div>
-        <div class="roadmap-desc">English-language site live. Building global community, onboarding verifiers, expanding verified cases. AI chat assistant deployed.</div>
+
+      <div class="rm-item active">
+        <div class="rm-status active">● In progress</div>
+        <div class="rm-title">Protocol documentation</div>
+        <div class="rm-desc">Writing the full protocol specification: hash chain structure, verification algorithms, CV formula, governance rules. Targeting a developer-readable document by end of Q3 2026.</div>
       </div>
-      <div class="roadmap-item">
-        <div class="roadmap-time">Q3 2026</div>
-        <div class="roadmap-status planned">○ Planned</div>
-        <div class="roadmap-title">Phase 6 — On-Chain Verification</div>
-        <div class="roadmap-desc">Migrate hash chain to blockchain for immutable public verification. Records will be verifiable without trusting any server.</div>
+
+      <div class="rm-item active">
+        <div class="rm-status active">● In progress</div>
+        <div class="rm-title">Open source preparation</div>
+        <div class="rm-desc">Cleaning up code, adding LICENSE (MIT), preparing GitHub repository structure. Website code is already CC0 1.0. Full SDK and reference implementation in preparation.</div>
       </div>
-      <div class="roadmap-item">
-        <div class="roadmap-time">Q4 2026</div>
-        <div class="roadmap-status planned">○ Planned</div>
-        <div class="roadmap-title">Phase 7 — Cross-Language Verification</div>
-        <div class="roadmap-desc">Records in any language can be verified by AI agents in other languages. Breaking down linguistic barriers to truth.</div>
+
+      <div class="rm-item planned">
+        <div class="rm-status planned">○ Planned</div>
+        <div class="rm-title">SHA-256 verification chain prototype</div>
+        <div class="rm-desc">Standalone prototype with server-side chain storage and public verification endpoint. Not a blockchain &mdash; a lightweight attestation chain with optional server sync.</div>
       </div>
-      <div class="roadmap-item">
-        <div class="roadmap-time">2027</div>
-        <div class="roadmap-status planned">○ Planned</div>
-        <div class="roadmap-title">Phase 8 — Governance Tokens & DAO</div>
-        <div class="roadmap-desc">CV system evolves into governance tokens. Community votes on protocol upgrades. Full DAO transition begins.</div>
+
+      <div class="rm-item planned">
+        <div class="rm-status planned">○ Planned</div>
+        <div class="rm-title">CV calculator API</div>
+        <div class="rm-desc">Public API endpoint for calculating contribution value based on the CV formula. Developers can integrate it into their own tools. Rate-limited, free, no auth required.</div>
       </div>
-      <div class="roadmap-item">
-        <div class="roadmap-time">2027+</div>
-        <div class="roadmap-status planned">○ Planned</div>
-        <div class="roadmap-title">Phase 9 — Global Rights Infrastructure</div>
-        <div class="roadmap-desc">SXJ becomes the global standard for verifiable existence. Integrated with UN, ILO, and national social security systems. Article 22 realized.</div>
+
+      <div class="rm-item planned">
+        <div class="rm-status planned">○ Planned</div>
+        <div class="rm-title">1-3 enterprise sandbox pilots</div>
+        <div class="rm-desc">Looking for 1-3 enterprise partners to test cross-border social security verification in a sandbox environment. No production data. All results published openly. <em style="font-size:0.72rem;color:var(--text-faint)">Sandbox simulation only, not field deployment.</em></div>
       </div>
+
+      <div class="rm-item planned">
+        <div class="rm-status planned">○ Planned</div>
+        <div class="rm-title">Third-party security audit</div>
+        <div class="rm-desc">Independent security audit of the hash chain implementation, CV formula, and data handling. Audit report published publicly. Looking for volunteer auditors or sponsored audit.</div>
+      </div>
+
+      <div class="rm-item future">
+        <div class="rm-status future">◇ Future</div>
+        <div class="rm-title">Protocol open source</div>
+        <div class="rm-desc">Full protocol specification, SDK, and reference implementation released under MIT license. Community governance begins. Anyone can implement, fork, or build on the protocol.</div>
+      </div>
+
+      <div class="rm-item future">
+        <div class="rm-status future">◇ Future</div>
+        <div class="rm-title">Individual CV account registration</div>
+        <div class="rm-desc">Users can register a CV account, migrate locally-stored records, and build a portable contribution profile. Privacy-first design: user owns their data, server only stores hashes for verification.</div>
+      </div>
+
+      <div class="rm-item future">
+        <div class="rm-status future">◇ Future</div>
+        <div class="rm-title">Binzhou pilot field implementation</div>
+        <div class="rm-desc">Move from sandbox simulation to real-world pilot in Binzhou (or similar city). <strong>Requires government cooperation.</strong> No field implementation will happen without an official partnership agreement. <em style="font-size:0.72rem;color:var(--text-faint)">Planning stage only &mdash; not yet implemented.</em></div>
+      </div>
+
+      <div class="rm-item future">
+        <div class="rm-status future">◇ Future</div>
+        <div class="rm-title">Cross-border verification research</div>
+        <div class="rm-desc">Research collaboration with academic institutions on cross-border social security verification standards. Targeting publication in peer-reviewed journals. Long-term goal: integration with bilateral social security agreements.</div>
+      </div>
+
     </div>
   </div>
 </section>
+<!-- ===== Sponsor / Co-build ===== -->
+<section class="content-section sponsor-section" id="sponsor">
+  <div class="section-icon">🤝</div>
+  <div class="section-title">Build With Us</div>
+  <div class="section-subtitle">SXJ is in the rule-making phase. Here's how you can support &mdash; and what you get (and don't get) in return.</div>
+  <div class="section-body">
+
+    <div class="sponsor-box">
+      <h3>Why Sponsorship Is Needed</h3>
+      <p>SXJ is currently a one-person project (Bai Xi) co-authored with AI agents. The rule-making phase &mdash; writing protocol specifications, conducting sandbox simulations, preparing open-source releases &mdash; requires time and resources. Sponsorship funds go directly to:</p>
+      <ul>
+        <li>Server and domain costs (hygzz.com, agent.hygzz.cn)</li>
+        <li>Independent security audit (targeting $5,000-$10,000)</li>
+        <li>Academic research collaboration stipends</li>
+        <li>Legal consultation for protocol governance structure</li>
+        <li>Translation and localization (Japanese, Spanish, French)</li>
+      </ul>
+
+      <div class="sponsor-honest">
+        <strong>⚠ Honest Disclaimer:</strong> SXJ is in sandbox simulation phase. All models are theoretical. Sponsorship is a <strong>donation</strong>, not an investment. There is <strong>no token</strong>, no equity, no promise of financial return. If you expect profit, please do not sponsor. If you believe open protocols should exist and want to help &mdash; welcome.
+      </div>
+
+      <h3>Sponsor Tiers</h3>
+      <div class="sponsor-tiers">
+        <div class="sponsor-tier seed">
+          <span class="st-badge">Individual</span>
+          <div class="st-name">Seed Supporter</div>
+          <div class="st-price">Any amount</div>
+          <div class="st-desc">For individuals who believe open verification protocols should exist. No minimum &mdash; even $5 helps.</div>
+          <div class="st-perks">✓ Name on sponsors list (optional)<br>✓ Newsletter updates<br>✓ Priority access to sandbox pilots</div>
+        </div>
+        <div class="sponsor-tier co-build">
+          <span class="st-badge">Enterprise</span>
+          <div class="st-name">Co-build Enterprise</div>
+          <div class="st-price">$1,000+</div>
+          <div class="st-desc">For enterprises interested in sandbox pilot testing. Includes technical consultation and protocol feedback sessions.</div>
+          <div class="st-perks">✓ Everything in Seed Supporter<br>✓ 2-hour protocol consultation<br>✓ Sandbox pilot priority queue<br>✓ Feedback incorporated into spec</div>
+        </div>
+        <div class="sponsor-tier pilot">
+          <span class="st-badge">Government / NPO</span>
+          <div class="st-name">Pilot Partner</div>
+          <div class="st-price">Partnership-based</div>
+          <div class="st-desc">For governments or NPOs interested in exploring field implementation. Requires formal partnership agreement.</div>
+          <div class="st-perks">✓ Everything in Co-build Enterprise<br>✓ Joint pilot design workshop<br>✓ Co-authored pilot report<br>✓ Public recognition as pilot partner</div>
+        </div>
+        <div class="sponsor-tier tech">
+          <span class="st-badge">Developer</span>
+          <div class="st-name">Technical Contributor</div>
+          <div class="st-price">Code / research</div>
+          <div class="st-desc">For developers and researchers who contribute code, audits, or peer review. No money required &mdash; contribution is the currency.</div>
+          <div class="st-perks">✓ CV (Contribution Value) tracked transparently<br>✓ Commit access (after review)<br>✓ Co-author credit on papers<br>✓ Full access to protocol internals</div>
+        </div>
+      </div>
+
+      <h3>Fund Transparency</h3>
+      <p>All sponsorship funds are tracked publicly. Current funding: <strong>$0</strong> (project is self-funded by Bai Xi). When sponsorships begin, a public ledger will be maintained on this page showing every contribution and how it was spent. No hidden funds, no offshore accounts, no anonymous donors.</p>
+
+      <div class="limitations-box">
+        <div class="lb-title">Known Limitations</div>
+        <ul class="lim-list">
+          <li>The CV formula is a draft &mdash; not yet peer-reviewed or field-tested.</li>
+          <li>The hash chain runs client-side only; there is no public server for chain verification yet.</li>
+          <li>No enterprise or government has adopted or endorsed this protocol.</li>
+          <li>The Binzhou pilot is a sandbox simulation &mdash; all figures are theoretical, not field-verified.</li>
+          <li>The protocol specification is incomplete; breaking changes are expected before v1.0.</li>
+          <li>There is no token, no ICO, no IDO, no presale &mdash; and there never will be.</li>
+        </ul>
+      </div>
+
+      <h3>Changelog</h3>
+      <div class="changelog-box">
+        <div class="changelog-entry">
+          <span class="cl-date">2026-07-26</span>
+          <span class="cl-text">Added FAQ, audience entry, comparison table, sponsor section, roadmap update, scroll progress, back-to-top. Fixed Binzhou pilot wording to clarify sandbox simulation status.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="cl-date">2026-07-25</span>
+          <span class="cl-text">International English version launched. Full AI chat support, language and region selectors, 10 content sections.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="cl-date">2026-07-24</span>
+          <span class="cl-text">Card grid layout redesign. Verified records prioritized. Image lightbox added for academic credentials.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="cl-date">2026-07-22</span>
+          <span class="cl-text">CV Leaderboard upgraded with transparent formula, per-entry breakdown, and real-time verification.</span>
+        </div>
+        <div class="changelog-entry">
+          <span class="cl-date">2026-07-10</span>
+          <span class="cl-text">Project genesis. Bai Xi initiated SXJ with DeepSeek AI. Hash chain concept and initial records created.</span>
+        </div>
+      </div>
+
+      <h3>Stay Updated</h3>
+      <div class="subscribe-box">
+        <span class="sub-label">Subscribe:</span>
+        <form class="subscribe-form" onsubmit="handleSubscribe(event)">
+          <input type="email" id="subscribe-email" placeholder="your@email.com" required>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="share-bar">
+        <span class="share-label">Share SXJ:</span>
+        <a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https://hygzz.com" target="_blank" rel="noopener">📘 Facebook</a>
+        <a class="share-btn" href="https://twitter.com/intent/tweet?text=SXJ%20%E2%80%94%20Verifiable%20Public%20Fact%20Protocol&url=https://hygzz.com" target="_blank" rel="noopener">🐦 Twitter</a>
+        <a class="share-btn" onclick="copyShareLink()" style="cursor:pointer">🔗 Copy link</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <button class="lightbox-close" onclick="closeLightbox(event)" aria-label="Close">&times;</button>
   <img class="lightbox-img" id="lightbox-img" src="" alt="" onclick="event.stopPropagation()">
@@ -2089,6 +2956,15 @@ console.<span class="fn">log</span>(chain.length);   <span class="com">// 47</sp
   <span>Universal Light Cone Vessel &middot; SXJ</span><span class="footer-sep">/</span>
   <span>Git: 88f3d88</span><span class="footer-sep">/</span>
   <span>CC0 1.0</span>
+</div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&uarr;</button>
+
+<!-- Mobile CTA Float -->
+<div class="mobile-cta-float">
+  <a href="#what-is">What is this?</a>
+  <a href="#sponsor" class="outline">Build with us</a>
 </div>
 
 <!-- Floating AI Chat -->
@@ -2650,7 +3526,7 @@ renderTheoryDiscuss();
 
 // ====== Section Nav Scroll Spy ======
 const navLinks=document.querySelectorAll('.section-nav a');
-const sections=['records','manifesto','how-it-works','verified-cases','submit-verify','contributors','theory','blog','api','community','roadmap'];
+const sections=['what-is','for-you','records','manifesto','how-it-works','verified-cases','submit-verify','contributors','theory','competitors','blog','api','community','faq','not-what','roadmap','sponsor'];
 function updateActiveNav(){
   let current='records';
   for(const id of sections){
@@ -2916,6 +3792,72 @@ function sendChat(){
     if(r.link)appendLink(r.link.text,r.link.url);
   },600+Math.random()*400);
 }
+// ====== Scroll Progress Bar ======
+(function(){
+  const bar=document.getElementById('scroll-progress');
+  const backBtn=document.getElementById('back-to-top');
+  function onScroll(){
+    const st=window.scrollY||document.documentElement.scrollTop;
+    const sh=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    const pct=sh>0?Math.min(100,(st/sh)*100):0;
+    if(bar)bar.style.width=pct+'%';
+    if(backBtn){
+      if(st>400)backBtn.classList.add('show');
+      else backBtn.classList.remove('show');
+    }
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+})();
+
+// ====== Email Subscribe Handler ======
+function handleSubscribe(e){
+  e.preventDefault();
+  const email=document.getElementById('subscribe-email').value.trim();
+  if(!email){return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    alert('Please enter a valid email address.');
+    return;
+  }
+  try{
+    const list=JSON.parse(localStorage.getItem('sxj_subscribers')||'[]');
+    if(!list.includes(email))list.push(email);
+    localStorage.setItem('sxj_subscribers',JSON.stringify(list));
+  }catch(e){}
+  alert('Thank you for subscribing! We will notify you of major updates.\n\nNote: This is a demo. Your email is stored locally only.');
+  document.getElementById('subscribe-email').value='';
+}
+
+// ====== Copy Share Link ======
+function copyShareLink(){
+  const url=window.location.href;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(()=>{
+      alert('Link copied to clipboard: '+url);
+    }).catch(()=>{
+      prompt('Copy link:',url);
+    });
+  }else{
+    prompt('Copy link:',url);
+  }
+}
+
+// ====== Reveal new sections (three-sentences, audience, faq, etc.) ======
+(function(){
+  const newSections=document.querySelectorAll('.three-sentences,.audience-section,.faq-section,.not-what-section,.sponsor-section,.new-roadmap-section');
+  if(newSections.length){
+    const obs=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('revealed');
+          obs.unobserve(e.target);
+        }
+      });
+    },{threshold:0.08,rootMargin:'0px 0px -60px 0px'});
+    newSections.forEach(s=>obs.observe(s));
+  }
+})();
+
 </script>
 </body>
 </html>
