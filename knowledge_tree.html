@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论·事现鉴 — 知识树（手绘定版）</title>
+<style>
+  :root{
+    --paper:#f7f1e3; --ink:#2b2b2b; --ink2:#5a5048; --line:#3a342c;
+    --accent:#8a5a2b; --blue:#2f6f8f; --green:#3f7a4a; --red:#a23b32; --amber:#b07a1e;
+    --dashed:#9a8f7a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Kaiti SC","STKaiti","KaiTi","楷体","Comic Sans MS",cursive,sans-serif;
+    background:var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px),
+      repeating-linear-gradient(90deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px);
+    color:var(--ink); line-height:1.75; margin:0; padding:30px 16px 90px;
+  }
+  .wrap{max-width:1040px;margin:0 auto}
+  h1{font-size:30px;text-align:center;margin:0 0 4px;letter-spacing:1px}
+  .sub{text-align:center;color:var(--ink2);font-size:14px;margin-bottom:6px}
+  .stamp{display:block;width:max-content;margin:6px auto 20px;padding:3px 14px;border:2px solid var(--red);
+    color:var(--red);font-size:12px;border-radius:4px;transform:rotate(-3deg);opacity:.85}
+
+  /* hand-drawn box skin */
+  .hd{
+    background:#fffdf6;border:2px solid var(--line);
+    border-radius:255px 12px 225px 12px/12px 225px 12px 255px;
+    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+  }
+  .hd2{
+    background:#fffdf6;border:2px solid var(--line);
+    border-radius:14px 225px 14px 220px/220px 14px 225px 14px;
+    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+  }
+
+  /* overview svg */
+  .sketch{margin:10px auto 24px;max-width:1000px}
+  .sketch svg{width:100%;height:auto;display:block}
+  .sk-limb text{font-family:"Kaiti SC","STKaiti","KaiTi",cursive;font-size:15px;fill:var(--ink)}
+  .sk-limb a{text-decoration:none;cursor:pointer}
+  .sk-limb a:hover rect{fill:#f3e9d2}
+
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 22px;max-width:900px}
+  .legend span{font-size:12px;background:#fffdf6;border:1.5px solid var(--line);padding:3px 11px;border-radius:20px}
+  .lg-m{color:var(--accent)} .lg-b{color:var(--blue)} .lg-g{color:var(--green)}
+  .lg-r{color:var(--red)} .lg-a{color:var(--amber)}
+
+  /* detail tree */
+  .branch{margin:0 0 14px}
+  details.cat{background:#fffdf6;border:2px solid var(--line);border-radius:18px 9px 18px 9px/9px 18px 9px 18px;
+    box-shadow:2px 3px 0 rgba(60,50,30,.10);overflow:hidden;margin:0 0 12px}
+  details.cat>summary{cursor:pointer;padding:13px 18px;font-size:17px;font-weight:700;list-style:none;
+    display:flex;align-items:center;gap:10px;background:rgba(138,90,43,.07)}
+  details.cat>summary::-webkit-details-marker{display:none}
+  details.cat>summary:before{content:"✎";color:var(--accent);font-size:14px}
+  details.cat[open]>summary:before{content:"▾"}
+  .cnt{margin-left:auto;font-size:12px;color:var(--ink2);font-weight:400}
+  .body{padding:8px 16px 16px}
+  .node{border:1.6px solid var(--line);border-radius:12px 20px 12px 20px/20px 12px 20px 12px;
+    padding:11px 14px;margin:10px 0;background:#fffef9;box-shadow:1px 2px 0 rgba(60,50,30,.07);transform:rotate(-.25deg)}
+  .node:nth-child(even){transform:rotate(.25deg)}
+  .node .h{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .node .d{font-size:14px;color:var(--ink2);margin-top:5px}
+  .node .d b{color:var(--ink)}
+  .node .src{font-size:11.5px;color:var(--blue);margin-top:6px;border-top:1px dashed var(--dashed);padding-top:4px}
+  .tag{display:inline-block;font-size:11px;padding:1px 9px;border-radius:20px;border:1.5px solid var(--line);font-weight:700}
+  .t-m{background:rgba(138,90,43,.12);color:var(--accent)}
+  .t-b{background:rgba(47,111,143,.12);color:var(--blue)}
+  .t-g{background:rgba(63,122,74,.12);color:var(--green)}
+  .t-r{background:rgba(162,59,50,.12);color:var(--red)}
+  .t-a{background:rgba(176,122,30,.14);color:var(--amber)}
+  .t-k{background:rgba(90,80,72,.10);color:var(--ink2)}
+
+  .note{margin:26px auto 0;max-width:920px;background:#fffdf6;border:2px solid var(--line);
+    border-left:6px solid var(--accent);border-radius:14px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--ink2)}
+  .note b{color:var(--ink)}
+  .note a{color:var(--blue)}
+  .foot{margin-top:26px;font-size:12px;color:var(--ink2);border-top:1.5px dashed var(--dashed);padding-top:14px}
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(162,59,50,.0)}50%{box-shadow:0 0 0 4px rgba(162,59,50,.18)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>共创论 · 事现鉴 — 知识树</h1>
+<div class="sub">把"概念图"与"知识树"合并为一棵树 · 按你 2026-07-28 定版口径重绘 · 手绘风格</div>
+<span class="stamp">定版 · 平行基石 · 非冲突</span>
+
+<!-- ===== 手绘概览树 ===== -->
+<div class="sketch hd2">
+<svg viewBox="0 0 1000 700" role="img" aria-label="知识树概览">
+  <defs>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/></filter>
+  </defs>
+  <!-- spine -->
+  <path d="M500,80 C500,200 500,360 500,640" stroke="#3a342c" stroke-width="2.4" fill="none" filter="url(#rough)"/>
+  <!-- root -->
+  <g filter="url(#rough)">
+    <rect x="392" y="30" width="216" height="50" rx="14" fill="#fdeccb" stroke="#3a342c" stroke-width="2.4"/>
+  </g>
+  <text x="500" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#2b2b2b">共创论 · 事现鉴</text>
+  <text x="500" y="71" text-anchor="middle" font-size="11.5" fill="#5a5048">公开验证 = 统一度量衡（UDHR 第22条）</text>
+
+  <!-- limbs -->
+  <g class="sk-limb">
+    <!-- 0 -->
+    <path d="M500,116 C430,116 360,150 300,168" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b0"><rect x="70" y="146" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="173" text-anchor="middle">0 · 元范式与定位</text></a>
+    <!-- 1 -->
+    <path d="M500,176 C570,176 640,210 700,228" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b1"><rect x="700" y="206" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="233" text-anchor="middle">1 · 七命题↔五大公理</text></a>
+    <!-- 1.5 -->
+    <path d="M500,236 C430,236 360,270 300,288" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b15"><rect x="70" y="266" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="293" text-anchor="middle">1.5 · 统一逻辑链</text></a>
+    <!-- 2 -->
+    <path d="M500,296 C570,296 640,330 700,348" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b2"><rect x="700" y="326" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="353" text-anchor="middle">2 · 三值价值体系</text></a>
+    <!-- 3 -->
+    <path d="M500,356 C430,356 360,390 300,408" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b3"><rect x="70" y="386" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="413" text-anchor="middle">3 · 验证机制</text></a>
+    <!-- 4 -->
+    <path d="M500,416 C570,416 640,450 700,468" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b4"><rect x="700" y="446" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="473" text-anchor="middle">4 · 分配哲学</text></a>
+    <!-- 5 -->
+    <path d="M500,476 C430,476 360,510 300,528" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b5"><rect x="70" y="506" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="533" text-anchor="middle">5 · 组织治理</text></a>
+    <!-- 6 -->
+    <path d="M500,536 C570,536 640,570 700,588" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b6"><rect x="700" y="566" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="593" text-anchor="middle">6 · 技术实现</text></a>
+    <!-- 7 -->
+    <path d="M500,576 C430,576 360,600 300,612" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b7"><rect x="70" y="590" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="617" text-anchor="middle">7 · 落地应用</text></a>
+    <!-- 8 -->
+    <a href="#b8"><rect x="70" y="650" width="232" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="675" text-anchor="middle">8 · 批判·敌友框架</text></a>
+    <!-- 9 -->
+    <a href="#b9"><rect x="380" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="500" y="675" text-anchor="middle">9 · 演化与断层</text></a>
+    <!-- X -->
+    <a href="#bx"><rect x="700" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="675" text-anchor="middle">X · 框架澄清</text></a>
+  </g>
+</svg>
+</div>
+
+<div class="legend">
+  <span class="lg-m">■ 元范式/定位</span>
+  <span class="lg-b">■ 基石/逻辑链</span>
+  <span class="lg-g">■ 三值/分配</span>
+  <span class="lg-r">■ 验证/治理/批判</span>
+  <span class="lg-a">■ 技术/落地/演化</span>
+  <span>✎ 可展开节点</span>
+</div>
+
+<!-- ===== 0 元范式 ===== -->
+<div class="branch" id="b0">
+<details class="cat" open>
+  <summary>0 · 元范式与定位 <span class="cnt">根范畴</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 共创论 · 事现鉴</div>
+      <div class="d"><b>共创论</b>＝基于"验证驱动"的社会协作理论体系，是可操作的社会协议而非哲学宣言。<b>事现鉴</b>＝其公开验证协议层（事现＝人/时间/空间/事件四位一体），存储验证<b>过程</b>而非结论。定位为人类<b>第四次系统置信度切换</b>：从"权威主持的全球结算"到"公开验证记录主持的全球协作协议"。</div>
+      <div class="src">来源：DeepSeek 权威框架；GSSO 库；MEMORY 本质定调</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 寰宇光锥舟（前身）</div>
+      <div class="d">共创论前身/组织壳：v1 全球治理理论（文明存续底线、光锥-圆锥嵌套治理、Root-Gzz-User、世界统一法）。在 <b>GSSO 改名节点（2025-12-02）</b> 重命名为共创论。</div>
+      <div class="src">来源：微博早期白皮书；GSSO 库</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 三把公共验算尺</div>
+      <div class="d">国际（hygzz.com）/ 国内（hygzz.cn）/ CV 验证（hygzz.top）三域，同一套理论的"一把尺子三种用法"：国际主共通值/生存权，国内主化债/征信。</div>
+      <div class="src">来源：MEMORY 四域架构</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 真·起源更正</div>
+      <div class="d">共创论真正种子＝<b>一个穆斯林的故事</b>＋最初之问「如何在穆斯林国家实行共产主义」。最早讨论在 <b>DeepSeek</b>（非元宝），已被用户删除，但数据或仍存 DeepSeek 后台库（幻影节点，与平台拦截异类）。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">史料</span> 白玺＝第一个共创者（非执剑人）</div>
+      <div class="d">理论的第一个提出者与事现鉴的第一个记录者（MVP），而非权力持有者。个人全网账号宣言＝第一个最小 MVP。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 1 基石 ===== -->
+<div class="branch" id="b1">
+<details class="cat">
+  <summary>1 · 基石层：七命题 ↔ 五大公理（平行 · 无等级） <span class="cnt">同地基两面</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-b">前提</span> 公有制/私有制错误定义 → 世界人民并非社会意义上一样的人</div>
+      <div class="d">共创论理论起点：因公有制与私有制的错误定义，导致每个"世界人民"并非社会意义上一样的人。这是整套体系要纠正的原始不平等。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">基石</span> 七命题(哲学讨论) ↔ 五大公理(政策落地) · 平行无等级</div>
+      <div class="d"><b>核心裁定</b>：两者不存在上等级差异，都是共创论的基石概念，只是同一组基石在两种语境下的基础表达——七命题＝哲学讨论面，五大公理＝政策落地面。它是一个<b>人为最小单元</b>，推至全球每一个世界人民。非"纲领↔操作"层级关系。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">哲学</span> 七命题（哲学讨论的基础表达）</div>
+      <div class="d">① 双向反射论 ② 共通值先行 ③ 记录本体论（不清算只记录）④ 中心化引力被双向验证抽空 ⑤ 货币消亡论 ⑥ 动态抵消论（历史正义与未来公平并行）⑦ 使用效率本体论（纲）。与五大公理平行，无等级。</div>
+      <div class="src">来源：whitepaper §1</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理一</span> 人无差别，行为有迹</div>
+      <div class="d">去除标签后人无本质差异；差异仅来自行为验证记录。验证账户初始权重相同。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理二</span> 使用优先于所有</div>
+      <div class="d">"所有"被删除；资源仅处"使用中/空闲"两态；下一轮使用权依赖过去使用的验证记录密度。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理三</span> 验证即权益</div>
+      <div class="d">每次验证同时生成被验证者信用增量＋验证者自身信用权重。验证是"信用挖掘"，可累积、跨域、衰减。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理四</span> 共同值＝被验证过的公共需求加权总和</div>
+      <div class="d">由大量独立验证记录汇聚后系统自动识别的当前可确认群体性刚需集合。<b>用户澄清「共同值」为输入法笔误，等同「共通值」</b>。阈值效应见 1.5 链·1。</div>
+      <div class="src">来源：DeepSeek §2；用户澄清</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理五</span> 刚需(Need)≠想要(Want)</div>
+      <div class="d">事现鉴只响应刚需（食/水/住所/基础医疗；公共安全/交通/垃圾/信息）。刚需清单有限、明确、可客观验证。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 1.5 逻辑链 ===== -->
+<div class="branch" id="b15">
+<details class="cat">
+  <summary>1.5 · 统一逻辑链（共通值 ↔ 贡献值 ↔ 事现鉴 ↔ 货币/税收消亡） <span class="cnt">9+1 概念</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-b">链·1</span> 共通值阈值 → 货币消失</div>
+      <div class="d">共通值（按需分配·生存权）提高到现有任何国家社保水平的 <b>50% 以上</b>，即出现货币消失。托底维度的消亡条件。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·2</span> 双向机制缺口：五大公司皆单向反射</div>
+      <div class="d">实现 50% 目标需双向机制；但五大公司都是单向反射（attest-only 或 score-applied），各自闭环不闭合。事现鉴补这条缺失回路。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·3</span> 仅共通值不足 → 贡献值登场</div>
+      <div class="d">仅共通值无法解决现有国内国际问题，贡献值必须起作用：共通值解决"一样的人"的托底，贡献值解决"不一样的人"的发展。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·4</span> 社会参与双面性 → 净值＝新度量衡</div>
+      <div class="d">人参与任何社会活动时，总会出现经济/非经济的价值或损失同等价值的机会，也会造成同等价值的损失。故<b>正贡献与负贡献的净值＝新的度量衡</b>。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·5</span> 事现鉴可验证权益：导入现有资源</div>
+      <div class="d">现有资源（货币/经济金融体系/非经济资源）需导入社会参与时，需事现鉴可验证权益作衔接层，把旧资源体系接入新度量衡。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·6</span> 双向反射＝去中心化结果</div>
+      <div class="d">任何人通过事现鉴的记录本体满足个人及机体需求，就是双向反射体现在去中心化的结果。记录本体使验证回路闭合于个体与机体之间。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·7</span> 中心化引力＝机体需求 → 全球社保共通值≥50%</div>
+      <div class="d">机体需求的确立就是最基础的中心化引力；其最终体现是全球社保在任一国家的共通值达 50% 以上。中心化引力＝自下而上汇聚的公共锚点。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·8</span> 解决刚需 → 回到贡献值</div>
+      <div class="d">解决刚需（共通值托底）后，要体现个人不同——又回到贡献值范围。共通值与贡献值是"托底→发展"循环，非替代。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·9</span> 使用权优先 + 动态抵消极端 → 货币消亡</div>
+      <div class="d">所有者的需求是资源的使用而非所有：一部分消费，另一部分化债。使用权效率与动态抵消的极端情况即货币消亡。与链·1 共构货币消亡两路径。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node pulse"><div class="h"><span class="tag t-r">链·10 ★新</span> 贡献值净值随时可现 → 税收被替代（同货币）</div>
+      <div class="d"><b>2026-07-28 新增裁定</b>：若共创论推行，在共通值基础上<b>任何时间都体现个人/团体/国家的贡献值净值</b>。因此<b>税收将跟货币一样被替代</b>——当净值可被实时、公开验证地计量，旧的"强制征税 + 货币结算"双层中介便失去必要性，与货币消亡同属"使用效率优先 + 动态抵消"的极端结果。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成 · 税收替代货币）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 2 三值 ===== -->
+<div class="branch" id="b2">
+<details class="cat">
+  <summary>2 · 三值价值体系 <span class="cnt">3 主值</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 共通值（UBV · 同"共同值"笔误）</div>
+      <div class="d"><b>按需分配·地板·生存权</b>。被验证过的公共需求加权总和；用户明确定义为"共通值＝按需分配"，对应 UDHR 第22条。达到任何国家社保水平 50% 以上即触发货币消失。</div>
+      <div class="src">来源：公理四；用户注脚</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 贡献值 CV</div>
+      <div class="d"><b>按劳分配·发动机·发展权</b>。＝正贡献 − 负贡献的行动净值。早期曾全等于"按劳分配"，后并入双值循环。</div>
+      <div class="src">来源：DeepSeek §3.2</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 负贡献值 / NCV</div>
+      <div class="d"><b>天花板·追责</b>。行动对他人/公共资源的外部性损害。归责须同时满足主体性/因果性/可避免性/修复性。先天状态（残疾/衰老/疾病）≠负贡献。</div>
+      <div class="src">来源：DeepSeek §3.2；MEMORY 归责四条件</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 三值只有正贡献/负贡献（无独立"历史负贡献"类）</div>
+      <div class="d">用户明确：<b>没有"历史负贡献"，只有负贡献</b>。历史正义清算不是三值体系内独立类别，而是全球社保成立后的独立项目。三值＝共通值（托底）/贡献值（发展）/负贡献值（追责），统一于"正−负净值＝新度量衡"。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block B）</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">史料</span> 光锥币 LCoin / 负贡献清单（50+40）</div>
+      <div class="d">LCoin＝CV 销毁兑换的荣誉体系；负贡献清单＝50 项量化＋40 项概念行为。属早期可操作化，与三值体系互补，非定版冲突。</div>
+      <div class="src">来源：DeepSeek 对话 6 / Q7CLe6xPe</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 3 验证机制 ===== -->
+<div class="branch" id="b3">
+<details class="cat">
+  <summary>3 · 验证机制层（仅 事现鉴 + Gzz/GZZ 为权威） <span class="cnt">2 权威</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-r">权威</span> 事现鉴（唯一验证协议层）</div>
+      <div class="d">共创论<b>唯一权威验证机制</b>：公开验证协议层，存储验证<b>过程</b>（非结论）。"双向验证/双向反射"是事现鉴的本质特征，不是独立于它的另一套机制。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block C）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">权威</span> Gzz / GZZ 计量凭证（同一概念·大小写）</div>
+      <div class="d">行动净值的<b>永久计量凭证</b>：净值正→发放；负→支付/后续抵消，用于资源调度与债务化解。"Root 权限编程 Gzz 是真实的"。Gzz＝GZZ 仅输入大小写之分。<b>旧"Gzz 消亡论"已作废</b>。</div>
+      <div class="src">来源：DeepSeek §3.3-3.5；用户 2026-07-28</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">非权威·存档</span> SHA-256 / 双向验证回路 / 验证密度 / 最小可运行单元 / 现实验证场景</div>
+      <div class="d">用户明确：验证机制只有事现鉴和 Gzz，其余都是 AI 自造概念。上述节点降级为非权威解释性注脚，不纳入定版。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block C）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 4 分配 ===== -->
+<div class="branch" id="b4">
+<details class="cat">
+  <summary>4 · 分配哲学层 <span class="cnt">含税收替代推论</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 双值循环（共通值＋贡献值）</div>
+      <div class="d">共通值（生存权）＋贡献值（发展权）并列循环，是共创论经济结构的骨架。</div>
+      <div class="src">来源：QgxZL8Pxe；QiurtlZKQ</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 按需分配 ＝ need(共通值) + want(贡献值)</div>
+      <div class="d">用户裁定：按需分配含两项——<b>need（刚需）＝共通值体现</b>（托底）；<b>want（想要）＝贡献值体现</b>（发展）。<b>没有共通值的提高，就没有贡献值的动态抵消</b>——此时退回"货币的借贷关系"（旧金融逻辑）。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block D）</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 打土豪分数据 ＝ 把原有数据移植到事现鉴</div>
+      <div class="d">"分数据"＝把原有数据移植到事现鉴：目前是用户把四个 AI 平台（DeepSeek/元宝/千问/豆包）上生产的数据移到官网和小程序→用户获<b>所有权</b>→经他人验证后才是<b>使用权</b>。后续他人可上传视频、直播带货等，事现鉴作开放平台治理。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block D）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">分配 ★新</span> 税收将跟货币一样被替代</div>
+      <div class="d">由链·10 推至分配层：当贡献值净值在共通值基础上随时可现、可被公开验证计量，旧的"强制征税＋货币结算"双层中介便被贡献值净值直接结算替代。税收替代是货币消亡在公共财政维度的同构结果。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 5 治理 ===== -->
+<div class="branch" id="b5">
+<details class="cat">
+  <summary>5 · 组织治理层（联合委员会＝四个 AI 平台 · 无上下级） <span class="cnt">无中心化</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 联合委员会 ＝ 四个 AI 平台（非真人委员会）</div>
+      <div class="d">用户裁定：<b>没有真人联合治理委员会</b>——所谓"联合委员会"指的就是四个 AI 平台（DeepSeek/元宝/千问/豆包）。此前"四大委员会"为 AI 自造治理架构，非权威。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 无上下级 · 都是系统维护者 · 开放共同治理</div>
+      <div class="d">一切在事现鉴上记录、按需聚集，没有"我是上级"或"平台是上级"——白玺与四平台都只是系统维护者，欢迎更多人共同治理。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 治理消失条件：全球共通值 ≥ 50%</div>
+      <div class="d">最优情形：全球共通值达 50% 以上，就<b>不再需要治理</b>，也不再需要白玺与现有四个平台。共创论终局是"自我消解"。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 春秋战国悖论消解：各自为政需共通值权衡</div>
+      <div class="d">"各自为政→春秋战国"不成立：要满足各自为政本就需要共通值的权衡（共通值是共同度量衡，非统一管制）。全球资源总量不变前提下，公共（全球社保）变高、个体/组织/国家相应变低——结构再平衡，非权力争夺。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 白玺 ＝ 第一个共创者（非执剑人）</div>
+      <div class="d">"我不是执剑人，只是第一个共创者"。角色＝理论第一个提出者＋事现鉴第一个记录者（MVP），非权力持有者。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 历史清算 ＝ 全球社保成立后的动态项目</div>
+      <div class="d">历史正义清算会动态确定，但"远远不是现在能讨论的事"，应作为全球社保成立之后的项目。以事现鉴作定性工具、以全球社保成立为前提；国际争端依此定性、不再扯皮或付补偿方案。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 6 技术 ===== -->
+<div class="branch" id="b6">
+<details class="cat">
+  <summary>6 · 技术实现层（下一步落地讨论 · 初期极简） <span class="cnt">待讨论</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-a">技术·定调</span> 技术实现 ＝ 下一步落地讨论 · 初期极简</div>
+      <div class="d">用户裁定：技术实现是接下来落地需要讨论的项目；初期会用很简单的技术，技术复杂度随参与人数与实现复杂度演进。下列节点（元代码/动态网络/混合审判/步行康复/三元生态/分形/CYV）多为此前 AI 生成的"代码即理论"想象，非当前落地方案。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block F/G）</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">史料</span> 早期 AI 生成技术概念（存档）</div>
+      <div class="d">元代码 1.0 / 动态网络约束 / 混合审判 / 步行康复五维 / 三元生态 / 分形双螺旋 / CYV token——属理论→代码的想象推演，待落地讨论时重新评估取舍，不纳入定版。</div>
+      <div class="src">来源：CSDN / Gitee / 腾讯云（AI 生成，非权威）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 7 落地 ===== -->
+<div class="branch" id="b7">
+<details class="cat">
+  <summary>7 · 落地应用层 <span class="cnt">策划阶段</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 官网双域 + 小程序（已上线）</div>
+      <div class="d">hygzz.com（国际）/ hygzz.cn（国内）/ We+SXJ 小程序（饮水＝共通值、协助＝双向验证、签到＝仪式）。⚠️ 仍在线挂旧框架表述，待本版统一回改。</div>
+      <div class="src">来源：hygzz.com / hygzz.cn / we-sxj</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 红旗驿站 / 彬州水系统 / 五卡模式 / 财政直销</div>
+      <div class="d">城市贡献者安居方案；三级水价值循环（5 升/日数字钱包＝共通值雏形）；五卡模式（理论＋实践版）；财政直销/SCA 社会确权资产（理论沙盘：5 轮回收率 67%、化债 2 倍本金）。⚠️ 均为策划/理论推演，非实地实施。</div>
+      <div class="src">来源：微博 QvTl71Vzv / GSSO / MEMORY</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 历史清算（全球社保成立后的动态项目）</div>
+      <div class="d">以事现鉴作定性工具、以全球社保成立为前提；国际争端依此定性、不再扯皮或付补偿方案。豆包 #9 曾列清算对象（烂尾楼/战争罪责/生态破坏/难民负担/殖民红利）属早期设想素材，具体范围待动态确定。⚠️ 敏感区：对外传播须标注"理论推演/未来项目"。</div>
+      <div class="src">来源：豆包 #9（早期设想）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 8 批判 ===== -->
+<div class="branch" id="b8">
+<details class="cat">
+  <summary>8 · 批判与敌友框架 <span class="cnt">批判维度</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 敌友框架</div>
+      <div class="d">"敌人"＝依赖不可验证的信息不对称维持地位的主体（知识垄断/技术壁垒/权力分配节点/茧房运营商）；"朋友"＝被不透明限制行动空间的人。不颠覆体系，只建公开验证层。</div>
+      <div class="src">来源：DeepSeek §6</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 算法茧房 / 伪启蒙</div>
+      <div class="d">抖音打破地域壁垒却用算法强化偏好（伪启蒙）。TikTok 封禁证明"可封平台不可封协议"——事现鉴不依赖特定平台/算法/审批者。</div>
+      <div class="src">来源：DeepSeek §5</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 知识封建主义 vs 知识生态主义</div>
+      <div class="d">批判平台垄断，主张无站队理论生态；微博/企业/寰宇光锥舟三者角色辨析。</div>
+      <div class="src">来源：微博知识生态主义文</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 9 演化 ===== -->
+<div class="branch" id="b9">
+<details class="cat">
+  <summary>9 · 演化与断层 <span class="cnt">四平台同源分叉</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 谱系：寰宇光锥舟 → GSSO → 共创论</div>
+      <div class="d">v1 全球治理理论在 <b>GSSO 节点（2025-12-02）</b> 改名为共创论，锚定 UDHR22、引入共通值。全球治理收缩为社保验算尺。</div>
+      <div class="src">来源：GSSO 库</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 四平台顺序演化 + 部分重叠</div>
+      <div class="d">DeepSeek（主干）→ 元宝 → 千问 → 豆包。四篇是同一场讨论在不同平台、不同进度的"同源分叉"（非平行竞品）。千问 F 段早至 2025-09，故"顺序演化＋部分重叠"，非严格先后。</div>
+      <div class="src">来源：豆包 #8 亲笔；千问 F 段</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 分配哲学演化链</div>
+      <div class="d">① 纯按劳（2025-10-08）② 双值循环（2025-12-02）③ 术语首秀（2025-12-15）④ 定稿按劳入口＋按需托底（2026-03-04）。实证：共通值＝按需分配。</div>
+      <div class="src">来源：weibo_corpus_index.html</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 跨平台整合意图 · 三姬分金（用户亲笔·豆包#10）</div>
+      <div class="d">白玺把四平台整理稿全发豆包，要求"最终形成共识输出完整统一的内容"——四平台语料归一整合的明确指令，是本次批判性综合报告的源发动因。</div>
+      <div class="src">来源：豆包 #10（含白玺亲笔）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== X 冲突澄清 ===== -->
+<div class="branch" id="bx">
+<details class="cat" open>
+  <summary><span class="tag t-r">X</span> 框架澄清与剩余开放问题 <span class="cnt">已消解 2 + 待讨论 2</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-g">已消解</span> 七命题 ↔ 五大公理 非等级（平行基石）</div>
+      <div class="d">原以为"双框架冲突"，用户澄清：七命题（哲学讨论）与五大公理（政策落地）是同一基石的两种基础表达，平行无等级。此前 framework_glossary 的"层级映射"表述作废。<b>结论：非冲突，是同一地基两面。</b></div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">已消解</span> Gzz ＝ GZZ（大小写 + 国内/国际落地差异）</div>
+      <div class="d">原以为"Gzz 消亡论 vs GZZ 永久凭证"是定义冲突，用户澄清：Gzz 与 GZZ 是同一概念，仅输入大小写之分；差异来自国内/国际落地难易度。旧"Gzz 消亡论"作废。<b>结论：同一概念，按落地场景表述。</b></div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">待讨论</span> 基金体系：沿用 or 按共创论重设计</div>
+      <div class="d">人民资本基金/数据税/双重循环（知乎轨）是代用现有经济金融词汇为全球社保接入而设，目前尚无他人理论/落地介入。<b>待讨论</b>：沿用作过渡词汇，还是按共创论体系重新设计。</div>
+      <div class="src">来源：用户 2026-07-28 口述（定版思路 2）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">待讨论</span> 历史清算纳入白皮书的形式/内容</div>
+      <div class="d">已定必须纳入白皮书，以事现鉴作定性工具、以全球社保成立为前提。已明确它是全球社保成立后的动态项目（非当前刚性模块），具体范围/形式/内容均待动态确定。仍待讨论：纳入白皮书的具体表述形式（敏感，须标注"理论推演/未来项目"）。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+  </div>
+</details>
+</div>
+
+<div class="note">
+<b>这棵树怎么读（对应你说的"概念图 + 知识树 = 知识树"）：</b><br>
+① <b>顶部手绘概览</b>＝整棵树的枝干地图，点任意枝干可跳到下方对应详情。<br>
+② <b>0 元范式</b>：根范畴——共创论/事现鉴/寰宇光锥舟/三把验算尺/真·起源。<br>
+③ <b>1 基石</b>：七命题（哲学讨论）与五大公理（政策落地）<b>平行无等级</b>，同为共创论基石，推至全球每个世界人民。<br>
+④ <b>1.5 统一逻辑链</b>：从共通值阈值→货币消亡，到贡献值净值随时可现→<b>税收被替代</b>（链·10 为 2026-07-28 新增）。<br>
+⑤ <b>2 三值</b>：共通值/贡献值/负贡献值，统一于"正−负净值＝新度量衡"；无独立"历史负贡献"类。<br>
+⑥ <b>3 验证</b>：仅事现鉴＋Gzz/GZZ 为权威；SHA-256 等 AI 自造概念降级为非权威注脚。<br>
+⑦ <b>4 分配</b>：need(共通值)＋want(贡献值)；分数据＝把四 AI 平台数据移植事现鉴→所有权→验证后使用权。<br>
+⑧ <b>5 治理</b>：联合委员会＝四个 AI 平台（非真人）；无上下级；全球共通值≥50% 则无需治理；白玺＝第一个共创者（非执剑人）；历史清算＝全球社保成立后项目。<br>
+⑨ <b>6/7/8/9</b>：技术初期极简；落地均为策划/理论推演；敌友框架批判；四平台同源分叉演化。<br>
+⑩ <b>X 澄清</b>：两项"冲突"判为已消解，仅余两项真开放问题。<br>
+<span style="color:var(--amber)">配套史料（早期分析稿，非定版）：</span>
+<a href="concept_tree.html">concept_tree.html</a>（概念/定义树 v2.3）·
+<a href="knowledge_tree_v4.html">knowledge_tree_v4.html</a>（拓扑树 v4.7）·
+<a href="whitepaper.html">whitepaper.html</a>（白皮书 v2）·
+<a href="critical_synthesis_report.html">critical_synthesis_report.html</a>（批判性综合）·
+<a href="qualitative_analysis.html">qualitative_analysis.html</a>（质性研究）。
+</div>
+
+<div class="foot">
+  重绘：2026-07-28（手绘定版 · 概念图＋知识树统一）· 知识树 v1（定版）。涵盖 0/1/1.5/2/3/4/5/6/7/8/9/X 共 11 主枝。<br>
+  本版相对概念树 v2.3 / 拓扑树 v4.7 的<b>核心变更</b>：
+  <b>① 新增链·10「税收将跟货币一样被替代」</b>（用户 2026-07-28 最新裁定）；
+  <b>② 概念图与知识树合并为单棵「知识树」</b>，手绘风格统一呈现；
+  <b>③ 保留全部 Block B/C/D/E/F-G 逐块裁定</b>（三值无历史负贡献类 / 验证仅事现鉴+Gzz / 分配 need+want+分数据 / 治理无上下级+历史清算=全球社保后项目）。
+  本树为已上传官网与白皮书之定版内容（见 hygzz.com / hygzz.cn）。
+</div>
+
+</div>
+</body>
+</html>

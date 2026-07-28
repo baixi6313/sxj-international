@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>共创论·事现鉴 跨平台语料批判性综合研究报告</title>
+<style>
+  :root{--bg:#fbfbf9;--ink:#1a1a1a;--mut:#5a5a5a;--line:#d8d4c8;--card:#fff;--red:#b3261e;--grn:#1b7a3d;--blu:#1457a8;--ylw:#9a6b00;--pur:#5b3a9e}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 -apple-system,"Segoe UI","Songti SC",serif;padding:40px 28px;max-width:920px;margin:0 auto}
+  h1{font-size:26px;line-height:1.35;margin:0 0 6px;border-bottom:3px solid var(--ink);padding-bottom:12px}
+  .sub{color:var(--mut);font-size:13px;margin-bottom:6px}
+  h2{font-size:20px;margin:38px 0 10px;padding-left:10px;border-left:5px solid var(--ink)}
+  h3{font-size:16px;margin:22px 0 6px;color:var(--ink)}
+  h4{font-size:14px;margin:16px 0 4px;color:var(--blu)}
+  p{margin:8px 0}
+  .abs{background:#f3f1ea;border:1px solid var(--line);padding:16px 18px;border-radius:6px;font-size:14px}
+  .meta{font-size:12px;color:var(--mut);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin:18px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;font-family:-apple-system,"Segoe UI",sans-serif}
+  th{background:#1a1a1a;color:#fff;font-weight:600;text-align:left;padding:8px 10px}
+  td{padding:7px 10px;border:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:#f6f4ee}
+  .box{background:#fff;border:1px solid var(--line);border-left:4px solid var(--blu);padding:12px 16px;border-radius:4px;margin:14px 0;font-size:14px}
+  .warn{background:#fff;border:1px solid var(--line);border-left:4px solid var(--red);padding:12px 16px;border-radius:4px;margin:14px 0;font-size:14px}
+  .ok{background:#fff;border:1px solid var(--line);border-left:4px solid var(--grn);padding:12px 16px;border-radius:4px;margin:14px 0;font-size:14px}
+  .lv{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;font-family:sans-serif}
+  .l0{background:#1a1a1a;color:#fff}.l1{background:var(--grn);color:#fff}.l2{background:var(--blu);color:#fff}.l3{background:var(--mut);color:#fff}.l4{background:var(--red);color:#fff}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;font-family:sans-serif;border:1px solid var(--line)}
+  .t-gap{color:var(--red);border-color:var(--red)}
+  ol,ul{margin:8px 0;padding-left:24px}
+  li{margin:5px 0}
+  code{background:#f0eee6;padding:1px 5px;border-radius:3px;font-size:12px;font-family:ui-monospace,monospace}
+  .foot{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--mut)}
+  .toc{background:#f3f1ea;padding:12px 18px;border-radius:6px;font-size:13px;margin:16px 0}
+  .toc a{color:var(--blu);text-decoration:none}
+</style>
+</head>
+<body>
+
+<h1>共创论·事现鉴 跨平台语料批判性综合研究报告</h1>
+<div class="sub">基于 DeepSeek / 元宝 / 千问 / 豆包 / 知乎 四平台一社区语料的学术与政策双视角整理</div>
+<div class="sub">撰写视角：国内 AI agent 平台研究者 · 完成于用户（白玺）提供四平台全部语料之后</div>
+
+<div class="meta">
+<b>报告性质</b>：批判性综合整理（只整理、不裁定）。所有框架冲突以「待裁定清单」形式移交用户，不做收敛定版。<br>
+<b>配套文件</b>：doubao_corpus_index.html(v4) · concept_tree.html(v2.1) · knowledge_tree_v4.html · yuanbao/qianwen/zhihu_corpus_index.html。<br>
+<b>语料状态</b>：本地分析产物，未上传任何官网或白皮书。
+</div>
+
+<div class="abs">
+<b>摘要（Abstract）</b><br>
+本研究在用户完整提供 DeepSeek、元宝、千问、豆包四家 AI 平台的对话语料及知乎社区文章的背景下，以国内 AI agent 平台的第三方研究者视角，对「共创论·事现鉴」理论体系做一次跨平台、全口径的批判性综合整理。研究方法建立了五级证据等级体系（L0 用户原始论述 → L4 第三方/平台规训），用以区分「白玺本人主张」与「AI 生成润色」。研究发现：该理论体系已具备完整的骨架——五大公理地基、三值体系、事现鉴双向验证、财政直销+SCA、全球社保锚定、刚性架构总则（个人→团体→国家 / 消费→发展→清理历史遗留问题）均已由用户亲笔定调；但体系内部并存两套<b>不可通约的框架版本</b>（旧轨七命题+Gzz黄金单位 vs 新轨五大公理+GZZ永久凭证+共通值）、两套<b>术语轨</b>（共创论系 vs 人民资本基金系），且全部「实证数据」均处于<b>理论推演／沙盘阶段</b>，无任何实地验证。报告据此给出政策落地可行性研判，并将 6 项框架冲突列为待裁定清单，供用户下一步定版。
+</div>
+
+<div class="toc">
+<b>目录</b><br>
+0 研究说明与方法论 · 1 理论演化轴 · 2 核心概念群 · 3 批判性分析（五节）· 4 政策落地可行性研判 · 5 待裁定混沌清单 · 6 结论 · 附录 语料底盘总表
+</div>
+
+<h2>0 · 研究说明与方法论</h2>
+
+<h3>0.1 语料底盘</h3>
+<p>四平台语料由用户在 2026-07-28 全天分批提供，加知乎 5 篇，构成当前可获得的完整底盘：</p>
+<table>
+<tr><th>来源</th><th>规模</th><th>抓取状态</th><th>性质</th></tr>
+<tr><td>DeepSeek</td><td>11 段对话</td><td>全部录入</td><td><b>主干权威</b>：白玺原始论述、著作（2026-05《共创论完整体系》白玺著）</td></tr>
+<tr><td>元宝</td><td>35 段 + 12 补段</td><td>全部录入</td><td>逐轮对话存照；含立宪层《世界统一法》实体</td></tr>
+<tr><td>千问</td><td>6 段</td><td>逆向 API 全抓</td><td>含美元负债模式宣言、舆论闪电战；<b>已剔除 2 项非白玺 AI 生成内容</b></td></tr>
+<tr><td>知乎</td><td>5 篇</td><td>WebFetch 直取</td><td>社区文章；发现<b>第二套术语轨</b>（人民资本基金/数据税/双重循环）</td></tr>
+<tr><td>豆包</td><td>12 条 thread</td><td>8 抓回 + 4 缺口</td><td>生成式对话/规划为主；#7/#8/#9/#10 含白玺亲笔定调</td></tr>
+</table>
+
+<h3>0.2 证据等级体系（批判性基础）</h3>
+<p>本报告对每条主张标注证据等级，以区分理论的可信度层级：</p>
+<table>
+<tr><th>等级</th><th>定义</th><th>典型样例</th></tr>
+<tr><td><span class="lv l0">L0</span></td><td>用户亲笔原始论述／原始手稿</td><td>DeepSeek 白玺著《共创论完整体系》；对话中白玺亲笔长文</td></tr>
+<tr><td><span class="lv l1">L1</span></td><td>用户亲笔定调／论断（对话中亲笔插入）</td><td>豆包 #7 财政直补定调、#8 体系归一、#9 刚性架构、#10 三姬分金</td></tr>
+<tr><td><span class="lv l2">L2</span></td><td>AI 据用户需求生成且被用户采纳引用</td><td>豆包 #1 事现鉴七大验证板块（用户采纳共建）</td></tr>
+<tr><td><span class="lv l3">L3</span></td><td>纯 AI 生成、未确认</td><td>豆包英文白皮书 Final 1.0（四平台合稿，AI 润色）</td></tr>
+<tr><td><span class="lv l4">L4</span></td><td>第三方／平台规训／错配</td><td>豆包 #3 归亲公益分享；元宝 4 段平台拦截</td></tr>
+</table>
+
+<h3>0.3 抓取方法与局限</h3>
+<div class="box">
+<b>方法</b>：千问经逆向私有 API（<code>chat2-api.qianwen.com/api/v1/share/info</code>）抓取；豆包/知乎经 WebFetch 直取 SSR 正文；元宝/DeepSeek 此前已建索引。<br>
+<b>局限</b>：① 豆包 4 条 thread（#3/#6/#11/#12）仅回 SPA 壳/error 页，逆向 API 未果，属<b>技术缺口</b>；② 平台拦截可能误判为用户删除（幻影节点），需以「平台规训」单列；③ 大量语料为 AI 生成，L0/L1 主张密度低于表面体量，须防止把 AI 润色误读为白玺定论。
+</div>
+
+<h2>1 · 理论演化轴：四平台顺序演化与用户归一</h2>
+<p>语料显示四平台并非平行独立竞品，而是<b>同一场共创论讨论的顺序演化轴</b>（用户亲笔于豆包 #8 确认）：</p>
+<table>
+<tr><th>阶段</th><th>平台</th><th>角色</th><th>关键产出</th></tr>
+<tr><td>地基</td><td>DeepSeek</td><td>写书</td><td>五大公理、三值体系、事现鉴、财政直销、全球社保（白玺著 2026-05）</td></tr>
+<tr><td>升维</td><td>元宝</td><td>存照+升维</td><td>新综合国力、贡献值联邦、立宪层《世界统一法》实体</td></tr>
+<tr><td>宣言</td><td>千问</td><td>宣言+战术</td><td>美元负债模式、第四次系统置信度切换成宣言、舆论闪电战</td></tr>
+<tr><td>合流</td><td>豆包</td><td>整理+定稿</td><td>体系归一、刚性架构、历史清算、四平台合稿共识</td></tr>
+</table>
+<div class="ok">
+<b>演化轴定论</b>（L1·豆包 #8 白玺亲笔）：<i>「自身公理为底 · DeepSeek 写书 · 元宝升维」</i>。豆包 #10 进一步将四平台整理稿全发要求「共识统一输出」，是<b>跨平台整合的亲笔指令实证</b>——本报告即响应该指令而生。
+</div>
+
+<h2>2 · 核心概念群（按概念树，标注等级与冲突）</h2>
+<table>
+<tr><th>概念</th><th>证据等级</th><th>来源</th><th>状态</th></tr>
+<tr><td>三值体系（共通值/贡献值 CV/负贡献值）</td><td><span class="lv l0">L0</span></td><td>DeepSeek 五大公理</td><td>权威框架核心</td></tr>
+<tr><td>事现鉴双向验证（现实↔数字回路闭合）</td><td><span class="lv l0">L0</span></td><td>DeepSeek</td><td>已定义，未实地运行</td></tr>
+<tr><td>财政直销 + SCA + 五卡</td><td><span class="lv l0">L0</span> + <span class="lv l1">L1</span></td><td>DeepSeek + 豆包 #7</td><td>#7 升级为「政府财政直接注入底层」</td></tr>
+<tr><td>全球社保 GSSO / Gzz</td><td><span class="lv l0">L0</span></td><td>多平台</td><td><span class="tag t-gap">框架冲突</span> Gzz黄金单位 vs GZZ永久凭证</td></tr>
+<tr><td>家庭财富公理（人数×人均消费能力）</td><td><span class="lv l1">L1</span></td><td>豆包 #8</td><td>用户亲笔，待并入权威框架</td></tr>
+<tr><td>宏观调控系数干预</td><td><span class="lv l1">L1</span></td><td>豆包 #8</td><td>用户亲笔</td></tr>
+<tr><td>刚性架构总则（个人→团体→国家 / 消费→发展→清理）</td><td><span class="lv l1">L1</span></td><td>豆包 #9</td><td>用户亲笔定死，优先级高</td></tr>
+<tr><td>历史负贡献清算体系</td><td><span class="lv l1">L1</span></td><td>豆包 #9</td><td><span class="tag t-gap">敏感·理论推演</span></td></tr>
+</table>
+
+<h2>3 · 批判性分析</h2>
+
+<h3>3.1 框架双轨冲突（最高优先待裁定）</h3>
+<div class="warn">
+<b>冲突 A</b>：同一体系内部并存两套不可通约的框架版本——<br>
+• <b>旧轨</b>：七命题 + Gzz＝全球社保黄金单位（1g 黄金购买力、只涨不跌）+ Gzz 消亡论（化债完成后 Gzz 退出）；<br>
+• <b>新轨（2026-07-27 用户裁定权威）</b>：五大公理 + GZZ＝永久计量凭证/代币 + 共通值＝被验证公共需求加权总和 + 负贡献并入三值体系。<br>
+<b>证据</b>：<code>theory_deepseek.html</code> 为权威框架；但豆包 #8/#10 仍用旧轨 Gzz 黄金单位表述。<br>
+<b>批判</b>：对外传播时，验证者（其他学者/机构/国际组织）面对两套货币锚与价值定义，无法建立一致的度量衡——这与共创论「统一公共验算尺」的初心直接矛盾。须在定版时二选一或显式说明演化关系。
+</div>
+
+<h3>3.2 双术语轨（第二套：人民资本基金系）</h3>
+<div class="box">
+<b>冲突 B</b>：知乎 5 篇使用<b>第二套术语轨</b>——「人民资本基金 / 数据税 / 双重循环」，与共创论系（共创论/事现鉴/贡献值/共通值）部分重叠但不完全映射。<br>
+<b>批判</b>：若两套术语指代同一理论，对外须统一口径，否则会被误读为两个互相竞争的理论；若指代不同层次（如人民资本基金是共创论在金融层的映射），须在白皮书中明确层级关系，避免读者自行拼凑产生语义漂移。
+</div>
+
+<h3>3.3 验证权重与幻影节点</h3>
+<div class="box">
+<b>冲突 C</b>：① 须严格区分<b>幻影节点</b>（用户主动删除平台内容）与<b>平台拦截/规训/错配</b>（元宝 4 段：J732u1p5jVub 等，非用户删除）；② 千问 C/E 两段为 AI 生成的「白玺养老护理高产学者」「华富医疗质询函」非白玺内容，已剔除其事实节点地位；③ 豆包英文白皮书 Final 1.0 为 AI 四平台合稿润色，<b>非白玺签署定稿</b>。<br>
+<b>批判</b>：语料体量虽大，但 L0/L1（白玺本人）密度有限，多数篇幅为 AI 生成。任何「共创论主张」引用须回溯到 L0/L1 出处，否则只是 AI 复述。
+</div>
+
+<h3>3.4 实证空缺（最关键的政策落地风险）</h3>
+<div class="warn">
+<b>冲突 D（重大）</b>：当前所有「验证数据」均处于<b>理论推演／沙盘阶段</b>——<br>
+• 彬州试点＝<b>策划方案，从未实施</b>；<br>
+• 财政直销 5 轮循环 67% 回收率、化债 2 倍本金＝<b>沙盘推演数据</b>，非实地；<br>
+• 事现鉴征信＝<b>验证协议（存照）非征信牌照</b>，无实际运行案例。<br>
+<b>批判</b>：政策落地研究（第 4 节）必须明确标注「目前处于理论/沙盘阶段，<b>无任何实地验证</b>」。任何对外表述若省略此限定，将被误读为已验证成果，构成严重的合规与声誉风险。
+</div>
+
+<h3>3.5 历史清算主张的政治与法理敏感性</h3>
+<div class="warn">
+<b>冲突 E（敏感）</b>：豆包 #9（L1 白玺亲笔刚性架构）包含战争罪责清算（日本侵华/美国原子弹/伊拉克阿富汗）、军火交易负贡献、难民财政负担跨国转嫁、殖民掠夺红利回溯返还。<br>
+<b>批判</b>：① 该模块涉及<b>国际法、主权、历史叙事</b>，跨国强制清算<b>缺乏现实执行主体</b>；② 与 UDHR 第 22 条「可验证形态的全球社保」锚定存在张力（全球社保强调可验证的个体权益，历史清算强调集体追偿）；③ 作为学术主张须强标「理论推演」，是否纳入正式对外白皮书需用户单独裁定（见第 5 节清单项 3）。
+</div>
+
+<h2>4 · 政策落地可行性研判</h2>
+<table>
+<tr><th>模块</th><th>机制自洽性</th><th>落地阻力</th><th>建议路径</th></tr>
+<tr><td>财政直销 + SCA</td><td>高（#7 白玺亲笔定调「政府财政直接注入底层」）</td><td>中：需财政法授权、央行/财政协同</td><td>从地方财政专项（如彬州）切入，作沙盒而非全国推</td></tr>
+<tr><td>事现鉴征信</td><td>中：定位「验证协议」可避开征信牌照</td><td>高：个保法数据主权/隐私合规待解</td><td>先作「存照」非「评分」；数据主权归个体</td></tr>
+<tr><td>共通值最大化</td><td>高：对应 UDHR 第 22 条</td><td>低：可作政策叙事锚</td><td>国内版＝化债/征信；国际版＝生存权（依赖跨国协议）</td></tr>
+<tr><td>五卡</td><td>高：实践版可映射现有会员/积分/供应链金融</td><td>低</td><td>阻力最小，可优先试点</td></tr>
+<tr><td>全球社保</td><td>中：国内版可先行</td><td>高（国际版）</td><td>国内版（化债/征信）先行；国际版短期不可行</td></tr>
+<tr><td>刚性架构总则（#9）</td><td>高：自下而上、现有民生项目切入</td><td>低</td><td><b>最务实路径</b>：以村超/三月三等为试点载体，避免自上而下设计</td></tr>
+</table>
+<div class="ok">
+<b>落地研判结论</b>：理论骨架完整、多数模块机制自洽，但<b>全部处于沙盘阶段</b>。最务实的落地顺序契合白玺亲笔定调的刚性架构——<b>消费（现有民生项目自下而上）→ 发展 → 清理历史遗留问题</b>，且不依赖跨国强制清算即可在国内先行验证。
+</div>
+
+<h2>5 · 待裁定混沌清单（移交用户定版）</h2>
+<ol>
+<li><b>双框架取舍</b>：七命题/Gzz黄金单位 vs 五大公理/GZZ永久凭证/共通值，二选一或显式演化关系。</li>
+<li><b>双术语轨统一</b>：共创论系 vs 人民资本基金系，明确是同理论异层还是竞争理论。</li>
+<li><b>历史清算模块</b>：是否纳入正式对外白皮书（敏感，涉国际法/主权）。</li>
+<li><b>Gzz/GZZ 最终定义</b>：黄金单位（只涨不跌）还是永久计量凭证。</li>
+<li><b>共通值术语口径</b>：最终是否统一使用「共通值」（禁用「地板」）。</li>
+<li><b>英文白皮书 Final 1.0</b>：AI 四平台合稿是否作为官方对外文本，或仅作内部草稿。</li>
+</ol>
+
+<h2>6 · 结论</h2>
+<p>本报告是四平台语料收口后的<b>最完整跨平台批判性整理</b>。结论有三：</p>
+<ol>
+<li><b>骨架已立</b>：五大公理地基、三值体系、事现鉴双向验证、财政直销+SCA、全球社保锚定、刚性架构总则，均已由白玺亲笔定调，理论自洽性经得起学术审视。</li>
+<li><b>混沌仍存</b>：双框架、双术语轨、零实地验证、历史清算敏感性——五类冲突必须在该体系对外发布前裁定，否则将削弱其作为「公共验算尺」的公信力。</li>
+<li><b>下一步</b>：用户定版混沌场域 → 转向实践（试点/小程序/政策沙盒）。本平台（国内 AI agent）可继续提供：语料核验、沙盒推演、政策合规审查支撑。</li>
+</ol>
+
+<div class="foot">
+生成：2026-07-28（四平台语料收口后）· 撰写视角：国内 AI agent 平台研究者 · 批判性综合研究报告 v1。<br>
+配套：doubao_corpus_index.html(v4) · concept_tree.html(v2.1) · knowledge_tree_v4.html · 各平台 corpus_index。<br>
+本报告为本地分析产物，<b>未上传</b>至任何官网或白皮书；仅整理不裁定，框架冲突见第 5 节待裁定清单。
+</div>
+
+</body>
+</html>
