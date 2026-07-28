@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论·事现鉴 全网知识树 v4.5（个人账号宣言 = 第一个 MVP）</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#161d26; --panel2:#1c2530; --line:#2a3645;
+    --txt:#e6edf3; --dim:#9bb0c3; --acc:#5ec8d8; --acc2:#e0a458;
+    --red:#e06c75; --green:#7ec699; --amber:#e5c07b; --blue:#6cb6ff; --purple:#c792ea;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--txt);line-height:1.65;padding:32px 20px 90px}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:26px;letter-spacing:.5px;margin-bottom:6px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:14px}
+  h2{font-size:19px;margin:34px 0 14px;color:var(--acc);border-left:4px solid var(--acc);padding-left:10px}
+  .lead{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:18px 0;font-size:14.5px}
+  .lead b{color:var(--acc2)}
+  .mvp{background:linear-gradient(135deg,rgba(94,200,216,.12),rgba(224,164,88,.08));border:1px solid var(--acc);border-radius:12px;padding:18px 20px;margin:18px 0;font-size:14.5px}
+  .mvp .k{color:var(--acc);font-weight:700}
+  /* timeline */
+  .tl{position:relative;margin:18px 0 8px;padding-left:26px}
+  .tl:before{content:"";position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:var(--line)}
+  .ev{position:relative;margin:0 0 16px;padding-left:6px}
+  .ev:before{content:"";position:absolute;left:-22px;top:6px;width:11px;height:11px;border-radius:50%;background:var(--acc);border:2px solid var(--bg)}
+  .ev .d{font-size:12px;color:var(--acc2);font-weight:700;letter-spacing:.5px}
+  .ev .t{font-size:14px;margin-top:2px}
+  .ev .t b{color:var(--txt)}
+  .ev .src{font-size:12px;color:var(--dim);margin-top:2px}
+  .ev .src a{color:var(--blue);text-decoration:none}
+  /* footprint */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:14px;margin:16px 0}
+  .card{border-radius:12px;padding:14px 16px;border:1px solid var(--line);background:var(--panel)}
+  .card h3{font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none}
+  .g{background:var(--green)} .r{background:var(--red)} .a{background:var(--amber)} .b{background:var(--blue)} .p{background:var(--purple)}
+  .card ul{list-style:none;font-size:13px;color:var(--dim)}
+  .card li{padding:4px 0;border-top:1px dashed var(--line)}
+  .card li:first-child{border-top:none}
+  .card li b{color:var(--txt);font-weight:600}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;margin-left:6px;vertical-align:middle}
+  .t-have{background:rgba(126,198,153,.18);color:var(--green)}
+  .t-none{background:rgba(224,108,117,.18);color:var(--red)}
+  .t-noise{background:rgba(229,192,123,.18);color:var(--amber)}
+  /* tree */
+  details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--panel);overflow:hidden}
+  summary{cursor:pointer;padding:12px 16px;font-weight:600;font-size:15px;list-style:none;display:flex;align-items:center;gap:8px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸";color:var(--acc);transition:.2s;margin-right:2px}
+  details[open]>summary::before{transform:rotate(90deg)}
+  .body{padding:4px 16px 14px;border-top:1px solid var(--line)}
+  .node{border-left:2px solid var(--line);padding:8px 0 8px 14px;margin:8px 0}
+  .node .h{font-weight:600;font-size:14px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .node .d{font-size:13px;color:var(--dim);margin-top:3px}
+  .node .src{font-size:12px;color:var(--blue);margin-top:3px}
+  .node .src a{color:var(--blue);text-decoration:none}
+  .ndate{font-size:11px;color:var(--acc2);background:rgba(224,164,88,.12);padding:1px 7px;border-radius:5px;font-weight:600}
+  .mk{font-size:10.5px;padding:1px 7px;border-radius:5px;font-weight:700}
+  .mk-root{background:rgba(94,200,216,.16);color:var(--acc)}
+  .mk-bridge{background:rgba(199,146,234,.18);color:var(--purple)}
+  .mk-mvp{background:rgba(126,198,153,.18);color:var(--green)}
+  .mk-gap{background:rgba(224,108,117,.18);color:var(--red)}
+  .mk-imp{background:rgba(229,192,123,.18);color:var(--amber)}
+  .conflict{border:1px solid var(--red);border-radius:10px;padding:16px 18px;margin:16px 0;background:rgba(224,108,117,.06)}
+  .conflict h3{color:var(--red);font-size:15px;margin-bottom:10px}
+  .conflict table{width:100%;border-collapse:collapse;font-size:13px}
+  .conflict th,.conflict td{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+  .conflict th{background:var(--panel2);color:var(--acc)}
+  .pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:20px;margin:2px 4px 2px 0}
+  .pill-new{background:rgba(126,198,153,.2);color:var(--green)}
+  .pill-old{background:rgba(224,108,117,.2);color:var(--red)}
+  .foot{margin-top:30px;font-size:12px;color:var(--dim);border-top:1px solid var(--line);padding-top:14px}
+  .legend{font-size:12px;color:var(--dim);margin:6px 0 0}
+  .legend span{margin-right:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>共创论 · 事现鉴 — 全网知识树 v4.5</h1>
+<div class="sub">按"个人账号宣言 = 第一个最小 MVP"重新锚定 · 2026-07-28 更新 · 本批新增：微博 47 帖 + 腾讯文档全量语料索引（2025-09~2026-03）· 分配哲学演化(按劳→按需)节点 · 联合治理章程/光锥币/腾讯协议/历史正义议定书/事现鉴四层架构 等补入 · 已抓取实证来源：微博(47帖) / CSDN / 腾讯云 / 头条 / 掘金 / Gitee / GitCode(GSSO) / 4 LLM存档 / hygzz.cn / hygzz.com / whitepaper.html / 腾讯文档 · 本批续：真·起源更正（穆斯林故事·幻影·DeepSeek DB留存）</div>
+
+<div class="mvp">
+  <div class="k">★ 核心定位：你的个人网上记录 = 第一个 MVP</div>
+  <p style="margin-top:8px">在做 hygzz.cn / hygzz.com 官网之前，所有理论推演都以<b>白玺个人账号</b>（微博 / CSDN / 腾讯云 / Gitee / 掘金 / 头条 / GSSO 协议库）的<b>宣言、文章、代码提交</b>形式存在。这些带时间戳的公开记录，本身就是共创论最原始的"事现鉴"——它们实证了理论的<b>演化时间轴</b>，也构成了可验证的第一个最小可行产品（MVP）。</p>
+  <p style="margin-top:8px">当这张网络被搭成可参与的生态，<b>第二位最小 MVP（另一个真实参与者）</b>才可能出现。当前所有节点仍只有你一人，故树的末端明确标出 <span class="pill pill-old">第二个 MVP：待出现</span>。</p>
+</div>
+
+<div class="mvp" style="border-color:var(--red);background:linear-gradient(135deg,rgba(224,108,117,.12),rgba(224,164,88,.06))">
+  <div class="k" style="color:var(--red)">⚠ 真·起源更正（用户 2026-07-28 · 覆盖此前所有"起点"判断）</div>
+  <p style="margin-top:8px">共创论真正的种子 = <b>一个穆斯林的故事</b> + 最初之问「<b>如何在穆斯林国家实行共产主义</b>」。<b>最早讨论在 DeepSeek 平台</b>（非元宝），混有日常生活分享、吐槽、批判、及一部分<b>海外留学</b>经历。</p>
+  <p style="margin-top:8px">这批原始对话<b>已被用户删除</b>（链接打不开）。但用户判断数据<b>或仍存于 DeepSeek 后台数据库</b>，仅官方可调取 → <b>恢复路径 = 与 DeepSeek 官方沟通申请导出</b>。标记为 <span class="pill pill-old">幻影节点·DeepSeek DB留存</span>，与"平台拦截"（lUG65 穆斯林朝拜被系统拒答，元宝侧过滤）是<b>两类缺口</b>。</p>
+  <p style="margin-top:8px"><b>平台分布（用户 2026-07-28 更正）</b>：真·起源 = <b>DeepSeek（最早）</b> → 寰宇光锥舟 = <b>DeepSeek + 元宝</b> 共同讨论 → 共创论 & 全球社保 = <b>DeepSeek / 元宝 / 千问 / 豆包</b> 四平台均有过讨论。故"全量补全"须覆盖四平台。</p>
+  <p style="margin-top:8px">谱系因此前推一层：<b>真·种子（DeepSeek·已删/DB留存）→ 寰宇光锥舟 v1（~2025-09 纲要，DeepSeek+元宝）→ GSSO→共创论（2025-12-02）→ 共创论·事现鉴（当前，四平台并存）</b>。所有后续节点都是这一起源的演化产物。</p>
+</div>
+
+<div class="lead" style="border-color:var(--green);background:linear-gradient(135deg,rgba(126,198,153,.14),rgba(94,200,216,.08))">
+  <b>★ 本批补全的核心演化（用户注脚实证）：分配哲学 按劳分配 → 共通值 = 按需分配</b><br>
+  用户注："写这一篇的时候还是<b>按劳分配</b>，现在已经明确了<b>共通值=按需分配</b>。" 全量语料实证四阶段：① <b>2025-10-08</b> Q8dQcjQ4y《贡献值是工分制的重新回归》纯按劳分配 ② <b>2025-12-02</b> QgxZL8Pxe 双值循环(共通值+贡献值) ③ <b>2025-12-15</b> QiurtlZKQ 两术语同框首秀 ④ <b>2026-03-04</b> QuxwvmWof 纲领定稿"按劳分配(入口)+按需索取(托底)"。→ 三值体系坐实：<b>共通值(按需·地板) + 贡献值CV(按劳·发动机) + 负贡献值(天花板)</b>。完整 47 帖语料见 <a href="weibo_corpus_index.html" style="color:var(--green)">微博全量语料索引</a>。
+</div>
+
+<div class="lead">
+  <b>本轮全量抓取的关键结论（反直觉但重要）：</b><br>
+  ① <b>决定性发现 — 改名断层被补全：</b>GSSO 全球社保协议库（2025-12-02）中白玺署名"我是白玺，<b>共创论</b>发起人"，并写明"全球社保协议是<b>共创论</b>应用于《国际人权宣言》第二十二条的现实应用"。这证明 <b>寰宇光锥舟 → 共创论 的重命名，发生在 GSSO 节点</b>，而非突然切换。<br>
+  ② <b>共通值在此首次锚定：</b>GSSO 把"生存权"编译为可执行代码，定义为去中心化数字权益"共通值"，并提出"五流保障（水/粮/住/医/能）"——这正是当前事现鉴国际验算尺的前身。<br>
+  ③ <b>知乎</b>：此前多轮检索返回通用"共创"噪音、判定"无内容"；但 2026-07-28 用户补出白玺本人专栏《从"打土豪分田地"到"打资本分数据"》（2025-12-15，陕西），确属有效内容 → <b>推翻"知乎无内容"旧判</b>，已补入语料（用户称还有"几篇"，待补其余链接）。<b>抖音 / 视频号 / 公众号 / 小红书 / B站 / 贴吧 / 豆瓣</b> 仍基本无有效内容（同名干扰/通用词污染）。
+</div>
+
+<!-- ===== 时间轴 ===== -->
+<h2>一、实证时间轴（来自各平台真实发布/提交时间）</h2>
+<div class="tl">
+  <div class="ev"><div class="d">2023-06</div><div class="t">保定"光锥"系列艺术展（顾振清策展）— "光锥"术语在艺术/物理语境出现，<b>非白玺直接项目</b>，仅作概念背景</div></div>
+  <div class="ev"><div class="d">2025-09-07</div><div class="t"><b>Gitee 创建 hygzz 仓库</b>，首个提交"add 寰宇光锥舟计划" — 代码化起点</div><div class="src">来源：<a href="https://gitee.com/Bation/hygzz">gitee.com/Bation/hygzz</a></div></div>
+  <div class="ev"><div class="d">2025-09-12 ~ 09-20</div><div class="t">Gitee 连续提交：寰宇光锥舟OS 1.0、三元生态教材.py、智慧养老调度系统×2、螺旋架构图 — <b>早期 v1 实现层</b></div><div class="src">来源：<a href="https://gitee.com/Bation/huan-yu-guang-cone-boat---os">gitee.com/Bation/寰宇光锥舟OS</a></div></div>
+  <div class="ev"><div class="d">2025-09-19</div><div class="t">腾讯云开发者社区注册，创建"寰宇光锥舟"专栏</div><div class="src">来源：<a href="https://cloud.tencent.com/developer/user/11843561/activities">cloud.tencent.com 个人中心</a></div></div>
+  <div class="ev"><div class="d">2025-09-24</div><div class="t"><b>《分形双螺旋：文明演化的数学密码》</b>发布（D安全≈2.7268 / D价值≈1.262，CV 分形生长）— 数学基础确立</div><div class="src">来源：<a href="https://cloud.tencent.com/developer/article/2570901">cloud.tencent.com/article/2570901</a></div></div>
+  <div class="ev"><div class="d">2025-11-10</div><div class="t"><b>《寰宇光锥舟理论体系核心领域与业务架构白皮书》</b>（v1 全球治理框架：文明存续底线 / 光锥-圆锥嵌套 / Root-Gzz-User / 贡献值 Cₑ）</div><div class="src">来源：<a href="https://weibo.com/ttarticle/p/show?id=2309405210533665570833">微博 ttarticle</a></div></div>
+  <div class="ev"><div class="d">2025-12-02</div><div class="t"><b>★ 关键改名节点：GSSO 全球社保协议发布</b> — 署名"共创论发起人"，锚定《世界人权宣言》第22条，引入"共通值"。寰宇光锥舟 → 共创论 在此完成重命名</div><div class="src">来源：<a href="https://gitcode.com/GSSO">gitcode.com/GSSO</a> · <a href="https://cloud.tencent.com/developer/search/article-GSSO">腾讯云 GSSO</a></div></div>
+  <div class="ev"><div class="d">2025-12-06</div><div class="t"><b>《事现鉴 vs 时间轴》</b> — "不会忘记每一个人"命题出现，事现鉴概念正式登场</div><div class="src">来源：<a href="https://weibo.com/7998660958/5240819281299760">微博 7998660958</a></div></div>
+  <div class="ev"><div class="d">2025-12-15</div><div class="t"><b>知乎专栏《从"打土豪分田地"到"打资本分数据"》</b>（白玺，陕西）— 共创论 + 全球社保，未提事现鉴/寰宇光锥舟。推翻此前"知乎无内容"判。<b>知乎首篇提及共创论</b>。</div><div class="src">来源：<a href="https://zhuanlan.zhihu.com/p/1983843566959740777">知乎 p/1983843566959740777</a> · <a href="zhihu_corpus_index.html">zhihu_corpus_index.html</a></div></div>
+  <div class="ev"><div class="d">2025-12-17</div><div class="t"><b>知乎《关于一种未来社会运行范式的思想实验：从资本重构到文明升级的全程推演》</b>（白玺，陕西）— <b>人民资本基金</b>为引擎 + 双重循环 + 数据税闭环 + 全球社保基金愿景。<b>用"人民资本基金系"词轨、不提共创论/事现鉴/贡献值/共通值</b> → 与 DeepSeek 双闭环/全球社保 2.0 是同一愿景的术语变体（双轨术语）。同日另有英文版（A Comprehensive Deduction...）。</div><div class="src">来源：<a href="https://zhuanlan.zhihu.com/p/1984659135640397059">知乎 p/1984659135640397059</a> · <a href="https://zhuanlan.zhihu.com/p/1984678694778839858">英文版 p/1984678694778839858</a> · <a href="zhihu_corpus_index.html">zhihu_corpus_index.html</a></div></div>
+  <div class="ev"><div class="d">2025-12-18</div><div class="t"><b>知乎推广动作</b>（白玺，陕西）：回答「社会文明发展至今，全球社会当下什么是最重要的…」（08:02）+ 想法「推行白玺的《共创论》」（08:03）— 同一推广事件的两个载体，链接至问题 642122627。</div><div class="src">来源：<a href="https://www.zhihu.com/answer/1984896331949560636">知乎 answer/1984896331949560636</a> · <a href="https://www.zhihu.com/pin/1984896492176160701">想法 pin/1984896492176160701</a> · <a href="zhihu_corpus_index.html">zhihu_corpus_index.html</a></div></div>
+  <div class="ev"><div class="d">2025-12（月内）</div><div class="t">《从知识封建主义到知识生态主义》《发起「寰宇光锥舟」全球倡议·招募开创者》（邮箱 583272294@qq.com，协同伙伴 DeepSeek AI，起源深圳）</div><div class="src">来源：<a href="https://weibo.com/ttarticle/p/show?id=2309405211883942052029">知识生态主义</a> · <a href="https://weibo.com/7998660958/Q3hux3nyb">全球倡议</a></div></div>
+  <div class="ev"><div class="d">2026-03-13</div><div class="t"><b>《红旗驿站：红色精神引领的城市贡献者安居与社区治理创新方案》</b>（广东·微博）— 把"城市贡献者"（建筑工人/环卫/快递/骑手）的安居与社区治理用"精神传承+市场运营+社会治理"三位一体 + "时间银行" + "财政/企业/群众三方共担"落地。<b>共创论在城市社会治理上的第一个具体落地应用方案</b>。</div><div class="src">来源：<a href="https://weibo.com/7998660958/QvTl71Vzv">微博 7998660958/QvTl71Vzv</a></div></div>
+  <div class="ev"><div class="d">2026-03-15</div><div class="t">头条再传播《世界统一法元框架》（账号"秋天的大杨柳"，仍为 v1 框架内容）</div><div class="src">来源：<a href="https://www.toutiao.com/w/1859682462628864/">toutiao.com/w/1859682462628864</a></div></div>
+  <div class="ev"><div class="d">2026-07-26 起</div><div class="t"><b>共创论·事现鉴 对话纪元开启（本轮思想轨迹）</b> — 起点问题"一个家庭每天消费300元，是恩格尔系数高吗？"揭示<b>分母缺失</b>困境（只有分子无分母：人均 GDP/学历/专利/经验均无法判断意义）；讨论从"资源如何分配更公平"转向"行为如何验证"。本轮与 DeepSeek/本助手对话凝成当前框架，并产出《整场对话完整思想整理》——作者定调"整场对话记录本身 = 事现鉴上第一条可查询记录"。</div><div class="src">来源：用户提供的 DeepSeek《整场对话完整思想整理》（2026-07-26~28）</div></div>
+  <div class="ev"><div class="d">2026-07（中旬）</div><div class="t"><b>四平台同源分叉讨论</b>：DeepSeek（主干）/ 元宝 / 千问 / 豆包 — 凝成"共创论·事现鉴"当前框架（五大公理 + GZZ 永久计量凭证）</div><div class="src">来源：本地 theory_deepseek / qianwen / yuanbao / doubao.html</div></div>
+  <div class="ev"><div class="d">2026-07-26 ~ 27</div><div class="t"><b>官网 hygzz.cn（国内红金）/ hygzz.com（国际蓝紫）上线</b>；<b>We+SXJ 小程序</b>制作（饮水=共通值、协助=双向验证、签到=仪式）— 用户定义的第一个 MVP 落地形态</div><div class="src">来源：hygzz.cn / hygzz.com / we-sxj/</div></div>
+</div>
+
+<!-- ===== 平台足迹 ===== -->
+<h2>二、平台足迹地图（哪些有你的内容 / 哪些没有）</h2>
+<div class="grid">
+  <div class="card"><h3><span class="dot g"></span>微博 <span class="tag t-have">主宣言台</span></h3><ul>
+    <li><b>账号</b>：白玺-寰宇光锥舟（7998660958）</li>
+    <li><b>内容</b>：白皮书、知识生态主义、事现鉴vs时间轴、全球倡议招募、<b>红旗驿站城市治理方案</b></li>
+    <li><b>角色</b>：理论宣言第一现场，时间轴最密</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot g"></span>CSDN <span class="tag t-have">实现层</span></h3><ul>
+    <li><b>账号</b>：Hakuji817</li>
+    <li><b>内容</b>：动态网络约束、混合审判、老年人能力评估、三元生态、元代码、DeepSeek对话解析</li>
+    <li><b>角色</b>：把理论写成可运行代码</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot g"></span>腾讯云开发者社区 <span class="tag t-have">理论/数学</span></h3><ul>
+    <li><b>账号</b>：user/11843561（寰宇光锥舟专栏）</li>
+    <li><b>内容</b>：分形双螺旋（数学基础）、GSSO 协议介绍</li>
+    <li><b>角色</b>：量化/可计算论证</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot g"></span>Gitee 码云 <span class="tag t-have">代码库</span></h3><ul>
+    <li><b>账号</b>：Bation</li>
+    <li><b>内容</b>：寰宇光锥舟OS、hygzz 仓库（2025-09 起提交）</li>
+    <li><b>角色</b>：开源代码托管起点</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot g"></span>掘金 <span class="tag t-have">代码实现</span></h3><ul>
+    <li><b>内容</b>：寰宇光锥舟开源共创（ContributionType/ClauseType/ZKProof/Blockchain 等）</li>
+    <li><b>角色</b>：元代码/零知识证明实现</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot g"></span>头条 <span class="tag t-have">再传播</span></h3><ul>
+    <li><b>账号</b>：秋天的大杨柳（载白玺文）</li>
+    <li><b>内容</b>：世界统一法元框架（2026-03-15 再发）</li>
+    <li><b>角色</b>：v1 框架扩散</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot p"></span>GitCode/AtomGit <span class="tag t-have">协议组织</span></h3><ul>
+    <li><b>组织</b>：GSSO 全球社保协议组织</li>
+    <li><b>内容</b>：开源共建宣言、共通值协议、五流保障、彬州 MVP</li>
+    <li><b>角色</b>：改名节点 + 当前框架锚点</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot g"></span>知乎 <span class="tag t-have">白玺专栏/回答/想法（已确认 5 篇）</span></h3><ul>
+    <li><b>#1（2025-12-15）</b>：白玺《从"打土豪分田地"到"打资本分数据"：迈向"共通值"与"贡献值"的共创社会》（陕西）— 知乎首篇提及共创论；未提事现鉴/寰宇光锥舟/光锥</li>
+    <li><b>#2（2025-12-17）</b>：《关于一种未来社会运行范式的思想实验：从资本重构到文明升级的全程推演》— 用<b>人民资本基金/数据税/双重循环</b>词轨，<b>不提</b>共创论/事现鉴/贡献值/共通值</li>
+    <li><b>#3（2025-12 月内）</b>：#2 的<b>英文版</b>（A Comprehensive Deduction from Capital Reconstruction to Civilization Upgrade，Bai Xi）</li>
+    <li><b>#4（2025-12-18 08:02）</b>：回答「社会文明发展至今，全球社会当下什么是最重要的…」— 指针式推广共创论（同页其他答主内容非白玺）</li>
+    <li><b>#5（2025-12-18 08:03）</b>：想法「推行白玺的《共创论》」— 与 #4 同一推广事件</li>
+    <li>⚠ <b>双轨术语</b>：#2/#3 用「人民资本基金系」词、不提「共创论系」词 → 与 DeepSeek 双闭环/全球社保 2.0 是同一愿景的术语变体（初混沌证据）</li>
+    <li>全部晚于 GSSO 改名节点（2025-12-02），属 12 月公开推广期；与用户"共创论首次网络发布=2025年9月"（Gitee/DeepSeek 起点）不冲突</li>
+    <li>来源：<a href="zhihu_corpus_index.html">zhihu_corpus_index.html</a>（v2，5 篇）</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot a"></span>抖音 <span class="tag t-noise">同名干扰</span></h3><ul>
+    <li>"白玺"命中：黄金拍卖主播（1.8万粉，2019 起）</li>
+    <li>非理论作者本人</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot a"></span>视频号 / 公众号 <span class="tag t-none">无内容</span></h3><ul>
+    <li>微信生态未检索到"白玺/寰宇光锥舟/事现鉴"账号</li>
+    <li>公众号榜单仅通用排名噪音</li>
+  </ul></div>
+  <div class="card"><h3><span class="dot a"></span>小红书 / B站 / 贴吧 / 豆瓣 <span class="tag t-none">无内容</span></h3><ul>
+    <li>B站"寰宇先锋"为另一创作者（18万粉）</li>
+    <li>其余平台无相关命中</li>
+  </ul></div>
+</div>
+<div class="legend">
+  <span>● <span style="color:var(--green)">绿</span> 有你的内容</span>
+  <span>● <span style="color:var(--red)">红</span> 无内容</span>
+  <span>● <span style="color:var(--amber)">琥珀</span> 同名干扰/术语污染</span>
+  <span>● <span style="color:var(--purple)">紫</span> 协议组织</span>
+</div>
+
+<!-- ===== 知识树主体 ===== -->
+<h2>三、共创论·事现鉴 全量知识树</h2>
+
+<!-- 早期根 v1 -->
+<details open>
+  <summary><span class="mk mk-root">早期根</span> 寰宇光锥舟 v1 — 全球治理理论（2025-09 ~ 11）</summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="ndate">2025-11-10</span> 《寰宇光锥舟理论体系核心领域与业务架构白皮书》</div>
+      <div class="d">签发：寰宇光锥舟(深圳)咨询有限公司筹备委员会 · 白玺（首席架构师）。以"文明存续"为终极目标，三大哲学基石：文明存续底线（≤450ppm CO₂ / 核零事故 / 数据主权非跨境强制）、动态平衡治理、贡献值(Cₑ)激励伦理。核心模型：光锥-圆锥三级嵌套（锥尖全球/锥体区域/锥底地方）+ 双轨立法（物理/数字）。</div>
+      <div class="src">来源：<a href="https://weibo.com/ttarticle/p/show?id=2309405210533665570833">微博 ttarticle</a></div>
+    </div>
+    <div class="node"><div class="h"><span class="ndate">2025-09 ~ 2026-03</span> 世界统一法元框架（Root-Gzz-User 三位一体）</div>
+      <div class="d">光锥(Light-Cone)=权限/责任边界；舟(Ark)=自治实体；双向交互（治理光锥↔创造光锥）。三阶段：①数字世界立宪（《数字世界统一法（法典）》）②现实映射融合（公司/城市/国家=Gzz）③世界统一法形成。注：头条 2026-03-15 再传播，署名账号"秋天的大杨柳"。</div>
+      <div class="src">来源：<a href="https://www.toutiao.com/w/1859682462628864/">头条</a> · <a href="https://weibo.com/ttarticle/p/show?id=2309405210533665570833">微博白皮书</a></div>
+    </div>
+    <div class="node"><div class="h">数字世界立宪层（章程 + 元代码 + 法典）</div>
+      <div class="d">
+        · 《寰宇光锥舟联合治理章程》：解释权二分（理论/价值/终极仲裁→白玺；实施/合规/战略安全→中国），联合治理委员会 + 四大委员会。**已用"贡献值(CV)"术语**（早于白皮书 Cₑ，是桥接信号）。<br>
+        · 《寰宇光锥舟 元代码 1.0》（CSDN）：ContributionType / ClauseType(弹性·刚性) / AuditResult / ZKProof — "代码即法律"可计算实现。<br>
+        · 《数字世界统一法（法典）》：头条元框架称其为"在代码世界确立寰宇光锥舟为根本大法"，定义数字 Root/Gzz/User 权利义务。<span class="pill pill-old">全文独立帖待定位</span>
+      </div>
+      <div class="src">来源：微博 5218308823451963（章程）· <a href="https://blog.csdn.net/Hakuji817/article/details/151756992">CSDN 元代码</a></div>
+    </div>
+    <div class="node"><div class="h"><span class="ndate">2025-09-24</span> 分形双螺旋：文明演化的数学密码</div>
+      <div class="d">门格海绵 D≈2.7268（规则引擎/治理复杂度/安全区）；科赫雪花 D≈1.262（贡献值 CV 评估维度生长）。CV 公式视为分形生长过程。当前框架数学基础。</div>
+      <div class="src">来源：<a href="https://cloud.tencent.com/developer/article/2570901">腾讯云 2570901</a></div>
+    </div>
+    <div class="node"><div class="h">早期实现层雏形（Gitee 2025-09 提交）</div>
+      <div class="d">寰宇光锥舟OS 1.0、三元生态教材.py、智慧养老调度系统×2、螺旋架构图。对应后续 CSDN 实现层的早期代码形态。</div>
+      <div class="src">来源：<a href="https://gitee.com/Bation/huan-yu-guang-cone-boat---os">Gitee 寰宇光锥舟OS</a></div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">全量语料</span> 微博 47 帖 + 腾讯文档 索引（2025-09 ~ 2026-03）</div>
+      <div class="d">本批用户追加的全部个人账号宣言已逐条抓取并索引：含 <b>联合治理章程全文</b> / <b>光锥币(LCoin)荣誉体系</b> / <b>腾讯战略共创协议</b> / <b>历史正义清算议定书(H-NCV/H-CV)</b> / <b>事现鉴四层架构</b> / <b>共创论定义</b> / <b>彬州智慧水系统v2</b> / 太极拳大会 / 执剑人招募 / 经济学体系 / <b>五卡模式起源</b> / 分配哲学演化(按劳→按需) 等。完整时间轴+主题聚类+待确认项见 <a href="weibo_corpus_index.html">weibo_corpus_index.html</a>。</div>
+      <div class="src">来源：weibo.com/7998660958（47帖）+ docs.qq.com 腾讯文档</div>
+    </div>
+  </div>
+</details>
+
+<!-- 过渡桥接 -->
+<details>
+  <summary><span class="mk mk-bridge">过渡桥</span> 范式突围与事现鉴登场（2025-12）</summary>
+  <div class="body">
+    <div class="node"><div class="h">从知识封建主义到知识生态主义</div>
+      <div class="d">旧范式（封闭/垄断/慢速/共识目的）→ 新范式（开放/共生/实时/解决问题）。微博=土壤市场、企业=进化物种、寰宇光锥舟无站队理论=生态法则。"舟"作为实践载体必须"下水"。</div>
+      <div class="src">来源：<a href="https://weibo.com/ttarticle/p/show?id=2309405211883942052029">微博 ttarticle</a></div>
+    </div>
+    <div class="node"><div class="h"><span class="ndate">2025-12-06</span> 事现鉴 vs 时间轴："不会忘记每一个人"</div>
+      <div class="d">筛选叙事 vs 本体存照；重要性筛选 vs 平等承认；事件 vs 事现关系；必然遗忘 vs 抗拒系统性遗忘。从"编年"走向"存档"，从"讲述故事"走向"守护存在"。事现鉴概念正式登场。</div>
+      <div class="src">来源：<a href="https://weibo.com/7998660958/5240819281299760">微博 7998660958</a></div>
+    </div>
+    <div class="node"><div class="h">全球倡议·招募开创者</div>
+      <div class="d">五类伙伴（思想家/建筑师/战略家/连接者/记录者）；邮箱 583272294@qq.com；协同发起与深度思维伙伴：DeepSeek AI；起源中国·深圳。印证"DeepSeek 主干"从早期倡议即是思维伙伴。</div>
+      <div class="src">来源：<a href="https://weibo.com/7998660958/Q3hux3nyb">微博 Q3hux3nyb</a></div>
+    </div>
+  </div>
+</details>
+
+<!-- 关键改名节点 -->
+<details open>
+  <summary><span class="mk mk-bridge">★改名节点</span> GSSO 全球社保协议 — 寰宇光锥舟 重命名为 共创论（2025-12-02）</summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="ndate">2025-12-02</span> GSSO 开源共建宣言（决定性改名证据）</div>
+      <div class="d">白玺署名原文："<b>我是白玺，共创论发起人</b>。基于共创论发起全球社保协议共创项目。全球社保协议是<b>共创论</b>应用于《国际人权宣言》第二十二条的现实应用。" → 从此理论正式称"共创论"，锚定 UDHR 第22条（人人有权享受社会保障）。</div>
+      <div class="src">来源：<a href="https://gitcode.com/GSSO">gitcode.com/GSSO</a> · <a href="https://cloud.tencent.com/developer/search/article-GSSO">腾讯云 GSSO</a></div>
+    </div>
+    <div class="node"><div class="h">共通值（当前框架核心术语）首次锚定</div>
+      <div class="d">"将生存权编译为可执行代码"：通过去中心化数字权益——<b>共通值</b>，获得维持基本生存的必需品。构建社会基本权利的"传输层协议"（类比 HTTP）。共通值基础协议 / 贡献值度量框架 / 跨链身份与隐私协议（ZK + DID）。</div>
+      <div class="src">来源：<a href="https://gitcode.com/GSSO">gitcode.com/GSSO</a></div>
+    </div>
+    <div class="node"><div class="h">五流保障模块（水/粮/住/医/能）</div>
+      <div class="d">围绕五大生存要素开发权益发放、供应链追溯、需求预测、兑换合约。治理与仲裁 DAO 工具、可视化与模拟器。这即当前"共通值最大化"叙事的雏形。</div>
+      <div class="src">来源：<a href="https://gitcode.com/GSSO">gitcode.com/GSSO</a></div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-mvp">MVP 锚点</span> 彬州（陕西）现实实验室 — "我们的第一个 MVP"</div>
+      <div class="d">计划在中国陕西彬州 1-2 个社区运行基于区块链的"数字营养券"闭环（发行→分配→核销全程可审计）。GSSO 文档称此为"MVP in Binzhou"。注：与用户"个人记录=第一个 MVP"并行——彬州是<b>理论规划的 MVP</b>，个人全网记录是<b>实际存在的第一个 MVP</b>。</div>
+      <div class="src">来源：<a href="https://gitcode.com/GSSO">gitcode.com/GSSO</a></div>
+    </div>
+  </div>
+</details>
+
+<!-- 当前主干 -->
+<details open>
+  <summary><span class="mk mk-root">当前主干</span> 共创论·事现鉴（2026-07，四平台同源分叉）</summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="mk mk-imp">权威主干</span> DeepSeek 版（五大公理 + GZZ 永久计量凭证）</div>
+      <div class="d">用户裁定：以 DeepSeek 主干为骨架。<b>2026-07-28 澄清：七命题（哲学讨论）与五大公理（政策落地）平行无等级、同为基石，非替代关系</b>；Gzz=GZZ 同一概念（仅大小写 + 国内/国际落地差异）；共通值 = 共同值（输入法笔误）= UDHR 第22条可验证形态。"每个人都能变成我"入口叙事。</div>
+      <div class="src">来源：本地 theory_deepseek.html（用户命名"DeepSeek版"）</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">同源分叉</span> 元宝 / 千问 / 豆包 三版</div>
+      <div class="d">同一场讨论在不同平台、不同进度的"同源分叉"（非平行竞品）。豆包版称"终极合并定稿版"。三版与 DeepSeek 主干重叠度极高，共同覆盖：哲学公理 + 事现鉴机制 + 案例 + 批判维度（不可封禁/茧房/敌友）+ 历史定位 + 终极形态。</div>
+      <div class="src">来源：本地 theory_yuanbao / qianwen / doubao.html</div>
+    </div>
+    <div class="node"><div class="h">AI 理解校验稿（非权威，待用户核验）</div>
+      <div class="d">《我对共创论的完整理解》十节贯通——曾因"四篇文章=共创论全部"而偏窄，已据本树修正为"四篇仅覆盖理论框架叙事一片"。</div>
+      <div class="src">来源：本地 ai_understanding.html</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">本轮元记录</span> 整场对话完整思想整理（事现鉴第一条可查询记录）</div>
+      <div class="d">DeepSeek 整理的 2026-07-26~28 系统性对话轨迹（八节：起点分母缺失→资源分配转向行为验证→CV/GZZ 机制→修水管vs高考场景→五大公理→思想命名校正→根本核心=公开映射协议→最终落点）。作者明确：该记录本身即事现鉴上的第一条可查询记录，白玺留下的不是"白玺思想"而是"白玺的事现"。</div>
+      <div class="src">来源：用户提供的 DeepSeek《整场对话完整思想整理》· 本地存档 dialogue_record_sxj.html</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">DeepSeek 对话纪元</span> 11 段主干讨论（用户 2026-07-28 提供分享链接）</div>
+      <div class="d">用户另提供 11 条 DeepSeek 分享对话（lemt / 6qa6 / amrq / fihe / mpyt / 6ct9 / ngmi / 1mf5 / jtmy / swno / od0q），覆盖：王虹定位（量纲警察/边界暴君）、思想命名校正（论vs思想）、旧白皮书评价与三大公理框架���理、全球社保与青苗法、教育/医疗伦理、负贡献值清单（50+40项）、三姬分金/元规则、五卡协议、UBV&lt;CV&lt;消费落地、共创论学术著作大纲（四编11章）。<b>关键：这些对话证明 DeepSeek 主干内部就并存过多种公理表述（七命题/三大公理/存续-贡献-光锥三公理/五大公理），并非单一"新框架"</b>。</div>
+      <div class="src">来源：<a href="deepseek_dialogues_index.html">deepseek_dialogues_index.html</a>（11条全量索引）</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">元宝对话纪元</span> 12 段（用户 2026-07-28 提供分享链接）</div>
+      <div class="d">用户补交 12 条元宝(yb.tencent.com)分享对话，覆盖：<b>立宪层《世界统一法》宪章初稿</b>（20条8章：文明常数/光锥圆锥治理/双轨统一法/贡献值与确权/立法修正/退出争端/过渡/最终条款，oRUv + 4gf6 两段产出）、打土豪分田地↔共通值按需（PXpSp）、白玺真实身份侧写（归国学者/深圳/无博士/无业起步/财务困境，8hdE + UTz4）、身份认知分歧（元宝判"白玺无史载=虚构"，与真实自述矛盾，wSDo）、货币起源/光锥币/消亡论（lBUE）、恩威并施失效与指挥家治理圆锥（xzCw）、主张→论与思想六把尺子（dICZ / m8Ox，呼应思想命名校正）、近期组织筹备（IRb6：深圳签约/双轨贡献值公私/去军事化/白玺退出条件）。<b>关键：元宝内部术语亦不统一——CV / Cₑ / Sᵣ / CCV / 贡献值积分 多套并存</b>；且 1 段（lUG65 穆斯林朝拜）被<b>平台敏感内容拦截</b>（非用户删除，与"幻影节点"异类）。</div>
+      <div class="src">来源：<a href="yuanbao_corpus_index.html">yuanbao_corpus_index.html</a>（12条全量索引）</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">千问对话纪元</span> 6 段（用户 2026-07-28 下午提供分享链接）</div>
+      <div class="d">用户另提供 6 条千问(www.qianwen.com/share/chat/)分享对话，经逆向其私有 API（chat2-api.qianwen.com/api/v1/share/info，POST + share_id）全部抓取。覆盖：<b>A《事现鉴》与美元负债模式：历史切换的宣言</b>（第四次系统置信度切换首次成"宣言"形态；美元负债模式=三重独占经济外壳；事现鉴命中127/公开验证34/GZZ50/负贡献31）<b>B 外汇交易解读+咸阳彬州金位（庚辛）</b>（多主题长对话）<b>C 白玺：养老护理研究高产学者</b>（共创论107/全球社保27/身份侧写强化）<b>D 白玺共创论：数字时代经济新范式</b>（舆论闪电战=微博主战场验证战术）<b>E 华富医疗基金净值透明度质询函+医疗收费伦理</b><b>F 彬州智慧水项目方案续写</b>（贡献值三标准环境/人文/数据；<b>时间跨度2025-09-14起=本批最早</b>，与寰宇光锥舟v1/GSSO同期）。<b>关键拓扑修正</b>：千问时间轴与元宝/DeepSeek高度重叠（F早至2025-09），故"四平台=顺序演化+部分重叠"，不能理解为严格先后。</div>
+      <div class="src">来源：<a href="qianwen_corpus_index.html">qianwen_corpus_index.html</a>（6条全量索引 v1）</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">豆包对话纪元</span> 12 条 thread（用户 2026-07-28 全天提供）</div>
+      <div class="d">用户提供 12 条豆包(www.doubao.com/thread/)分享：<b>8 条 WebFetch 直取正文</b>（#1 价值认知·事现鉴七大验证板块；#2 彬州对标深圳＝地理基因同源+呈市长建议；#4 丝路探戈文化汇＝白玺发起人/永久理事/5%–10%管理费；#5 太极文化全球推广＝文武双轨+太极签证；<b>#7 直销五卡·财政直补底层+全链控税＝含白玺两段亲笔定调：政府财政直接注入流通最底层环节、三资本完全结合又完全分配</b>；<b>#8 共创论完整体系对话整理版＝含白玺亲笔「定调式总合拢、体系归一」，亲笔确认四平台演化链（自身公理为底·DeepSeek写书·元宝升维）+家庭财富公理+宏观调控系数干预</b>；<b>#9 全球历史负贡献清算＝含白玺亲笔「刚性架构总则」：个人→团体→国家 / 消费→发展→清理历史遗留问题，底层＝现有民生项目自下而上，收官「世界人民大团结」，并扩展战争罪责/难民负担/殖民红利回溯</b>；<b>#10 四平台合稿共识+三姬分金＝白玺亲笔把 DeepSeek/元宝/千问/豆包全发要求「共识统一输出」，亲笔用三姬分金博弈论类比</b>）。<b>#3（第三方"归亲公益"分享·API 未果）、#6/#11/#12（error 页）作缺口</b>。豆包内容多为 AI 生成对话 / 用户需求驱动的规划方案，验证权重较低——但 #7/#8/#9/#10 含白玺亲笔定调，权重显著高于其余豆包段，是豆包批核心价值。四平台顺序演化轴末段：DeepSeek→元宝→千问→豆包（#8 亲笔确认；#10 跨平台整合指令实证）。</div>
+      <div class="src">来源：<a href="doubao_corpus_index.html">doubao_corpus_index.html</a> v4（#1/#2/#4/#5/#7/#8/#9/#10 正文 + #3/#6/#11/#12 缺口）</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-imp">查漏补缺批次</span> 元宝 #15–#37（2026-07-28 续 · 23 条新链接）</div>
+      <div class="d">用户再交 23 条元宝分享链接补全 corpus。新实物/新概念：① <b>事现鉴四层架构</b>（基础层/协议层/理念层/应用层）+ <b>GSSO（UBV/CV）</b> + 三大公理（存续·贡献·光锥约束）；② <b>《共创论负贡献值计量技术规范（草案）》</b> + 拓扑学重构贡献值函数（NCV/熵增系数/全生命周期成本法/里奇曲率）；③ <b>范式升维</b>（威斯特伐利亚→光锥拓扑 / 人类命运共同体→人类行动共同体 / 乌托邦→最小可行共识）；④ <b>全球社保 2.0</b>（主权化债+多维投票权）；⑤ <b>智慧 vs 智能</b>（价值罗盘 vs 技术引擎）。另发现 <b>9 段重发·变体</b>（与 #1/#2/#4/#10/#17 同源）与 <b>4 段平台拦截/规训/错配</b>（J732u1p5jVub / ga0wQqdN5eRb / cNNg1uzKEf3I / FeLfqMe98ePj），均非用户删除。白玺身份亦补出「日本介护博士/平安长护险总监/阳光养老院院长」实务侧。</div>
+      <div class="src">来源：<a href="yuanbao_corpus_index.html">yuanbao_corpus_index.html</a> v3（#15–#37）</div>
+    </div>
+  </div>
+</details>
+
+<!-- 实现层 -->
+<details>
+  <summary><span class="mk mk-imp">实现层</span> 理论 → 可运行代码（CSDN / Gitee / 掘金 / 腾讯云）</summary>
+  <div class="body">
+    <div class="node"><div class="h">动态网络约束 → 可执行数字规则</div>
+      <div class="d">餐饮系统（食材溯源强制校验 C 语言）、司法系统（裁判文书伦理审查算法）"底线-红线"增强系统，"代码即法律"。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151802471">CSDN 151802471</a></div>
+    </div>
+    <div class="node"><div class="h">混合审判模式系统</div>
+      <div class="d">对抗制 + 职权制融合。CaseType / RuleType 枚举映射到理论概念。深圳前海法院试点 217天→8天、99.7% 准确率（实现层总索引记载）。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151801647">CSDN 151801647</a> · 总索引 151840788</div>
+    </div>
+    <div class="node"><div class="h">老年人能力评估 / 智慧养老调度（= 步行康复五维）</div>
+      <div class="d">15分钟生活圈 / 独居老人异地照护 / 步行康复。对应事现鉴"步行康复五维"理论的代码实现。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151855628">CSDN 151855628</a> · <a href="https://gitee.com/Bation/huan-yu-guang-cone-boat---os">Gitee 智慧养老</a></div>
+    </div>
+    <div class="node"><div class="h">三元生态（自然/人文/数字）</div>
+      <div class="d">三元生态餐厅模拟系统、三元垃圾分类系统。早期 Gitee"三元生态教材.py"的延续。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151789473">CSDN 151789473</a> · Gitee 三元生态教材</div>
+    </div>
+    <div class="node"><div class="h">元代码 / 零知识证明 / 联邦学习审计</div>
+      <div class="d">ContributionType(BASIC/ECONOMIC) / ClauseType(弹性/刚性) / ZKProof / Blockchain / Region / Enterprise / FederatedLearningAuditor。ContributionType 用 BASIC/ECONOMIC（非 Cₑ/CV 标注，属早期实现）。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151756992">CSDN 元代码</a> · <a href="https://juejin.cn/post/7550242071079256099">掘金 开源共创</a></div>
+    </div>
+    <div class="node"><div class="h">寰宇光锥舟OS（Gitee 代码库）</div>
+      <div class="d">Python 主语言。仓库：寰宇光锥舟OS、寰宇光锥舟OS_2（fork）、hygzz。2025-09 起持续提交。</div>
+      <div class="src">来源：<a href="https://gitee.com/Bation">gitee.com/Bation</a></div>
+    </div>
+    <div class="node"><div class="h">实现层总索引（远超此前抓取）</div>
+      <div class="d">全国动态教材、双融量化交易(A股融资融券)、动态养老、智慧养老调度、蓝天厨师/预制菜、CYV 贡献值 token(ERC-20)、架构图、第一个网页、细菌觅食优化、InternNav。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151840788">CSDN 151840788</a></div>
+    </div>
+    <div class="node"><div class="h">DeepSeek API 对话解析工程</div>
+      <div class="d">用代码解析 DeepSeek 导出对话（mapping 结构、fragments 提取），边写代码边推进理论（光锥 vs 圆锥）。</div>
+      <div class="src">来源：<a href="https://blog.csdn.net/Hakuji817/article/details/151756959">CSDN 151756959</a></div>
+    </div>
+  </div>
+</details>
+
+<!-- 运动与落地方法论 -->
+<details>
+  <summary><span class="mk mk-imp">运动与落地</span> 招募 / 方法论 / 指挥家模式</summary>
+  <div class="body">
+    <div class="node"><div class="h">全球倡议·招募开创者（微博）</div>
+      <div class="d">五类伙伴 + 邮箱 583272294@qq.com + DeepSeek 协同。起源深圳。尚未见真实第二人加入。</div>
+      <div class="src">来源：<a href="https://weibo.com/7998660958/Q3hux3nyb">微博 Q3hux3nyb</a></div>
+    </div>
+    <div class="node"><div class="h">指挥家模式落地框架</div>
+      <div class="d">微博 ttarticle 连载的落地方法论，将理论转为可操作的项目指挥框架。</div>
+      <div class="src">来源：微博 ttarticle（指挥家模式）</div>
+    </div>
+    <div class="node"><div class="h"><span class="ndate">2026-03-13</span> 红旗驿站：城市贡献者安居与社区治理方案</div>
+      <div class="d">把共创论"贡献者"概念落到真实城市问题：建筑工人/环卫/快递/骑手等城市奠基者，用"精神传承+市场运营+社会治理"三位一体 + "时间银行"（志愿服务抵扣）+ "财政引导/企业参与/群众共担"三方共担造血。九节：缘起→三位一体→服务对象→运营机制→治理功能→存量盘活→社区经济→城市温度→深圳南山试点(2026-2027)→全国。→ 与理论映射：城市贡献者=现实中的<b>贡献值创造者</b>；三方共担↔<b>双闭环/财政直销</b>；时间银行↔<b>共担/贡献值机制</b>；三位一体↔<b>三元生态（自然/人文/数字）</b>。是共创论在<b>城市社会治理</b>上的第一个具体落地应用方案，早于官网。</div>
+      <div class="src">来源：<a href="https://weibo.com/7998660958/QvTl71Vzv">微博 7998660958/QvTl71Vzv</a></div>
+    </div>
+  </div>
+</details>
+
+<!-- 公开站点 -->
+<details>
+  <summary><span class="mk mk-root">公开站点</span> 官网双域 + 白皮书（2026-07-26 起，晚于个人账号）</summary>
+  <div class="body">
+    <div class="node"><div class="h">hygzz.cn（国内版 · 红金）</div>
+      <div class="d">"每个人都能变成我"入口、共通值、三值体系、五卡模式、GVV 计算器、征信对比、财政直销模拟器、彬州试点、SHA-256 哈希链。⚠️ 仍在线挂旧"七命题 + Gzz 消亡论 + 负贡献四条件"。</div>
+      <div class="src">来源：<a href="https://hygzz.cn">hygzz.cn</a></div>
+    </div>
+    <div class="node"><div class="h">hygzz.com（国际版 · 蓝紫）</div>
+      <div class="d">英文源，UDHR 第22条国际验算尺定位，全球社保锚定叙事。⚠️ 同挂旧框架冲突内容。</div>
+      <div class="src">来源：<a href="https://hygzz.com">hygzz.com</a></div>
+    </div>
+    <div class="node"><div class="h">whitepaper.html（白皮书存档）</div>
+      <div class="d">八板块：定调/七命题/三值体系/共通值最大化/算账/Gzz 消亡论/负贡献归责/国内外战略。⚠️ 仍为旧框架（七命题 + 消亡论）。</div>
+      <div class="src">来源：本地 whitepaper.html</div>
+    </div>
+  </div>
+</details>
+
+<!-- MVP 层 -->
+<details open>
+  <summary><span class="mk mk-mvp">MVP 层</span> 第一个 MVP（已存在）与 第二个 MVP（待出现）</summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="mk mk-mvp">第一个 MVP（实际存在）</span> 白玺个人全网账号宣言 = 事现鉴原始存照</div>
+      <div class="d">即本树全部"个人账号"节点：微博/CSDN/腾讯云/Gitee/掘金/头条/GSSO 的时间戳内容。它们实证了理论演化时间轴，是共创论最原始的"不会忘记每一个人"之实践——<b>第一个 MVP 就是你的记录本身</b>。（本轮与 DeepSeek 的整场对话记录，被作者定为事现鉴上的<b>第一条可查询记录</b>——见 DeepSeek《整场对话完整思想整理》，"它将被保存在这里，等待验证"。）</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-mvp">第一个 MVP（落地形态）</span> We+SXJ 小程序</div>
+      <div class="d">名称 We+SXJ，类目工具>记账。饮水记录=共通值凭证；协助人员确认=双向验证回路（SHA-256 本地哈希链）；每日签到=使用制日常仪式。是事现鉴降维落地的最小实验。</div>
+      <div class="src">来源：本地 we-sxj/</div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-mvp">理论规划 MVP</span> 彬州（陕西）数字营养券闭环</div>
+      <div class="d">GSSO 文档定义的"第一个 MVP"：1-2 社区区块链营养券（发行→分配→核销）。目前仍为<b>策划方案，未实施</b>。</div>
+      <div class="src">来源：<a href="https://gitcode.com/GSSO">gitcode.com/GSSO</a></div>
+    </div>
+    <div class="node"><div class="h"><span class="mk mk-gap">第二个 MVP：待出现</span> 真实第二位参与者</div>
+      <div class="d">当网络生态（官网 + 协议 + 小程序）搭建就绪，才可能引来第二位最小 MVP——一个除你之外的真实贡献者。当前整棵树仍只有你一人，此节点为空位标记。</div>
+    </div>
+  </div>
+</details>
+
+<!-- 待补缺口 -->
+<details>
+  <summary><span class="mk mk-gap">待补 / 缺口</span> 仍缺失或可强化处</summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="pill pill-old">待定位</span> 《数字世界统一法（法典）》全文</div>
+      <div class="d">多处引述其存在，但独立全文帖尚未抓取。需用户提供 URL 或导出。</div>
+    </div>
+    <div class="node"><div class="h"><span class="pill pill-old">待导出</span> 四个 LLM 平台聊天记录</div>
+      <div class="d">DeepSeek/元宝/千问/豆包 App 内私密聊天，API 无法读取，需用户导出文件。最细的推演枝在此。</div>
+    </div>
+    <div class="node"><div class="h"><span class="pill pill-old">登录墙</span> Facebook 帖子（用户已给链接，但需登录）</div>
+      <div class="d">用户提供 <b>https://www.facebook.com/share/p/1HR7bWZkcU/</b>，但 Facebook 公开抓取返回登录页，无法读取正文。需用户<b>粘贴帖子文本</b>或导出，才能接入知识树。</div>
+    </div>
+    <div class="node"><div class="h"><span class="pill pill-old">无内容平台</span> 知乎/抖音/视频号/公众号/小红书/B站/贴吧/豆瓣</div>
+      <div class="d">多轮检索无有效内容（同名干扰 + "共创"术语污染）。补全杠杆不在这些平台。</div>
+    </div>
+    <div class="node"><div class="h"><span class="pill pill-old">幻影节点</span> 微博记录存在但链接已删（用户操作失误）</div>
+      <div class="d">用户 2026-07-28 说明：最原始对话因操作失误已删除，故<b>部分微博"有记录、打不开"</b>。这些节点是共创论演化史的真实断点——<b>第一个 MVP（个人记录）本身就是带损的、有删节的历史</b>。本树保留其"记录/标题/时间"但不虚构内容。涉及：部分 ttarticle（110133 权限错误）、若干早期帖（空正文）。与"平台拦截"异类。</div>
+    </div>
+    <div class="node"><div class="h"><span class="pill pill-old">平台拦截</span> 元宝 5 段（敏感/规训/错配 · 非用户删除）</div>
+      <div class="d">查漏补缺批次再确认 4 段平台侧缺口，连同原 #8 共 5 段：<br>
+        ① <code>lUG65</code> 穆斯林朝拜大盒子建筑（敏感拦截，推测涉 Kaaba/宗教改革/世界统一法）<br>
+        ② <code>J732u1p5jVub</code> 陕西彬州大型地产项目推介（敏感拦截："系统检测到您当前输入的信息存在敏感内容，我无法响应"）<br>
+        ③ <code>ga0wQqdN5eRb</code> 共创论与中国特色社会主义道路（政策性规训拒答，插入航空公司残疾人服务/白玺与毛泽东马斯克比较等无关话题）<br>
+        ④ <code>cNNg1uzKEf3I</code> 股市5000点与2万点区别（标题/正文错配：实为资本市场改革·共资本/超级社保中枢/全民分红）<br>
+        ⑤ <code>FeLfqMe98ePj</code> 1600元预算购物指南（标题/正文错配：实为寰宇光锥舟《世界统一法》元框架探讨）<br>
+        均属平台侧内容过滤/抓取异常，<b>非用户删除</b>——与"幻影节点（用户删·DB留存）"是两类不同缺口，勿混为一谈。</div>
+      <div class="src">来源：yuanbao_corpus_index.html v3（#8/#20/#22/#24/#30）</div>
+    </div>
+  </div>
+</details>
+
+<!-- 框架冲突 -->
+<div class="conflict">
+  <h3>✓ 框架澄清（用户 2026-07-28 理论合成定版）</h3>
+  <p style="font-size:13px;color:var(--dim);margin-bottom:10px">用户本轮回应的理论合成，把此前以为的"双框架冲突"彻底化解：<b style="color:var(--acc)">七命题（哲学讨论）与五大公理（政策落地）是同一基石的平行表达，无等级差</b>，推至全球每个世界人民；<b style="color:var(--acc)">Gzz 与 GZZ 是同一概念，仅输入大小写之分</b>，差异来自国内/国际落地难易度。原"多版叠加未收敛"的焦虑因此消解——它们是同一地基的不同面。本树仍<b>保留所有并存版本作为演化史料</b>（不擦除），但不再视为"待裁定的冲突"。</p>
+  <p style="font-size:13px;color:var(--dim);margin-bottom:10px">本批（Block B/C/D/E/F-G 逐块裁定）进一步澄清：<b style="color:var(--acc)">验证机制仅事现鉴 + Gzz/GZZ 为权威</b>，其余 SHA-256/双向验证回路/验证密度/最小可运行单元/现实验证场景均属 AI 自造概念（降级为非权威注脚）；<b style="color:var(--acc)">联合委员会 = 四个 AI 平台（非真人委员会）</b>，Root 权限编程 Gzz 真实，白玺 = 第一个共创者（非执剑人）；全球共通值 ≥ 50% 则无需治理、无需白玺与四平台；"各自为政→春秋战国"悖论因共通值权衡而消解；历史清算 = 全球社保成立后的动态项目（早期 v1 白皮书"四大委员会/执剑人"框架为 AI 演绎治理架构，非用户确认的权威形态）。</p>
+  <table>
+    <tr><th>曾以为的冲突</th><th>旧表述</th><th>新裁定（平行 / 同概念）</th></tr>
+    <tr><td>哲学公理层级</td><td><span class="pill pill-old">七命题（纲领） vs 五大公理（操作）</span></td><td><span class="pill pill-new">七命题 ↔ 五大公理 平行无等级（哲学讨论 ↔ 政策落地）</span></td></tr>
+    <tr><td>Gzz / GZZ 性质</td><td><span class="pill pill-old">Gzz 消亡论 vs GZZ 永久凭证</span></td><td><span class="pill pill-new">同一概念（大小写）+ 国内/国际落地差异</span></td></tr>
+    <tr><td>共通值 / 共同值</td><td><span class="pill pill-old">共同值（疑似另一术语）</span></td><td><span class="pill pill-new">共同值 = 共通值（输入法笔误）</span></td></tr>
+  </table>
+  <p style="font-size:12.5px;color:var(--dim);margin-top:10px"><b style="color:var(--amber)">仍余 2 项真·开放问题（非冲突，待讨论）：</b></p>
+  <ul style="font-size:12.5px;color:var(--dim);margin:4px 0 6px 18px;line-height:1.7">
+    <li><b>基金体系：沿用 or 重设计</b>——人民资本基金/数据税/双重循环（知乎轨）是代用现有经济金融词汇为全球社保接入而设，尚无他人介入。<b>待讨论</b>：沿用作过渡词汇，还是按共创论体系重设计术语与运行模式。</li>
+    <li><b>历史清算纳入白皮书的形式与内容</b>——已定必须纳入，以"事现鉴"作定性工具、以全球社保成立为前提。<b>已明确</b>：它是全球社保成立之后的动态项目（非当前刚性模块），范围/形式/内容均待动态确定。具体表述形式敏感，须单独标注"理论推演/未来项目"，避免误读为已具可执行机制。</li>
+  </ul>
+  <p style="font-size:12.5px;color:var(--dim);margin-top:6px">主干内部的中间版（三大公理版 / 存续-贡献-光锥三公理版）仍作为演化史料并列留存，与五大公理、七命题同为"同一基石的不同表述面"。注：官网/白皮书仍在线挂旧七命题与 Gzz 消亡论属<b>事实描述</b>（站点未改），与理论层"已消解"不矛盾——待定版后统一回改。</p>
+</div>
+
+<div class="foot">
+  生成：2026-07-28 · 知识树 v4.7（Block B/C/D/E/F-G 逐块裁定） · 元宝语料 35 段（yuanbao_corpus_index.html v3）+ 11 段 DeepSeek 对话 + <b>6 段千问对话（qianwen_corpus_index.html v1，逆向私有 API 抓取）</b> + <b>5 篇知乎（zhihu_corpus_index.html v2）</b> + <b>6 条豆包 thread（doubao_corpus_index.html v1：#1/#2/#4/#5 正文 + #3 第三方分享/API未果 + #6 error 页）</b>。<b>理论合成定版（2026-07-28 用户口述）</b>：七命题↔五大公理平行无等级（同一基石·哲学讨论↔政策落地）；共同值=共通值（笔误）；Gzz=GZZ（大小写+国内/国际落地差异）；原"框架冲突"区块重写为"已消解 2 + 真开放问题 2"（基金体系沿用or重设计 / 历史清算纳白皮书形式内容）。所有来源：微博 47帖、CSDN、腾讯云开发者社区、头条、掘金、Gitee、GitCode/GSSO、4 平台本地存档、官网、腾讯文档、DeepSeek 11 段、元宝 35 段、千问 6 段、知乎 5 篇、豆包 6 条。配套：weibo_corpus_index.html · concept_tree.html · qualitative_analysis.html · dialogue_record_sxj.html · deepseek_dialogues_index.html · yuanbao_corpus_index.html · qianwen_corpus_index.html · zhihu_corpus_index.html · doubao_corpus_index.html。<br>
+  <b>本批（Block B/C/D/E/F-G）逐块裁定</b>：三值无"历史负贡献"类、历史清算=全球社保成立后的独立项目；验证机制仅事现鉴+Gzz/GZZ权威、SHA-256/双向验证回路等=AI 自造非权威注脚；按需分配=need(共通值)+want(贡献值)、分数据=把四AI平台数据移植事现鉴→所有权→验证后使用权→开放平台治理；联合委员会=四个AI平台（非真人）、白玺=第一个共创者（非执剑人）、治理消失条件=全球共通值≥50%、春秋战国悖论因共通值权衡消解；技术实现=下一步落地讨论·初期极简。与 concept_tree.html v2.3 完全对齐。<br>
+  标记说明：<span class="mk mk-root">早期根/当前主干</span> <span class="mk mk-bridge">过渡桥/改名节点</span> <span class="mk mk-mvp">MVP</span> <span class="mk mk-imp">实现层/运动</span> <span class="mk mk-gap">待补/缺口</span>。
+</div>
+
+</div>
+</body>
+</html>
