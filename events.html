@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴 · 事件簿 | SXJ Event Ledger</title>
+<style>
+:root{
+  --paper:#fff8f0; --ink:#2b2b2b; --red:#a23b32; --gold:#c9a24b;
+  --c-ubv:#2f6f8f; --c-cv:#3a7d44; --c-ncv:#a23b32; --line:#e3d6c2; --muted:#8a7d68;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-text-size-adjust:100%}
+a{color:var(--red);text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:18px 16px 60px}
+header.top{border-bottom:3px double var(--gold);padding-bottom:14px;margin-bottom:18px}
+header.top h1{margin:0 0 4px;font-size:26px;letter-spacing:1px}
+header.top h1 .seal{color:var(--red)}
+header.top p{margin:0;color:var(--muted);font-size:14px}
+.def{background:#fffdf8;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:10px 14px;margin:14px 0;font-size:13.5px;color:#5a4f3e}
+.def b{color:var(--red)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.btn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+.btn.ghost{background:#fff;border:1px solid var(--red);color:var(--red)}
+.btn.sm{padding:6px 12px;font-size:13px}
+.filter{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+.chip{font-size:12.5px;padding:5px 11px;border-radius:20px;border:1px solid var(--line);background:#fff;cursor:pointer;color:var(--muted)}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* form */
+form.card{background:#fffdf8;border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;display:none}
+form.card.show{display:block}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,textarea,select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-family:inherit;font-size:14px;background:#fff;color:var(--ink)}
+textarea{min-height:84px;resize:vertical}
+.row{display:flex;gap:10px}
+.row>div{flex:1}
+/* event list */
+.ev{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.ev h3{margin:0 0 6px;font-size:17px;cursor:pointer}
+.ev .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--muted);margin-bottom:6px}
+.badge{font-size:11.5px;padding:2px 9px;border-radius:20px;color:#fff;font-weight:600}
+.b-ubv{background:var(--c-ubv)} .b-cv{background:var(--c-cv)} .b-ncv{background:var(--c-ncv)}
+.st{font-size:11.5px;padding:2px 9px;border-radius:20px;border:1px solid var(--line);background:#faf4e8}
+.ev .desc{font-size:13.5px;color:#41382b;margin:6px 0}
+.ev .hash{font-size:11px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;word-break:break-all}
+.ev .acts{margin-top:8px;display:flex;gap:8px}
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(20,16,10,.5);display:none;align-items:flex-start;justify-content:center;padding:24px 12px;overflow:auto;z-index:50}
+.overlay.show{display:flex}
+.modal{background:var(--paper);max-width:680px;width:100%;border-radius:14px;padding:18px 20px;border-top:5px solid var(--red)}
+.modal h2{margin:0 0 4px;font-size:20px}
+.tl{margin:12px 0;border-left:3px solid var(--line);padding-left:14px}
+.tl .it{margin:10px 0;font-size:13.5px}
+.tl .it .ts{color:var(--muted);font-size:11.5px}
+.tl .it .h{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--muted);word-break:break-all}
+footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--muted)}
+.ok{color:var(--c-cv);font-weight:600} .bad{color:var(--red);font-weight:600}
+.tag{display:inline-block;background:#f3e9d8;color:#6a5b3e;border-radius:6px;padding:1px 7px;font-size:11px;margin-right:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1><span class="seal">事现鉴</span> · 事件簿</h1>
+    <p>SXJ Event Ledger — 记录一件事，让集体验证它、追踪它的结果。</p>
+  </header>
+
+  <div class="def">
+    <b>事现鉴最小定义：</b>一件事发生了，公众自发取证、交叉验证、形成共识并记录，满足了「我们需要知道真相 / 谁对谁错 / 谁该得什么」的集体需求。本页是这套机制的轻量记录格式——你记下的每笔「事」都用 SHA-256 哈希链锁住，不可篡改、可随时校验。
+  </div>
+
+  <div class="bar">
+    <button class="btn" id="newBtn">＋ 记录新事件</button>
+    <button class="btn ghost sm" id="verifyBtn">校验整条链</button>
+    <button class="btn ghost sm" id="exportBtn">导出 JSON</button>
+    <div class="filter" id="filter">
+      <span class="chip on" data-f="all">全部</span>
+      <span class="chip" data-f="共济值">共济值</span>
+      <span class="chip" data-f="贡献值">贡献值</span>
+      <span class="chip" data-f="负贡献">负贡献</span>
+    </div>
+  </div>
+
+  <form class="card" id="form">
+    <label>事件标题 *</label>
+    <input id="f-title" placeholder="例如：某公司涉嫌虚标公益捐赠" required>
+    <div class="row">
+      <div>
+        <label>事件类型（三值）</label>
+        <select id="f-type">
+          <option value="共济值">共济值（公众需知真相/制度可信）</option>
+          <option value="贡献值">贡献值（应得权益/贡献确认）</option>
+          <option value="负贡献">负贡献（行为归责/追责）</option>
+        </select>
+      </div>
+      <div>
+        <label>发生时间</label>
+        <input id="f-date" type="date">
+      </div>
+    </div>
+    <label>事件描述 *</label>
+    <textarea id="f-desc" placeholder="发生了什么？为什么需要集体验证？" required></textarea>
+    <label>证据 / 来源链接（每行一个）</label>
+    <textarea id="f-ev" placeholder="https://..."></textarea>
+    <label>记录人（可选）</label>
+    <input id="f-rec" placeholder="匿名 / 昵称">
+    <div style="margin-top:14px;display:flex;gap:10px">
+      <button class="btn" type="submit">上链记录</button>
+      <button class="btn ghost" type="button" id="cancelBtn">取消</button>
+    </div>
+  </form>
+
+  <div id="list"></div>
+
+  <footer>
+    客户端演示 · 数据存于本机浏览器（localStorage），不上传服务器。事现鉴的本质是「集体已在做的事」——本页只是把它收成同一把可携带、可互认、不可篡改的尺。<br>
+    回到：
+    <a href="index.html">官网首页</a> ·
+    <a href="knowledge_tree.html">知识树</a> ·
+    <a href="whitepaper.html">白皮书</a>
+  </footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+const KEY='sxj_events_v1';
+const TYPES={共济值:'b-ubv',贡献值:'b-cv',负贡献:'b-ncv'};
+const STATUSES=['记录中','验证中','已验证','已归责','已解决','未成立'];
+let events=[]; let filter='all';
+
+async function sha256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function load(){try{events=JSON.parse(localStorage.getItem(KEY))||[]}catch(e){events=[]}}
+function save(){localStorage.setItem(KEY,JSON.stringify(events))}
+function short(h){return h?h.slice(0,10)+'…'+h.slice(-6):''}
+
+function seed(){
+  if(events.length)return;
+  const now=Date.now();
+  events=[
+    {id:'seed1',seq:1,prevHash:'0',type:'共济值',date:'2025-12-17',title:'南京博物院《江南春》等受赠文物流失事件',
+     desc:'庞莱臣后人1959年捐赠南博137件古画，其中《江南春》等5幅被认定为「伪作」处置后离奇现身拍卖市场。公众把院方说辞与线索逐一对账、追流向，逼出省级调查组通报。',
+     evidence:['https://www.njmuseum.com/zh/newsDetails?id=381119','https://www.news.cn/local/20260209/c438dd6cba55453493674c33a445a0d0/c.html'],
+     recorder:'公众查证',createdAt:now-8000,
+     status:'已归责',
+     updates:[
+       {ts:now-8000,text:'事件进入公众视野：捐赠画作现身拍卖，院方称「依规处置伪作」。',prevHash:'seed1',hash:''},
+       {ts:now-4000,text:'2026-02-09 江苏省委省政府调查组通报：违规调拨、24人被查处，5幅中4幅追回入藏南博书画专库。集体验证闭环达成。',prevHash:'',hash:''}
+     ]},
+    {id:'seed2',seq:2,prevHash:'',type:'负贡献',date:'2026-01-10',title:'耿同学学术打假事件',
+     desc:'（用户列举：已达集体需求的事现鉴案例）学界与网民共同核验证据，坐实学术不端行为，形成集体归责。',
+     evidence:[],recorder:'用户列举',createdAt:now-6000,status:'已验证',
+     updates:[{ts:now-6000,text:'一人牵头、集体核验，学术不端被坐实——负贡献的集体归责实例。',prevHash:'seed2',hash:''}]},
+    {id:'seed3',seq:3,prevHash:'',type:'贡献值',date:'2026-02-01',title:'小红书前员工期权事件',
+     desc:'（用户列举）前员工公开核验自身贡献对应的期权权益去向，引发公众对互联网企业期权机制的集体讨论与验证。',
+     evidence:[],recorder:'用户列举',createdAt:now-5000,status:'追踪中',
+     updates:[{ts:now-5000,text:'贡献值（CV）的集体确认：我的记录贡献应对应为应得权益。',prevHash:'seed3',hash:''}]}
+  ];
+  // fill prevHash chain + hashes
+  events[1].prevHash=events[0].id;
+  events[2].prevHash=events[1].id;
+  save();
+}
+
+function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function render(){
+  const box=document.getElementById('list');
+  const arr=events.filter(e=>filter==='all'||e.type===filter);
+  if(!arr.length){box.innerHTML='<p style="color:var(--muted)">还没有记录。点「＋ 记录新事件」记下第一笔。</p>';return;}
+  box.innerHTML=arr.map(e=>`
+    <div class="ev">
+      <h3 onclick="openEv('${e.id}')">${esc(e.title)}</h3>
+      <div class="meta">
+        <span class="badge ${TYPES[e.type]}">${e.type}</span>
+        <span class="st">${e.status}</span>
+        <span>📅 ${e.date||'—'}</span>
+        <span>✍ ${esc(e.recorder||'匿名')}</span>
+        <span>🔗 ${e.updates.length} 条进展</span>
+      </div>
+      <div class="desc">${esc(e.desc).slice(0,120)}${e.desc.length>120?'…':''}</div>
+      <div class="hash">⛓ ${short(e.hash)}</div>
+      <div class="acts">
+        <button class="btn sm" onclick="openEv('${e.id}')">追踪结果</button>
+      </div>
+    </div>`).join('');
+}
+
+function openEv(id){
+  const e=events.find(x=>x.id===id); if(!e)return;
+  const m=document.getElementById('modal');
+  m.innerHTML=`
+    <h2>${esc(e.title)}</h2>
+    <div class="meta" style="font-size:12.5px;color:var(--muted)">
+      <span class="badge ${TYPES[e.type]}">${e.type}</span>
+      <span class="st">${e.status}</span>
+      <span>📅 ${e.date||'—'}</span>
+      <span>✍ ${esc(e.recorder||'匿名')}</span>
+    </div>
+    <p style="font-size:14px">${esc(e.desc)}</p>
+    ${e.evidence&&e.evidence.length?`<p>${e.evidence.map(u=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a>`).join('<br>')}</p>`:''}
+    <hr style="border:none;border-top:1px solid var(--line)">
+    <h3 style="font-size:15px;margin:10px 0 4px">进展时间线</h3>
+    <div class="tl">
+      ${(e.updates||[]).map(u=>`<div class="it"><div class="ts">${new Date(u.ts).toLocaleString('zh-CN')}</div>${esc(u.text)}<div class="h">⛓ ${short(u.hash)}</div></div>`).join('')||'<p style="color:var(--muted)">暂无进展。</p>'}
+    </div>
+    <label style="font-size:13px;color:var(--muted);margin-top:10px">更新状态</label>
+    <select id="m-status">
+      ${STATUSES.map(s=>`<option ${s===e.status?'selected':''}>${s}</option>`).join('')}
+    </select>
+    <label style="font-size:13px;color:var(--muted)">追加进展 / 结果</label>
+    <textarea id="m-update" placeholder="例如：2026-03-01 官方通报……"></textarea>
+    <div style="margin-top:12px;display:flex;gap:10px">
+      <button class="btn" onclick="addUpdate('${e.id}')">记录进展</button>
+      <button class="btn ghost" onclick="closeEv()">关闭</button>
+    </div>
+    <div id="m-verify" style="margin-top:10px;font-size:12.5px"></div>`;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeEv(){document.getElementById('overlay').classList.remove('show')}
+
+async function addUpdate(id){
+  const e=events.find(x=>x.id===id); if(!e)return;
+  const text=document.getElementById('m-update').value.trim();
+  const status=document.getElementById('m-status').value;
+  if(!text){alert('请填写进展内容');return}
+  const prev=e.updates.length?e.updates[e.updates.length-1].hash:e.hash;
+  const cano=`${e.id}|upd|${e.updates.length}|${prev}|${Date.now()}|${text}`;
+  const h=await sha256(cano);
+  e.updates.push({ts:Date.now(),text,prevHash:prev,hash:h});
+  e.status=status;
+  save(); render();
+  const mv=document.getElementById('m-verify');
+  if(mv)mv.innerHTML=`<span class="ok">✓ 进展已上链（${short(h)}）</span>`;
+  setTimeout(()=>openEv(id),400);
+}
+
+async function submitForm(ev){
+  ev.preventDefault();
+  const title=document.getElementById('f-title').value.trim();
+  const desc=document.getElementById('f-desc').value.trim();
+  if(!title||!desc){alert('标题与描述为必填');return}
+  const type=document.getElementById('f-type').value;
+  const date=document.getElementById('f-date').value;
+  const rec=document.getElementById('f-rec').value.trim();
+  const evd=document.getElementById('f-ev').value.split('\n').map(s=>s.trim()).filter(Boolean);
+  const prevHash=events.length?events[events.length-1].hash:'0';
+  const seq=events.length+1;
+  const id='e'+Date.now();
+  const createdAt=Date.now();
+  const cano=`${seq}|${prevHash}|${title}|${type}|${date}|${desc}|${rec}|${createdAt}`;
+  const hash=await sha256(cano);
+  events.push({id,seq,prevHash,type,date,title,desc,evidence:evd,recorder:rec,createdAt,status:'记录中',hash,updates:[]});
+  save(); render();
+  document.getElementById('form').reset();
+  document.getElementById('form').classList.remove('show');
+}
+
+async function verifyChain(){
+  let ok=true,msg=[];
+  for(let i=0;i<events.length;i++){
+    const e=events[i];
+    const prev= i===0?'0':events[i-1].hash;
+    if(e.prevHash!==prev){ok=false;msg.push(`#${e.seq} 前驱链断裂`);}
+    const cano=`${e.seq}|${e.prevHash}|${e.title}|${e.type}|${e.date}|${e.desc}|${e.recorder}|${e.createdAt}`;
+    const h=await sha256(cano);
+    if(h!==e.hash){ok=false;msg.push(`#${e.seq} 记录哈希不符`);}
+    for(const u of (e.updates||[])){
+      if(!u.hash){ok=false;msg.push(`#${e.seq} 某进展未上链`);}
+    }
+  }
+  alert(ok?`✓ 整条链校验通过（${events.length} 笔事件，全部完整不可篡改）`:`✗ 发现问题：\n`+msg.join('\n'));
+}
+
+function exportJSON(){
+  const blob=new Blob([JSON.stringify(events,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='sxj_events.json';a.click();
+}
+
+// events
+document.getElementById('newBtn').onclick=()=>document.getElementById('form').classList.toggle('show');
+document.getElementById('cancelBtn').onclick=()=>document.getElementById('form').classList.remove('show');
+document.getElementById('form').addEventListener('submit',submitForm);
+document.getElementById('verifyBtn').onclick=verifyChain;
+document.getElementById('exportBtn').onclick=exportJSON;
+document.getElementById('filter').onclick=e=>{if(e.target.dataset.f){filter=e.target.dataset.f;[...document.querySelectorAll('.chip')].forEach(c=>c.classList.toggle('on',c===e.target));render();}};
+document.getElementById('overlay').onclick=e=>{if(e.target.id==='overlay')closeEv()};
+
+// init
+(async()=>{load();seed();
+  // rehash seeds that lack hash (first run)
+  for(let i=0;i<events.length;i++){const e=events[i];
+    if(!e.hash){const prev=i===0?'0':events[i-1].hash;e.prevHash=prev;const cano=`${e.seq}|${prev}|${e.title}|${e.type}|${e.date}|${e.desc}|${e.recorder}|${e.createdAt}`;e.hash=await sha256(cano);}
+    for(const u of (e.updates||[])){if(!u.hash){const p=(e.updates.indexOf(u)>0?e.updates[e.updates.indexOf(u)-1].hash:e.hash);u.prevHash=p;u.hash=await sha256(`${e.id}|upd|${e.updates.indexOf(u)}|${p}|${u.ts}|${u.text}`);}}}
+  save();render();
+})();
+</script>
+</body>
+</html>
