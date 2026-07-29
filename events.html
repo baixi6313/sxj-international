@@ -75,7 +75,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-si
     <button class="btn ghost sm" id="exportBtn">导出 JSON</button>
     <div class="filter" id="filter">
       <span class="chip on" data-f="all">全部</span>
-      <span class="chip" data-f="共通值">共通值</span>
+      <span class="chip" data-f="共济值">共济值</span>
       <span class="chip" data-f="贡献值">贡献值</span>
       <span class="chip" data-f="负贡献">负贡献</span>
     </div>
@@ -88,7 +88,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-si
       <div>
         <label>事件类型（三值）</label>
         <select id="f-type">
-          <option value="共通值">共通值（公众需知真相/制度可信）</option>
+          <option value="共济值">共济值（公众需知真相/制度可信）</option>
           <option value="贡献值">贡献值（应得权益/贡献确认）</option>
           <option value="负贡献">负贡献（行为归责/追责）</option>
         </select>
@@ -127,7 +127,7 @@ footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-si
 
 <script>
 const KEY='sxj_events_v1';
-const TYPES={共通值:'b-ubv',贡献值:'b-cv',负贡献:'b-ncv'};
+const TYPES={共济值:'b-ubv',贡献值:'b-cv',负贡献:'b-ncv'};
 const STATUSES=['记录中','验证中','已验证','已归责','已解决','未成立'];
 let events=[]; let filter='all';
 
@@ -143,7 +143,7 @@ function seed(){
   if(events.length)return;
   const now=Date.now();
   events=[
-    {id:'seed1',seq:1,prevHash:'0',type:'共通值',date:'2025-12-17',title:'南京博物院《江南春》等受赠文物流失事件',
+    {id:'seed1',seq:1,prevHash:'0',type:'共济值',date:'2025-12-17',title:'南京博物院《江南春》等受赠文物流失事件',
      desc:'庞莱臣后人1959年捐赠南博137件古画，其中《江南春》等5幅被认定为「伪作」处置后离奇现身拍卖市场。公众把院方说辞与线索逐一对账、追流向，逼出省级调查组通报。',
      evidence:['https://www.njmuseum.com/zh/newsDetails?id=381119','https://www.news.cn/local/20260209/c438dd6cba55453493674c33a445a0d0/c.html'],
      recorder:'公众查证',createdAt:now-8000,
