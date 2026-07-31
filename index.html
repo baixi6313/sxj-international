@@ -658,9 +658,9 @@
     display:inline-block;font-size:0.6rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;
     padding:0.15rem 0.5rem;border-radius:4px;margin-bottom:0.6rem;
   }
-  .value-card.floor .vc-badge{background:var(--green-bg);color:var(--green)}
-  .value-card.engine .vc-badge{background:var(--accent-light);color:var(--accent)}
-  .value-card.ceil .vc-badge{background:var(--red-bg);color:var(--red)}
+  .value-card.mutual-aid .vc-badge{background:var(--green-bg);color:var(--green)}
+  .value-card.contribution .vc-badge{background:var(--accent-light);color:var(--accent)}
+  .value-card.accountability .vc-badge{background:var(--red-bg);color:var(--red)}
   .value-card .vc-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.3rem}
   .value-card .vc-subtitle{font-size:0.72rem;color:var(--text-faint);margin-bottom:0.6rem;font-family:'SF Mono',monospace}
   .value-card .vc-desc{font-size:0.8rem;color:var(--text-dim);line-height:1.6}
@@ -1992,7 +1992,7 @@
         <ul>
           <li>Every contribution immutably recorded</li>
           <li>Rights = the real value you create</li>
-          <li>Food/clothing/shelter/transit/education/healthcare = verifiable floor</li>
+          <li>Food/clothing/shelter/transit/education/healthcare = verifiable baseline</li>
           <li>Everyone can reach today's "me" level</li>
         </ul>
       </div>
@@ -2028,7 +2028,7 @@
       <text x="340" y="215" text-anchor="middle" font-size="11" fill="#555">Loses incentive, efficiency drops</text>
 
       <!-- Path 3: Co-Creation -->
-      <text x="570" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#0066ff">Co-Creation / Floor-Maximalism</text>
+      <text x="570" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#0066ff">Co-Creation / Mutual Aid</text>
       <rect x="510" y="92" width="120" height="20" fill="#0066ff" rx="3"/>
       <rect x="510" y="92" width="120" height="20" fill="#30a14e" rx="3" opacity="0.85"/>
       <text x="570" y="105" text-anchor="middle" font-size="10" fill="#fff">You = Top</text>
@@ -2042,8 +2042,8 @@
       <text x="570" y="290" text-anchor="middle" font-size="11" fill="#0066ff">Top resources gain more value</text>
     </svg>
 
-    <h3 class="phil-h3">Do the math: the floor is actually cheap</h3>
-    <p class="path-note">Even at the most generous food standard, one person's annual "cash floor" is about:</p>
+    <h3 class="phil-h3">Do the math: the baseline is actually cheap</h3>
+    <p class="path-note">Even at the most generous food standard, one person's annual "cash baseline" is about:</p>
     <div class="calc-simple">
       <div class="calc-item"><span class="num">109,500</span><span class="unit">RMB/year</span><span class="label">Food 300 RMB/day</span></div>
       <div class="calc-item"><span class="num">5,000-10,000</span><span class="unit">RMB/year</span><span class="label">Clothing</span></div>
@@ -2051,7 +2051,7 @@
       <div class="calc-item"><span class="num">&#8776;0</span><span class="unit">cash</span><span class="label">Shelter / Education / Healthcare</span></div>
     </div>
     <div class="calc-total-simple">
-      Cash floor (most generous standard) &#8776; <strong>120k RMB/person/year</strong>
+      Cash baseline (most generous standard) &#8776; <strong>120k RMB/person/year</strong>
     </div>
     <p>No one today can truly "spend 300 a day" — not because of lack of money, but because <strong>the consumption system cannot find worthwhile targets</strong>. Like Wang Duoyu in "Hello Mr. Billionaire" who couldn't spend a billion — it proves usage efficiency hasn't been switched on. SXJ proves this level is reachable, and worth operationalizing.</p>
 
@@ -2078,22 +2078,22 @@
     <h3>The Three-Value System</h3>
     <p>The core of Co-Creation Theory is a dual-value circulation model, extended to three values with the negative contribution concept:</p>
     <div class="theory-grid">
-      <div class="value-card floor">
-        <span class="vc-badge">Floor · Survival Right</span>
+      <div class="value-card mutual-aid">
+        <span class="vc-badge">Mutual Aid · Survival Right</span>
         <div class="vc-title">Universal Common Value (共济值)</div>
         <div class="vc-subtitle">UCV —保障生存权</div>
         <div class="vc-desc">A nationality-detached digital rights credential guaranteeing basic survival needs: water, food, housing, basic healthcare. Its amount is anchored to globally dynamic survival cost calculations. It ensures everyone can <strong>participate in creation</strong>.</div>
         <div class="vc-formula">UCV = f(global survival cost baseline)</div>
       </div>
-      <div class="value-card engine">
-        <span class="vc-badge">Engine · Development Right</span>
+      <div class="value-card contribution">
+        <span class="vc-badge">Contribution · Development Right</span>
         <div class="vc-title">Contribution Value (贡献值 / CV)</div>
         <div class="vc-subtitle">CV —激励发展权</div>
         <div class="vc-desc">A credit score quantifying altruistic actions beneficial to human survival and development: innovation, childcare, environmental protection, community service. It measures social contribution and can be exchanged for better development resources.</div>
         <div class="vc-formula">CV = Output × V<sub>f</sub> × W<sub>j</sub> − Resource × Depreciation</div>
       </div>
-      <div class="value-card ceil">
-        <span class="vc-badge">Ceiling · Accountability</span>
+      <div class="value-card accountability">
+        <span class="vc-badge">Accountability · Repair</span>
         <div class="vc-title">Negative CV (负贡献值)</div>
         <div class="vc-subtitle">NCV —光锥约束追责</div>
         <div class="vc-desc">When actions cross the "light cone constraint" (civilization survival absolute baseline), quantifiable negative externality is generated. Example: The Iraq War's estimated negative CV exceeds $206 billion — 88× the country's UN dues arrears. Calculated from public, auditable data.</div>
@@ -2104,13 +2104,13 @@
 
     <h3>The Light Cone Constraint (光锥约束)</h3>
     <p>The light cone constraint is the absolute safety boundary for civilization survival. Below it: UCV guarantees and CV incentives operate freely. Above it: negative CV accountability kicks in. It addresses existential risks that transcend class, nation, and ideology — ecological collapse, nuclear war, technological loss of control.</p>
-    <div class="theory-diagram"><span class="green">UCV (floor)</span> ──── survival baseline ────
+    <div class="theory-diagram"><span class="green">UCV (mutual aid)</span> ──── survival baseline ────
          │                              │
-         │   <span class="accent">CV (engine) — incentives zone</span>    │
+         │   <span class="accent">CV (contribution) — incentives zone</span>    │
          │                              │
 ═════════╪══════════════════════════════╪══════ <span class="red">LIGHT CONE CONSTRAINT</span>
          │                              │
-         │   <span class="red">NCV (ceiling) — accountability</span>   │
+         │   <span class="red">NCV (accountability) — repair zone</span>   │
          │                              │
      <span class="red">civilization survival threshold</span> ────</div>
 
@@ -2120,12 +2120,12 @@
     <h3>The 5-Card System (五卡模式)</h3>
     <p>The Five-Card System replaces traditional bank accounts as the identity and value interface for digital civilization. It is the <strong>micro-level operating system</strong> for Co-Creation Theory — how individuals collect, verify, and exchange contribution value:</p>
     <div class="theory-grid">
-      <div class="value-card floor">
+      <div class="value-card mutual-aid">
         <span class="vc-badge">① Foundation</span>
         <div class="vc-title">Foundation Card (基石卡)</div>
         <div class="vc-desc">Anchors <strong>survival rights</strong>. Guarantees access to food, water, housing, and basic healthcare. Every person receives baseline credit regardless of wealth — corresponding to UCV (Universal Common Value).</div>
       </div>
-      <div class="value-card engine">
+      <div class="value-card contribution">
         <span class="vc-badge">② Merit</span>
         <div class="vc-title">Merit Card (贡献卡)</div>
         <div class="vc-desc">Measures <strong>skill output</strong>. Teaching Tai Chi, writing code, caring for elders — each measurable output generates CV. This is the upward channel: contribute more → credit grows → resources expand.</div>
@@ -2140,13 +2140,13 @@
         <div class="vc-title">Credit Card (信用卡 · 明度调节器)</div>
         <div class="vc-desc">A <strong>real-time brightness adjuster</strong> that determines your resource acquisition multiplier. Not a static score — it changes with every verified action. Volunteer → brightness rises → access expands. Negative action → brightness dims → access contracts.</div>
       </div>
-      <div class="value-card ceil">
+      <div class="value-card accountability">
         <span class="vc-badge">⑤ Circuit Breaker</span>
         <div class="vc-title">Circuit Card (熔断卡)</div>
         <div class="vc-desc">A <strong>negative-list interceptor</strong> that automatically isolates negative contribution behaviors. Fraud, pollution, debt evasion — when actions cross the light cone, the circuit breaks. Partial NCV can be offset by超额 positive contribution (repair mechanism).</div>
       </div>
     </div>
-    <p style="font-size:0.76rem;color:var(--text-faint);text-align:center">Five cards = a complete credit operating system: <strong>floor → engine → resilience → brightness → ceiling</strong>. Not data collection — value governance.</p>
+    <p style="font-size:0.76rem;color:var(--text-faint);text-align:center">Five cards = a complete credit operating system: <strong>mutual aid → contribution → resilience → brightness → accountability</strong>. Not data collection — value governance.</p>
 
     <h3>Fiscal Direct-to-Value (财政直销)</h3>
     <p>Fiscal Direct-to-Value replaces traditional financial intermediaries (banks, venture capital). When a subject's <strong>Social Confirmation Asset (SCA)</strong> covers their debt, the system triggers automatic compensation — <strong>no cash passes through hands</strong>.</p>
@@ -2436,13 +2436,13 @@ Case: Bai Xi debt <span class="red">¥5,000</span><br>
       <div class="value-card" style="border-color:var(--red);background:var(--red-light)">
         <span class="vc-badge" style="background:var(--red)">Layer 4 · Protocol</span>
         <div class="vc-title">SXJ 事现鉴</div>
-        <div class="vc-desc"><strong>Redefines credit = contribution ability.</strong> Bidirectional verification: reality→SHA-256→CV→debt auto-resolution. NCV accountability ceiling. SCA covers debt without cash. Data sovereignty = individual.</div>
+        <div class="vc-desc"><strong>Redefines credit = contribution ability.</strong> Bidirectional verification: reality→SHA-256→CV→debt auto-resolution. NCV accountability mechanism. SCA covers debt without cash. Data sovereignty = individual.</div>
       </div>
     </div>
 
     <h4>What All Competitors Lack</h4>
     <div class="theory-grid">
-      <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>NCV (Negative Contribution Value)</b> — nobody has a "ceiling". Systematic destruction goes unmeasured.</div></div>
+      <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>NCV (Negative Contribution Value)</b> — nobody has "accountability". Systematic destruction goes unmeasured.</div></div>
       <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>SCA auto-resolution</b> — nobody resolves debt by contribution, only by repayment.</div></div>
       <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>Gzz extinction design</b> — all tokens (BTC/WLD/ETH) are designed to be permanent. Gzz is designed to disappear.</div></div>
       <div class="value-card"><span class="vc-badge">Missing</span><div class="vc-desc"><b>Bidirectional verification</b> — all are one-way: reality→digital (attest) or digital→reality (score applied). No loop closure.</div></div>
@@ -2707,7 +2707,7 @@ console.<span class="fn">log</span>(chain.length);   <span class="com">// 47</sp
             <td class="no">No</td>
             <td class="no">No</td>
             <td class="no">No</td>
-            <td class="col-sxj yes">Yes (NCV ceiling)</td>
+            <td class="col-sxj yes">Yes (NCV accountability)</td>
           </tr>
           <tr>
             <td>Cost to user</td>
