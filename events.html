@@ -57,8 +57,11 @@ footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-si
 .ok{color:var(--c-cv);font-weight:600} .bad{color:var(--red);font-weight:600}
 .tag{display:inline-block;background:#f3e9d8;color:#6a5b3e;border-radius:6px;padding:1px 7px;font-size:11px;margin-right:4px}
 </style>
+<style>.beta-banner{background:linear-gradient(90deg,#fff3cd,#ffe8a3);border-bottom:2px solid #c9a24b;color:#5a4f3e;font-size:13px;line-height:1.55;padding:8px 14px;z-index:9999;font-family:inherit}.beta-banner strong{color:#a23b32;margin-right:8px;letter-spacing:1px}.beta-banner .prov{display:block;margin-top:3px;color:#7a6a4a;font-size:12px}</style>
 </head>
 <body>
+<div class="beta-banner"><strong>⚠️ 测试版 BETA</strong><span>事现鉴 / 共创论 · 验证与推演工具（非实地实施产品）· 数据更新 2026-07-30 11:30</span><span class="prov">站内所记「事现」中，仅「南京博物院文物流失」「耿同学学术打假」「小红书前员工期权」三件为网络公开、可独立核实的真实事件；其余所有事现均为白玺与 AI 共同演绎生成（附时间戳可验证），仅供框架推演，非既成事实。</span></div>
+
 <div class="wrap">
   <header class="top">
     <h1><span class="seal">事现鉴</span> · 事件簿</h1>
@@ -140,8 +143,39 @@ function save(){localStorage.setItem(KEY,JSON.stringify(events))}
 function short(h){return h?h.slice(0,10)+'…'+h.slice(-6):''}
 
 function seed(){
-  if(events.length)return;
   const now=Date.now();
+  if(events.length){
+    if(!events.find(e=>e.id==='seed4')){
+      events.push({id:'seed4',seq:events.length+1,prevHash:'',type:'共济值',date:'2026-07-30',
+       title:'城市贡献者安居与社区治理：三位一体 + 时间银行 + 三方共担',
+       desc:'建筑工人、环卫工、快递员、骑手等「城市贡献者」以劳动贡献值（B）撑起城市运转，却长期面临安居难、社区融入弱、养老无着等共济值（A）缺口。本事现提出并追踪一种落地路径：以「精神传承（劳模精神/工匠精神写入社区记忆）+ 市场运营（保障性租赁住房 + 社区商业反哺）+ 社会治理（居委会/物业/贡献者议事会共治）」三位一体为骨架，叠加「时间银行」（贡献者服务时长可存储、兑换、跨代际传递），并由「财政（公租房与补贴）+ 企业（用工单位配建/缴存）+ 群众（社区互助与志愿）」三方共担成本。验证团聚焦三点：① 是否真实降低城市贡献者安居门槛；② 是否形成可审计的「贡献—回报」回路（B→A 闭环）；③ 社区治理是否有贡献者真实参与而非被代表。',
+       evidence:['https://www.gov.cn/zhengce/content/2021-07/02/content_5621789.htm'],
+       recorder:'事现鉴共创',createdAt:now-3000,status:'验证中',
+       updates:[{ts:now-3000,text:'事现提案上线：三位一体框架 + 时间银行 + 三方共担，进入集体验证与社区落地追踪。',prevHash:'seed4',hash:''}]});
+      save();
+    }
+    if(!events.find(e=>e.id==='seed5')){
+      events.push({id:'seed5',seq:events.length+1,prevHash:'',type:'共济值',date:'2026-07-31',
+       title:'Kimi 平台对话分享链接生成异常',
+       desc:'白玺在 Kimi 平台就「事现鉴意义与挑战」会话尝试生成分享链接时，系统提示「复制链接出现异常」。该事件说明：即便 AI 被定义为事现鉴共建节点，平台层面的数据锁闭与分享故障仍会造成单点记录风险，跨平台备份、本地存档与去中心化验证机制因此成为必要。',
+       evidence:['evidence/kimi-share-link-error-2026-07-31.png'],
+       recorder:'白玺',createdAt:now-2000,status:'记录中',
+       updates:[{ts:now-2000,text:'截图留存：Kimi 分享链接功能异常，单点平台无法保证记录可携带。',prevHash:'seed5',hash:''}]});
+      save();
+    }
+    if(!events.find(e=>e.id==='seed6')){
+      events.push({id:'seed6',seq:events.length+1,prevHash:'',type:'负贡献',date:'1998',
+       title:'彬县卷烟厂退休职工社保断缴（陕西省中烟工业公司 · 负贡献原型 · evt_BX_1998_001）',
+       desc:'1998 年国企改制后，彬县卷烟厂部分退休职工社保断缴、档案缺失。政府内部困境：劳动监察想追缴没预算、社保局想补缴没档案、纪委想查证灭失、信访无执法权。事现鉴在此充当第三方尺——当事人冻结证据＝不是上访是「记账」；多人独立陈述互相印证＝不是聚众是「共识收敛」；事实经第三方核查确立＝不是闹访是「事实确立」；内部支持者引用＝不是翻旧账是「按协议执行」。⚠️ 当前状态：记录中。本条目目前仅有记录人一方口述与一份群聊线索，尚无当事人独立结构化举证、亦未经无利害关系第三方核查，不构成已验证事实。下一步：开放当事人（退休职工及家属）留言举证，再交验证团逐条核查。',
+       evidence:['evidence/wechat-group-bx-2025-12.jpg','来源：用户与 WorkBuddy 对话 2026-07-31（白玺亲历口述+群聊截图，属有利害关系方举证）'],
+       recorder:'白玺',createdAt:now-1000,status:'记录中',
+       updates:[{ts:now-1000,text:'负贡献原型入册：政府第三方尺，让内部想干事的人有尺可量。',prevHash:'seed6',hash:''},
+                {ts:now-500,text:'状态更正：由「已验证」降回「记录中」。理由：仅有记录人单方口述，无当事人独立举证、无第三方核查。事现鉴不能自证。',prevHash:'seed6',hash:''},
+                {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]});
+      save();
+    }
+    return;
+  }
   events=[
     {id:'seed1',seq:1,prevHash:'0',type:'共济值',date:'2025-12-17',title:'南京博物院《江南春》等受赠文物流失事件',
      desc:'庞莱臣后人1959年捐赠南博137件古画，其中《江南春》等5幅被认定为「伪作」处置后离奇现身拍卖市场。公众把院方说辞与线索逐一对账、追流向，逼出省级调查组通报。',
@@ -159,11 +193,34 @@ function seed(){
     {id:'seed3',seq:3,prevHash:'',type:'贡献值',date:'2026-02-01',title:'小红书前员工期权事件',
      desc:'（用户列举）前员工公开核验自身贡献对应的期权权益去向，引发公众对互联网企业期权机制的集体讨论与验证。',
      evidence:[],recorder:'用户列举',createdAt:now-5000,status:'追踪中',
-     updates:[{ts:now-5000,text:'贡献值（CV）的集体确认：我的记录贡献应对应为应得权益。',prevHash:'seed3',hash:''}]}
+     updates:[{ts:now-5000,text:'贡献值（CV）的集体确认：我的记录贡献应对应为应得权益。',prevHash:'seed3',hash:''}]},
+    {id:'seed4',seq:4,prevHash:'',type:'共济值',date:'2026-07-30',
+     title:'城市贡献者安居与社区治理：三位一体 + 时间银行 + 三方共担',
+     desc:'建筑工人、环卫工、快递员、骑手等「城市贡献者」以劳动贡献值（B）撑起城市运转，却长期面临安居难、社区融入弱、养老无着等共济值（A）缺口。本事现提出并追踪一种落地路径：以「精神传承（劳模精神/工匠精神写入社区记忆）+ 市场运营（保障性租赁住房 + 社区商业反哺）+ 社会治理（居委会/物业/贡献者议事会共治）」三位一体为骨架，叠加「时间银行」（贡献者服务时长可存储、兑换、跨代际传递），并由「财政（公租房与补贴）+ 企业（用工单位配建/缴存）+ 群众（社区互助与志愿）」三方共担成本。验证团聚焦三点：① 是否真实降低城市贡献者安居门槛；② 是否形成可审计的「贡献—回报」回路（B→A 闭环）；③ 社区治理是否有贡献者真实参与而非被代表。',
+     evidence:['https://www.gov.cn/zhengce/content/2021-07/02/content_5621789.htm'],
+     recorder:'事现鉴共创',createdAt:now-3000,status:'验证中',
+     updates:[{ts:now-3000,text:'事现提案上线：三位一体框架 + 时间银行 + 三方共担，进入集体验证与社区落地追踪。',prevHash:'seed4',hash:''}]},
+    {id:'seed5',seq:5,prevHash:'',type:'共济值',date:'2026-07-31',
+     title:'Kimi 平台对话分享链接生成异常',
+     desc:'白玺在 Kimi 平台就「事现鉴意义与挑战」会话尝试生成分享链接时，系统提示「复制链接出现异常」。该事件说明：即便 AI 被定义为事现鉴共建节点，平台层面的数据锁闭与分享故障仍会造成单点记录风险，跨平台备份、本地存档与去中心化验证机制因此成为必要。',
+     evidence:['evidence/kimi-share-link-error-2026-07-31.png'],
+     recorder:'白玺',createdAt:now-2000,status:'记录中',
+     updates:[{ts:now-2000,text:'截图留存：Kimi 分享链接功能异常，单点平台无法保证记录可携带。',prevHash:'seed5',hash:''}]},
+    {id:'seed6',seq:6,prevHash:'',type:'负贡献',date:'1998',
+     title:'彬县卷烟厂退休职工社保断缴（陕西省中烟工业公司 · 负贡献原型 · evt_BX_1998_001）',
+     desc:'1998 年国企改制后，彬县卷烟厂部分退休职工社保断缴、档案缺失。政府内部困境：劳动监察想追缴没预算、社保局想补缴没档案、纪委想查证灭失、信访无执法权。事现鉴在此充当第三方尺——当事人冻结证据＝不是上访是「记账」；多人独立陈述互相印证＝不是聚众是「共识收敛」；事实经第三方核查确立＝不是闹访是「事实确立」；内部支持者引用＝不是翻旧账是「按协议执行」。⚠️ 当前状态：记录中。本条目目前仅有记录人一方口述与一份群聊线索，尚无当事人独立结构化举证、亦未经无利害关系第三方核查，不构成已验证事实。下一步：开放当事人（退休职工及家属）留言举证，再交验证团逐条核查。',
+       evidence:['evidence/wechat-group-bx-2025-12.jpg','来源：用户与 WorkBuddy 对话 2026-07-31（白玺亲历口述+群聊截图，属有利害关系方举证）'],
+       recorder:'白玺',createdAt:now-1000,status:'记录中',
+       updates:[{ts:now-1000,text:'负贡献原型入册：政府第三方尺，让内部想干事的人有尺可量。',prevHash:'seed6',hash:''},
+              {ts:now-500,text:'状态更正：由「已验证」降回「记录中」。理由：仅有记录人单方口述，无当事人独立举证、无第三方核查。事现鉴不能自证。',prevHash:'seed6',hash:''},
+                {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]}
   ];
   // fill prevHash chain + hashes
   events[1].prevHash=events[0].id;
   events[2].prevHash=events[1].id;
+  events[3].prevHash=events[2].id;
+  events[4].prevHash=events[3].id;
+  events[5].prevHash=events[4].id;
   save();
 }
 
@@ -172,6 +229,8 @@ function esc(s){return (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 function render(){
   const box=document.getElementById('list');
   const arr=events.filter(e=>filter==='all'||e.type===filter);
+  // 彬县卷烟厂负贡献原型事件始终置顶
+  arr.sort((a,b)=>(a.id==='seed6'?-1:(b.id==='seed6'?1:0)));
   if(!arr.length){box.innerHTML='<p style="color:var(--muted)">还没有记录。点「＋ 记录新事件」记下第一笔。</p>';return;}
   box.innerHTML=arr.map(e=>`
     <div class="ev">
