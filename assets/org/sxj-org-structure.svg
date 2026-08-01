@@ -1,0 +1,94 @@
+<svg viewBox="0 0 680 540" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>事现鉴 SXJ 项目组织架构</title>
+  <desc>始创者-白玺为决定层，PM 项目经理为决策层，决定层同意后决策层执行；横向光锥运维部支撑，纵向四部门为安全合规、事现验证、理论研发、对外协作。</desc>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 1L8 5L0 9" fill="none" stroke="#5F5E5A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <marker id="arr-dashed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 1L8 5L0 9" fill="none" stroke="#888780" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- 决定层：始创者-白玺 -->
+  <g>
+    <ellipse cx="340" cy="40" rx="78" ry="24" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+    <text x="340" y="36" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#501313">始创者 · 白玺</text>
+    <text x="340" y="52" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#791F1F">决定层</text>
+  </g>
+  <!-- 同意箭头 -->
+  <text x="430" y="88" font-size="12" fill="#A32D2D">同意</text>
+  <line x1="340" y1="64" x2="340" y2="88" stroke="#A32D2D" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- 决策层：PM -->
+  <g>
+    <rect x="268" y="88" width="144" height="48" rx="10" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="340" y="108" text-anchor="middle" dominant-baseline="central" font-size="14" font-weight="500" fill="#412402">PM · 项目经理</text>
+    <text x="340" y="126" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#633806">决策层 · 执行编排</text>
+  </g>
+
+  <!-- PM 向下三条主线 -->
+  <line x1="340" y1="136" x2="340" y2="158" stroke="#5F5E5A" stroke-width="1"/>
+  <line x1="120" y1="158" x2="560" y2="158" stroke="#5F5E5A" stroke-width="1"/>
+  <line x1="120" y1="158" x2="120" y2="184" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="340" y1="158" x2="340" y2="184" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="560" y1="158" x2="560" y2="184" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- 第一层三部门 -->
+  <g>
+    <rect x="40" y="184" width="160" height="56" rx="10" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="120" y="206" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#042C53">光锥运维部</text>
+    <text x="120" y="226" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#0C447C">记录 · 审查 · 优化</text>
+  </g>
+
+  <g>
+    <rect x="260" y="184" width="160" height="56" rx="10" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+    <text x="340" y="206" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#4A1B0C">安全合规部</text>
+    <text x="340" y="226" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#712B13">密钥 · 审计 · 合规</text>
+  </g>
+
+  <g>
+    <rect x="480" y="184" width="160" height="56" rx="10" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
+    <text x="560" y="206" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#173404">事现验证部</text>
+    <text x="560" y="226" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#27500A">事件 · 三值 · 共识</text>
+  </g>
+
+  <!-- 第一层到第二层 -->
+  <line x1="120" y1="240" x2="120" y2="262" stroke="#888780" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="560" y1="240" x2="560" y2="262" stroke="#888780" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="120" y1="262" x2="560" y2="262" stroke="#888780" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="340" y1="262" x2="340" y2="288" stroke="#888780" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arr-dashed)"/>
+
+  <!-- 第二层：理论研发部 -->
+  <g>
+    <rect x="260" y="288" width="160" height="56" rx="10" fill="#FBEAF0" stroke="#993556" stroke-width="0.5"/>
+    <text x="340" y="310" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#4B1528">理论研发部</text>
+    <text x="340" y="330" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#72243E">共创论 · 知识树 · 术语</text>
+  </g>
+
+  <!-- 第二层到第三层 -->
+  <line x1="340" y1="344" x2="340" y2="370" stroke="#5F5E5A" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- 第三层：对外协作部 -->
+  <g>
+    <rect x="260" y="370" width="160" height="56" rx="10" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="340" y="392" text-anchor="middle" dominant-baseline="central" font-size="13" font-weight="500" fill="#412402">对外协作部</text>
+    <text x="340" y="412" text-anchor="middle" dominant-baseline="central" font-size="12" fill="#633806">四域同步 · 平台对接 · 发布</text>
+  </g>
+
+  <!-- 标注 -->
+  <line x1="120" y1="212" x2="260" y2="212" stroke="#185FA5" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.5"/>
+  <line x1="420" y1="212" x2="480" y2="212" stroke="#185FA5" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.5"/>
+  <text x="340" y="452" text-anchor="middle" font-size="12" fill="#5F5E5A">实线 = 决策层执行主流程 ； 虚线 = 协作支撑</text>
+  <text x="340" y="470" text-anchor="middle" font-size="12" fill="#A32D2D">决定层（始创者）同意 → 决策层（PM）执行</text>
+
+  <!-- 图例 -->
+  <g transform="translate(40,490)">
+    <rect x="0" y="0" width="14" height="14" rx="4" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
+    <text x="22" y="11" font-size="12" fill="#444441">横向支撑部门</text>
+    <rect x="130" y="0" width="14" height="14" rx="4" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
+    <text x="152" y="11" font-size="12" fill="#444441">纵向业务部门</text>
+    <rect x="260" y="0" width="14" height="14" rx="4" fill="#FCEBEB" stroke="#A32D2D" stroke-width="0.5"/>
+    <text x="282" y="11" font-size="12" fill="#444441">决定层/决策层</text>
+  </g>
+</svg>
