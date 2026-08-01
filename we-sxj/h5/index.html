@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>We+SXJ · 数字记录</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin:0; font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; background: #eef3f8; color: #1f2d3d; }
+  .app { max-width: 480px; margin:0 auto; min-height:100vh; background: #eef3f8; padding-bottom: 110px; }
+  .topbar { background: #1e88e5; color: #fff; text-align: center; font-size: 17px; font-weight: 600; padding: 14px 0; position: sticky; top: 0; z-index: 10; }
+  .page { display: none; padding: 16px; }
+  .page.active { display: block; }
+  .card { background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(30,136,229,.06); }
+  .card-title { font-size: 16px; font-weight: 600; color: #1e88e5; margin-bottom: 12px; }
+  .para { font-size: 14px; line-height: 1.7; color: #5a6b7b; margin-bottom: 8px; }
+  .hint { font-size: 13px; color: #8a9bb0; line-height: 1.6; }
+  .empty { text-align: center; color: #b0bcc9; padding: 28px 0; font-size: 14px; }
+
+  .profile-card { display: flex; align-items: center; background: #fff; border-radius: 14px; padding: 18px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(30,136,229,.06); }
+  .avatar { width: 46px; height: 46px; border-radius: 50%; background: #1e88e5; color: #fff; font-size: 20px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+  .profile-info { flex: 1; margin-left: 14px; }
+  .profile-name { font-size: 16px; font-weight: 600; }
+  .profile-sub { font-size: 12px; color: #8a9bb0; margin-top: 3px; }
+  .profile-edit { font-size: 13px; color: #1e88e5; }
+
+  .progress-num { display: flex; align-items: baseline; margin: 4px 0 10px; }
+  .big { font-size: 30px; font-weight: 700; color: #1e88e5; }
+  .unit { font-size: 13px; color: #8a9bb0; margin-left: 6px; }
+  .bar { height: 10px; background: #e3ebf3; border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, #1e88e5, #26a69a); border-radius: 6px; }
+  .bar-tip { font-size: 12px; color: #26a69a; margin-top: 6px; }
+
+  .quick-row { display: flex; gap: 10px; margin-bottom: 12px; }
+  .quick-btn { flex: 1; text-align: center; background: #eaf3fc; color: #1e88e5; border-radius: 8px; padding: 10px 0; font-size: 14px; }
+  .input-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .ml-input, .name-input { flex: 1; background: #f3f6fa; border: none; border-radius: 8px; padding: 10px 12px; font-size: 14px; outline: none; }
+  .ml-unit { font-size: 13px; color: #8a9bb0; }
+
+  .btn { border: none; border-radius: 22px; color: #fff; font-size: 14px; padding: 9px 20px; }
+  .btn-primary { background: #1e88e5; }
+  .btn-assist { background: #26a69a; font-size: 13px; padding: 9px 16px; }
+
+  .rec-item { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f3f7; }
+  .rec-item:last-child { border-bottom: none; }
+  .rec-ml { font-size: 15px; font-weight: 600; width: 72px; }
+  .rec-meta { flex: 1; font-size: 12px; color: #8a9bb0; display: flex; flex-direction: column; gap: 2px; }
+  .tag-self { color: #1e88e5; }
+  .tag-assist { color: #26a69a; }
+  .rec-hash { font-size: 11px; color: #c2ccd8; font-family: monospace; }
+
+  .confirm-item .confirm-head { display: flex; justify-content: space-between; align-items: center; }
+  .confirm-name { font-size: 16px; font-weight: 600; }
+  .confirm-ml { font-size: 13px; color: #26a69a; }
+  .confirm-date { font-size: 12px; color: #b0bcc9; margin: 5px 0 10px; }
+  .confirm-actions { display: flex; gap: 12px; }
+  .btn-confirm { flex: 1; background: #1e88e5; }
+  .btn-reject { flex: 1; background: #f3f6fa; color: #8a9bb0; }
+
+  .rank-item { display: flex; align-items: center; }
+  .rank-no { width: 30px; height: 30px; border-radius: 50%; background: #eaf3fc; color: #1e88e5; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-right: 12px; }
+  .rank-no-1 { background: #ffd54f; color: #8a6d00; }
+  .rank-no-2 { background: #cfd8dc; color: #546e7a; }
+  .rank-no-3 { background: #ffcc80; color: #8a4b00; }
+  .rank-main { flex: 1; }
+  .rank-name { font-size: 16px; font-weight: 600; }
+  .rank-sub { font-size: 12px; color: #8a9bb0; margin-top: 3px; }
+  .rank-people { font-size: 24px; font-weight: 700; color: #1e88e5; text-align: right; }
+  .rank-people-unit { font-size: 12px; color: #8a9bb0; margin-left: 2px; }
+
+  .reason-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+  .reason-btn { background: #f3f6fa; color: #5a6b7b; border-radius: 22px; padding: 9px 16px; font-size: 13px; }
+  .reason-on { background: #1e88e5; color: #fff; }
+  .fb-detail { width: 100%; background: #f3f6fa; border: none; border-radius: 8px; padding: 12px; font-size: 14px; height: 80px; resize: none; outline: none; margin-bottom: 12px; }
+  .fb-item { padding: 9px 0; border-bottom: 1px solid #f0f3f7; }
+  .fb-item:last-child { border-bottom: none; }
+  .fb-reason { font-size: 14px; color: #1f2d3d; font-weight: 500; }
+  .fb-meta { font-size: 12px; color: #b0bcc9; margin-top: 3px; }
+
+  .hero { text-align: center; padding: 32px 0 18px; }
+  .hero-logo { font-size: 34px; font-weight: 800; color: #1e88e5; letter-spacing: 1px; }
+  .hero-sxj { color: #26a69a; }
+  .hero-sub { font-size: 13px; color: #8a9bb0; margin-top: 6px; }
+  .feat { display: flex; gap: 10px; font-size: 14px; line-height: 1.6; color: #5a6b7b; margin-bottom: 10px; }
+  .feat-n { color: #1e88e5; font-weight: 700; flex-shrink: 0; }
+  .footer { text-align: center; font-size: 12px; color: #b0bcc9; margin-top: 18px; }
+
+  /* 签到 */
+  .checkin-card { background: linear-gradient(135deg, #1e88e5, #36b3ff); color: #fff; }
+  .checkin-top { display: flex; align-items: baseline; justify-content: space-between; }
+  .checkin-streak .big { font-size: 54px; font-weight: 800; }
+  .checkin-streak .unit { font-size: 15px; margin-left: 6px; opacity: .9; }
+  .checkin-total { font-size: 13px; opacity: .92; }
+  .checkin-btn { width: 100%; margin-top: 18px; background: #fff; color: #1e88e5; border: none; border-radius: 22px; padding: 12px 0; font-size: 16px; font-weight: 700; }
+  .checkin-btn.done { background: rgba(255,255,255,.35); color: #fff; }
+  .checkin-btn:disabled { opacity: 1; }
+  .checkin-tip { font-size: 12px; opacity: .9; margin-top: 12px; text-align: center; }
+  .cred-item { padding: 14px 0; border-bottom: 1px solid #eef3f8; }
+  .cred-item:last-child { border-bottom: none; }
+  .cred-label { font-size: 14px; color: #16263a; font-weight: 600; }
+  .cred-meta { font-size: 11px; color: #9aa9bb; margin-top: 5px; font-family: monospace; }
+
+  .tabbar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; background: #fff; border-top: 1px solid #eef0f3; }
+  .tab { flex: 1; text-align: center; padding: 8px 0 6px; font-size: 12px; color: #8a9bb0; }
+  .tab.active { color: #1e88e5; font-weight: 600; }
+  .tab .ic { font-size: 18px; display: block; margin-bottom: 2px; }
+  .toast { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(0,0,0,.78); color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; z-index: 100; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar" id="topbar">We+SXJ</div>
+
+  <!-- 签到 -->
+  <div class="page" id="page-checkin">
+    <div class="card checkin-card">
+      <div class="checkin-top">
+        <div class="checkin-streak"><span class="big" id="ckStreak">0</span><span class="unit">天连续</span></div>
+        <div class="checkin-total">累计签到 <span id="ckTotal">0</span> 天</div>
+      </div>
+      <button class="checkin-btn" id="ckBtn" onclick="doCheckinUI()">每日签到</button>
+      <div class="checkin-tip">连续 7 / 30 / 100 天可获得共济值健康凭证。</div>
+    </div>
+    <div class="card">
+      <div class="card-title">联动今日饮水</div>
+      <div class="progress-num"><span class="big" id="ckToday">0</span><span class="unit" id="ckTargetUnit">ml / 2000ml</span></div>
+      <div class="bar"><div class="bar-fill" id="ckBar" style="width:0%"></div></div>
+      <div class="bar-tip" id="ckTip">还需 2000ml</div>
+      <button class="btn btn-primary" style="width:100%;margin-top:14px" onclick="switchTab('record')">去记录饮水</button>
+    </div>
+    <div class="card">
+      <div class="card-title">我的共济值凭证</div>
+      <div id="credList"></div>
+    </div>
+  </div>
+
+  <!-- 记录 -->
+  <div class="page active" id="page-record">
+    <div class="profile-card" onclick="editProfile()">
+      <div class="avatar" id="avatar">我</div>
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">未设置姓名</div>
+        <div class="profile-sub" id="profileSub">未设置年龄 · 每日目标 2000ml</div>
+      </div>
+      <div class="profile-edit">设置</div>
+    </div>
+    <div class="card">
+      <div class="card-title">今日饮水</div>
+      <div class="progress-num"><span class="big" id="todayTotal">0</span><span class="unit" id="targetUnit">ml / 2000ml</span></div>
+      <div class="bar"><div class="bar-fill" id="barFill" style="width:0%"></div></div>
+      <div class="bar-tip" id="barTip">还需 2000ml</div>
+    </div>
+    <div class="card">
+      <div class="card-title">记录一杯水</div>
+      <div class="quick-row">
+        <div class="quick-btn" onclick="quickAdd(200)">+200</div>
+        <div class="quick-btn" onclick="quickAdd(250)">+250</div>
+        <div class="quick-btn" onclick="quickAdd(500)">+500</div>
+      </div>
+      <div class="input-row">
+        <input class="ml-input" id="mlInput" type="number" placeholder="自定义 ml" />
+        <span class="ml-unit">ml</span>
+        <button class="btn btn-primary" onclick="addSelf()">记录</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">协助记录（记录一次协助饮水）</div>
+      <div class="input-row"><input class="name-input" id="assistantInput" placeholder="协助人姓名" /></div>
+      <div class="input-row"><input class="name-input" id="targetInput" placeholder="被协助人（默认：我）" /></div>
+      <div class="input-row">
+        <input class="ml-input" id="assistMlInput" type="number" placeholder="协助喝水量 ml" />
+        <span class="ml-unit">ml</span>
+        <button class="btn btn-assist" onclick="addAssist()">提交确认</button>
+      </div>
+      <div class="hint">默认「被协助人=我」（别人帮我，确认后我得共济值饮水凭证）。也可填他人（我帮别人），使其在「排名」中按协助人数累计。</div>
+    </div>
+    <div class="card">
+      <div class="card-title">最近记录</div>
+      <div id="recordList"></div>
+    </div>
+  </div>
+
+  <!-- 确认 -->
+  <div class="page" id="page-confirm">
+    <div class="card">
+      <div class="card-title">协助人员确认</div>
+      <div class="hint">以下协助记录需你（被协助人）确认。确认后双方各获数字凭证：你得到共济值饮水凭证，协助人得到正贡献记录。</div>
+    </div>
+    <div id="confirmList"></div>
+  </div>
+
+  <!-- 排名 -->
+  <div class="page" id="page-ranking">
+    <div class="card">
+      <div class="card-title">协助人数排名</div>
+      <div class="hint">统计已确认的协助记录，按协助人数（帮助过几位不同的被协助人）排序。</div>
+    </div>
+    <div id="rankingList"></div>
+  </div>
+
+  <!-- 反馈 -->
+  <div class="page" id="page-feedback">
+    <div class="card">
+      <div class="card-title">问题反馈：今天为什么没喝够水？</div>
+      <div class="hint" id="fbTip">请选择原因：</div>
+    </div>
+    <div class="card">
+      <div class="reason-grid" id="reasonGrid"></div>
+      <textarea class="fb-detail" id="fbDetail" placeholder="补充说明（选填）"></textarea>
+      <button class="btn btn-primary" onclick="submitFeedback()" style="width:100%">提交反馈</button>
+    </div>
+    <div class="card">
+      <div class="card-title">历史反馈</div>
+      <div id="feedbackList"></div>
+    </div>
+  </div>
+
+  <!-- 关于 -->
+  <div class="page" id="page-about">
+    <div class="hero">
+      <div class="hero-logo">We+<span class="hero-sxj">SXJ</span></div>
+      <div class="hero-sub">数字记录服务 · 工具 &gt; 记账</div>
+    </div>
+    <div class="card">
+      <div class="card-title">这是什么</div>
+      <div class="para">We+SXJ 是一款数字记录工具，把您的健康饮水等社会活动与他人的协助，变成可验证、不可篡改的数字存档。基于「事现鉴」双向验证协议，每一条记录生成 SHA-256 哈希并链接前一条，形成本地哈希链。</div>
+    </div>
+    <div class="card">
+      <div class="card-title">五大功能</div>
+      <div class="feat"><span class="feat-n">①</span><span>喝水量记录：自我记录每日饮水，60岁以上目标 2500ml/天，自动统计达标进度。</span></div>
+      <div class="feat"><span class="feat-n">②</span><span>协助人员确认：他人协助您喝水，经确认后双方各获数字凭证——您得共济值凭证，协助人得正贡献记录。</span></div>
+      <div class="feat"><span class="feat-n">③</span><span>协助人数排名：按已确认协助统计每位协助人帮助的人数（可区分不同被协助人）。</span></div>
+      <div class="feat"><span class="feat-n">④</span><span>问题反馈：未达标时反馈原因，用于改善照护。</span></div>
+      <div class="feat"><span class="feat-n">⑤</span><span>每日签到：连续签到得共济值健康凭证；联动今日饮水目标，达标即记共济值凭证。</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">数据说明与合规边界</div>
+      <div class="para">· 数据优先存储于本机，主权归您，可导出、可验证。</div>
+      <div class="para">· 本工具仅提供个人数字记录与存档，不含资金支付、金融服务、社保发放或商业交易。</div>
+      <div class="para">· 当前为理论推演阶段，数据用于个人记录与验证演示。</div>
+    </div>
+    <div class="footer">We+SXJ · 事现鉴体系 · 工具&gt;记账</div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tab" data-page="checkin" onclick="switchTab('checkin')"><span class="ic">📅</span>签到</div>
+    <div class="tab active" data-page="record" onclick="switchTab('record')"><span class="ic">💧</span>记录</div>
+    <div class="tab" data-page="confirm" onclick="switchTab('confirm')"><span class="ic">✅</span>确认</div>
+    <div class="tab" data-page="ranking" onclick="switchTab('ranking')"><span class="ic">🏆</span>排名</div>
+    <div class="tab" data-page="feedback" onclick="switchTab('feedback')"><span class="ic">💬</span>反馈</div>
+    <div class="tab" data-page="about" onclick="switchTab('about')"><span class="ic">ℹ️</span>关于</div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+// ---------- SHA-256 (UTF-8 safe) ----------
+function utf8ToBytes(str){var out=[];for(var i=0;i<str.length;i++){var c=str.charCodeAt(i);if(c<0x80){out.push(c);}else if(c<0x800){out.push(0xc0|(c>>6),0x80|(c&0x3f));}else if(c>=0xd800&&c<0xe000){i++;var c2=0x10000+(((c&0x3ff)<<10)|(str.charCodeAt(i)&0x3ff));out.push(0xf0|(c2>>18),0x80|((c2>>12)&0x3f),0x80|((c2>>6)&0x3f),0x80|(c2&0x3f));}else{out.push(0xe0|(c>>12),0x80|((c>>6)&0x3f),0x80|(c&0x3f));}}return out;}
+function sha256(input){var bytes=(typeof input==='string')?utf8ToBytes(input):input;var K=[0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2];var H=[0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19];var l=bytes.length;bytes.push(0x80);while(bytes.length%64!==56)bytes.push(0x00);var bitLen=l*8;var hi=Math.floor(bitLen/0x100000000);var lo=bitLen>>>0;bytes.push((hi>>>24)&0xff,(hi>>>16)&0xff,(hi>>>8)&0xff,hi&0xff);bytes.push((lo>>>24)&0xff,(lo>>>16)&0xff,(lo>>>8)&0xff,lo&0xff);function rrot(x,n){return (x>>>n)|(x<<(32-n));}for(var off=0;off<bytes.length;off+=64){var w=new Array(64);for(var i=0;i<16;i++){w[i]=(bytes[off+i*4]<<24)|(bytes[off+i*4+1]<<16)|(bytes[off+i*4+2]<<8)|bytes[off+i*4+3];}for(var i=16;i<64;i++){var s0=rrot(w[i-15],7)^rrot(w[i-15],18)^(w[i-15]>>>3);var s1=rrot(w[i-2],17)^rrot(w[i-2],19)^(w[i-2]>>>10);w[i]=(w[i-16]+s0+w[i-7]+s1)|0;}var a=H[0],b=H[1],c=H[2],d=H[3],e=H[4],f=H[5],g=H[6],h=H[7];for(var i=0;i<64;i++){var S1=rrot(e,6)^rrot(e,11)^rrot(e,25);var ch=(e&f)^(~e&g);var t1=(h+S1+ch+K[i]+w[i])|0;var S0=rrot(a,2)^rrot(a,13)^rrot(a,22);var maj=(a&b)^(a&c)^(b&c);var t2=(S0+maj)|0;h=g;g=f;f=e;e=(d+t1)|0;d=c;c=b;b=a;a=(t1+t2)|0;}H[0]=(H[0]+a)|0;H[1]=(H[1]+b)|0;H[2]=(H[2]+c)|0;H[3]=(H[3]+d)|0;H[4]=(H[4]+e)|0;H[5]=(H[5]+f)|0;H[6]=(H[6]+g)|0;H[7]=(H[7]+h)|0;}var hex='';for(var i=0;i<8;i++){hex+=('00000000'+(H[i]>>>0).toString(16)).slice(-8);}return hex;}
+
+// ---------- store (localStorage) ----------
+var KEY={profile:'wsxj_profile',records:'wsxj_records',assist:'wsxj_assist',feedback:'wsxj_feedback',chain:'wsxj_chain',checkin:'wsxj_checkin',cred:'wsxj_credential'};
+function get(k,d){try{var v=localStorage.getItem(k);return(v===null)?d:JSON.parse(v);}catch(e){return d;}}
+function set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function pad(n){return ('0'+n).slice(-2);}
+function todayStr(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function yesterdayStr(){var d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function prevDay(s){var p=s.split('-');var d=new Date(+p[0],+p[1]-1,+p[2]);d.setDate(d.getDate()-1);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function getTarget(age){return(age&&!isNaN(age)&&Number(age)>=60)?2500:2000;}
+var _seq=0;function uid(prefix){_seq=(_seq+1)%1000000;return prefix+Date.now()+'_'+_seq+'_'+Math.floor(Math.random()*1e6);}
+function chainHash(o,prev){return sha256(JSON.stringify(o)+'|'+(prev||'0'));}
+function getProfile(){return get(KEY.profile,{name:'',age:''});}
+function saveProfile(p){set(KEY.profile,p);}
+function getSelfRecords(){return get(KEY.records,[]);}
+function getPrevHash(){return get(KEY.chain,'0');}
+function pushRecord(rec){var recs=getSelfRecords();var prev=getPrevHash();rec.prevHash=prev;rec.hash=chainHash(rec,prev);recs.push(rec);set(KEY.records,recs);set(KEY.chain,rec.hash);return rec;}
+function addSelfRecord(ml){var ts=Date.now();pushRecord({id:uid('s'),date:todayStr(),ts:ts,ml:ml,source:'self'});maybeGrantWaterCred();return;}
+function getAssist(){return get(KEY.assist,[]);}
+function addAssistClaim(assistant,target,ml){var p=getProfile();var t=(target&&(''+target).trim())?(''+target).trim():(p.name||'我');var a=getAssist();var ts=Date.now();var rec={id:uid('a'),date:todayStr(),ts:ts,assistant:assistant,target:t,ml:ml,status:'pending'};rec.hash=sha256(JSON.stringify(rec));a.push(rec);set(KEY.assist,a);return rec;}
+function confirmAssist(id){var a=getAssist();var f=null;for(var i=0;i<a.length;i++){if(a[i].id===id){f=a[i];break;}}if(!f||f.status!=='pending')return null;f.status='confirmed';var me=getProfile().name||'我';if(f.target===me){var ts=Date.now();pushRecord({id:uid('c'),date:f.date,ts:ts,ml:f.ml,source:'assist',assistant:f.assistant,target:f.target});maybeGrantWaterCred();}set(KEY.assist,a);return f;}
+function rejectAssist(id){var a=getAssist();for(var i=0;i<a.length;i++){if(a[i].id===id){a[i].status='rejected';break;}}set(KEY.assist,a);}
+function getPending(){return getAssist().filter(function(x){return x.status==='pending';});}
+function getTodayTotal(){var t=todayStr();var s=0;getSelfRecords().forEach(function(r){if(r.date===t)s+=r.ml;});return s;}
+function getRanking(){var conf=getAssist().filter(function(x){return x.status==='confirmed';});var map={};conf.forEach(function(a){if(!map[a.assistant])map[a.assistant]={name:a.assistant,times:0,people:{},ml:0};map[a.assistant].times++;map[a.assistant].people[a.target]=true;map[a.assistant].ml+=a.ml;});var arr=Object.keys(map).map(function(k){return{name:map[k].name,times:map[k].times,people:Object.keys(map[k].people).length,ml:map[k].ml};});arr.sort(function(x,y){return(y.people-x.people)||(y.times-x.times)||(y.ml-x.ml);});return arr;}
+function getFeedback(){return get(KEY.feedback,[]);}
+function addFeedback(reason,detail){var f=getFeedback();var ts=Date.now();f.push({id:uid('f'),date:todayStr(),ts:ts,reason:reason,detail:detail});set(KEY.feedback,f);}
+// 共济值凭证
+function getCredentials(){return get(KEY.cred,[]);}
+function grantCredential(type,value,label){var ts=Date.now();var o={type:type,value:value,label:label,date:todayStr(),ts:ts};o.hash=sha256(JSON.stringify(o));var l=getCredentials();l.push(o);set(KEY.cred,l);return o;}
+function maybeGrantWaterCred(){var p=getProfile();var target=getTarget(p.age);var total=getTodayTotal();if(target>0&&total>=target){var c=getCredentials();var t=todayStr();if(!c.some(function(x){return x.type==='water'&&x.date===t;}))return grantCredential('water',total,'今日饮水达标 '+total+'ml · 共济值凭证');}return null;}
+// 每日签到
+function checkinState(){var list=get(KEY.checkin,[]);var dates=[];list.forEach(function(c){if(dates[dates.length-1]!==c.date)dates.push(c.date);});dates.sort();var t=todayStr();var checkedToday=dates.length>0&&dates[dates.length-1]===t;var streak=0;if(dates.length>0){var last=dates[dates.length-1];if(last===t||last===yesterdayStr()){var ci=dates.length-1;if(dates[ci]===t){streak=1;ci--;}else if(dates[ci]===yesterdayStr()){streak=1;ci--;}while(ci>=0&&prevDay(dates[ci+1])===dates[ci]){streak++;ci--;}}}return{checkedToday:checkedToday,streak:streak,total:dates.length,credentials:getCredentials()};}
+function doCheckin(){var list=get(KEY.checkin,[]);var t=todayStr();if(list.some(function(c){return c.date===t;}))return{already:true,state:checkinState(),newCredential:null};list.push({date:t,ts:Date.now()});set(KEY.checkin,list);var st=checkinState();var milestones=[7,30,100];var nc=null;milestones.forEach(function(m){if(st.streak===m&&!getCredentials().some(function(c){return c.type==='checkin'&&c.value===m;}))nc=grantCredential('checkin',m,'连续签到 '+m+' 天 · 共济值健康凭证');});st.newCredential=nc;return{already:false,state:st,newCredential:nc};}
+
+// ---------- UI ----------
+var REASONS=['忘记了','取水不便','身体原因（如尿频/服药）','水不好喝','没时间','其他'];
+var selectedReason='';
+function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1400);}
+function switchTab(name){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});document.getElementById('page-'+name).classList.add('active');document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});document.querySelector('.tab[data-page="'+name+'"]').classList.add('active');document.getElementById('topbar').textContent={checkin:'每日签到',record:'记录',confirm:'确认',ranking:'排名',feedback:'反馈',about:'关于'}[name];if(name==='checkin')renderCheckin();if(name==='record')renderRecord();if(name==='confirm')renderConfirm();if(name==='ranking')renderRanking();if(name==='feedback')renderFeedback();}
+
+function editProfile(){var name=prompt('设置姓名（如 老王）',getProfile().name||'');if(name===null)return;var age=prompt('设置年龄（60岁以上目标2500ml）',getProfile().age||'');if(age===null)return;saveProfile({name:name.trim(),age:age.trim()===''?'':parseInt(age)});renderRecord();}
+function quickAdd(ml){doAdd(ml);}
+function addSelf(){var v=parseInt(document.getElementById('mlInput').value)||0;doAdd(v);}
+function doAdd(ml){if(!ml||ml<=0){toast('请输入有效水量');return;}addSelfRecord(ml);document.getElementById('mlInput').value='';toast('已记录');renderRecord();}
+function addAssist(){var n=document.getElementById('assistantInput').value.trim();var tg=document.getElementById('targetInput').value.trim();var m=parseInt(document.getElementById('assistMlInput').value)||0;if(!n){toast('请输入协助人姓名');return;}if(!m||m<=0){toast('请输入有效水量');return;}addAssistClaim(n,tg,m);document.getElementById('assistantInput').value='';document.getElementById('targetInput').value='';document.getElementById('assistMlInput').value='';toast('已提交，请去确认');renderRecord();}
+
+function renderRecord(){var p=getProfile();var target=getTarget(p.age);var total=getTodayTotal();var pct=target>0?Math.min(100,Math.round(total/target*100)):0;document.getElementById('avatar').textContent=p.name?p.name.charAt(0):'我';document.getElementById('profileName').textContent=p.name||'未设置姓名';document.getElementById('profileSub').textContent=((p.age&&!isNaN(p.age))?(Number(p.age)>=60?'60岁以上':p.age+'岁'):'未设置年龄')+' · 每日目标 '+target+'ml';document.getElementById('todayTotal').textContent=total;document.getElementById('targetUnit').textContent='ml / '+target+'ml';document.getElementById('barFill').style.width=pct+'%';document.getElementById('barTip').textContent=pct>=100?'✅ 已达标':'还需 '+(target-total)+'ml';var recs=getSelfRecords().slice(-8).reverse();var html=recs.length===0?'<div class="empty">暂无记录</div>':'';recs.forEach(function(r){var tag=r.source==='assist'?'<span class="tag-assist">协助·'+(r.target||'')+'</span>':'<span class="tag-self">自我</span>';html+='<div class="rec-item"><div class="rec-ml">'+r.ml+'ml</div><div class="rec-meta"><span>'+r.date+'</span>'+tag+'</div><div class="rec-hash">'+r.hash.slice(0,10)+'…</div></div>';});document.getElementById('recordList').innerHTML=html;}
+
+function renderConfirm(){var pend=getPending().slice().reverse();var html=pend.length===0?'<div class="empty">暂无待确认记录</div>':'';pend.forEach(function(it){html+='<div class="card confirm-item"><div class="confirm-head"><span class="confirm-name">'+it.assistant+'</span><span class="confirm-ml">帮 '+it.target+' 喝了 '+it.ml+'ml</span></div><div class="confirm-date">'+it.date+' · 哈希 '+it.hash.slice(0,10)+'…</div><div class="confirm-actions"><button class="btn btn-reject" onclick="rejectAssistUI(\''+it.id+'\')">拒绝</button><button class="btn btn-confirm" onclick="confirmAssistUI(\''+it.id+'\')">确认</button></div></div>';});document.getElementById('confirmList').innerHTML=html;}
+function confirmAssistUI(id){confirmAssist(id);toast('已确认·双向凭证生成');renderConfirm();renderRecord();}
+function rejectAssistUI(id){rejectAssist(id);toast('已拒绝');renderConfirm();}
+
+function renderRanking(){var arr=getRanking();var html=arr.length===0?'<div class="empty">暂无协助数据</div>':'';arr.forEach(function(r,idx){var cls=idx<3?' rank-no-'+(idx+1):'';html+='<div class="card rank-item"><div class="rank-no'+cls+'">'+(idx+1)+'</div><div class="rank-main"><div class="rank-name">'+r.name+'</div><div class="rank-sub">协助 '+r.people+' 人 · '+r.times+' 次 · 共 '+r.ml+'ml</div></div><div class="rank-people">'+r.people+'<span class="rank-people-unit">人</span></div></div>';});document.getElementById('rankingList').innerHTML=html;}
+
+function renderFeedback(){var p=getProfile();var total=getTodayTotal();var target=getTarget(p.age);document.getElementById('fbTip').textContent=(total<target)?('今日 '+total+'ml / 目标 '+target+'ml，未达标。请选择原因：'):'今日已达标，也可反馈日常饮水困扰。';var g='';REASONS.forEach(function(r){g+='<div class="reason-btn'+(selectedReason===r?' reason-on':'')+'" onclick="pickReason(\''+r+'\')">'+r+'</div>';});document.getElementById('reasonGrid').innerHTML=g;var f=getFeedback().slice().reverse();var html=f.length===0?'<div class="empty">暂无</div>':'';f.forEach(function(it){html+='<div class="fb-item"><div class="fb-reason">'+it.reason+'</div><div class="fb-meta">'+it.date+(it.detail?' · '+it.detail:'')+'</div></div>';});document.getElementById('feedbackList').innerHTML=html;}
+function pickReason(r){selectedReason=r;renderFeedback();}
+function submitFeedback(){if(!selectedReason){toast('请选择一个原因');return;}addFeedback(selectedReason,document.getElementById('fbDetail').value.trim());selectedReason='';document.getElementById('fbDetail').value='';toast('已提交');renderFeedback();}
+
+function renderCheckin(){var st=checkinState();var p=getProfile();var target=getTarget(p.age);var today=getTodayTotal();var pct=target>0?Math.min(100,Math.round(today/target*100)):0;document.getElementById('ckStreak').textContent=st.streak;document.getElementById('ckTotal').textContent=st.total;var btn=document.getElementById('ckBtn');if(st.checkedToday){btn.textContent='今日已签到 ✓';btn.classList.add('done');btn.setAttribute('disabled','disabled');}else{btn.textContent='每日签到';btn.classList.remove('done');btn.removeAttribute('disabled');}document.getElementById('ckToday').textContent=today;document.getElementById('ckTargetUnit').textContent='ml / '+target+'ml';document.getElementById('ckBar').style.width=pct+'%';document.getElementById('ckTip').textContent=pct>=100?'✅ 饮水已达标 · 共济值凭证已记':'还需 '+(target-today)+'ml';var creds=(st.credentials||[]).slice().reverse();var html=creds.length===0?'<div class="empty">暂无凭证，签到或饮水达标后生成</div>':'';creds.forEach(function(c){html+='<div class="cred-item"><div class="cred-label">'+c.label+'</div><div class="cred-meta">'+c.date+' · 哈希 '+c.hash.slice(0,10)+'…</div></div>';});document.getElementById('credList').innerHTML=html;}
+function doCheckinUI(){var r=doCheckin();if(r.already){toast('今日已签到');}else{toast('签到成功 · 连续 '+r.state.streak+' 天');if(r.newCredential)setTimeout(function(){alert(r.newCredential.label);},200);}renderCheckin();}
+
+// init
+renderRecord();
+</script>
+</body>
+</html>

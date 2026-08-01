@@ -1,0 +1,31 @@
+{
+  "pages": [
+    "pages/checkin/checkin",
+    "pages/record/record",
+    "pages/confirm/confirm",
+    "pages/ranking/ranking",
+    "pages/feedback/feedback",
+    "pages/about/about"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1e88e5",
+    "navigationBarTitleText": "We+SXJ",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#eef3f8"
+  },
+  "tabBar": {
+    "color": "#8a9bb0",
+    "selectedColor": "#1e88e5",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      { "pagePath": "pages/checkin/checkin", "text": "签到" },
+      { "pagePath": "pages/record/record", "text": "记录" },
+      { "pagePath": "pages/confirm/confirm", "text": "确认" },
+      { "pagePath": "pages/ranking/ranking", "text": "排名" },
+      { "pagePath": "pages/feedback/feedback", "text": "反馈" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

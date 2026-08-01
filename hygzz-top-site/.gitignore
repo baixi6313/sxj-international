@@ -1,0 +1,8 @@
+.wrangler/
+node_modules/
+.DS_Store
+# 临时验证产物（非站点文件，勿部署）
+cc_live.html
+home_live.html
+*_live.html
+lv_check.html

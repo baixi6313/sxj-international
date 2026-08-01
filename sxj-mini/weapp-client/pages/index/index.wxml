@@ -1,0 +1,48 @@
+<view class="container">
+
+  <view class="hero">
+    <view class="hero-badge">贡献征信数据链 · Phase 核对清算</view>
+    <view class="hero-sub">每一次消费、每一次志愿、每一次减碳——都可以被验证、不可篡改、属于你自己。</view>
+    <view class="hero-quote">共创论8.0：不推销真理，给人防忽悠的免疫系统。</view>
+  </view>
+
+  <view class="stats-bar">
+    <view class="stat-item" bindtap="goEvents">
+      <view class="stat-num">{{stats.events}}</view>
+      <view class="stat-label">已记录</view>
+    </view>
+    <view class="stat-item" bindtap="goVerifyGroup">
+      <view class="stat-num">{{stats.verifiers}}</view>
+      <view class="stat-label">验证人</view>
+    </view>
+  </view>
+
+  <view class="card action-card">
+    <view class="action-title">我要做什么？</view>
+    <view class="btn-primary" bindtap="goAddEvent">＋ 添加一个新事现</view>
+    <view class="btn-secondary" bindtap="goVerifyGroup">👥 管理验证团</view>
+    <view class="btn-secondary" bindtap="goEvents" style="margin-bottom:0">📋 查看事件簿</view>
+  </view>
+
+  <view class="card" wx:if="{{recentEvents.length}}">
+    <view class="section-title">最近记录</view>
+    <view class="event-item" wx:for="{{recentEvents}}" wx:key="id" style="border-left: 8rpx solid {{item.typeColor}};" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="event-row">
+        <text class="event-status status-{{item.status}}">{{item.statusLabel}}</text>
+      </view>
+      <view class="event-title">{{item.title}}</view>
+      <view class="event-meta">{{item.date}} · {{item.location}}</view>
+    </view>
+    <view class="more" bindtap="goEvents" wx:if="{{stats.events > 3}}">查看全部 →</view>
+  </view>
+
+  <view class="card intro-card">
+    <view class="section-title">一句话</view>
+    <view class="intro-text">
+      事现鉴不是新发明，是把你已经在做的事——南京博物院、耿同学、小红书期权——收成一把可携带、可互认、可追踪的公共验算尺。
+    </view>
+    <view class="btn-primary" bindtap="goIntro" style="margin-top:20rpx">⏱ 30秒了解事现鉴 →</view>
+  </view>
+
+  <view class="footer" bindtap="goProfile">陕ICP备2026020031号-1X · 关于</view>
+</view>

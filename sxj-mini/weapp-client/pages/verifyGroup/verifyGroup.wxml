@@ -1,0 +1,21 @@
+<view class="container">
+  
+
+    <view class="btn-primary" bindtap="addVerifier">＋ 添加验证人</view>
+
+  <view class="card" wx:if="{{verifiers.length}}">
+    <view class="section-title">验证团成员</view>
+    <view class="verifier-item" wx:for="{{verifiers}}" wx:key="id">
+      <view class="verifier-info">
+        <view class="verifier-name">{{item.name}} <text class="verifier-role">{{item.role}}</text></view>
+        <view class="verifier-meta" wx:if="{{item.contact}}">{{item.contact}}</view>
+        <view class="verifier-meta">权重 {{item.weight}}</view>
+      </view>
+      <view class="verifier-remove" bindtap="removeVerifier" data-id="{{item.id}}">删除</view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    暂无验证人，请先添加
+  </view>
+</view>

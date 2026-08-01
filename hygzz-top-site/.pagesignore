@@ -1,0 +1,7 @@
+.wrangler/
+node_modules/
+.DS_Store
+*.html.txt
+*_live.html
+ver_check.txt
+lv_check.html

@@ -1,0 +1,35 @@
+{
+  "agent_id": "本平台-PM自检节点(预备)",
+  "verdict": "PASS",
+  "ledger_sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+  "checked_at": "2026-08-01",
+  "assertions": {
+    "A01": "pass",
+    "A02": "pass",
+    "A03": "pass",
+    "A04": "pass",
+    "A05": "pass",
+    "A06": "pass",
+    "A07": "pass",
+    "A08": "pass",
+    "A09": "pass",
+    "A10": "pass",
+    "A11": "pass",
+    "A12": "pass",
+    "A13": "pass"
+  },
+  "reservations": [
+    "D1/D2/D3 跨账本不一致已声明，待发布后30日内对账"
+  ],
+  "rights_opinion": {
+    "R1": "agree",
+    "R2": "agree",
+    "R3": "agree",
+    "R4": "agree",
+    "R5": "agree",
+    "R6": "agree"
+  },
+  "dept_stance": "承接:PM决策层/光锥运维部(本平台)",
+  "note": "本回执为本平台自检，不计入外部≥2家门槛；仅作演示/对照。",
+  "signature": "30c0cda190ad0463"
+}

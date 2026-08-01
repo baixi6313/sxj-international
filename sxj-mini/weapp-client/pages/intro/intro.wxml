@@ -1,0 +1,38 @@
+<scroll-view scroll-y style="height:100vh;background:#f5f0e8">
+  <view class="intro-hero">
+    <view class="intro-hero-emoji">🧭</view>
+    <view class="intro-hero-title">30秒了解事现鉴</view>
+    <view class="intro-hero-sub">你不是在写论文，是在给公共事实建档</view>
+  </view>
+
+  <view class="step">
+    <view class="step-icon">📝</view>
+    <view class="step-body">
+      <view class="step-no">① 记什么</view>
+      <view class="step-text">记「公共事件」——你亲眼看到、亲身经历、或能独立核实的公共利益事实。南京博物院藏品流向、耿同学学术打假、小红书前员工期权……都是「事现」。一句话：只存事实，不评对错。</view>
+    </view>
+  </view>
+
+  <view class="step">
+    <view class="step-icon">🔧</view>
+    <view class="step-body">
+      <view class="step-no">② 怎么记</view>
+      <view class="step-text">三步就够：① 点「＋添加新事现」 ② 填时间 / 地点 / 事实，附上证据 ③ 拉上验证团一起核对。每条记录用 SHA-256 哈希链串联，谁改过、何时改，一查便知。</view>
+    </view>
+  </view>
+
+  <view class="step">
+    <view class="step-icon">💡</view>
+    <view class="step-body">
+      <view class="step-no">③ 记了有什么用</view>
+      <view class="step-text">记录够多、验证够硬，就自然长成一把「公共验算尺」——银行征信看你借多少钱，事现鉴看你创造多少价值；还能推演财政直销、化债等公共方案。算得清，是你的权利。</view>
+    </view>
+  </view>
+
+  <view class="intro-cta">
+    <view class="btn-primary" bindtap="start">开始使用 →</view>
+    <view class="intro-skip" bindtap="start">先逛逛，跳过引导</view>
+  </view>
+
+  <view class="footer">事现鉴 SXJ · 数据更新 2026-07-30</view>
+</scroll-view>

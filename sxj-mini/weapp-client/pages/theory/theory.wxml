@@ -1,0 +1,89 @@
+<scroll-view scroll-y style="height:100vh;background:#f7f1e3">
+  <block wx:for="{{blocks}}" wx:key="id">
+    <view class="block">
+
+      <!-- 共创论 8.0 / 财政直销 / 双向验证 / 税收替代 -->
+      <block wx:if="{{item.id === 'cj' || item.id === 'fiscal' || item.id === 'verify' || item.id === 'tax'}}">
+        <view class="block-header">
+          <text class="block-icon">{{item.icon}}</text>
+          <text class="block-title">{{item.title}}</text>
+        </view>
+        <text class="block-sub">{{item.sub}}</text>
+        <text class="block-body">{{item.body}}</text>
+        <view wx:if="{{item.formula}}" class="formula-box">
+          <text class="formula-text">{{item.formula}}</text>
+        </view>
+        <view wx:if="{{item.flow}}" class="flow-list">
+          <view class="flow-step" wx:for="{{item.flow}}" wx:for-item="step" wx:key="step">
+            <text class="flow-num">{{step.step}}</text>
+            <text class="flow-text">{{step.text}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.note}}" class="note-box">
+          <text class="note-text">{{item.note}}</text>
+        </view>
+        <view wx:if="{{item.source}}" class="note-box">
+          <text class="note-text">{{item.source}}</text>
+        </view>
+        <view wx:if="{{item.quote}}" class="quote-box">
+          <text class="quote-text">{{item.quote}}</text>
+        </view>
+      </block>
+
+      <!-- 三值 / 五卡 -->
+      <block wx:if="{{item.id === 'three' || item.id === 'five'}}">
+        <view class="block-header">
+          <text class="block-icon">{{item.icon}}</text>
+          <text class="block-title">{{item.title}}</text>
+        </view>
+        <text class="block-sub">{{item.sub}}</text>
+        <view class="card-list">
+          <view class="theory-card {{card.badge === '⑤' ? 'ceil' : ''}}" wx:for="{{item.cards}}" wx:for-item="card" wx:key="{{item.id === 'three' ? 'key' : 'badge'}}">
+            <view class="badge-row">
+              <text class="badge-num">{{item.id === 'three' ? card.key : card.badge}}</text>
+              <text class="badge-name">{{card.name}}</text>
+            </view>
+            <text wx:if="{{card.sub}}" class="badge-sub">{{card.sub}}</text>
+            <text class="badge-desc">{{card.desc}}</text>
+            <text wx:if="{{card.formula}}" class="badge-formula">{{card.formula}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.quote}}" class="quote-box">
+          <text class="quote-text">{{item.quote}}</text>
+        </view>
+      </block>
+
+      <!-- 征信对比 -->
+      <block wx:if="{{item.id === 'credit'}}">
+        <view class="block-header">
+          <text class="block-icon">{{item.icon}}</text>
+          <text class="block-title">{{item.title}}</text>
+        </view>
+        <text class="block-sub">{{item.sub}}</text>
+        <view class="compare-table">
+          <view class="compare-row header-row">
+            <text class="col-dim">维度</text>
+            <text class="col-bank">银行征信</text>
+            <text class="col-sxj">事现鉴</text>
+          </view>
+          <view class="compare-row" wx:for="{{item.rows}}" wx:for-item="row" wx:key="dim">
+            <text class="col-dim">{{row.dim}}</text>
+            <text class="col-bank">{{row.bank}}</text>
+            <text class="col-sxj">{{row.sxj}}</text>
+          </view>
+        </view>
+        <view wx:if="{{item.quote}}" class="quote-box">
+          <text class="quote-text">{{item.quote}}</text>
+        </view>
+      </block>
+
+    </view>
+  </block>
+
+  <!-- Footer -->
+  <view class="footer">
+    <text class="footer-text">事现鉴 SXJ · 共创论8.0 · 白玺 © 2025-2026</text>
+    <text class="footer-icp">陕ICP备2026020031号-1X · 主办：白玺</text>
+    <text class="footer-four">四域：hygzz.com / hygzz.cn / hygzz.top / hygzz.中国</text>
+  </view>
+</scroll-view>

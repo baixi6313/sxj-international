@@ -1,0 +1,66 @@
+<view class="page">
+  <!-- profile -->
+  <view class="profile-card" bindtap="editProfile">
+    <view class="avatar">{{avatar}}</view>
+    <view class="profile-info">
+      <view class="profile-name">{{profile.name || '未设置姓名'}}</view>
+      <view class="profile-sub">{{ageText}} · 每日目标 {{target}}ml</view>
+    </view>
+    <view class="profile-edit">设置</view>
+  </view>
+
+  <!-- today progress -->
+  <view class="card">
+    <view class="card-title">今日饮水</view>
+    <view class="progress-num"><text class="big">{{todayTotal}}</text><text class="unit">ml / {{target}}ml</text></view>
+    <view class="bar"><view class="bar-fill" style="width:{{percent}}%"></view></view>
+    <view class="bar-tip">{{percent >= 100 ? '✅ 已达标' : '还需 ' + (target - todayTotal) + 'ml'}}</view>
+  </view>
+
+  <!-- add water -->
+  <view class="card">
+    <view class="card-title">记录一杯水</view>
+    <view class="quick-row">
+      <view class="quick-btn" bindtap="quickAdd" data-ml="200">+200</view>
+      <view class="quick-btn" bindtap="quickAdd" data-ml="250">+250</view>
+      <view class="quick-btn" bindtap="quickAdd" data-ml="500">+500</view>
+    </view>
+    <view class="input-row">
+      <input class="ml-input" type="number" placeholder="自定义 ml" value="{{mlInput}}" bindinput="onMlInput" />
+      <view class="ml-unit">ml</view>
+      <button class="primary-btn" bindtap="addSelf">记录</button>
+    </view>
+  </view>
+
+  <!-- assist claim -->
+  <view class="card">
+    <view class="card-title">协助记录（记录一次协助饮水）</view>
+    <view class="input-row">
+      <input class="name-input" placeholder="协助人姓名" value="{{assistantInput}}" bindinput="onAssistantInput" />
+    </view>
+    <view class="input-row">
+      <input class="name-input" placeholder="被协助人（默认：我）" value="{{targetInput}}" bindinput="onTargetInput" />
+    </view>
+    <view class="input-row">
+      <input class="ml-input" type="number" placeholder="协助喝水量 ml" value="{{assistMlInput}}" bindinput="onAssistMlInput" />
+      <view class="ml-unit">ml</view>
+      <button class="assist-btn" bindtap="addAssist">提交确认</button>
+    </view>
+    <view class="hint">默认「被协助人=我」（别人帮我，确认后我得共济值饮水凭证）。也可填他人（我帮别人），使其在「排名」中按协助人数累计。</view>
+  </view>
+
+  <!-- recent -->
+  <view class="card">
+    <view class="card-title">最近记录</view>
+    <view wx:if="{{records.length === 0}}" class="empty">暂无记录</view>
+    <view wx:for="{{records}}" wx:key="id" class="rec-item">
+      <view class="rec-ml">{{item.ml}}ml</view>
+      <view class="rec-meta">
+        <text>{{item.date}}</text>
+        <text wx:if="{{item.source === 'assist'}}" class="tag-assist">协助·{{item.assistant}}</text>
+        <text wx:else class="tag-self">自我</text>
+      </view>
+      <view class="rec-hash">{{item.hash.slice(0, 10)}}…</view>
+    </view>
+  </view>
+</view>

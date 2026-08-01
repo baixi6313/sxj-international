@@ -1,0 +1,29 @@
+.page { padding: 24rpx 24rpx 60rpx; background: #eef3f8; min-height: 100vh; }
+.card { background: #fff; border-radius: 20rpx; padding: 28rpx; margin-bottom: 24rpx; box-shadow: 0 4rpx 16rpx rgba(30,136,229,0.06); }
+.card-title { font-size: 30rpx; font-weight: 600; color: #16263a; margin-bottom: 16rpx; }
+.hint { font-size: 24rpx; color: #7a8aa0; margin-top: 14rpx; line-height: 1.5; }
+.empty { font-size: 26rpx; color: #9aa9bb; text-align: center; padding: 20rpx 0; }
+
+.checkin-card { background: linear-gradient(135deg, #1e88e5, #36b3ff); color: #fff; }
+.checkin-top { display: flex; align-items: center; justify-content: space-between; }
+.checkin-streak .big { font-size: 80rpx; font-weight: 800; }
+.checkin-streak .unit { font-size: 28rpx; margin-left: 8rpx; opacity: 0.9; }
+.checkin-total { font-size: 26rpx; opacity: 0.92; }
+.checkin-btn { margin-top: 28rpx; background: #fff; color: #1e88e5; font-size: 32rpx; font-weight: 700; border-radius: 999rpx; }
+.checkin-btn.done { background: rgba(255,255,255,0.35); color: #fff; }
+.checkin-tip { font-size: 23rpx; opacity: 0.9; margin-top: 16rpx; text-align: center; }
+
+.progress-num { display: flex; align-items: baseline; }
+.progress-num .big { font-size: 64rpx; font-weight: 800; color: #1e88e5; }
+.progress-num .unit { font-size: 26rpx; color: #7a8aa0; margin-left: 12rpx; }
+.bar { height: 18rpx; background: #e6eef6; border-radius: 999rpx; margin: 16rpx 0 10rpx; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, #1e88e5, #36b3ff); border-radius: 999rpx; transition: width .3s; }
+.bar-tip { font-size: 24rpx; color: #7a8aa0; margin-bottom: 18rpx; }
+.primary-btn { background: #1e88e5; color: #fff; font-size: 30rpx; border-radius: 999rpx; }
+
+.cred-item { padding: 18rpx 0; border-bottom: 1rpx solid #eef3f8; }
+.cred-item:last-child { border-bottom: none; }
+.cred-label { font-size: 27rpx; color: #16263a; font-weight: 600; }
+.cred-meta { font-size: 22rpx; color: #9aa9bb; margin-top: 6rpx; }
+
+.about-entry { text-align: center; font-size: 26rpx; color: #1e88e5; padding: 20rpx; }

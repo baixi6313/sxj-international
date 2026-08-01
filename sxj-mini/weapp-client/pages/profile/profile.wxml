@@ -1,0 +1,78 @@
+<view class="container">
+  <view class="hero">
+    <view class="hero-title">大家的事现</view>
+    <view class="hero-desc">事现鉴 · 客户端输入端</view>
+  </view>
+
+  <view class="stats-bar">
+    <view class="stat-item">
+      <view class="stat-num">{{stats.events}}</view>
+      <view class="stat-label">已记录</view>
+    </view>
+    <view class="stat-item">
+      <view class="stat-num">{{stats.verifiers}}</view>
+      <view class="stat-label">验证人</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">关于</view>
+    <view class="about-text">
+      这是事现鉴体系面向普通用户的输入端小程序。你不需要理解复杂的理论，只需把「某件事发生了」记下来，并拉上愿意一起验证的人。
+    </view>
+    <view class="about-text">
+      当记录足够多、验证足够硬，它就会自然生长成一把公共验算尺。
+    </view>
+    <view class="about-text" style="color:#8a5a2b;font-weight:700">
+      小程序版本 1.0.1 · 正式版
+    </view>
+    <view class="link-row" bindtap="goTheory">
+      <text>理论核心（共创论 8.0）</text>
+      <text class="copy">查看 →</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">四域官网</view>
+    <view class="link-row" bindtap="copyLink" data-link="https://hygzz.com">
+      <text>国际版：hygzz.com</text>
+      <text class="copy">复制</text>
+    </view>
+    <view class="link-row" bindtap="copyLink" data-link="https://hygzz.cn">
+      <text>国内版：hygzz.cn</text>
+      <text class="copy">复制</text>
+    </view>
+    <view class="link-row" bindtap="copyLink" data-link="https://hygzz.top">
+      <text>CV 平台：hygzz.top</text>
+      <text class="copy">复制</text>
+    </view>
+    <view class="link-row" bindtap="copyLink" data-link="https://hygzz.中国">
+      <text>案例库：hygzz.中国</text>
+      <text class="copy">复制</text>
+    </view>
+    <view class="tip">更多内容可访问网页版查看</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">项目导航</view>
+    <view class="link-row" bindtap="copyLink" data-link="https://hygzz.top/org.html">
+      <text>组织架构一览</text>
+      <text class="copy">查看 →</text>
+    </view>
+    <view class="link-row" bindtap="copyLink" data-link="https://hygzz.top/history.html">
+      <text>发展历史</text>
+      <text class="copy">查看 →</text>
+    </view>
+    <view class="tip">移动端建议复制链接到浏览器查看</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">备案信息</view>
+    <view class="icp-line">服务名称：大家的事现</view>
+    <view class="icp-line">备案号：陕ICP备2026020031号-1X</view>
+    <view class="icp-line">主办人：白玺</view>
+    <view class="icp-line">审核日期：2026-07-29</view>
+  </view>
+
+  <view class="btn-secondary" bindtap="clearData" style="margin-top:20rpx">清空本机数据</view>
+</view>

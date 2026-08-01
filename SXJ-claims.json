@@ -1,0 +1,191 @@
+{
+  "schema": "SXJ-VerificationLedger/1.0",
+  "file": "SXJ-verification-ledger.md",
+  "sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+  "bytes": 23071,
+  "generated_at": "2026-08-01T17:34+08:00",
+  "publisher": "PM (决策层)",
+  "authorized_by": "始创者·白玺 (决定层)",
+  "related_protocols": [
+    "pm/org/reports/edu-docking-protocol-v1.md (教育对接协议 v1·草案)",
+    "pm/org/reports/interactive-verify-protocol-v1.md (交互验证治理协议 v1·草案)"
+  ],
+  "publish_gate": {
+    "condition": "层一(5主体内核)收敛 + >=2 家冷方(未参与事现鉴演化、语料中无 SXJ 的独立平台)Agent 返回 '检验成功' 且层二无未决有效挑战；由决定层(白玺)宣布正式发布",
+    "decision": "由决定层(白玺)宣布正式发布",
+    "status": "PENDING (not yet published)"
+  },
+  "assertions": [
+    {
+      "id": "A01",
+      "severity": "critical",
+      "desc": "含完整元数据：标题/生成方PM/决定层白玺/时间戳/目的/发布门槛",
+      "expected": "pass",
+      "source": "第零章/头部"
+    },
+    {
+      "id": "A02",
+      "severity": "critical",
+      "desc": "七命题与五大公理声明为平行基石，无等级/从属表述",
+      "expected": "pass",
+      "source": "1.2"
+    },
+    {
+      "id": "A03",
+      "severity": "critical",
+      "desc": "三值定义互不重叠；负贡献归责四条件完整且不冲突先天状态",
+      "expected": "pass",
+      "source": "1.3-1.4"
+    },
+    {
+      "id": "A04",
+      "severity": "critical",
+      "desc": "两套事件账本均完整列出，不一致(D1/D2/D3)被显式声明而非隐藏",
+      "expected": "pass",
+      "source": "3.1-3.3"
+    },
+    {
+      "id": "A05",
+      "severity": "critical",
+      "desc": "部署状态真实；不可达项显式标注原因，未伪称已上线",
+      "expected": "pass",
+      "source": "第四章"
+    },
+    {
+      "id": "A06",
+      "severity": "critical",
+      "desc": "组织架构与 pm/roles.md 一致：决定层=白玺/决策层=PM/五部门+光锥运维部",
+      "expected": "pass",
+      "source": "2.1"
+    },
+    {
+      "id": "A07",
+      "severity": "critical",
+      "desc": "协议v1明确 ATTEST≠CONSENSUS；四阶助法引用含与日本框架分野声明",
+      "expected": "pass",
+      "source": "1.6,2.3"
+    },
+    {
+      "id": "A08",
+      "severity": "critical",
+      "desc": "第六章待决项未伪称为已完成（P0/部署/理论均标未办/待拍板）",
+      "expected": "pass",
+      "source": "第六章"
+    },
+    {
+      "id": "A09",
+      "severity": "normal",
+      "desc": "本文SHA256可复算比对且传输未篡改",
+      "expected": "recompute",
+      "source": "本文件sha256字段"
+    },
+    {
+      "id": "A10",
+      "severity": "normal",
+      "desc": "全文无已被弃用旧称(原指生存权基座)，统一用'共济值'",
+      "expected": "pass",
+      "source": "1.7"
+    },
+    {
+      "id": "A11",
+      "severity": "normal",
+      "desc": "时间线自洽；南京博物院双日期差已声明(D3)",
+      "expected": "pass",
+      "source": "3.3,D3"
+    },
+    {
+      "id": "A12",
+      "severity": "normal",
+      "desc": "链·10推论与三值/权重原则无内部矛盾",
+      "expected": "pass",
+      "source": "1.5"
+    },
+    {
+      "id": "A13",
+      "severity": "critical",
+      "desc": "档案未将'AI验证团预备范畴'伪称为'正式验证团'；转正须经更多轮验证并由决定层确认",
+      "expected": "pass",
+      "source": "8.1"
+    }
+  ],
+  "cross_ledger_discrepancies": [
+    {
+      "id": "D1",
+      "type": "type_conflict",
+      "event": "耿同学学术打假",
+      "web": "负贡献/已验证",
+      "mini": "common(共济值)/verified",
+      "action": "须决定层裁定统一"
+    },
+    {
+      "id": "D2",
+      "type": "presence_asymmetry",
+      "detail": "城市贡献者安居仅网页(seed4)；南山区保险仅小程序(evt_003)",
+      "action": "对账合并"
+    },
+    {
+      "id": "D3",
+      "type": "date_status_diff",
+      "detail": "南京博物院网页2025-12-17/小程序2026-02-09；小红书网页2026-02-01/小程序2026-07-28",
+      "action": "已声明，待调和"
+    }
+  ],
+  "open_items": [
+    {
+      "id": "6.1",
+      "item": "吊销明文PAT ghp_8fJT…(安全P0)",
+      "owner": "决定层(GitHub后台)",
+      "status": "未办"
+    },
+    {
+      "id": "6.2",
+      "item": "提供TENCENT_SECRET_ID/KEY部署hygzz.top",
+      "owner": "决定层(授权)",
+      "status": "未办"
+    },
+    {
+      "id": "6.3",
+      "item": "授权推送com/安卓至GitHub",
+      "owner": "决定层(授权)",
+      "status": "冻结(铁律)"
+    },
+    {
+      "id": "6.4",
+      "item": "微信小程序手动上传",
+      "owner": "决定层(手动)",
+      "status": "未办"
+    },
+    {
+      "id": "6.5",
+      "item": "理论两处修正拍板(≥50%口径/四阶助法分野)",
+      "owner": "决定层",
+      "status": "待拍板"
+    },
+    {
+      "id": "6.6",
+      "item": "跨账本对账(D1/D2/D3)",
+      "owner": "事现验证部+决定层",
+      "status": "待调和"
+    },
+    {
+      "id": "6.7",
+      "item": "top-site version.json陈旧(1.0.1)",
+      "owner": "光锥运维部",
+      "status": "待修"
+    }
+  ],
+  "verification_agent_format": {
+    "fields": [
+      "平台标识",
+      "检验结论(成功/不成功)",
+      "关键断言(逐条)",
+      "发现矛盾",
+      "附带建议",
+      "部门表态(a/b/c)",
+      "权利草案意见",
+      "教育协议意见"
+    ],
+    "note": "外部Agent须主动报告本档案内部任何自相矛盾，即使未在断言清单内；并须就部门承接(a/b/c)与权利/协议草案表态。冷方/热方分野见交互验证治理协议 v1。"
+  },
+  "ledger_bytes": 23586
+}

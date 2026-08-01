@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/intro/intro",
+    "pages/addEvent/addEvent",
+    "pages/verifyGroup/verifyGroup",
+    "pages/events/events",
+    "pages/eventDetail/eventDetail",
+    "pages/addEvidence/addEvidence",
+    "pages/addVerification/addVerification",
+    "pages/profile/profile",
+    "pages/theory/theory"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#7a1f1f",
+    "navigationBarTitleText": "大家的事现",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f0e8"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

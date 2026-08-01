@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>组织架构一览 · 事现鉴</title>
+<style>
+  body{font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;color:#1c1c1c;background:#faf8f3}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 18px 60px}
+  h1{color:#A32D2D;border-bottom:3px solid #C9A24B;padding-bottom:10px}
+  h2{color:#2F6FED;margin-top:34px}
+  img{max-width:100%;height:auto;border:1px solid #ddd;border-radius:10px;background:#fff;margin:14px 0}
+  .card{background:#fff;border:1px solid #eee;border-left:4px solid #C9A24B;padding:14px 18px;border-radius:8px;margin:12px 0}
+  .layer{background:#A32D2D;color:#fff;display:inline-block;padding:3px 10px;border-radius:6px;font-size:13px;font-weight:700}
+  .exec{background:#C9A24B;color:#3a2d12}
+  ul{line-height:1.8}
+  .foot{margin-top:40px;color:#888;font-size:13px;border-top:1px solid #eee;padding-top:14px}
+</style>
+</head>
+<body>
+<!-- SXJ_NAV -->
+<nav style="position:sticky;top:0;z-index:999;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#A32D2D;padding:8px 14px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+  <a href="./" style="color:#fff;font-weight:700;text-decoration:none;margin-right:10px;">事现鉴</a>
+  <a href="./events.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">事件簿</a>
+  <a href="./knowledge_tree.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">知识树</a>
+  <a href="./org.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">组织架构一览</a>
+  <a href="./history.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">发展历史</a>
+</nav>
+
+<div class="wrap">
+  <h1>组织架构一览 · 事现鉴 SXJ</h1>
+
+  <p><span class="layer">决定层 DECISION LAYER</span> 始创者 · 白玺 &nbsp;→&nbsp; <span class="layer exec">决策层 EXECUTIVE LAYER</span> PM · 项目经理</p>
+  <p><b>原则：决定层同意 → 决策层执行。</b> 在第三方验证网络介入之前，由始创者担任决定层。新建任何 agent / 部门内设角色，均须经过始创者许可。</p>
+
+  <img src="assets/org/sxj-org-structure.svg" alt="事现鉴组织架构图">
+
+  <h2>一、光锥运维部（日常维护）</h2>
+  <div class="card">定位：跨平台日常维护闭环。<br>
+  下设角色：<b>hygzz01 记录员</b>（记录网页/小程序/App 的修改指令）→ <b>hygzz02 审查员</b>（实地核查是否落实）→ <b>hygzz03 优化师</b>（结合记录+审查给出优化方案）。PM 汇总三者回报。</div>
+
+  <h2>二、安全合规部</h2>
+  <div class="card">定位：密钥/凭证全生命周期、隐私合规、审计。<br>
+  当前重点：明文令牌清理与吊销、提交前密钥扫描闸门、统一对外接入标准（UAXS / SXJ-VC 凭证）。</div>
+
+  <h2>三、事现验证部</h2>
+  <div class="card">定位：事件簿、三值（共济值/贡献值/负贡献）、六状态、验证人网络与共识判定。<br>
+  当前重点：现有事现整理、录入链路修复、新事件展望与归责四条件落地。</div>
+
+  <h2>四、理论研发部</h2>
+  <div class="card">定位：共创论 8.0、白皮书、知识树策展，并对接开源论文/评论/新闻形成理论溯源体系。<br>
+  当前重点：文献体系化、与 UBI/互助主义/哈希链信任研究对接。</div>
+
+  <h2>五、对外协作部</h2>
+  <div class="card">定位：四域运营、平台对接、统一凭证接入。<br>
+  当前重点：第一版对外交互统一协议（SXJ-VC + VERIFY/ATTEST/CONSENSUS 报文）。</div>
+
+  <div class="foot">
+    四域：hygzz.com（国际）· hygzz.cn（国内·唯一指定中文官网）· hygzz.top（CV）· hygzz.中国（案例库）。<br>
+    事现鉴 = 基于《世界人权宣言》第22条的可验证公共事实协议；终极目标 = 全球社保。
+  </div>
+</div>
+</body>
+</html>

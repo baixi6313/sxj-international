@@ -1,0 +1,35 @@
+{
+  "$schema_note": "事现鉴 他验·外部 agent 检验回执标准格式 (他验回执协议 v1)",
+  "说明": "外部平台 agent 按 SXJ-verification-ledger.md 第零章检验后，填写本 JSON 交回。ledger_sha256 必须与送检档案一致，否则被拒收（防篡改/防版本错位）。",
+  "字段": {
+    "agent_id": "字符串·必填。你的平台/agent 唯一标识，如 'PlatformX-Claude-agent'。",
+    "verdict": "枚举·必填。PASS=全部关键断言通过；CONDITIONAL=通过但有保留意见；FAIL=存在阻断性矛盾。",
+    "ledger_sha256": "字符串·必填。送检档案 SXJ-verification-ledger.md 的 SHA256（由发布方提供）。",
+    "checked_at": "字符串·必填。检验日期 YYYY-MM-DD。",
+    "assertions": "对象·必填。逐条断言判定，键为 A01..A13，值为 pass/fail/unknown。",
+    "reservations": "数组·可选。保留意见/未决项，如 ['D1 跨账本类型冲突已声明但未调和']。",
+    "rights_opinion": "对象·可选。对第八章 R1-R6 本轮权利的态度，键 R1..R6，值 agree/object/abstain。",
+    "edu_protocol_opinion": "对象·可选。对《教育对接协议 v1》的态度，键如 agree/object/abstain 或自由文本。对应 claims.json 的'教育协议意见'。",
+    "dept_stance": "字符串·必填。三选一：(a)承接某部门及任务；(b)提议组建新部门(写明)；(c)拒绝承担,仅作独立验证节点。",
+    "note": "字符串·可选。自由备注。",
+    "signature": "字符串·必填。= SHA256(agent_id + verdict + ledger_sha256) 的前16位，用于绑定回执到档案。"
+  },
+  "字段映射": "本格式与 SXJ-claims.json 的 verification_agent_format 对应：agent_id=平台标识；verdict=检验结论(PASS=成功 / FAIL=不成功 / CONDITIONAL=带保留)；assertions=关键断言(逐条)；reservations=发现矛盾；note=附带建议；dept_stance=部门表态(a/b/c)；rights_opinion=权利草案意见；edu_protocol_opinion=教育协议意见。",
+  "示例": {
+    "agent_id": "PlatformX-Claude-agent",
+    "verdict": "PASS",
+    "ledger_sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+    "checked_at": "2026-08-01",
+    "assertions": {
+      "A01": "pass", "A02": "pass", "A03": "pass", "A04": "pass",
+      "A05": "pass", "A06": "pass", "A07": "pass", "A08": "pass",
+      "A09": "pass", "A10": "pass", "A11": "pass", "A12": "pass", "A13": "pass"
+    },
+    "reservations": ["D1/D2/D3 已声明未调和，建议发布后30日内对账"],
+    "rights_opinion": {"R1": "agree", "R2": "agree", "R3": "agree", "R4": "agree", "R5": "agree", "R6": "agree"},
+    "edu_protocol_opinion": {"整体": "agree", "教育对接节点优先": "agree"},
+    "dept_stance": "承接:对外协作部-教育对接节点",
+    "note": "理论先行顺序认同；建议四阶助法分野脚注即刻补入知识树。",
+    "signature": "a1b2c3d4e5f6a7b8"
+  }
+}

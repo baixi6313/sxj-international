@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="form-card">
+    <view class="input-group">
+      <text class="label">类型</text>
+      <picker mode="selector" range="{{kinds}}" range-key="label" value="{{kindIndex}}" bindchange="onKindChange">
+        <view class="picker">{{kinds[kindIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="input-group">
+      <text class="label">内容</text>
+      <textarea class="textarea" placeholder="证据 / 线索 / 进展内容" value="{{content}}" bindinput="onContentInput" />
+    </view>
+    <view class="input-group">
+      <text class="label">提交人</text>
+      <input class="input" placeholder="留空则匿名" value="{{author}}" bindinput="onAuthorInput" />
+    </view>
+    <view class="btn-primary" bindtap="submit">追加</view>
+  </view>
+</view>

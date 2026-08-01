@@ -1,0 +1,36 @@
+<view class="page">
+  <!-- 签到 -->
+  <view class="card checkin-card">
+    <view class="checkin-top">
+      <view class="checkin-streak">
+        <text class="big">{{streak}}</text><text class="unit">天连续</text>
+      </view>
+      <view class="checkin-total">累计签到 {{total}} 天</view>
+    </view>
+    <button class="checkin-btn {{checkedToday ? 'done' : ''}}" bindtap="doCheckin" disabled="{{checkedToday}}">
+      {{checkedToday ? '今日已签到 ✓' : '每日签到'}}
+    </button>
+    <view class="checkin-tip">连续 7 / 30 / 100 天可获得共济值健康凭证。</view>
+  </view>
+
+  <!-- 联动饮水 -->
+  <view class="card">
+    <view class="card-title">联动今日饮水</view>
+    <view class="progress-num"><text class="big">{{todayTotal}}</text><text class="unit">ml / {{target}}ml</text></view>
+    <view class="bar"><view class="bar-fill" style="width:{{waterPct}}%"></view></view>
+    <view class="bar-tip">{{waterPct >= 100 ? '✅ 饮水已达标 · 共济值凭证已记' : '还需 ' + (target - todayTotal) + 'ml'}}</view>
+    <button class="primary-btn" bindtap="goRecord">去记录饮水</button>
+  </view>
+
+  <!-- 共济值凭证 -->
+  <view class="card">
+    <view class="card-title">我的共济值凭证</view>
+    <view wx:if="{{credentials.length === 0}}" class="empty">暂无凭证，签到或饮水达标后生成</view>
+    <view wx:for="{{credentials}}" wx:key="hash" class="cred-item">
+      <view class="cred-label">{{item.label}}</view>
+      <view class="cred-meta">{{item.date}} · 哈希 {{item.hash.slice(0, 10)}}…</view>
+    </view>
+  </view>
+
+  <view class="about-entry" bindtap="goAbout">关于 / 合规说明 ›</view>
+</view>

@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="form-card">
+    <view class="input-group">
+      <text class="label">标题</text>
+      <input class="input" placeholder="事现标题" value="{{form.title}}" bindinput="onTitleInput" />
+    </view>
+    <view class="input-group">
+      <text class="label">类型</text>
+      <picker mode="selector" range="{{types}}" range-key="label" value="{{form.typeIndex}}" bindchange="onTypeChange">
+        <view class="picker">{{types[form.typeIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="input-group">
+      <text class="label">日期</text>
+      <picker mode="date" value="{{form.date}}" bindchange="onDateChange">
+        <view class="picker">{{form.date}}</view>
+      </picker>
+    </view>
+    <view class="input-group">
+      <text class="label">地点</text>
+      <input class="input" placeholder="事发地点" value="{{form.location}}" bindinput="onLocationInput" />
+    </view>
+    <view class="input-group">
+      <text class="label">描述</text>
+      <textarea class="textarea" placeholder="事现经过" value="{{form.description}}" bindinput="onDescInput" />
+    </view>
+    <view class="input-group">
+      <text class="label">证据</text>
+      <textarea class="textarea" placeholder="证据 / 链接" value="{{form.evidence}}" bindinput="onEvidenceInput" />
+    </view>
+    <view class="input-group">
+      <text class="label">记录人</text>
+      <input class="input" placeholder="留空则显示匿名" value="{{form.recorder}}" bindinput="onRecorderInput" />
+    </view>
+    <view class="btn-primary" bindtap="submit">保存事现</view>
+  </view>
+</view>

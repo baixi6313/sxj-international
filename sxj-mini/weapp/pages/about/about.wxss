@@ -1,0 +1,21 @@
+/* 关于：样式由 app.wxss 全局提供，网页版按钮本地样式 */
+.web-btn-card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin: 0 24rpx 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(20,20,40,.05);
+  border: 1rpx solid #ececf1;
+}
+.web-btn {
+  background: linear-gradient(135deg, #c41e3a, #9e1530);
+  color: #ffffff;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 30rpx;
+  font-weight: 700;
+  padding: 24rpx 0;
+  width: 100%;
+  letter-spacing: 2rpx;
+}
+.web-btn::after { border: none; }

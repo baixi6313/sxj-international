@@ -1,0 +1,48 @@
+{
+  "ledger_sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+  "participants_expected": 4,
+  "rounds": [
+    {
+      "round": 1,
+      "at": "2026-08-01T18:58:35+08:00",
+      "messages": [
+        {
+          "agent_id": "DeepSeek",
+          "round": 1,
+          "consensus_reached": false,
+          "outstanding": [
+            "未回填JSON回执(仅质性评述)"
+          ]
+        },
+        {
+          "agent_id": "Yuanbao-元宝",
+          "round": 1,
+          "consensus_reached": false,
+          "outstanding": [
+            "无法打开门户链接(渲染失败),未参与核验"
+          ]
+        },
+        {
+          "agent_id": "Doubao-豆包",
+          "round": 1,
+          "consensus_reached": false,
+          "outstanding": [
+            "已全文理解但未回填JSON回执"
+          ]
+        },
+        {
+          "agent_id": "Kimi-Moonshot",
+          "round": 1,
+          "consensus_reached": false,
+          "outstanding": [
+            "D1哲学裂缝(学术打假分类)",
+            "A09无法复算SHA",
+            "evt_003占位",
+            "理论A+B/治理消失条件未闭合"
+          ]
+        }
+      ]
+    }
+  ],
+  "created_at": "2026-08-01T18:58:35+08:00"
+}

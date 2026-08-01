@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>事现鉴 · 每个人都能变成"我"</title>
+<style>
+  :root{
+    --red:#c41e3a; --red-deep:#9e1530; --red-light:#fbeef0;
+    --gold:#d4a017; --gold-light:#fbf4e3;
+    --ink:#1a1a2e; --dim:#6b6b7b; --line:#ececf1;
+    --bg:#f2f3f7; --card:#ffffff;
+    --nav-h:48px; --tab-h:56px; --sb-h:24px;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Helvetica Neue","Microsoft YaHei",sans-serif;
+    background:#0c0c12; color:var(--ink); line-height:1.65; font-size:15px;
+    display:flex; justify-content:center; min-height:100vh;
+  }
+  /* phone frame on desktop */
+  .phone{
+    width:100%; max-width:430px; min-height:100vh; background:var(--bg);
+    position:relative; display:flex; flex-direction:column; overflow:hidden;
+    box-shadow:0 0 60px rgba(0,0,0,.5);
+  }
+  /* status bar */
+  .statusbar{
+    height:var(--sb-h); background:var(--red); color:#fff;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 16px; font-size:13px; font-weight:600; flex:0 0 auto;
+  }
+  .statusbar .sb-right{display:flex; gap:6px; align-items:center}
+  .statusbar .dot{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.9}
+  .statusbar .bat{width:22px;height:11px;border:1.5px solid #fff;border-radius:3px;position:relative;opacity:.9}
+  .statusbar .bat::after{content:"";position:absolute;right:-3px;top:3px;width:2px;height:5px;background:#fff;border-radius:0 1px 1px 0}
+  .statusbar .bat::before{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:14px;background:#fff;border-radius:1px}
+  /* navbar */
+  .navbar{
+    height:var(--nav-h); background:var(--red); color:#fff;
+    display:flex; align-items:center; justify-content:center; position:relative;
+    flex:0 0 auto;
+  }
+  .navbar .nav-title{font-size:17px; font-weight:600; letter-spacing:.5px}
+  .navbar .capsule{
+    position:absolute; right:10px; top:50%; transform:translateY(-50%);
+    width:88px; height:30px; border:1px solid rgba(255,255,255,.4); border-radius:15px;
+    display:flex; align-items:center; justify-content:space-around; background:rgba(0,0,0,.12);
+  }
+  .navbar .capsule .c-dot{width:7px;height:7px;border-radius:50%;background:#fff;opacity:.9}
+  .navbar .capsule .c-ring{width:14px;height:14px;border:1.5px solid #fff;border-radius:50%;opacity:.9}
+  .navbar .capsule .c-line{width:1px;height:16px;background:rgba(255,255,255,.4)}
+  /* content */
+  .screen{flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch; padding:16px 16px calc(var(--tab-h) + 18px)}
+  .page{display:none; animation:fade .28s ease}
+  .page.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* hero hook */
+  .hook{
+    background:linear-gradient(135deg,var(--red),var(--red-deep));
+    color:#fff; border-radius:16px; padding:22px 18px; text-align:center; margin-bottom:16px;
+    box-shadow:0 8px 24px rgba(196,30,58,.25);
+  }
+  .hook .h-before{font-size:14px;opacity:.92}
+  .hook .h-arrow{font-size:18px;margin:8px 0;opacity:.7}
+  .hook .h-after{font-size:19px;font-weight:700}
+  .hook .h-sub{font-size:12.5px;opacity:.85;margin-top:10px;border-top:1px solid rgba(255,255,255,.25);padding-top:10px}
+
+  /* generic card */
+  .card{background:var(--card);border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(20,20,40,.05);border:1px solid var(--line)}
+  .card h3{margin:0 0 10px;font-size:16px;color:var(--ink);display:flex;align-items:center;gap:8px}
+  .card h3::before{content:"";width:4px;height:16px;background:var(--red);border-radius:2px;display:inline-block}
+  .card p{margin:8px 0;font-size:14px;color:#33334a}
+  .muted{color:var(--dim);font-size:13px}
+
+  /* you -> me */
+  .ym-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:stretch;margin:6px 0}
+  .ym-card{border-radius:12px;padding:12px;font-size:12.5px}
+  .ym-card.you{background:var(--red-light);border:1px solid #f3d2d8}
+  .ym-card.me{background:var(--gold-light);border:1px solid #ecdcb0}
+  .ym-card .ym-label{font-weight:700;margin-bottom:8px;font-size:13.5px}
+  .ym-card ul{margin:0;padding-left:16px}
+  .ym-card li{margin:5px 0;color:#3a3a4d}
+  .ym-mid{display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--red);font-size:11px;font-weight:600;text-align:center;min-width:42px}
+  .ym-mid .ym-circle{width:38px;height:38px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:4px;font-size:16px}
+
+  /* proposition cards */
+  .prop{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px;position:relative;overflow:hidden}
+  .prop::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--red);opacity:.75}
+  .prop.key::before{background:var(--gold);width:5px}
+  .prop.key{background:var(--gold-light);border-color:#ecdcb0}
+  .prop .p-no{font-size:13px;font-weight:800;color:var(--red)}
+  .prop.key .p-no{color:var(--gold)}
+  .prop .p-title{font-size:14.5px;font-weight:700;margin:2px 0 5px}
+  .prop .p-body{font-size:13px;color:#3a3a4d;line-height:1.6}
+  .prop .p-tag{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:var(--gold);border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:middle}
+
+  /* comparison */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0}
+  .compare .c-box{border-radius:12px;padding:12px;font-size:12.5px}
+  .compare .c-old{background:#f0f0f4;border:1px solid #e2e2ea}
+  .compare .c-new{background:var(--red-light);border:1px solid #f3d2d8}
+  .compare .c-tag{font-size:11px;font-weight:700;display:block;margin-bottom:6px}
+  .compare .c-old .c-tag{color:var(--dim)}
+  .compare .c-new .c-tag{color:var(--red)}
+  .compare b{color:var(--ink)}
+
+  /* path svg */
+  .path-svg{width:100%;height:auto;display:block;margin:8px 0}
+
+  /* calc */
+  .calc-item{display:flex;align-items:baseline;justify-content:space-between;padding:11px 4px;border-bottom:1px dashed var(--line)}
+  .calc-item:last-child{border-bottom:none}
+  .calc-item .ci-label{font-size:13px;color:var(--dim)}
+  .calc-item .ci-num{font-size:17px;font-weight:800;color:var(--red)}
+  .calc-item .ci-num small{font-size:12px;font-weight:600;color:var(--dim)}
+  .calc-total{margin-top:10px;background:var(--red-light);border-radius:10px;padding:12px 14px;text-align:center;font-size:14px;color:var(--red-deep);font-weight:700}
+
+  /* closing */
+  .closing{background:var(--gold-light);border:1px solid #ecdcb0;border-radius:12px;padding:14px;font-size:13.5px;color:#4a3f1a;line-height:1.7}
+  .closing .big{display:block;font-size:15px;font-weight:800;color:var(--red-deep);margin-bottom:6px}
+
+  /* about list */
+  .about-row{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+  .about-row:last-child{border-bottom:none}
+  .about-row .ar-ic{flex:0 0 30px;height:30px;border-radius:8px;background:var(--red-light);color:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
+  .about-row .ar-tx{font-size:13.5px;color:#3a3a4d}
+  .about-row .ar-tx b{color:var(--ink)}
+
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px;background:var(--gold-light);color:var(--gold);border:1px solid #ecdcb0;margin-bottom:8px}
+
+  /* tab bar */
+  .tabbar{
+    position:absolute; left:0; right:0; bottom:0; height:var(--tab-h);
+    background:#fff; border-top:1px solid var(--line);
+    display:flex; padding-bottom:env(safe-area-inset-bottom,0);
+    flex:0 0 auto; z-index:20;
+  }
+  .tab{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--dim);font-size:11px;font-weight:600;cursor:pointer;position:relative}
+  .tab.active{color:var(--red)}
+  .tab .t-ic{width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+  .tab.active .t-ic{transform:translateY(-1px)}
+  .tab .t-dot{position:absolute;top:7px;width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:0}
+  .tab.active .t-dot{opacity:1}
+  .footer-note{text-align:center;font-size:11px;color:#a0a0b0;margin-top:10px;padding-bottom:4px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar">
+    <span id="clock">9:41</span>
+    <span class="sb-right"><span class="dot"></span><span class="dot"></span><span class="bat"></span></span>
+  </div>
+  <div class="navbar">
+    <span class="nav-title" id="navTitle">事现鉴</span>
+    <span class="capsule"><span class="c-dot"></span><span class="c-line"></span><span class="c-ring"></span></span>
+  </div>
+
+  <div class="screen">
+    <!-- 首页 -->
+    <section class="page active" id="page-index">
+      <div class="hook">
+        <div class="h-before">银行征信只看你能借多少钱</div>
+        <div class="h-arrow">↓</div>
+        <div class="h-after">事现鉴征信看你创造多少价值</div>
+        <div class="h-sub">你创造的价值，最终会变成你享有的权益</div>
+      </div>
+
+      <div class="card">
+        <h3>从稀缺到丰裕，锁死贫富的是债务</h3>
+        <p><b>马克思的时代：</b>物质稀缺，核心矛盾是"生产不足"——东西不够分。</p>
+        <p><b>今天：</b>物质极丰裕、技术极高效，但<b>债务把贫富差距锁死</b>。矛盾转移了：不是生产不出来，而是分配被债务锁死。</p>
+        <p class="muted">事现鉴不解决"生产"，而是用<b>验证</b>重新定义"分配"。</p>
+      </div>
+
+      <div class="card">
+        <h3>每个人都能变成"我"</h3>
+        <div class="ym-grid">
+          <div class="ym-card you">
+            <div class="ym-label">现在的你</div>
+            <ul>
+              <li>工资被低估，剩余价值被拿走</li>
+              <li>信用 = 你能借多少钱</li>
+              <li>有钱也找不到值得消费的标的</li>
+              <li>差距看起来是"命"，其实是"没算清"</li>
+            </ul>
+          </div>
+          <div class="ym-mid">
+            <div class="ym-circle">↔</div>
+            双向<br>验证
+          </div>
+          <div class="ym-card me">
+            <div class="ym-label">未来的你</div>
+            <ul>
+              <li>每次贡献都被不可篡改地记录</li>
+              <li>权益 = 你创造的真实价值</li>
+              <li>衣食住行教医成为可验证共济值</li>
+              <li>每个人都能达到今天"我"的水平</li>
+            </ul>
+          </div>
+        </div>
+        <p class="muted">不是因为谁更优秀，只是因为差距本可以被记录、被验证、被消除。</p>
+      </div>
+
+      <div class="closing">
+        <span class="big">目标不是把任何人拉下来，而是让每个人都能上来。</span>
+        当贡献被算清、权益被验证，今天的"我"就是明天的"你"。
+      </div>
+      <div class="footer-note">事现鉴 · 共创论 · 公共验算尺</div>
+    </section>
+
+    <!-- 哲学基础 -->
+    <section class="page" id="page-philosophy">
+      <span class="pill">哲学地基 · 七命题定调</span>
+      <div class="card">
+        <h3>七命题，把共创论哲学地基钉死</h3>
+        <p class="muted">纲 · 方法 · 路径 · 终局，环环相扣。与五大竞争对手的根本区别不在技术，而在哲学地基。</p>
+        <div class="compare">
+          <div class="c-box c-old"><span class="c-tag">马克思时代</span>物质<b>稀缺</b>，矛盾是生产不足</div>
+          <div class="c-box c-new"><span class="c-tag">今天</span>物质<b>丰裕</b>，但债务锁死分配</div>
+        </div>
+      </div>
+
+      <div class="prop">
+        <div class="p-no">①</div>
+        <div class="p-title">双向反射论</div>
+        <div class="p-body">共创论是世界人民<b>自下而上共同制定</b>的权利。数字世界达成统一后，反射回现实世界。与五大对手的根本区别：他们是<b>单向垄断</b>（我定规则你遵守），共创论是<b>双向协议</b>（规则由参与者共同验证形成）。</div>
+      </div>
+      <div class="prop">
+        <div class="p-no">②</div>
+        <div class="p-title">共济值先行</div>
+        <div class="p-body">可验证的起点<b>仅为共济值</b>——最基础的生存权。当保障水平的绝对值超过<b>今日的中位数</b>生活水平时，强制就失去对象：追责资源 + 中间大多数日常实践，自会把共济值顶上去。</div>
+      </div>
+      <div class="prop">
+        <div class="p-no">③</div>
+        <div class="p-title">记录本体论</div>
+        <div class="p-body"><b>不清算，只记录。</b>记录动态均衡给予与清算的关系。极端案例：资本与非资本极限值拉满后只能同涨同缩——金融数字空转，实际物质效率趋零，故清算不可行。Gzz 的代币化，是链接主权与债务、现实与数字的<b>枢纽</b>。</div>
+      </div>
+      <div class="prop">
+        <div class="p-no">⑤</div>
+        <div class="p-title">货币消亡论</div>
+        <div class="p-body">推到极致——<b>货币本身也会消失</b>。货币与外汇存在的唯一原因，是缺少统一度量单位。当 CV 净值成为统一度量，交换直接以净值进行。虚拟货币是单向数字化，事现鉴是<b>双向净值化</b>。</div>
+      </div>
+      <div class="prop">
+        <div class="p-no">⑥</div>
+        <div class="p-title">动态抵消论</div>
+        <div class="p-body">历史正义与未来公平<b>并不冲突</b>。机制是动态抵消，而非一次性清算。这无需自上而下的执行者——自下而上的协议约束，本身就让两者在账本上并行。</div>
+      </div>
+      <div class="prop key">
+        <div class="p-no">⑦</div>
+        <div class="p-title">使用效率本体论<span class="p-tag">纲</span></div>
+        <div class="p-body">不争<b>所有权</b>，只算<b>使用效率</b>。资本垄断与国家垄断，最终都要经过消费才能实现价值——而消费，就是自下而上的验证行为。所以真正的轴不是"归谁所有"，而是"<b>谁用得效率最高</b>"。</div>
+      </div>
+
+      <div class="card" style="background:#f7f7fb">
+        <p style="margin:0;font-size:13px;color:#3a3a4d"><b>命题四（中心化引力）被①⑦联手消解：</b>中心化的引力来源是<b>信息的单向性</b>；双向验证抽走了这个信息垄断。中心化不是被"推翻"，而是被"抽空"。</p>
+      </div>
+    </section>
+
+    <!-- 共济值最大化 -->
+    <section class="page" id="page-floor">
+      <span class="pill">收口 · 不是拉低顶，而是抬共济值</span>
+      <div class="card">
+        <h3>缩小差距有三条路，共创论走第三条</h3>
+        <p class="muted">传统左右之争困在前两条，事现鉴让你直接"上来"。</p>
+        <svg class="path-svg" viewBox="0 0 680 360" role="img" aria-label="三种缩小贫富差距的路径">
+          <text x="340" y="26" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a2e">三种路径：谁能到达顶部？</text>
+          <rect x="210" y="42" width="26" height="11" fill="#c41e3a" rx="2"/>
+          <text x="242" y="51" font-size="11" fill="#555">顶部生活水平</text>
+          <rect x="360" y="42" width="26" height="11" fill="#d4a017" rx="2"/>
+          <text x="392" y="51" font-size="11" fill="#555">你的生活水平</text>
+          <text x="110" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#555">涓滴 / 再分配</text>
+          <rect x="50" y="92" width="120" height="20" fill="#c41e3a" rx="3"/>
+          <text x="110" y="105" text-anchor="middle" font-size="10" fill="#fff">顶部</text>
+          <rect x="50" y="245" width="120" height="20" fill="#d4a017" rx="3"/>
+          <text x="110" y="258" text-anchor="middle" font-size="10" fill="#fff">你</text>
+          <line x1="110" y1="115" x2="110" y2="185" stroke="#8892a0" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <polygon points="106,183 114,183 110,191" fill="#8892a0"/>
+          <text x="110" y="212" text-anchor="middle" font-size="11" fill="#8892a0">漏到一半就停了</text>
+          <text x="110" y="290" text-anchor="middle" font-size="11" fill="#555">差距仍在，或滋生怨恨</text>
+          <text x="340" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#555">均平 / 拉平</text>
+          <rect x="280" y="170" width="120" height="20" fill="#d4a017" rx="3"/>
+          <rect x="280" y="170" width="120" height="20" fill="#c41e3a" rx="3" opacity="0.35"/>
+          <text x="340" y="183" text-anchor="middle" font-size="10" fill="#fff">大家都压到这里</text>
+          <text x="340" y="215" text-anchor="middle" font-size="11" fill="#555">失去激励，效率下降</text>
+          <text x="570" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#c41e3a">共创论 / 共济值最大化</text>
+          <rect x="510" y="92" width="120" height="20" fill="#c41e3a" rx="3"/>
+          <rect x="510" y="92" width="120" height="20" fill="#d4a017" rx="3" opacity="0.85"/>
+          <text x="570" y="105" text-anchor="middle" font-size="10" fill="#fff">你 = 顶部</text>
+          <circle cx="570" cy="145" r="9" fill="#1a1a2e"/>
+          <line x1="570" y1="154" x2="570" y2="183" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+          <line x1="553" y1="165" x2="587" y2="165" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+          <line x1="570" y1="183" x2="558" y2="210" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+          <line x1="570" y1="183" x2="582" y2="210" stroke="#1a1a2e" stroke-width="3" stroke-linecap="round"/>
+          <text x="570" y="235" text-anchor="middle" font-size="11" fill="#c41e3a" font-weight="600">你也上来了</text>
+          <text x="570" y="290" text-anchor="middle" font-size="11" fill="#c41e3a">顶部资源更充分增值</text>
+        </svg>
+      </div>
+
+      <div class="card">
+        <h3>王多鱼：消费找不到标的 = 使用效率没跑通</h3>
+        <p>跟电影《西虹市首富》里的王多鱼一样——被要求花光十亿，却<b>找不到消费标的</b>。当前体系下，即便有钱，消费也花不出去（或花得没品质）。</p>
+        <p>这恰恰证明<b>使用效率没跑通</b>。事现鉴要证明的，就是"这个水平可达"，并帮更多人到达——届时消费、品质、资源将被极大地整合与运营。</p>
+      </div>
+
+      <div class="closing">
+        <span class="big">把我的权益提到最高，再让所有人达到我所享有的。</span>
+        这不就是缩小贫富差距吗？顶部资源更充分增值，中间的人有资源可用，共济值也大幅提高——区别只在于：现在是<b>双向记录、协议</b>，而非单向接受或施与。
+      </div>
+    </section>
+
+    <!-- 算一笔账 -->
+    <section class="page" id="page-calc">
+      <span class="pill">300元/日食 · 共济值其实很便宜</span>
+      <div class="card">
+        <h3>算一笔账：一个人的"现金共济值"</h3>
+        <p class="muted">按最宽裕的食标，一个人一年的现金共济值约为：</p>
+        <div class="calc-item"><span class="ci-label">食（300元/天）</span><span class="ci-num">109,500<small> 元/年</small></span></div>
+        <div class="calc-item"><span class="ci-label">衣</span><span class="ci-num">5,000–10,000<small> 元/年</small></span></div>
+        <div class="calc-item"><span class="ci-label">行（基础交通）</span><span class="ci-num">3,000–5,000<small> 元/年</small></span></div>
+        <div class="calc-item"><span class="ci-label">住 / 上学 / 医疗</span><span class="ci-num">≈0<small> 现金</small></span></div>
+        <div class="calc-total">现金共济值（最宽裕标准）≈ 12万元 / 人 / 年</div>
+      </div>
+
+      <div class="card">
+        <h3>这个共济值，远未到不可负担</h3>
+        <p>对比：中国2023年人均 GDP 约 <b>8.9万元</b>，但那是"平均"不是"底线"。即便按最奢侈的食标，共济值也远未不可负担。</p>
+        <p>而且当住 / 教 / 医作为<b>公共权利</b>提供，实际需现金转移的部分更小。</p>
+        <p class="muted">现在没人真能"每天消费300块"，不是因为没钱，而是因为消费系统找不到标的。</p>
+      </div>
+
+      <div class="closing">
+        <span class="big">共济值其实很便宜。</span>
+        丰裕时代本就具备的物质能力，用验证协议兑现出来——人人从下方达到它，而不是把顶部拽下来。
+      </div>
+    </section>
+
+    <!-- 关于 -->
+    <section class="page" id="page-about">
+      <div class="card">
+        <h3>事现鉴是什么</h3>
+        <p>现实世界与互联网世界的<b>双向验证机制</b>：</p>
+        <p style="text-align:center;font-weight:700;color:var(--red);font-size:13.5px;line-height:1.9">
+          现实行为 → SHA-256 → CV记录<br>↓<br>CV / SCA → 代偿债务 · 信用准入 · 跨境社保
+        </p>
+        <p class="muted">此前的验证都是单向或部分的；事现鉴完成闭环——验证回路闭合。</p>
+      </div>
+
+      <div class="card">
+        <h3>终极目标</h3>
+        <div class="about-row"><div class="ar-ic">全</div><div class="ar-tx"><b>全球社会保障</b>（基于《世界人权宣言》第22条）。公共验算尺是工具，让各国用同一把尺子算各自的社保。</div></div>
+        <div class="about-row"><div class="ar-ic">尺</div><div class="ar-tx"><b>三值体系：</b>共济值（生存权·按需）/ 贡献值CV（发展权·按劳）/ 负贡献值（追责·修复）。</div></div>
+        <div class="about-row"><div class="ar-ic">阶</div><div class="ar-tx"><b>当前阶段：</b>规则先于开放，单机策划阶段。彬州试点仅为<b>策划方案</b>，从未真正实施。</div></div>
+      </div>
+
+      <div class="card" style="background:#f7f7fb">
+        <h3>延伸阅读</h3>
+        <p style="margin:4px 0"><b>国内版</b> hygzz.cn —— 化债 / 征信 / 公共验算尺</p>
+        <p style="margin:4px 0"><b>国际版</b> hygzz.com —— 共济值 / 生存权 / 全球社保</p>
+        <p class="muted" style="margin:8px 0 0">本小程序内容即两站"哲学基础"板块的精简移动版。</p>
+      </div>
+      <div class="footer-note">事现鉴 · 共创论 · 公共验算尺 · 理论推演阶段</div>
+    </section>
+  </div>
+
+  <!-- tab bar -->
+  <nav class="tabbar" id="tabbar">
+    <div class="tab active" data-page="index"><span class="t-dot"></span><span class="t-ic">⌂</span><span>首页</span></div>
+    <div class="tab" data-page="philosophy"><span class="t-dot"></span><span class="t-ic">❖</span><span>哲学</span></div>
+    <div class="tab" data-page="floor"><span class="t-dot"></span><span class="t-ic">▤</span><span>共济值</span></div>
+    <div class="tab" data-page="calc"><span class="t-dot"></span><span class="t-ic">¥</span><span>算账</span></div>
+    <div class="tab" data-page="about"><span class="t-dot"></span><span class="t-ic">ⓘ</span><span>关于</span></div>
+  </nav>
+</div>
+
+<script>
+  var TITLES = {index:"事现鉴",philosophy:"哲学基础",floor:"共济值最大化",calc:"算一笔账",about:"关于"};
+  var tabs = document.querySelectorAll('.tab');
+  var pages = document.querySelectorAll('.page');
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var p = t.getAttribute('data-page');
+      tabs.forEach(function(x){x.classList.remove('active')});
+      t.classList.add('active');
+      pages.forEach(function(s){s.classList.remove('active')});
+      document.getElementById('page-'+p).classList.add('active');
+      document.getElementById('navTitle').textContent = TITLES[p];
+      document.querySelector('.screen').scrollTop = 0;
+    });
+  });
+  // live clock
+  function tick(){
+    var d = new Date();
+    var h = d.getHours(), m = d.getMinutes();
+    document.getElementById('clock').textContent = (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+  }
+  tick(); setInterval(tick, 30000);
+</script>
+</body>
+</html>

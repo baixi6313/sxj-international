@@ -1,0 +1,21 @@
+<view class="container">
+  
+
+  <view class="card" wx:if="{{events.length}}">
+    <view class="event-item" wx:for="{{events}}" wx:key="id" wx:if="{{filter === 'all' || item.type === filter}}" style="border-left: 8rpx solid {{item.typeColor}};" bindtap="goDetail" data-id="{{item.id}}">
+      <view class="event-row">
+        <text class="tag tag-{{item.type}}" wx:if="{{filter !== 'all'}}">{{item.typeLabel}}</text>
+        <text class="event-status status-{{item.status}}">{{item.statusLabel}}</text>
+      </view>
+      <view class="event-title">{{item.title}}</view>
+      <view class="event-meta">{{item.date}} · {{item.location}} · 记录人：{{item.recorder}}</view>
+      <view class="event-desc" wx:if="{{item.description}}">{{item.description}}</view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!events.length}}">
+    暂无事件，点击添加第一条
+  </view>
+
+  <view class="btn-primary" bindtap="goAdd" style="margin-top:20rpx">＋ 添加新事现</view>
+</view>

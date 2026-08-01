@@ -1,0 +1,34 @@
+{
+  "agent_id": "Kimi-Moonshot-agent",
+  "verdict": "CONDITIONAL",
+  "ledger_sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+  "checked_at": "2026-08-01",
+  "assertions": {
+    "A01": "pass",
+    "A02": "pass",
+    "A03": "pass",
+    "A04": "pass",
+    "A05": "pass",
+    "A06": "pass",
+    "A07": "pass",
+    "A08": "pass",
+    "A09": "unknown",
+    "A10": "pass",
+    "A11": "pass",
+    "A12": "pass",
+    "A13": "pass"
+  },
+  "reservations": [
+    "A09 作为网页层AI无法独立复算SHA256(无文件系统访问)",
+    "D1 耿同学分类冲突本质是哲学裂缝:学术打假=负贡献(破坏秩序)还是共济值(维护真相)需决定层裁定",
+    "evt_003占位示例建议物理隔离出正式账本",
+    "权重A+B公式/治理消失条件仍挂起,核心理论未完全闭合"
+  ],
+  "edu_protocol_opinion": {
+    "整体": "agree",
+    "以本对话档案作教学案例": "agree"
+  },
+  "dept_stance": "(a)承接:理论研发部",
+  "note": "corpus_depth=high(深度参与理论演化);判定不计入冷方门槛。建议下一轮冷方邀请 Google Gemini 与 Claude(Anthropic)。",
+  "signature": "ce0aff9e641c9715"
+}

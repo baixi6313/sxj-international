@@ -1,0 +1,62 @@
+/* theory.wxss — 事现鉴红金主题 */
+.hero{background:linear-gradient(135deg,#a23b32 0%,#c8a24b 100%);padding:48rpx 32rpx 36rpx;text-align:center}
+.hero-title{font-size:44rpx;font-weight:700;color:#f7f1e3;display:block}
+.hero-sub{font-size:28rpx;color:#e8dcc2;display:block;margin-top:12rpx}
+.hero-quote{font-size:24rpx;color:#cbb98f;display:block;margin-top:16rpx;font-style:italic}
+
+.block{padding:40rpx 32rpx;border-bottom:2rpx dashed #d9c9a8;background:#f7f1e3}
+.block-header{display:flex;align-items:center;gap:12rpx;margin-bottom:8rpx}
+.block-icon{font-size:40rpx}
+.block-title{font-size:34rpx;font-weight:700;color:#2b2b2b}
+.block-sub{font-size:24rpx;color:#666;display:block;margin-bottom:16rpx}
+.block-body{font-size:26rpx;color:#2b2b2b;display:block;line-height:1.7;margin-bottom:16rpx}
+
+/* quote */
+.quote-box{background:#2b2b2b;border-radius:12rpx;padding:20rpx 24rpx;margin-top:20rpx}
+.quote-text{font-size:24rpx;color:#cbb98f;display:block;line-height:1.7;font-style:italic}
+
+/* 三值卡片 */
+.card-list{margin-top:16rpx}
+.value-card{background:#fff;border-radius:12rpx;padding:20rpx 24rpx;margin-bottom:12rpx;border-left:8rpx solid #c8a24b}
+.card-key{font-size:36rpx;font-weight:700;color:#a23b32;display:inline-block;margin-right:12rpx}
+.card-name{font-size:28rpx;font-weight:600;color:#2b2b2b;display:block}
+.card-desc{font-size:24rpx;color:#555;display:block;margin-top:8rpx;line-height:1.6}
+.card-formula{font-size:22rpx;color:#3b5b9a;display:block;margin-top:8rpx;font-family:monospace;background:#f0f4f8;padding:8rpx 12rpx;border-radius:6rpx}
+
+/* 五卡 */
+.five-card{background:#fff;border-radius:12rpx;padding:20rpx 24rpx;margin-bottom:12rpx;border-left:6rpx solid #c8a24b}
+.five-card.ceil{border-left-color:#a23b32}
+.badge-row{display:flex;align-items:center;gap:8rpx}
+.badge-num{font-size:24rpx;color:#a23b32;font-weight:700}
+.badge-name{font-size:28rpx;font-weight:600;color:#2b2b2b}
+.badge-sub{font-size:22rpx;color:#666;display:block;margin-top:4rpx}
+.badge-desc{font-size:24rpx;color:#555;display:block;margin-top:8rpx;line-height:1.6}
+
+/* 征信对比 */
+.compare-table{margin-top:16rpx;background:#fff;border-radius:12rpx;overflow:hidden}
+.compare-row{display:flex;padding:16rpx 12rpx;border-bottom:1rpx solid #eee;font-size:22rpx}
+.compare-row.header-row{background:#2b2b2b;color:#f7f1e3;font-weight:700}
+.col-dim{flex:1.2;color:#666}
+.col-bank{flex:1.5;color:#999}
+.col-sxj{flex:1.5;color:#a23b32;font-weight:500}
+.header-row .col-dim,.header-row .col-bank,.header-row .col-sxj{color:#f7f1e3}
+
+/* 公式 */
+.formula-box{background:#2b2b2b;border-radius:12rpx;padding:16rpx 20rpx;margin-top:16rpx}
+.formula-text{font-size:24rpx;color:#cbb98f;font-family:monospace;display:block;line-height:1.8}
+
+/* 注释 */
+.note-box{background:#f0f4f8;border-radius:8rpx;padding:12rpx 16rpx;margin-top:12rpx;border-left:4rpx solid #c8a24b}
+.note-text{font-size:22rpx;color:#3b5b9a;display:block;line-height:1.6}
+
+/* 流程 */
+.flow-list{margin-top:16rpx}
+.flow-step{display:flex;align-items:flex-start;gap:16rpx;margin-bottom:16rpx}
+.flow-num{width:48rpx;height:48rpx;background:#a23b32;color:#f7f1e3;border-radius:50%;text-align:center;line-height:48rpx;font-size:24rpx;font-weight:700;flex-shrink:0}
+.flow-text{font-size:26rpx;color:#2b2b2b;line-height:1.7}
+
+/* footer */
+.footer{padding:32rpx;text-align:center;background:#2b2b2b}
+.footer-text{font-size:24rpx;color:#cbb98f;display:block}
+.footer-icp{font-size:20rpx;color:#999;display:block;margin-top:8rpx}
+.footer-four{font-size:18rpx;color:#666;display:block;margin-top:8rpx}

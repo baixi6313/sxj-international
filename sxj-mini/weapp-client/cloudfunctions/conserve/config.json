@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "openapi": []
+  },
+  "triggers": [
+    {
+      "name": "recalcAll",
+      "type": "timer",
+      "config": "0 */5 * * * * *"
+    }
+  ]
+}

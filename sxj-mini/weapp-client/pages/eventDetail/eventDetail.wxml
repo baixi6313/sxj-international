@@ -1,0 +1,128 @@
+<view class="container" wx:if="{{event}}">
+  
+
+  <!-- 转发：可验证传播 -->
+  <view class="card share-card">
+    <view class="section-title">转发 · 可验证传播</view>
+    <view class="share-tip">分享卡携带 SHA-256 锚点，接收方比对即可验真、防篡改断章取义。</view>
+    <view class="share-anchor">
+      <text class="anchor-label">锚点</text>
+      <text class="anchor-value">{{shareAnchor}}</text>
+    </view>
+    <view class="action-row" style="margin:16rpx 0 0">
+      <button class="btn-primary half" open-type="share">↗ 转发给好友</button>
+      <view class="btn-secondary half" bindtap="copyShareLink">⧉ 复制分享链接</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">事件描述</view>
+    <view class="desc-text">{{event.description}}</view>
+  </view>
+
+  <view class="card">
+    <view class="section-title">原始证据 / 链接</view>
+    <view class="desc-text">{{event.evidence}}</view>
+  </view>
+
+  <!-- 验证意见统计 -->
+  <view class="card">
+    <view class="section-title">验证团意见</view>
+    <view class="verdict-bar">
+      <view class="verdict-item support">
+        <view class="verdict-num">{{verdictStats.support}}</view>
+        <view class="verdict-label">支持</view>
+      </view>
+      <view class="verdict-item oppose">
+        <view class="verdict-num">{{verdictStats.oppose}}</view>
+        <view class="verdict-label">反对</view>
+      </view>
+      <view class="verdict-item doubt">
+        <view class="verdict-num">{{verdictStats.doubt}}</view>
+        <view class="verdict-label">存疑</view>
+      </view>
+    </view>
+    <view class="empty" wx:if="{{!verifications.length}}" style="padding:16rpx 0 0">暂无验证意见，快来表态</view>
+    <view class="verification-list" wx:else>
+      <view class="verification-item" wx:for="{{verifications}}" wx:key="_id">
+        <text class="v-badge v-{{item.verdict}}">{{item.verdictLabel || item.verdict}}</text>
+        <view class="v-body">
+          <view class="v-content">{{item.content}}</view>
+          <view class="v-meta">{{item.author}} · {{item.createdAt}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 第三层：公共层共识（自动写入，用户只读） -->
+  <view class="card consensus-card" wx:if="{{consensus}}">
+    <view class="section-title">公共共识（系统自动汇总）</view>
+    <view class="consensus-grid">
+      <view class="c-item">
+        <view class="c-num">{{consensus.credibilityScore}}</view>
+        <view class="c-label">公信力分</view>
+      </view>
+      <view class="c-item">
+        <view class="c-num">{{consensus.consensusStatus ? consensus.statusLabel : '—'}}</view>
+        <view class="c-label">共识状态</view>
+      </view>
+      <view class="c-item">
+        <view class="c-num">{{consensus.evidenceCount}}</view>
+        <view class="c-label">证据条数</view>
+      </view>
+    </view>
+    <view class="chain-hash">SHA-256：{{consensus.chainHash}}</view>
+    <view class="auto-tip">本区块由云函数根据「原始记录 + 所有人追加」实时计算并写入，任何用户无法直接修改。</view>
+  </view>
+
+  <!-- 证据 / 线索 / 进展 -->
+  <view class="card">
+    <view class="section-title">证据链与进展（所有人可追加）</view>
+    <view class="empty" wx:if="{{!evidences.length}}" style="padding:16rpx 0">暂无追加记录</view>
+    <view class="evidence-list" wx:else>
+      <view class="evidence-item" wx:for="{{evidences}}" wx:key="_id">
+        <text class="e-kind e-{{item.kind}}">{{item.kindLabel || item.kind}}</text>
+        <view class="e-body">
+          <view class="e-content">{{item.content}}</view>
+          <view class="e-meta">{{item.author}} · {{item.createdAt}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 跟贴·讨论（哈希链·非证据） -->
+  <view class="card reply-card">
+    <view class="section-title">跟贴 · 讨论</view>
+    <view class="reply-tip">讨论类跟贴进入哈希链、可回溯，但不计入证据与验证投票。结构化举证请点下方「追加证据」。当事人 ≠ 验证人。</view>
+    <view class="reply-composer">
+      <input class="reply-author" placeholder="昵称（默认匿名见证人）" value="{{replyAuthor}}" bindinput="onReplyAuthor" />
+      <textarea class="reply-input" placeholder="补充信息 / 讨论 / 线索（非结构化）" value="{{replyText}}" bindinput="onReplyInput" maxlength="500" />
+      <view class="reply-post-row">
+        <text class="reply-count">已 {{replies.length}} 条</text>
+        <view class="btn-primary small" bindtap="postReply">发布跟贴</view>
+      </view>
+    </view>
+    <view class="reply-list" wx:if="{{replies.length}}">
+      <view class="reply-item" wx:for="{{replies}}" wx:key="id">
+        <view class="reply-meta">{{item.author}} · {{item.tsShort}}</view>
+        <view class="reply-content">{{item.content}}</view>
+        <view class="reply-hash">#{{item.hashShort}}</view>
+      </view>
+    </view>
+    <view class="empty" wx:else style="padding:16rpx 0">还没有跟贴，来开个头</view>
+  </view>
+
+  <!-- 操作入口 -->
+  <view class="action-row">
+    <view class="btn-primary half" bindtap="goAddEvidence">＋ 追加证据 / 线索</view>
+    <view class="btn-secondary half" bindtap="goAddVerification">我来验证</view>
+  </view>
+
+  <view class="card" style="margin-bottom:40rpx">
+    <view class="section-title">记录信息</view>
+    <view class="meta-line">记录人：{{event.recorder}}</view>
+    <view class="meta-line">记录时间：{{event.createdAt}}</view>
+    <view class="meta-line">事件ID：{{event.id}} <text class="copy" bindtap="copyId">复制</text></view>
+    <view class="frozen-tip">原始记录已冻结，不可被任何人修改或删除；新信息请通过上方「追加证据」记录。</view>
+  </view>
+</view>

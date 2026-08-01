@@ -1,0 +1,28 @@
+<view class="page">
+  <view class="hero">
+    <view class="hero-logo">We+<text class="hero-sxj">SXJ</text></view>
+    <view class="hero-sub">数字记录服务 · 工具 &gt; 记账</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">这是什么</view>
+    <view class="para">We+SXJ 是一款数字记录工具，把您的健康饮水等社会活动与他人的协助，变成可验证、不可篡改的数字存档。基于「事现鉴」双向验证协议，每一条记录生成 SHA-256 哈希并链接前一条，形成本地哈希链。</view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">四大功能</view>
+    <view class="feat"><view class="feat-n">①</view><view>喝水量记录：自我记录每日饮水，60岁以上目标 2500ml/天，自动统计达标进度。</view></view>
+    <view class="feat"><view class="feat-n">②</view><view>协助人员确认：他人协助您喝水，经确认后双方各获数字凭证——您得共济值凭证，协助人得正贡献记录。</view></view>
+    <view class="feat"><view class="feat-n">③</view><view>协助人数排名：按已确认协助统计每位协助人帮助的人数。</view></view>
+    <view class="feat"><view class="feat-n">④</view><view>问题反馈：未达标时反馈原因，用于改善照护。</view></view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">数据说明与合规边界</view>
+    <view class="para">· 数据优先存储于本机，主权归您，可导出、可验证。</view>
+    <view class="para">· 本工具仅提供个人数字记录与存档，不含资金支付、金融服务、社保发放或商业交易。</view>
+    <view class="para">· 当前为理论推演阶段，数据用于个人记录与验证演示。</view>
+  </view>
+
+  <view class="footer">We+SXJ · 事现鉴体系 · 工具&gt;记账</view>
+</view>

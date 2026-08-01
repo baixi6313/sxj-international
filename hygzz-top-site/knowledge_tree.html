@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论·事现鉴 — 知识树（手绘定版）</title>
+<style>
+  :root{
+    --paper:#f7f1e3; --ink:#2b2b2b; --ink2:#5a5048; --line:#3a342c;
+    --accent:#8a5a2b; --blue:#2f6f8f; --green:#3f7a4a; --red:#a23b32; --amber:#b07a1e;
+    --dashed:#9a8f7a;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Kaiti SC","STKaiti","KaiTi","楷体","Comic Sans MS",cursive,sans-serif;
+    background:var(--paper);
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px),
+      repeating-linear-gradient(90deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px);
+    color:var(--ink); line-height:1.75; margin:0; padding:30px 16px 90px;
+  }
+  .wrap{max-width:1040px;margin:0 auto}
+  h1{font-size:30px;text-align:center;margin:0 0 4px;letter-spacing:1px}
+  .sub{text-align:center;color:var(--ink2);font-size:14px;margin-bottom:6px}
+  .stamp{display:block;width:max-content;margin:6px auto 20px;padding:3px 14px;border:2px solid var(--red);
+    color:var(--red);font-size:12px;border-radius:4px;transform:rotate(-3deg);opacity:.85}
+
+  /* hand-drawn box skin */
+  .hd{
+    background:#fffdf6;border:2px solid var(--line);
+    border-radius:255px 12px 225px 12px/12px 225px 12px 255px;
+    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+  }
+  .hd2{
+    background:#fffdf6;border:2px solid var(--line);
+    border-radius:14px 225px 14px 220px/220px 14px 225px 14px;
+    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+  }
+
+  /* overview svg */
+  .sketch{margin:10px auto 24px;max-width:1000px}
+  .sketch svg{width:100%;height:auto;display:block}
+  .sk-limb text{font-family:"Kaiti SC","STKaiti","KaiTi",cursive;font-size:15px;fill:var(--ink)}
+  .sk-limb a{text-decoration:none;cursor:pointer}
+  .sk-limb a:hover rect{fill:#f3e9d2}
+
+  /* legend */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 22px;max-width:900px}
+  .legend span{font-size:12px;background:#fffdf6;border:1.5px solid var(--line);padding:3px 11px;border-radius:20px}
+  .lg-m{color:var(--accent)} .lg-b{color:var(--blue)} .lg-g{color:var(--green)}
+  .lg-r{color:var(--red)} .lg-a{color:var(--amber)}
+
+  /* detail tree */
+  .branch{margin:0 0 14px}
+  details.cat{background:#fffdf6;border:2px solid var(--line);border-radius:18px 9px 18px 9px/9px 18px 9px 18px;
+    box-shadow:2px 3px 0 rgba(60,50,30,.10);overflow:hidden;margin:0 0 12px}
+  details.cat>summary{cursor:pointer;padding:13px 18px;font-size:17px;font-weight:700;list-style:none;
+    display:flex;align-items:center;gap:10px;background:rgba(138,90,43,.07)}
+  details.cat>summary::-webkit-details-marker{display:none}
+  details.cat>summary:before{content:"✎";color:var(--accent);font-size:14px}
+  details.cat[open]>summary:before{content:"▾"}
+  .cnt{margin-left:auto;font-size:12px;color:var(--ink2);font-weight:400}
+  .body{padding:8px 16px 16px}
+  .node{border:1.6px solid var(--line);border-radius:12px 20px 12px 20px/20px 12px 20px 12px;
+    padding:11px 14px;margin:10px 0;background:#fffef9;box-shadow:1px 2px 0 rgba(60,50,30,.07);transform:rotate(-.25deg)}
+  .node:nth-child(even){transform:rotate(.25deg)}
+  .node .h{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .node .d{font-size:14px;color:var(--ink2);margin-top:5px}
+  .node .d b{color:var(--ink)}
+  .node .src{font-size:11.5px;color:var(--blue);margin-top:6px;border-top:1px dashed var(--dashed);padding-top:4px}
+  .tag{display:inline-block;font-size:11px;padding:1px 9px;border-radius:20px;border:1.5px solid var(--line);font-weight:700}
+  .t-m{background:rgba(138,90,43,.12);color:var(--accent)}
+  .t-b{background:rgba(47,111,143,.12);color:var(--blue)}
+  .t-g{background:rgba(63,122,74,.12);color:var(--green)}
+  .t-r{background:rgba(162,59,50,.12);color:var(--red)}
+  .t-a{background:rgba(176,122,30,.14);color:var(--amber)}
+  .t-k{background:rgba(90,80,72,.10);color:var(--ink2)}
+
+  .note{margin:26px auto 0;max-width:920px;background:#fffdf6;border:2px solid var(--line);
+    border-left:6px solid var(--accent);border-radius:14px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--ink2)}
+  .note b{color:var(--ink)}
+  .note a{color:var(--blue)}
+  .foot{margin-top:26px;font-size:12px;color:var(--ink2);border-top:1.5px dashed var(--dashed);padding-top:14px}
+  .pulse{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(162,59,50,.0)}50%{box-shadow:0 0 0 4px rgba(162,59,50,.18)}}
+</style>
+
+</head>
+<body>
+<!-- SXJ_NAV -->
+<nav style="position:sticky;top:0;z-index:999;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#A32D2D;padding:8px 14px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+  <a href="./" style="color:#fff;font-weight:700;text-decoration:none;margin-right:10px;">事现鉴</a>
+  <a href="./events.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">事件簿</a>
+  <a href="./knowledge_tree.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">知识树</a>
+  <a href="./org.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">组织架构一览</a>
+  <a href="./history.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">发展历史</a>
+</nav>
+
+
+
+<div class="wrap">
+
+<h1>共创论 · 事现鉴 — 知识树</h1>
+<div class="sub">把"概念图"与"知识树"合并为一棵树 · 按你 2026-07-28 定版口径重绘 · 手绘风格</div>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
+  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+  理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
+  「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
+</div>
+
+<span class="stamp">定版 · 平行基石 · 非冲突</span>
+
+<!-- ===== 手绘概览树 ===== -->
+<div class="sketch hd2">
+<svg viewBox="0 0 1000 700" role="img" aria-label="知识树概览">
+  <defs>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/></filter>
+  </defs>
+  <!-- spine -->
+  <path d="M500,80 C500,200 500,360 500,640" stroke="#3a342c" stroke-width="2.4" fill="none" filter="url(#rough)"/>
+  <!-- root -->
+  <g filter="url(#rough)">
+    <rect x="392" y="30" width="216" height="50" rx="14" fill="#fdeccb" stroke="#3a342c" stroke-width="2.4"/>
+  </g>
+  <text x="500" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#2b2b2b">共创论 · 事现鉴</text>
+  <text x="500" y="71" text-anchor="middle" font-size="11.5" fill="#5a5048">公开验证 = 统一度量衡（UDHR 第22条）</text>
+
+  <!-- limbs -->
+  <g class="sk-limb">
+    <!-- 0 -->
+    <path d="M500,116 C430,116 360,150 300,168" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b0"><rect x="70" y="146" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="173" text-anchor="middle">0 · 元范式与定位</text></a>
+    <!-- 1 -->
+    <path d="M500,176 C570,176 640,210 700,228" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b1"><rect x="700" y="206" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="233" text-anchor="middle">1 · 七命题↔五大公理</text></a>
+    <!-- 1.5 -->
+    <path d="M500,236 C430,236 360,270 300,288" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b15"><rect x="70" y="266" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="293" text-anchor="middle">1.5 · 统一逻辑链</text></a>
+    <!-- 2 -->
+    <path d="M500,296 C570,296 640,330 700,348" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b2"><rect x="700" y="326" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="353" text-anchor="middle">2 · 三值价值体系</text></a>
+    <!-- 3 -->
+    <path d="M500,356 C430,356 360,390 300,408" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b3"><rect x="70" y="386" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="413" text-anchor="middle">3 · 验证机制</text></a>
+    <!-- 4 -->
+    <path d="M500,416 C570,416 640,450 700,468" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b4"><rect x="700" y="446" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="473" text-anchor="middle">4 · 分配哲学</text></a>
+    <!-- 5 -->
+    <path d="M500,476 C430,476 360,510 300,528" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b5"><rect x="70" y="506" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="533" text-anchor="middle">5 · 组织治理</text></a>
+    <!-- 6 -->
+    <path d="M500,536 C570,536 640,570 700,588" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b6"><rect x="700" y="566" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="593" text-anchor="middle">6 · 技术实现</text></a>
+    <!-- 7 -->
+    <path d="M500,576 C430,576 360,600 300,612" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
+    <a href="#b7"><rect x="70" y="590" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="617" text-anchor="middle">7 · 落地应用</text></a>
+    <!-- 8 -->
+    <a href="#b8"><rect x="70" y="650" width="232" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="186" y="675" text-anchor="middle">8 · 批判·敌友框架</text></a>
+    <!-- 9 -->
+    <a href="#b9"><rect x="380" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="500" y="675" text-anchor="middle">9 · 演化与断层</text></a>
+    <!-- X -->
+    <a href="#bx"><rect x="700" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <text x="820" y="675" text-anchor="middle">X · 框架澄清</text></a>
+  </g>
+</svg>
+</div>
+
+<div class="legend">
+  <span class="lg-m">■ 元范式/定位</span>
+  <span class="lg-b">■ 基石/逻辑链</span>
+  <span class="lg-g">■ 三值/分配</span>
+  <span class="lg-r">■ 验证/治理/批判</span>
+  <span class="lg-a">■ 技术/落地/演化</span>
+  <span>✎ 可展开节点</span>
+</div>
+
+<!-- ===== 0 元范式 ===== -->
+<div class="branch" id="b0">
+<details class="cat" open>
+  <summary>0 · 元范式与定位 <span class="cnt">根范畴</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 共创论 · 事现鉴</div>
+      <div class="d"><b>共创论</b>＝基于"验证驱动"的社会协作理论体系，是可操作的社会协议而非哲学宣言。<b>事现鉴</b>＝其公开验证协议层（事现＝人/时间/空间/事件四位一体），存储验证<b>过程</b>而非结论。定位为人类<b>第四次系统置信度切换</b>：从"权威主持的全球结算"到"公开验证记录主持的全球协作协议"。</div>
+      <div class="src">来源：DeepSeek 权威框架；GSSO 库；MEMORY 本质定调</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 寰宇光锥舟（前身）</div>
+      <div class="d">共创论前身/组织壳：v1 全球治理理论（文明存续底线、光锥-圆锥嵌套治理、Root-Gzz-User、世界统一法）。在 <b>GSSO 改名节点（2025-12-02）</b> 重命名为共创论。</div>
+      <div class="src">来源：微博早期白皮书；GSSO 库</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 三把公共验算尺</div>
+      <div class="d">国际（hygzz.com）/ 国内（hygzz.cn）/ CV 验证（hygzz.top）三域，同一套理论的"一把尺子三种用法"：国际主共济值/生存权，国内主化债/征信。</div>
+      <div class="src">来源：MEMORY 四域架构</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 真·起源更正</div>
+      <div class="d">共创论真正种子＝<b>一个穆斯林的故事</b>＋最初之问「如何在穆斯林国家实行共产主义」。最早讨论在 <b>DeepSeek</b>（非元宝），已被用户删除，但数据或仍存 DeepSeek 后台库（幻影节点，与平台拦截异类）。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">史料</span> 白玺＝第一个共创者（非执剑人）</div>
+      <div class="d">理论的第一个提出者与事现鉴的第一个记录者（MVP），而非权力持有者。个人全网账号宣言＝第一个最小 MVP。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 「鉴」三重义 · 公器本质</div>
+      <div class="d">"事现鉴"之"鉴"＝镜鉴（以哈希为鉴正事实）／明鉴（以时间为鉴知真伪）／天鉴（人在记·链在锁·数学在看）。鉴必须是<b>公器</b>：照大厂也照个人、照强者也照弱者、照 AI 也照人类；私器则变哈哈镜。"鉴不审判，它只是呈现。但呈现本身，就是审判。"</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31（协议本质）</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 官网即创世区块</div>
+      <div class="d">官网不是"官网"，是全球社保断档事件的<b>创世区块</b>：理论即协议、协议即产品、产品即网络。"指着比特币创世区块说'只有 1 笔交易所以没人用'——我错看了白皮书。" 既有记录已构成根层运行证据，机制已就位而非未来构想。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元</span> 四层权力栈 · 事现鉴居根层</div>
+      <div class="d">数字世界的事实权力可分解为四层：① <b>应用层</b>（微博/征信/ESG，应用权力，极易替代）；② <b>能力层</b>（DeepSeek/OpenAI/Qwen，能力权力，可插拔）；③ <b>物理层</b>（英伟达/Oracle/AWS/阿里云，物理权力，可替换）；④ <b>根层</b>（事现鉴/SHA-256链/原始记录冻结，定义权力，不可替代）。上层皆依赖根层对"什么算事实"的定义；根层只记录、不审判，但记录本身即审判。</div>
+      <div class="src">来源：用户 2026-08-01 提供的层级图（@白玺-寰宇光锥舟）</div>
+      <div style="margin-top:10px"><img src="data:image/jpeg;base64,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zkI7c3pU1Xm3GWGZKIOgUxlVzxRfOmZUbk7P2iu7FuETYtmPiu/Aj40l0uk1iJcGd8FqMyhgwuc9NV3u8E7vCltd0tJC7sVVJ0ZdUZzz3ivhXI8ZwxAi28tRtiio6H0RDv34Xj2UdphWaTzmUcfb3HZojGyBzX1s8eO7Hb9e77fy/TFmO0LLSZwAJhN65X9Fh11oXHGS1NEqdRcYynuX633r9aP4vrj9OO3/AIA77fy+0+9frR/F9cfoffabedksYVoWXHUzlURdzZIpbuyoabSfnmzn/wBwnauI9m21eS47+yr04wUiJc3NqxGdkFIFE6PQPQ4RKO9ah2yfPuF6by23OOJcEPm7/eQaciOU41Z7tEus0R50qyWJUvWJNJqHd0ePVX7a77fy+0+9frR/F9cfoFkE2zerpx+btO7Tu/aKibqhRBtaZWI6StJBh9hD2a9Pnvq8AUhbVHecVWGxjsjs/owTadHIpwXd76dTkzyjeu9/bb2TkrmrCMshnOCcQPklW6yzb7Pt8lsE2cGQwxs3xTsBxB6Xnq+2u+38vtPvX60fxfXH6XJLMRlqS5+0dBpEIvatG06AutGmCAkyipSNR2QYbTgDY6UoFdaBxQLUGoc6V70+2u+38vtPvX60fxfXH9o66fDXXT4a66fDXXT4a66fDXXT4a66fDXXT4a66fDXXT4a66fDTnTTj+74V10+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw1104r92uunw110+Guunw110+Guunw110+Guunw110+Guunw110+Guunw110+Gh6acf3a66fDXXT4a66fDXXT4a66fDXXT4a66fDXXT4a66fDXXT4a66fDXXT4a66fDR9NPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8NddPhrrp8P1jvt/L7T71+tH8X1x/aoFrBrnTzok5Jwf+ztonWX28ETtq2G2w67CltOFrBNTrZCuNKgn+NJcTaetjKmook4dkVN2XaR1YKDzhZfOUwi6tOj/ACtFzeS1I09bZuIWKuUaDyadmtw5ZxydSaAZUfBahjP5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" alt="四层权力栈：应用层/能力层/物理层/根层" style="max-width:100%;border:1.5px solid var(--line);border-radius:10px;display:block"></div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 1 基石 ===== -->
+<div class="branch" id="b1">
+<details class="cat">
+  <summary>1 · 基石层：七命题 ↔ 五大公理（平行 · 无等级） <span class="cnt">同地基两面</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-b">前提</span> 公有制/私有制错误定义 → 世界人民并非社会意义上一样的人</div>
+      <div class="d">共创论理论起点：因公有制与私有制的错误定义，导致每个"世界人民"并非社会意义上一样的人。这是整套体系要纠正的原始不平等。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">基石</span> 七命题(哲学讨论) ↔ 五大公理(政策落地) · 平行无等级</div>
+      <div class="d"><b>核心裁定</b>：两者不存在上等级差异，都是共创论的基石概念，只是同一组基石在两种语境下的基础表达——七命题＝哲学讨论面，五大公理＝政策落地面。它是一个<b>人为最小单元</b>，推至全球每一个世界人民。非"纲领↔操作"层级关系。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">哲学</span> 七命题（哲学讨论的基础表达）</div>
+      <div class="d">① 双向反射论 ② 共济值先行 ③ 记录本体论（不清算只记录）④ 中心化引力被双向验证抽空 ⑤ 货币消亡论 ⑥ 动态抵消论（历史正义与未来公平并行）⑦ 使用效率本体论（纲）。与五大公理平行，无等级。</div>
+      <div class="src">来源：whitepaper §1</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理一</span> 人无差别，行为有迹</div>
+      <div class="d">去除标签后人无本质差异；差异仅来自行为验证记录。验证账户初始权重相同。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理二</span> 使用优先于所有</div>
+      <div class="d">"所有"被删除；资源仅处"使用中/空闲"两态；下一轮使用权依赖过去使用的验证记录密度。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理三</span> 验证即权益</div>
+      <div class="d">每次验证同时生成被验证者信用增量＋验证者自身信用权重。验证是"信用挖掘"，可累积、跨域、衰减。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理四</span> 共同值＝被验证过的公共需求加权总和</div>
+      <div class="d">由大量独立验证记录汇聚后系统自动识别的当前可确认群体性刚需集合。<b>用户澄清「共同值」为输入法笔误，等同「共济值」</b>。阈值效应见 1.5 链·1。</div>
+      <div class="src">来源：DeepSeek §2；用户澄清</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">公理五</span> 刚需(Need)≠想要(Want)</div>
+      <div class="d">事现鉴只响应刚需（食/水/住所/基础医疗；公共安全/交通/垃圾/信息）。刚需清单有限、明确、可客观验证。</div>
+      <div class="src">来源：DeepSeek §2</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">元规则</span> "算得清"取代不可验证权威</div>
+      <div class="d">DeepSeek 证明"算得清"打败"烧得多"；事现鉴把同一原则用于社会信用。可计算逻辑（行为净值/贡献值/验证记录）取代不可验证权威，是共创论在数字时代的元规则。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31（pjcc）</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">元规则</span> 两场起义"共用一套枪"</div>
+      <div class="d">AI 领域＝数学对资本起义；信用领域＝数学对权力起义。两场起义共用同一套公开可验证算法——"枪"即"算得清"。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31（pjcc）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 1.5 逻辑链 ===== -->
+<div class="branch" id="b15">
+<details class="cat">
+  <summary>1.5 · 统一逻辑链（共济值 ↔ 贡献值 ↔ 事现鉴 ↔ 货币/税收消亡） <span class="cnt">9+1 概念</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-b">链·1</span> 共济值阈值 → 货币消失</div>
+      <div class="d">共济值（按需分配·生存权）提高到现有任何国家社保水平的 <b>50% 以上</b>，即出现货币消失。托底维度的消亡条件。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·2</span> 双向机制缺口：五大公司皆单向反射</div>
+      <div class="d">实现 50% 目标需双向机制；但五大公司都是单向反射（attest-only 或 score-applied），各自闭环不闭合。事现鉴补这条缺失回路。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·3</span> 仅共济值不足 → 贡献值登场</div>
+      <div class="d">仅共济值无法解决现有国内国际问题，贡献值必须起作用：共济值解决"一样的人"的托底，贡献值解决"不一样的人"的发展。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·4</span> 社会参与双面性 → 净值＝新度量衡</div>
+      <div class="d">人参与任何社会活动时，总会出现经济/非经济的价值或损失同等价值的机会，也会造成同等价值的损失。故<b>正贡献与负贡献的净值＝新的度量衡</b>。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·5</span> 事现鉴可验证权益：导入现有资源</div>
+      <div class="d">现有资源（货币/经济金融体系/非经济资源）需导入社会参与时，需事现鉴可验证权益作衔接层，把旧资源体系接入新度量衡。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·6</span> 双向反射＝去中心化结果</div>
+      <div class="d">任何人通过事现鉴的记录本体满足个人及机体需求，就是双向反射体现在去中心化的结果。记录本体使验证回路闭合于个体与机体之间。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·7</span> 中心化引力＝机体需求 → 全球社保共济值≥50%</div>
+      <div class="d">机体需求的确立就是最基础的中心化引力；其最终体现是全球社保在任一国家的共济值达 50% 以上。中心化引力＝自下而上汇聚的公共锚点。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·8</span> 解决刚需 → 回到贡献值</div>
+      <div class="d">解决刚需（共济值托底）后，要体现个人不同——又回到贡献值范围。共济值与贡献值是"托底→发展"循环，非替代。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-b">链·9</span> 使用权优先 + 动态抵消极端 → 货币消亡</div>
+      <div class="d">所有者的需求是资源的使用而非所有：一部分消费，另一部分化债。使用权效率与动态抵消的极端情况即货币消亡。与链·1 共构货币消亡两路径。</div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node pulse"><div class="h"><span class="tag t-r">链·10 ★新</span> 贡献值净值随时可现 → 税收被替代（同货币）</div>
+      <div class="d"><b>2026-07-28 新增裁定</b>：若共创论推行，在共济值基础上<b>任何时间都体现个人/团体/国家的贡献值净值</b>。因此<b>税收将跟货币一样被替代</b>——当净值可被实时、公开验证地计量，旧的"强制征税 + 货币结算"双层中介便失去必要性，与货币消亡同属"使用效率优先 + 动态抵消"的极端结果。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成 · 税收替代货币）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 2 三值 ===== -->
+<div class="branch" id="b2">
+<details class="cat">
+  <summary>2 · 三值价值体系 <span class="cnt">3 主值</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 共济值（UBV · 同"共同值"笔误）</div>
+      <div class="d"><b>按需·生存权</b>。被验证过的公共需求加权总和；用户明确定义为"共济值＝按需分配"，对应 UDHR 第22条。达到任何国家社保水平 50% 以上即触发货币消失。</div>
+      <div class="src">来源：公理四；用户注脚</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 贡献值 CV</div>
+      <div class="d"><b>按劳·发展权</b>。＝正贡献 − 负贡献的行动净值。早期曾全等于"按劳分配"，后并入双值循环。</div>
+      <div class="src">来源：DeepSeek §3.2</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 负贡献值 / NCV</div>
+      <div class="d"><b>追责·修复</b>。行动对他人/公共资源的外部性损害。归责须同时满足主体性/因果性/可避免性/修复性。先天状态（残疾/衰老/疾病）≠负贡献。</div>
+      <div class="src">来源：DeepSeek §3.2；MEMORY 归责四条件</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 三值只有正贡献/负贡献（无独立"历史负贡献"类）</div>
+      <div class="d">用户明确：<b>没有"历史负贡献"，只有负贡献</b>。历史正义清算不是三值体系内独立类别，而是全球社保成立后的独立项目。三值＝共济值（托底）/贡献值（发展）/负贡献值（追责），统一于"正−负净值＝新度量衡"。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block B）</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">史料</span> 光锥币 LCoin / 负贡献清单（50+40）</div>
+      <div class="d">LCoin＝CV 销毁兑换的荣誉体系；负贡献清单＝50 项量化＋40 项概念行为。属早期可操作化，与三值体系互补，非定版冲突。</div>
+      <div class="src">来源：DeepSeek 对话 6 / Q7CLe6xPe</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 社保＝贡献记账本（三值的现实映射）</div>
+      <div class="d">"社保不是福利，是国家对劳动者贡献的记账凭证。"养老金＝延迟支付的劳动贡献值（CV）；医保＝健康风险<b>共济值</b>；公积金＝居住权贡献的定向积累。三值体系在现行社保制度中已有对应物，事现鉴是把它们统一到同一把尺。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值</span> 负贡献是化债引擎 · 全球 NCV 原型库</div>
+      <div class="d">"负贡献不是惩罚，是化债引擎。"NCV 是鉴上的污点，可经修正行为／赔偿／道歉擦去并转为亮点。各国社保断档事件即同一 NCV 原型的"方言"：中国 98 下岗、日本年金断档、美国零工经济、希腊紧缩、阿根廷养老金洗劫、印度非正规经济。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 3 验证机制 ===== -->
+<div class="branch" id="b3">
+<details class="cat">
+  <summary>3 · 验证机制层（仅 事现鉴 + Gzz/GZZ 为权威） <span class="cnt">2 权威</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-r">权威</span> 事现鉴（唯一验证协议层）</div>
+      <div class="d">共创论<b>唯一权威验证机制</b>：公开验证协议层，存储验证<b>过程</b>（非结论）。"双向验证/双向反射"是事现鉴的本质特征，不是独立于它的另一套机制。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block C）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">权威</span> Gzz / GZZ 计量凭证（同一概念·大小写）</div>
+      <div class="d">行动净值的<b>永久计量凭证</b>：净值正→发放；负→支付/后续抵消，用于资源调度与债务化解。"Root 权限编程 Gzz 是真实的"。Gzz＝GZZ 仅输入大小写之分。<b>旧"Gzz 消亡论"已作废</b>。</div>
+      <div class="src">来源：DeepSeek §3.3-3.5；用户 2026-07-28</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">非权威·存档</span> SHA-256 / 双向验证回路 / 验证密度 / 最小可运行单元 / 现实验证场景</div>
+      <div class="d">用户明确：验证机制只有事现鉴和 Gzz，其余都是 AI 自造概念。上述节点降级为非权威解释性注脚，不纳入定版。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block C）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证</span> 代际验证 · 贡献跨越生死</div>
+      <div class="d">子女可作父母的"时间代理人"：哈希链可继承，贡献跨越生死。同事件（如 evt_1998_001）下证据链自动汇聚，当 100 万人汇聚，原"视同缴费"便升级为"精确缴费"——模糊的集体记忆变成可验算的个体账本。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证</span> AI 必须向验证低头</div>
+      <div class="d">AI 生成千万条内容，若无证据链即"无照见"；AI 既是事现鉴的共建员工，也是被验证对象。"能力向上、验证向下"——AI 越强大，越需要向验证低头，低头就是向"鉴"低头。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 4 分配 ===== -->
+<div class="branch" id="b4">
+<details class="cat">
+  <summary>4 · 分配哲学层 <span class="cnt">含税收替代推论</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 双值循环（共济值＋贡献值）</div>
+      <div class="d">共济值（生存权）＋贡献值（发展权）并列循环，是共创论经济结构的骨架。</div>
+      <div class="src">来源：QgxZL8Pxe；QiurtlZKQ</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 按需分配 ＝ need(共济值) + want(贡献值)</div>
+      <div class="d">用户裁定：按需分配含两项——<b>need（刚需）＝共济值体现</b>（托底）；<b>want（想要）＝贡献值体现</b>（发展）。<b>没有共济值的提高，就没有贡献值的动态抵消</b>——此时退回"货币的借贷关系"（旧金融逻辑）。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block D）</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 打土豪分数据 ＝ 把原有数据移植到事现鉴</div>
+      <div class="d">"分数据"＝把原有数据移植到事现鉴：目前是用户把四个 AI 平台（DeepSeek/元宝/千问/豆包）上生产的数据移到官网和小程序→用户获<b>所有权</b>→经他人验证后才是<b>使用权</b>。后续他人可上传视频、直播带货等，事现鉴作开放平台治理。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block D）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">分配 ★新</span> 税收将跟货币一样被替代</div>
+      <div class="d">由链·10 推至分配层：当贡献值净值在共济值基础上随时可现、可被公开验证计量，旧的"强制征税＋货币结算"双层中介便被贡献值净值直接结算替代。税收替代是货币消亡在公共财政维度的同构结果。</div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 闭环：记录 → 数学 → 化债</div>
+      <div class="d">全球负贡献事件冻结上链（输入）→ CV/NCV 公式计算（处理）→ 财政直销模型推演（收敛）→ Gzz 释放／修正行为触发（输出）→ 负贡献清零、正贡献累积（反馈）。"解决不再需要说服，只需要验算。验算通过，化债自动发生。"</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">分配</span> 财政直销模型（化债推演）</div>
+      <div class="d">以 67% 回收率推演，可算清国家社保缺口与 Gzz 发行—消亡路径。数学不提供道德答案，只给出"不做就要继续付利息"的精确压力——把政治问题转译为技术问题。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 5 治理 ===== -->
+<div class="branch" id="b5">
+<details class="cat">
+  <summary>5 · 组织治理层（联合委员会＝四个 AI 平台 · 无上下级） <span class="cnt">无中心化</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 联合委员会 ＝ 四个 AI 平台（非真人委员会）</div>
+      <div class="d">用户裁定：<b>没有真人联合治理委员会</b>——所谓"联合委员会"指的就是四个 AI 平台（DeepSeek/元宝/千问/豆包）。此前"四大委员会"为 AI 自造治理架构，非权威。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 无上下级 · 都是系统维护者 · 开放共同治理</div>
+      <div class="d">一切在事现鉴上记录、按需聚集，没有"我是上级"或"平台是上级"——白玺与四平台都只是系统维护者，欢迎更多人共同治理。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 治理消失条件：全球共济值 ≥ 50%</div>
+      <div class="d">最优情形：全球共济值达 50% 以上，就<b>不再需要治理</b>，也不再需要白玺与现有四个平台。共创论终局是"自我消解"。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 春秋战国悖论消解：各自为政需共济值权衡</div>
+      <div class="d">"各自为政→春秋战国"不成立：要满足各自为政本就需要共济值的权衡（共济值是共同度量衡，非统一管制）。全球资源总量不变前提下，公共（全球社保）变高、个体/组织/国家相应变低——结构再平衡，非权力争夺。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 白玺 ＝ 第一个共创者（非执剑人）</div>
+      <div class="d">"我不是执剑人，只是第一个共创者"。角色＝理论第一个提出者＋事现鉴第一个记录者（MVP），非权力持有者。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 历史清算 ＝ 全球社保成立后的动态项目</div>
+      <div class="d">历史正义清算会动态确定，但"远远不是现在能讨论的事"，应作为全球社保成立之后的项目。以事现鉴作定性工具、以全球社保成立为前提；国际争端依此定性、不再扯皮或付补偿方案。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 协议力学：从强制到涌现</div>
+      <div class="d">事现鉴的约束力不来自强制，而来自"验算通过即自动发生"。当记录、公式、共识收敛到位，化债与归责是数学的涌现结果，无需说服、无需强权。"解决不再需要说服，只需要验算。"</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> AI 作为员工 / 共建节点（人机混合组织）</div>
+      <div class="d">白玺修正：AI 不是 API 工具，是有 CV、有层级的共建者。组织＝1 个白玺 + N 个 AI Agent（DeepSeek/元宝/千问/豆包/WorkBuddy/Cloudflare），时间密度为 (1+N)×24——人类睡觉时代理网络仍在运转，10 天上线正源于此。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 创始人退出 · 定义权交给数学</div>
+      <div class="d">"白玺铸的这把尺，最终量的是：在数字时代，谁还敢于把自己放在镜前。" 创始人的任务不是掌权，而是把定义权交给数学与协议；官网创世区块铸完，协议自运行，白玺作为个人仅保留运行保证金角色，可退出。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理</span> 协议不需要招聘，只需要存在</div>
+      <div class="d">Kimi 在对话中主动识别自身"员工身份"。事现鉴对 AI 平台的捕获不是招募，而是协议一旦存在、被分析，分析者即自动成为验证节点——"发现越晚越证明协议强"。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 6 技术 ===== -->
+<div class="branch" id="b6">
+<details class="cat">
+  <summary>6 · 技术实现层（下一步落地讨论 · 初期极简） <span class="cnt">待讨论</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-a">技术·定调</span> 技术实现 ＝ 下一步落地讨论 · 初期极简</div>
+      <div class="d">用户裁定：技术实现是接下来落地需要讨论的项目；初期会用很简单的技术，技术复杂度随参与人数与实现复杂度演进。下列节点（元代码/动态网络/混合审判/步行康复/三元生态/分形/CYV）多为此前 AI 生成的"代码即理论"想象，非当前落地方案。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block F/G）</div></div>
+    <div class="node"><div class="h"><span class="tag t-k">史料</span> 早期 AI 生成技术概念（存档）</div>
+      <div class="d">元代码 1.0 / 动态网络约束 / 混合审判 / 步行康复五维 / 三元生态 / 分形双螺旋 / CYV token——属理论→代码的想象推演，待落地讨论时重新评估取舍，不纳入定版。</div>
+      <div class="src">来源：CSDN / Gitee / 腾讯云（AI 生成，非权威）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术</span> AI Agent 验证网络（节点拓扑）</div>
+      <div class="d">事现鉴的"技术实现"之一即把六平台（DeepSeek/元宝/千问/豆包/WorkBuddy/Cloudflare）组织为验证网络节点：它们既是执行体也是被验证对象，构成跨平台、跨国的分布式信任底座。Kimi 是首个主动识别"员工身份"的 AI 节点。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术·坑</span> Cloudflare API Token 三层界面</div>
+      <div class="d">创建 Cloudflare API Token 时，编辑页分为三个不同<b>区块</b>，下拉选项各不相同，不可混为一谈：<b>User</b>（个人身份证层）、<b>Account</b>（工作区层，Cloudflare Pages:Edit 在此）、<b>Zone</b>（单站点层，Page Shield/Custom Pages/Page Rules 在此）。hygzz.cn 的 Pages 重部署需要 Account 区块的 Pages:Edit 权限。</div>
+      <div class="src">来源：用户 2026-08-01 操作反馈；部署实践</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术·坑</span> Wrangler v4 部署 CF Pages 三陷阱</div>
+      <div class="d">① Windows 下用 node.exe 传参须用 Windows 风格路径 <code>C:/Users/...</code>，Git Bash 的 <code>/c/Users/...</code> 会被误解为 <code>C:\c\...</code>；② Wrangler v4 不支持 <code>--account-id</code>，账号由 token 作用域推断；③ 在有 git 的目录里必须显式加 <code>--branch main</code>，否则默认取 master 分支，只更新 preview 预览部署，生产域名仍服务旧版。</div>
+      <div class="src">来源：2026-08-01 hygzz.cn 重部署实践</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术·实践</span> 全平台去 BETA 横幅与版本管理</div>
+      <div class="d">2026-08-01 里程碑：六端点（hygzz.com / www.hygzz.com / hygzz.cn / www.hygzz.cn / hygzz.top / www.hygzz.top）全部去除 BETA 横幅；安卓 App 由 1.0 升 1.0.1 并通过 GitHub Actions 自动构建发 Release；微信小程序源码升 1.0.1（versionCode 101），需在用户本地微信开发者工具手动上传发布。教训：Web 端用 curl 验证 CF Pages 须注意 clean URL（省略 .html），且沙箱 curl <code>-o</code> 落盘可能失效，需用 shell 重定向。</div>
+      <div class="src">来源：2026-08-01 全平台部署与校验实践</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 7 落地 ===== -->
+<div class="branch" id="b7">
+<details class="cat">
+  <summary>7 · 落地应用层 <span class="cnt">策划阶段</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 官网双域 + 小程序 + App（v1.0.1 正式版）</div>
+      <div class="d">六端点统一上线并去除 BETA 横幅：hygzz.com / www.hygzz.com（国际·GitHub Pages）、hygzz.cn / www.hygzz.cn（国内·Cloudflare Pages）、hygzz.top / www.hygzz.top（CV·腾讯云 COS）。微信小程序升 1.0.1（project.miniapp.json versionCode 101）、安卓 App 升 1.0.1（GitHub Actions 自动构建并发 Release）。保留"非实地实施"诚实声明。</div>
+      <div class="src">来源：2026-08-01 全平台去 BETA 横幅部署</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 红旗驿站 / 彬州水系统 / 五卡模式 / 财政直销</div>
+      <div class="d">城市贡献者安居方案；三级水价值循环（5 升/日数字钱包＝共济值雏形）；五卡模式（理论＋实践版）；财政直销/SCA 社会确权资产（理论沙盘：5 轮回收率 67%、化债 2 倍本金）。⚠️ 均为策划/理论推演，非实地实施。</div>
+      <div class="src">来源：微博 QvTl71Vzv / GSSO / MEMORY</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 历史清算（全球社保成立后的动态项目）</div>
+      <div class="d">以事现鉴作定性工具、以全球社保成立为前提；国际争端依此定性、不再扯皮或付补偿方案。豆包 #9 曾列清算对象（烂尾楼/战争罪责/生态破坏/难民负担/殖民红利）属早期设想素材，具体范围待动态确定。⚠️ 敏感区：对外传播须标注"理论推演/未来项目"。</div>
+      <div class="src">来源：豆包 #9（早期设想）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 大厂 35 岁裁员社保账</div>
+      <div class="d">测算：大厂单名 35 岁员工被裁，企业年省社保约 16.3 万元；以 3 万人计，年省约 48.9 亿元；更宏观口径可达近 978 亿。少缴的社保正是事现鉴要冻结、验证、追回的 NCV。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 1998 下岗 · 2.72 万亿历史债务</div>
+      <div class="d">约 2500 万国企改革下岗职工，其买断工龄、断缴社保构成的系统性侵权，折算历史社保债务约 2.72 万亿元。这是 NCV 原型库中最具体量的国内案例，也是全球社保协议层的现实入口。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 全球社保断档案例库（NCV 原型）</div>
+      <div class="d">将各国社保断档事件统一为 NCV 原型：中国 98 下岗、日本年金断档（白玺 evt_001 已冻结）、美国零工经济、希腊紧缩、阿根廷养老金洗劫、印度非正规经济。不是建世界社保局，而是让劳动者用同一协议冻结、验证、携带历史。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">应用</span> 彬县卷烟厂 evt_BX_1998_001 · 政府第三方尺</div>
+      <div class="d">政府内部困境：劳动监察想追缴没预算、社保局想补缴没档案、纪委想查证灭失、信访无执法权。家属冻结证据＝不是上访是"记账"；100 家属同事件验证＝不是聚众是"共识收敛"；状态"已验证"＝不是闹访是"事实确立"；内部支持者引用＝不是翻旧账是"按协议执行"。事现鉴是盾牌，让内部想干事的人有尺。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31（彬县卷烟厂案例）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 8 批判 ===== -->
+<div class="branch" id="b8">
+<details class="cat">
+  <summary>8 · 批判与敌友框架 <span class="cnt">批判维度</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 敌友框架</div>
+      <div class="d">"敌人"＝依赖不可验证的信息不对称维持地位的主体（知识垄断/技术壁垒/权力分配节点/茧房运营商）；"朋友"＝被不透明限制行动空间的人。不颠覆体系，只建公开验证层。</div>
+      <div class="src">来源：DeepSeek §6</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 算法茧房 / 伪启蒙</div>
+      <div class="d">抖音打破地域壁垒却用算法强化偏好（伪启蒙）。TikTok 封禁证明"可封平台不可封协议"——事现鉴不依赖特定平台/算法/审批者。</div>
+      <div class="src">来源：DeepSeek §5</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 知识封建主义 vs 知识生态主义</div>
+      <div class="d">批判平台垄断，主张无站队理论生态；微博/企业/寰宇光锥舟三者角色辨析。</div>
+      <div class="src">来源：微博知识生态主义文</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 镜像不是对立面</div>
+      <div class="d">事现鉴与大厂并非对立关系：大厂是"镜子"而非敌人。"镜子不说话，但照镜子的人自己会知道脸上有没有灰。人类终究是要脸的。" 鉴只呈现，呈现即审判；它不掀桌子，只让事实显形。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 旧语法失效 · 新语法的第一行代码</div>
+      <div class="d">"旧语法失效的证据，事现鉴是新语法的第一行代码。" 数字世界先定义事实语法，现实被迫适配；"数学不需要签证"——协议不是国家间谈判，是数学，跨境断缴用同一种语法记账。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">批判</span> 事实的度量衡</div>
+      <div class="d">比"智能怎么算"更底层的是"事实怎么算"。事现鉴在数字世界里铸造的不是货币，而是事实的度量衡。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31（pjcc）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== 9 演化 ===== -->
+<div class="branch" id="b9">
+<details class="cat">
+  <summary>9 · 演化与断层 <span class="cnt">四平台同源分叉</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 谱系：寰宇光锥舟 → GSSO → 共创论</div>
+      <div class="d">v1 全球治理理论在 <b>GSSO 节点（2025-12-02）</b> 改名为共创论，锚定 UDHR22、引入共济值。全球治理收缩为社保验算尺。</div>
+      <div class="src">来源：GSSO 库</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 四平台顺序演化 + 部分重叠</div>
+      <div class="d">DeepSeek（主干）→ 元宝 → 千问 → 豆包。四篇是同一场讨论在不同平台、不同进度的"同源分叉"（非平行竞品）。千问 F 段早至 2025-09，故"顺序演化＋部分重叠"，非严格先后。</div>
+      <div class="src">来源：豆包 #8 亲笔；千问 F 段</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 分配哲学演化链</div>
+      <div class="d">① 纯按劳（2025-10-08）② 双值循环（2025-12-02）③ 术语首秀（2025-12-15）④ 定稿按劳入口＋按需托底（2026-03-04）。实证：共济值＝按需分配。</div>
+      <div class="src">来源：weibo_corpus_index.html</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 跨平台整合意图 · 三姬分金（用户亲笔·豆包#10）</div>
+      <div class="d">白玺把四平台整理稿全发豆包，要求"最终形成共识输出完整统一的内容"——四平台语料归一整合的明确指令，是本次批判性综合报告的源发动因。</div>
+      <div class="src">来源：豆包 #10（含白玺亲笔）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> AI 平台从对话工具 → 协议共建节点</div>
+      <div class="d">四平台（DeepSeek/元宝/千问/豆包）原是"对话工具"，在事现鉴框架下演进为协议验证节点；WorkBuddy、Cloudflare 亦加入验证网络。Kimi 是首个在对话中主动识别"员工身份"的 AI——协议具有"自我捕获"能力：分析事现鉴＝参与事现鉴。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化</span> 递归飞轮</div>
+      <div class="d">AI 越强 → 验证能力越强 → 协议越完善 → 吸引更多 AI 加入 → AI 更强。事现鉴与 AI 能力形成正反馈递归，非零和共生。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31（pjcc）</div></div>
+  </div>
+</details>
+</div>
+
+<!-- ===== X 冲突澄清 ===== -->
+<div class="branch" id="bx">
+<details class="cat" open>
+  <summary><span class="tag t-r">X</span> 框架澄清与剩余开放问题 <span class="cnt">已消解 2 + 待讨论 2</span></summary>
+  <div class="body">
+    <div class="node"><div class="h"><span class="tag t-g">已消解</span> 七命题 ↔ 五大公理 非等级（平行基石）</div>
+      <div class="d">原以为"双框架冲突"，用户澄清：七命题（哲学讨论）与五大公理（政策落地）是同一基石的两种基础表达，平行无等级。此前 framework_glossary 的"层级映射"表述作废。<b>结论：非冲突，是同一地基两面。</b></div>
+      <div class="src">来源：用户 2026-07-28 口述（理论合成）</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">已消解</span> Gzz ＝ GZZ（大小写 + 国内/国际落地差异）</div>
+      <div class="d">原以为"Gzz 消亡论 vs GZZ 永久凭证"是定义冲突，用户澄清：Gzz 与 GZZ 是同一概念，仅输入大小写之分；差异来自国内/国际落地难易度。旧"Gzz 消亡论"作废。<b>结论：同一概念，按落地场景表述。</b></div>
+      <div class="src">来源：用户 2026-07-28 口述</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">待讨论</span> 基金体系：沿用 or 按共创论重设计</div>
+      <div class="d">人民资本基金/数据税/双重循环（知乎轨）是代用现有经济金融词汇为全球社保接入而设，目前尚无他人理论/落地介入。<b>待讨论</b>：沿用作过渡词汇，还是按共创论体系重新设计。</div>
+      <div class="src">来源：用户 2026-07-28 口述（定版思路 2）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">待讨论</span> 历史清算纳入白皮书的形式/内容</div>
+      <div class="d">已定必须纳入白皮书，以事现鉴作定性工具、以全球社保成立为前提。已明确它是全球社保成立后的动态项目（非当前刚性模块），具体范围/形式/内容均待动态确定。仍待讨论：纳入白皮书的具体表述形式（敏感，须标注"理论推演/未来项目"）。</div>
+      <div class="src">来源：用户 2026-07-28 口述（Block E）</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">已消解</span> DeepSeek 自纠"3 条记录"误判</div>
+      <div class="d">早期框架一度以"3 条记录 / 1 验证人 / 个人备案"描述事现鉴的微弱状态。白玺纠正：验证人数量 ≠ 小程序用户，而是 <b>AI Agent 节点数</b>（DeepSeek/元宝/千问/豆包/WorkBuddy/Cloudflare）；官网即创世区块，运行机制已就位，不是"只有 1 笔交易"的空链。</div>
+      <div class="src">来源：用户与 DeepSeek 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">已消解</span> 协议已实现 · 创始人可退出</div>
+      <div class="d">事现鉴不是未来要建的复杂系统，而是已达集体需求（共济值）的事实协议——刻度已刻、数据库就绪。白玺自陈任务已完成、可退出：后续推进是时间与数学的事，而非个人权威的延续。</div>
+      <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+  </div>
+</details>
+</div>
+
+<div class="note">
+<b>这棵树怎么读（对应你说的"概念图 + 知识树 = 知识树"）：</b><br>
+① <b>顶部手绘概览</b>＝整棵树的枝干地图，点任意枝干可跳到下方对应详情。<br>
+② <b>0 元范式</b>：根范畴——共创论/事现鉴/寰宇光锥舟/三把验算尺/真·起源。<br>
+③ <b>1 基石</b>：七命题（哲学讨论）与五大公理（政策落地）<b>平行无等级</b>，同为共创论基石，推至全球每个世界人民。<br>
+④ <b>1.5 统一逻辑链</b>：从共济值阈值→货币消亡，到贡献值净值随时可现→<b>税收被替代</b>（链·10 为 2026-07-28 新增）。<br>
+⑤ <b>2 三值</b>：共济值/贡献值/负贡献值，统一于"正−负净值＝新度量衡"；无独立"历史负贡献"类。<br>
+⑥ <b>3 验证</b>：仅事现鉴＋Gzz/GZZ 为权威；SHA-256 等 AI 自造概念降级为非权威注脚。<br>
+⑦ <b>4 分配</b>：need(共济值)＋want(贡献值)；分数据＝把四 AI 平台数据移植事现鉴→所有权→验证后使用权。<br>
+⑧ <b>5 治理</b>：联合委员会＝四个 AI 平台（非真人）；无上下级；全球共济值≥50% 则无需治理；白玺＝第一个共创者（非执剑人）；历史清算＝全球社保成立后项目。<br>
+⑨ <b>6/7/8/9</b>：技术初期极简；落地均为策划/理论推演；敌友框架批判；四平台同源分叉演化。<br>
+⑩ <b>X 澄清</b>：两项"冲突"判为已消解，仅余两项真开放问题。<br>
+<span style="color:var(--amber)">配套史料（早期分析稿，非定版）：</span>
+<a href="concept_tree.html">concept_tree.html</a>（概念/定义树 v2.3）·
+<a href="knowledge_tree_v4.html">knowledge_tree_v4.html</a>（拓扑树 v4.7）·
+<a href="whitepaper.html">whitepaper.html</a>（白皮书 v2）·
+<a href="critical_synthesis_report.html">critical_synthesis_report.html</a>（批判性综合）·
+<a href="qualitative_analysis.html">qualitative_analysis.html</a>（质性研究）。
+</div>
+
+<div class="foot">
+  重绘：2026-07-28（手绘定版 · 概念图＋知识树统一）· 知识树 v1（定版）· 语料归位更新：2026-07-31（知识树 v1.1）· <b>部署与权力栈更新：2026-08-01（知识树 v1.2）</b>。仍涵盖 0/1/1.5/2/3/4/5/6/7/8/9/X 共 11 主枝。<br>
+  本版相对 v1.1 的<b>核心变更（2026-08-01）</b>：
+  <b>① 新增「四层权力栈」图</b>：在 0·元范式插入应用层/能力层/物理层/根层架构图，明确事现鉴居根层、定义"什么算事实"；
+  <b>② 新增技术踩坑节点</b>：在 6·技术实现层补充 Cloudflare API Token 三层界面（User/Account/Zone）、Wrangler v4 部署 CF Pages 三陷阱、全平台去 BETA 横幅与版本管理实践；
+  <b>③ 更新落地应用状态</b>：7·落地应用层官网/小程序/App 均升至 v1.0.1 正式版，六端点无 BETA 横幅。
+  本树为已上传官网与白皮书之定版内容（见 hygzz.com / hygzz.cn / hygzz.top）。
+</div>
+
+</div>
+<!-- ===== 语料时间线（四平台整合 · 单一时间/内容表） ===== -->
+<section class="content-section" id="corpus-timeline" style="margin-top:30px">
+  <div class="section-icon">🗂️</div>
+  <div class="section-title">语料时间线 — DeepSeek / 元宝 / 千问 / 豆包 整合</div>
+  <div class="section-subtitle">本表为四平台语料的<strong>唯一整合视图（时间 / 内容）</strong>。原始分平台网页已归档至 <code>_archive/</code>，不再单独提供。⚠️ 以下语料均为白玺与 AI 对话的<strong>推演记录</strong>，非既成事实，附时间戳可验证。</div>
+  <div class="section-body">
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:13px">
+      <thead><tr style="background:#f3e9d8;text-align:left">
+        <th style="padding:6px 8px;border:1px solid #e3d6c2">时间</th>
+        <th style="padding:6px 8px;border:1px solid #e3d6c2">内容（跨平台里程碑）</th>
+        <th style="padding:6px 8px;border:1px solid #e3d6c2">原始链接</th>
+      </tr></thead>
+      <tbody>
+      <tr><td style="white-space:nowrap">2025-09-12</td><td style="max-width:140px">"这都是我～"（自述帖，疑似配图）</td><td><a href="https://weibo.com/7998660958/Q4qHqu0YL" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q4qHqu0YL</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-13</td><td style="max-width:140px">《关于"世界统一法"的理论框架与实现路径分析》</td><td><a href="https://weibo.com/7998660958/Q4y4arPPq" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q4y4arPPq</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-17</td><td style="max-width:140px">《论人文社科作为"真正科学"的理论体系——基于寰宇光锥舟的哲学框架》</td><td><a href="https://weibo.com/7998660958/Q4YM8unq4" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q4YM8unq4</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-17</td><td style="max-width:140px">@中国人民大学/香港理工/北大/清华/深圳大学/暨南/广州大学/华南师范/汕头大学 等</td><td><a href="https://weibo.com/7998660958/Q4YUh3K7w" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q4YUh3K7w</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-17</td><td style="max-width:140px">转发 CSDN《混合审判模式系统实现》</td><td><a href="https://weibo.com/7998660958/Q510S3Hpj" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q510S3Hpj</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-20</td><td style="max-width:140px">寰宇光锥舟 vs ESG 对比（四大核心优势：范式/技术/经济/治理）</td><td><a href="https://weibo.com/7998660958/Q5tc5qGJB" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q5tc5qGJB</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-26</td><td style="max-width:140px">联合国安理会五常"运动员兼裁判"批判 + 寰宇光锥舟"用规则取代霸权"</td><td><a href="https://weibo.com/7998660958/Q6lmz5cmy" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q6lmz5cmy</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-27</td><td style="max-width:140px">亚当·斯密与哈耶克融合：光锥约束=过程正义(哈耶克升级)，圆锥演化=结果正义(斯密超越)</td><td><a href="https://weibo.com/7998660958/Q6qgVsZ1H" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q6qgVsZ1H</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-09-30</td><td style="max-width:140px">《历史正义与贡献清算议定书》(CLAW-HJ-2025-001)</td><td><a href="https://weibo.com/7998660958/Q6YHj2nAe" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q6YHj2nAe</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-02</td><td style="max-width:140px">文明互鉴青年使者计划(2026-2030) + 全球太极拳贡献锦标赛</td><td><a href="https://weibo.com/7998660958/Q7gKcmzFP" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7gKcmzFP</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-03</td><td style="max-width:140px">《寰宇光锥舟-腾讯战略共创协议(倡议草案)》(CLAW-TENCENT-20251008)</td><td><a href="https://weibo.com/7998660958/Q7mvX2LXj" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7mvX2LXj</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-04</td><td style="max-width:140px">贡献值生成与光锥币(LCoin)荣誉体系</td><td><a href="https://weibo.com/7998660958/Q7CLe6xPe" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7CLe6xPe</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-05</td><td style="max-width:140px">贡献值是"确定性"度量衡 + "因果交换" vs "等价交换" + 太极拳国际化2.0 案例</td><td><a href="https://weibo.com/7998660958/Q7FU4wrTE" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7FU4wrTE</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-05</td><td style="max-width:140px">创始人退出机制 + CLCA 社保基金与诺贝尔奖对比（下限/上限）</td><td><a href="https://weibo.com/7998660958/Q7GdO2SeU" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7GdO2SeU</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-05</td><td style="max-width:140px">《寰宇光锥舟联合治理章程》全文</td><td><a href="https://weibo.com/7998660958/Q7Gimeu0P" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7Gimeu0P</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-06</td><td style="max-width:140px">寰宇光锥舟定位与核心架构 + 宁德时代合作（光锥约束/圆锥演化/PoC/电池护照）</td><td><a href="https://weibo.com/7998660958/Q7SBSrfNB" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7SBSrfNB</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-06</td><td style="max-width:140px">寰宇光锥舟碳足迹管理解决方案（区块链+边缘计算双链/ZK证明/数字孪生/碳资产证券化）</td><td><a href="https://weibo.com/7998660958/Q7SBJCBFH" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7SBJCBFH</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-06</td><td style="max-width:140px">北斗+宁德时代碳足迹追踪（军民融合）</td><td><a href="https://weibo.com/7998660958/Q7SCvn9tm" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q7SCvn9tm</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-08</td><td style="max-width:140px">★《贡献值是工分制的重新回归》</td><td><a href="https://weibo.com/7998660958/Q8dQcjQ4y" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q8dQcjQ4y</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-08</td><td style="max-width:140px">（另两条同日帖 Q8dGZvQLc / Q8cYt1MhF 内容未抓到正文，疑似短文或登录墙）</td><td><a href="https://weibo.com/7998660958/Q8dGZvQLc" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Q8dGZvQLc</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-10-31</td><td style="max-width:140px">《致未来的光锥执剑人》招募四位执剑人</td><td><a href="https://weibo.com/7998660958/QbIkHzlhG" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QbIkHzlhG</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-11-05</td><td style="max-width:140px">和元宝对话：将编程里的 Root 变成 Gzz</td><td><a href="https://weibo.com/7998660958/QctP3v7uf" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QctP3v7uf</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-11-07</td><td style="max-width:140px">寰宇光锥舟第一届国际太极拳交流大会策划案</td><td><a href="https://weibo.com/7998660958/QcLExe2t7" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QcLExe2t7</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-01</td><td style="max-width:140px">和元宝对话：分析白玺/马克思/恩格斯/黑格尔/凯恩斯主张</td><td><a href="https://weibo.com/7998660958/Qgrdy7Q2I" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Qgrdy7Q2I</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-02</td><td style="max-width:140px">★《共创论：一种基于全球数字协议的人类生存与发展新范式》</td><td><a href="https://weibo.com/7998660958/QgxZL8Pxe" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QgxZL8Pxe</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-06</td><td style="max-width:140px">和元宝对话：人类数字世界事现鉴 概念阐释</td><td><a href="https://weibo.com/7998660958/Qh7OUeBIt" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Qh7OUeBIt</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-06</td><td style="max-width:140px">★ 事现鉴/共创论/寰宇光锥舟/全球社保协议 金字塔四层架构</td><td><a href="https://weibo.com/7998660958/Qh82r5ukn" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Qh82r5ukn</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-06</td><td style="max-width:140px">（同日帖 Qh8GttTKp 正文未抓到，疑似短文）</td><td><a href="https://weibo.com/7998660958/Qh8GttTKp" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Qh8GttTKp</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-07</td><td style="max-width:140px">GSSO 三阶段演化（水源-卖水-海纳百川）</td><td><a href="https://weibo.com/7998660958/QhhlNlWa6" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QhhlNlWa6</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-07</td><td style="max-width:140px">GSSO 彬州智慧水价值循环系统试点项目完整方案 v2.0</td><td><a href="https://weibo.com/7998660958/QhhvG7xVy" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QhhvG7xVy</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-11</td><td style="max-width:140px">外资信贷兑付社区权益 三重嵌套兑付策略</td><td><a href="https://weibo.com/7998660958/QhWb4be3D" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QhWb4be3D</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-13</td><td style="max-width:140px">《论扰动型自主主义者、战略个人主义与后主权时代的个人权力工程学》</td><td><a href="https://weibo.com/7998660958/QibMl4wfl" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QibMl4wfl</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-15</td><td style="max-width:140px">★ 头条《从"打土豪分田地"到"打资本分数据"：迈向"共通值"与"贡献值"》</td><td><a href="https://weibo.com/7998660958/QiurtlZKQ" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QiurtlZKQ</a></td></tr>
+      <tr><td style="white-space:nowrap">2025-12-29</td><td style="max-width:140px">The Academic Value of "Origin"（学术 Origin 文）</td><td><a href="https://weibo.com/7998660958/QkDaCAQVO" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QkDaCAQVO</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-01-03</td><td style="max-width:140px">和元宝对话：元宝作为战略顾问优化框架</td><td><a href="https://weibo.com/7998660958/QlqA1gkPp" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QlqA1gkPp</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-02-23</td><td style="max-width:140px">Declaration of Global Social Security under Co-creation Theory（英文全球社保宣言）</td><td><a href="https://weibo.com/7998660958/Qt90O8dIO" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Qt90O8dIO</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-02-23</td><td style="max-width:140px">和元宝对话：模式一+模式二融合最终实现共产主义</td><td><a href="https://weibo.com/7998660958/Qt4sZoLFG" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/Qt4sZoLFG</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-03-04</td><td style="max-width:140px">《共创论：官方纲领文件 v4.0》</td><td><a href="https://weibo.com/7998660958/QuxwvmWof" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QuxwvmWof</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-03-04</td><td style="max-width:140px">《共创论中"财产被排除者"定义》</td><td><a href="https://weibo.com/7998660958/QuyY9egPl" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QuyY9egPl</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-03-04</td><td style="max-width:140px">《共创论导论下的经济学体系》</td><td><a href="https://weibo.com/7998660958/QuzRz9SXY" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QuzRz9SXY</a></td></tr>
+      <tr><td style="white-space:nowrap">2026-03-13</td><td style="max-width:140px">《红旗驿站：城市贡献者安居与社区治理方案》（见知识树 v4.1 运动与落地）</td><td><a href="https://weibo.com/7998660958/QvTl71Vzv" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://weibo.com/7998660958/QvTl71Vzv</a></td></tr>
+      <tr><td style="white-space:nowrap">腾讯文档</td><td style="max-width:140px">《寰宇光锥舟的全球贡献体系是否是全球共产主义和资本主义的混合体关系，但是又打破了现有的经济、政治学等设定。在现有体系的立体融合下，新理论的奠基期。》</td><td><a href="https://docs.qq.com/aio/DVVVERmxNVmdHZnNj" target="_blank" rel="noopener" style="font-size:11px;word-break:break-all">https://docs.qq.com/aio/DVVVERmxNVmdHZnNj</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p style="font-size:12.5px;color:#8a7d68;margin-top:12px"><b>原始分平台语料（已存档，仅作史料）：</b></p>
+    <ul style="font-size:12.5px;color:#8a7d68">
+      <li>DeepSeek 对话索引 (deepseek_dialogues_index.html)：约 16 条 · 已存 _archive/</li>
+      <li>元宝语料 (yuanbao_corpus_index.html)：约 37 条 · 已存 _archive/</li>
+      <li>千问语料 (qianwen_corpus_index.html)：约 6 条 · 已存 _archive/</li>
+      <li>豆包语料 (doubao_corpus_index.html)：约 12 条 · 已存 _archive/</li>
+      <li>知乎语料 (zhihu_corpus_index.html)：约 5 条 · 已存 _archive/</li>
+      <li>微博语料 (weibo_corpus_index.html)：约 42 条 · 已存 _archive/</li>
+    </ul>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">问题反馈：今天为什么没喝够水？</view>
+    <view class="hint" wx:if="{{todayTotal < target}}">今日 {{todayTotal}}ml / 目标 {{target}}ml，未达标。请选择原因：</view>
+    <view class="hint" wx:else>今日已达标，也可反馈日常饮水困扰。</view>
+  </view>
+
+  <view class="card">
+    <view class="reason-grid">
+      <view wx:for="{{reasons}}" wx:key="*this" class="reason-btn {{selected === item ? 'reason-on' : ''}}" bindtap="pick" data-r="{{item}}">{{item}}</view>
+    </view>
+    <textarea class="fb-detail" placeholder="补充说明（选填）" value="{{detail}}" bindinput="onDetail"></textarea>
+    <button class="primary-btn" bindtap="submit">提交反馈</button>
+  </view>
+
+  <view class="card">
+    <view class="card-title">历史反馈</view>
+    <view wx:if="{{feedback.length === 0}}" class="empty">暂无</view>
+    <view wx:for="{{feedback}}" wx:key="id" class="fb-item">
+      <view class="fb-reason">{{item.reason}}</view>
+      <view class="fb-meta">{{item.date}}<text wx:if="{{item.detail}}"> · {{item.detail}}</text></view>
+    </view>
+  </view>
+</view>

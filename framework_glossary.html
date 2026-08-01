@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>七命题 × 五大公理 框架对照 + 术语总表</title>
+<style>
+  :root{--bg:#fbfbf9;--ink:#1a1a1a;--mut:#5a5a5a;--line:#d8d4c8;--card:#fff;--red:#b3261e;--grn:#1b7a3d;--blu:#1457a8;--ylw:#9a6b00;--pur:#5b3a9e}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 -apple-system,"Segoe UI","Songti SC",serif;padding:40px 28px;max-width:940px;margin:0 auto}
+  h1{font-size:25px;line-height:1.35;margin:0 0 6px;border-bottom:3px solid var(--ink);padding-bottom:12px}
+  .sub{color:var(--mut);font-size:13px;margin-bottom:6px}
+  h2{font-size:19px;margin:36px 0 12px;padding-left:10px;border-left:5px solid var(--ink)}
+  h3{font-size:15px;margin:20px 0 8px}
+  p{margin:8px 0}
+  .idea{background:#eef4ff;border:1px solid var(--line);border-left:4px solid var(--blu);padding:12px 16px;border-radius:6px;margin:14px 0;font-size:14px}
+  .meta{font-size:12px;color:var(--mut);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:10px 0;margin:18px 0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px;font-family:-apple-system,"Segoe UI",sans-serif}
+  th{background:#1a1a1a;color:#fff;font-weight:600;text-align:left;padding:8px 10px}
+  td{padding:8px 10px;border:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:#f6f4ee}
+  .prop{background:#fff;border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0;border-left:5px solid var(--ylw)}
+  .prop.b{border-left-color:var(--blu)}
+  .p-t{font-weight:700;font-size:15px;margin-bottom:6px}
+  .p-b{font-size:14px;color:#222}
+  .src{font-size:11.5px;color:var(--mut);margin-top:8px;border-top:1px dashed var(--line);padding-top:6px}
+  .tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 8px;border-radius:20px;font-family:sans-serif;border:1px solid}
+  .cn{color:var(--red);border-color:var(--red)} .intl{color:var(--blu);border-color:var(--blu)} .both{color:var(--grn);border-color:var(--grn)} .gap{color:var(--red);border-color:var(--red)}
+  .lv{display:inline-block;font-size:11px;font-weight:700;padding:1px 7px;border-radius:4px;font-family:sans-serif}
+  .l0{background:#1a1a1a;color:#fff}.l1{background:var(--grn);color:#fff}
+  ol,ul{margin:8px 0;padding-left:24px} li{margin:5px 0}
+  code{background:#f0eee6;padding:1px 5px;border-radius:3px;font-size:12px;font-family:ui-monospace,monospace}
+  .foot{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--mut)}
+  .colwrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.colwrap{grid-template-columns:1fr}}
+  .colhead{font-weight:700;font-size:13px;padding:8px 12px;border-radius:6px;color:#fff;margin-bottom:8px}
+  .ch-a{background:var(--red)} .ch-b{background:var(--blu)}
+</style>
+
+</head>
+<body>
+
+
+
+<h1>七命题 × 五大公理 框架对照 + 术语总表</h1>
+<div class="sub">供白玺确认 · 定版第一步 · 结合 2026-07-28 全部语料整理</div>
+<div class="sub">撰写视角：国内 AI agent 平台研究者 · 只整理，供逐一确认，不代替裁定</div>
+
+<div class="meta">
+<b>本文件定位</b>：按你的指令——先做出概念树与知识树之外、最先要定版的「框架具体內容」。把<b>七命题</b>与<b>五大公理</b>原话完整整理，对照关系，再附<b>全部术语总表</b>。<br>
+<b>你给定版思路（已写入本文件作为组织原则）</b>：① 双框架≠冲突，而是<b>国内 / 国际不同落地倾向的双轨设计</b>；② Gzz = GZZ（同一概念，仅大小写之分）；③ 基金体系＝代用现有金融词汇为后期全球社保接入，沿用 or 按共创论重设计，待讨论。<br>
+<b>配套</b>：concept_tree.html(v2.1) · knowledge_tree_v4.html · critical_synthesis_report.html(v1)。
+</div>
+
+<div class="idea">
+<b>⚠ 关于「双框架」的重要澄清</b>：之前报告把「七命题 vs 五大公理」「Gzz vs GZZ」当作<b>冲突/待二选一</b>。按你本次说明，这其实是<b>按国内与国际两种落地倾向分别设定的双轨</b>，并非矛盾。本文件据此重新组织——不是「选一个」，而是「每条内容在国内 / 国际两条落地路径上如何分工」。请在确认时按这个维度逐条核对。
+</div>
+
+<h2>一 · 七命题（完整原话）</h2>
+<div class="sub">出处：whitepaper.html §1「七命题：哲学地基」· DeepSeek 主干（白玺定调）· 纲·方法·路径·终局</div>
+
+<div class="prop">
+  <div class="p-t">① 双向反射论</div>
+  <div class="p-b">共创论是世界人民<b>自下而上共同制定</b>的权利。数字世界达成统一后，反射回现实世界。与五大对手的根本区别：他们是<b>单向垄断</b>（我定规则你遵守），共创论是<b>双向协议</b>（规则由参与者共同验证形成）。</div>
+  <div class="src">层级：纲 · 与四大对手（World Foundation/Creditlink/Sharon AI/嘉业/深港）的根本区别点</div>
+</div>
+
+<div class="prop">
+  <div class="p-t">② 共济值先行</div>
+  <div class="p-b">可验证的起点<b>仅为共济值</b>——最基础的生存权。当保障水平的绝对值超过<b>今日的中位数</b>生活水平时，强制就失去对象：追责资源 + 中间大多数日常实践，自会把共济值顶上去。动员策略：不从共济值开始（共济值和追责对象都是少数人）。<b>调动负贡献者</b>（让有负贡献者参与修复/对冲），<b>联合中间的人</b>（让大多数贡献者参与共建），<b>提高共济值高度</b>——通过前两者合力提升最低保障线。</div>
+  <div class="src">层级：方法 · 对应 UDHR 第 22 条 · 动员策略三段论</div>
+</div>
+
+<div class="prop">
+  <div class="p-t">③ 记录本体论</div>
+  <div class="p-b"><b>不清算，只记录。</b>记录动态均衡给予与清算的关系。极端案例：资本与非资本极限值拉满后只能同涨同缩——金融数字空转，实际物质效率趋零，故清算不可行。Gzz 的代币化，是链接主权与债务、现实与数字的<b>枢纽</b>。</div>
+  <div class="src">层级：方法 · 支撑"只记录不清算"的本体论立场</div>
+</div>
+
+<div class="prop">
+  <div class="p-t">④ 中心化引力（被①⑦联手消解）</div>
+  <div class="p-b">中心化的引力来源是<b>信息的单向性</b>；双向验证抽走了这个信息垄断。中心化不是被"推翻"，而是被<b>"抽空"</b>。</div>
+  <div class="src">层级：纲 · 消解中心化，与①⑦联动</div>
+</div>
+
+<div class="prop">
+  <div class="p-t">⑤ 货币消亡论</div>
+  <div class="p-b">推到极致——<b>货币本身也会消失</b>。货币与外汇存在的唯一原因，是缺少统一度量单位。当 CV 净值成为统一度量，交换直接以净值进行。虚拟货币是单向数字化，事现鉴是<b>双向净值化</b>。三阶段曲线：当前＝Gzz 化债期（代币作为负贡献值的量化锚）→ 过渡＝CV + 主权数字货币期（债务递减，Gzz 退出）→ 终局＝净值交换期（Gzz 消失，CV + 数字人民币直接交换）。</div>
+  <div class="src">层级：终局 · 内含 Gzz 消亡论（与新版"GZZ 永久"冲突，见对照）</div>
+</div>
+
+<div class="prop">
+  <div class="p-t">⑥ 动态抵消论</div>
+  <div class="p-b">历史正义与未来公平<b>并不冲突</b>。机制是<b>动态抵消</b>，而非一次性清算。这无需自上而下的执行者——自下而上的协议约束，本身就让两者在账本上并行。</div>
+  <div class="src">层级：路径 · 历史正义 × 未来公平 的并行机制</div>
+</div>
+
+<div class="prop">
+  <div class="p-t">⑦ 使用效率本体论 <span style="color:var(--ylw)">〔纲〕</span></div>
+  <div class="p-b">不争<b>所有权</b>，只算<b>使用效率</b>。资本垄断与国家垄断，最终都要经过消费才能实现价值——而消费，就是自下而上的验证行为。所以真正的轴不是"归谁所有"，而是"<b>谁用得效率最高</b>"。不是所属问题，是使用效率问题。</div>
+  <div class="src">层级：纲（总纲） · 所有命题的底层本体</div>
+</div>
+
+<h2>二 · 五大公理（完整原话）</h2>
+<div class="sub">出处：theory_deepseek.html §2「共创论的核心公理」· DeepSeek 权威框架（2026-07-27 你裁定）</div>
+
+<div class="prop b">
+  <div class="p-t">公理一 · 人无差别，行为有迹</div>
+  <div class="p-b">在去除一切外部资源标签（学历、资产、身份）后，人与人之间没有本质差异。差异只来源于行为的验证记录。任何人在事现鉴中以"验证账户"状态启动，初始权重相同；账户差异只来源于行为验证记录的数量和质量；行为记录公开、可溯、可复核；学历、职称、资产不作为系统内权重依据。</div>
+</div>
+
+<div class="prop b">
+  <div class="p-t">公理二 · 使用优先于所有</div>
+  <div class="p-b">资源不归谁所有，只被谁使用。使用轨迹公开记录，作为下一轮调用的依据。"所有"这个动词在事现鉴中被删除；资源处于"正在被使用"或"空闲可用"两态；下一轮使用权不依赖身份或资本，而依赖过去使用同类资源时留下的<b>验证记录密度</b>。</div>
+</div>
+
+<div class="prop b">
+  <div class="p-t">公理三 · 验证即权益</div>
+  <div class="p-b">每一次验证行为，同时生成两种资产：① 被验证对象的<b>信用增量</b>；② 验证者自身的<b>信用权重</b>。验证不是"劳动"，而是"信用挖掘"；验证者信用可累积、可跨域调用、可随时间衰减。</div>
+</div>
+
+<div class="prop b">
+  <div class="p-t">公理四 · 共同值 = 被验证过的公共需求的加权总和</div>
+  <div class="p-b">共同值不是预设的道德理想，而是由大量独立验证记录汇聚后，系统自动识别出的"当前可被确认的群体性刚需集合"。它不是预设的，而是由验证记录自行汇聚；它是动态更新的；它是可操作的——直接链接到闲置资源的匹配和调用。</div>
+</div>
+
+<div class="prop b">
+  <div class="p-t">公理五 · 刚需（Need）≠ 想要（Want）</div>
+  <div class="p-b">事现鉴只响应"刚需"，不响应"想要"。刚需分两层：个人刚需（食物、水、住所、基础医疗）与团体刚需（公共安全、交通秩序、垃圾处理、信息沟通）；两层高度重合——团体刚需未满足时，个人刚需必然受损；刚需清单是有限的、明确的、可客观验证的。</div>
+</div>
+
+<h2>三 · 七命题 × 五大公理 关系对照</h2>
+<div class="sub">两套不是互斥，而是<b>哲学纲领（七命题）↔ 操作公理（五大公理）</b>的两个抽象层级。按你"国内/国际落地倾向"的思路组织分工。</div>
+
+<table>
+<tr><th>七命题（哲学纲领）</th><th>对应五大公理（操作公理）</th><th>关系</th><th>落地倾向</th></tr>
+<tr><td>⑦ 使用效率本体论（纲）</td><td>公理二 使用优先于所有</td><td><b>同源</b>：⑦是哲学表述，公理二是操作化</td><td><span class="tag both">共用</span></td></tr>
+<tr><td>① 双向反射论</td><td>公理三 验证即权益</td><td><b>互补</b>：双向协议靠"验证即权益"落地</td><td><span class="tag both">共用</span></td></tr>
+<tr><td>② 共济值先行</td><td>公理四 共同值=加权总和</td><td><b>互补</b>：共济值先行是动员策略，公理四是定义</td><td><span class="tag intl">国际·生存权</span></td></tr>
+<tr><td>④ 中心化引力消解</td><td>公理一 人无差别行为有迹</td><td><b>互补</b>：去中心化靠"行为验证"替代身份垄断</td><td><span class="tag both">共用</span></td></tr>
+<tr><td>③ 记录本体论</td><td>（无直接对应）</td><td><b>七命题独有</b>：只记录不清算的本体立场</td><td><span class="tag both">共用</span></td></tr>
+<tr><td>⑤ 货币消亡论</td><td>（无直接对应）</td><td><b>七命题独有</b>：终局曲线；与"GZZ永久"冲突</td><td><span class="tag cn">国内·化债</span></td></tr>
+<tr><td>⑥ 动态抵消论</td><td>（无直接对应）</td><td><b>七命题独有</b>：历史正义×未来公平并行</td><td><span class="tag intl">国际·历史</span></td></tr>
+<tr><td>（无）</td><td>公理五 刚需≠想要</td><td><b>五大公理独有</b>：界定事现鉴响应边界</td><td><span class="tag both">共用</span></td></tr>
+</table>
+
+<div class="idea">
+<b>对照结论</b>：七命题偏<b>哲学纲领与终局叙事</b>（适合白皮书总纲与国际传播），五大公理偏<b>可操作、可数学化的公理地基</b>（适合落地与验证）。两者并不冲突，而是"纲领↔操作"的关系。<b>唯一真冲突</b>在第⑤条货币消亡论的"Gzz 消亡" vs 新框架"GZZ 永久计量凭证"——这是需要你裁定的<b>唯一定义级分歧</b>（见术语表 Gzz/GZZ 行）。
+</div>
+
+<h2>四 · 全部术语总表</h2>
+<div class="sub">按主题分组 · 标注：定义 / 来源 / 国内·国际·共用倾向 / 冲突状态。这是"目前存在的全部语术"清单（你的问题 5）。</div>
+
+<h3>A · 核心价值三值系</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>共济值（共同值/UBV）</b></td><td>被验证过的公共需求加权总和；按需·生存权；对应 UDHR 第 22 条</td><td><span class="tag intl">国际</span></td><td>✅ 权威框架已定为"共济值"（禁用旧口语词等口语）</td></tr>
+<tr><td><b>贡献值 CV</b></td><td>正减负的行动净值＝可测产出×Vf×Wj−资源消耗×折旧；按劳分配·发展权</td><td><span class="tag both">共用</span></td><td>✅ 稳定</td></tr>
+<tr><td><b>负贡献值 NCV</b></td><td>对他人/公共资源外部性损害的量化追责；修复非惩罚</td><td><span class="tag both">共用</span></td><td>⚠ 四条件是否单列待裁定</td></tr>
+<tr><td><b>正贡献值 PCV</b></td><td>向外输出赋能的正向贡献（与 NCV 对偶）</td><td><span class="tag both">共用</span></td><td>✅ 稳定</td></tr>
+</table>
+
+<h3>B · 货币与代币</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>Gzz / GZZ</b></td><td><b>同一概念，仅大小写之分</b>（你已澄清）。两版定义：①旧=全球社保黄金单位，1Gzz=1g黄金购买力·只涨不跌；②新=永久计量凭证/代币</td><td><span class="tag both">共用</span></td><td><span class="tag gap">待裁定</span> 黄金单位 vs 永久凭证</td></tr>
+<tr><td><b>光锥币</b></td><td>腾讯战略协议草案中的兑换代币（微信运动步数→CV→光锥币）</td><td><span class="tag cn">国内</span></td><td>⚠ 与 Gzz 关系待定义</td></tr>
+<tr><td><b>净值交换</b></td><td>终局阶段 CV 净值直接交换，无货币锚</td><td><span class="tag both">终局</span></td><td>⚠ 依赖"货币消亡"成立与否</td></tr>
+</table>
+
+<h3>C · 验证与征信</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>事现鉴</b></td><td>现实世界↔数字世界的双向验证协议（存照，非征信牌照）</td><td><span class="tag both">共用</span></td><td>✅ 核心基础设施</td></tr>
+<tr><td><b>双向验证回路</b></td><td>现实行为→SHA-256→CV记录→SCA→现实后果 的回路闭合</td><td><span class="tag both">共用</span></td><td>✅ 稳定</td></tr>
+<tr><td><b>验证账户</b></td><td>个体在事现鉴中的初始账户，初始权重相同，差异源于验证记录</td><td><span class="tag both">共用</span></td><td>✅ 公理一</td></tr>
+<tr><td><b>事现鉴七大验证板块</b></td><td>豆包#1 生成：事现鉴内部七大验证板块的公共协议划分</td><td><span class="tag both">共用</span></td><td>⚠ 豆包特异表述，待并入</td></tr>
+</table>
+
+<h3>D · 公理与哲学纲领</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>七命题</b></td><td>哲学纲领：双向反射/共济值先行/记录本体/中心化引力/货币消亡/动态抵消/使用效率</td><td><span class="tag both">纲领</span></td><td>⚠ 与五大公理按国内国际分工（本文§三）</td></tr>
+<tr><td><b>五大公理</b></td><td>操作公理：人无差别/使用优先/验证即权益/共同值/刚需≠想要</td><td><span class="tag both">操作</span></td><td>✅ 权威框架</td></tr>
+<tr><td><b>中间版三公理</b></td><td>存续公理/贡献公理/光锥约束（DeepSeek对话11，学术著作版哲学奠基）</td><td><span class="tag both">学术</span></td><td>⚠ 与五大公理并存</td></tr>
+<tr><td><b>家庭财富公理</b></td><td>家庭财富＝家庭人数×人均可支配消费能力（白玺亲笔·豆包#8）</td><td><span class="tag cn">国内</span></td><td>⚠ 待并入权威框架</td></tr>
+<tr><td><b>宏观调控系数干预</b></td><td>国家调整核心贡献整体系数进行宏观调控（白玺亲笔·豆包#8）</td><td><span class="tag cn">国内</span></td><td>⚠ 待并入权威框架</td></tr>
+</table>
+
+<h3>E · 应用与落地</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>财政直销</b></td><td>财政资金不经中介直达公民账户；#7升级为"政府财政直接注入流通最底层"</td><td><span class="tag cn">国内</span></td><td>⚠ 沙盘推演，无实地</td></tr>
+<tr><td><b>SCA（社会确权资产）</b></td><td>覆盖债务时自动代偿，无需现金过手</td><td><span class="tag cn">国内</span></td><td>⚠ 沙盘推演</td></tr>
+<tr><td><b>五卡模式</b></td><td>理论版（基石/贡献/生态/信用/熔断）+ 实践版（会员/积分/储值/供应链金融/数字通证）</td><td><span class="tag cn">国内</span></td><td>⚠ 英文版另作身份/贡献/交易/保障/治理五卡，待统一</td></tr>
+<tr><td><b>双闭环</b></td><td>金融闭环(GSSO债券→基建→现金流)+社会闭环(共济值→CV→降成本)</td><td><span class="tag both">共用</span></td><td>✅ 稳定</td></tr>
+<tr><td><b>四级螺旋</b></td><td>原点→区域网络→一带一路→全球协议</td><td><span class="tag intl">国际</span></td><td>⚠ 彬州原点仅策划</td></tr>
+<tr><td><b>彬州试点</b></td><td>策划方案（智慧水系统/大佛寺节），<b>从未实施</b></td><td><span class="tag cn">国内</span></td><td><span class="tag gap">零实地</span></td></tr>
+</table>
+
+<h3>F · 金融轨（第二套术语·代用现有金融词汇）</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>人民资本基金</b></td><td>知乎系第二套术语轨：以人民为出资主体的资本基金</td><td><span class="tag both">金融轨</span></td><td><span class="tag gap">待裁定</span> 沿用 or 按共创论重设计</td></tr>
+<tr><td><b>数据税</b></td><td>知乎系：对数据要素收益征税的概念</td><td><span class="tag both">金融轨</span></td><td>同上，代用现有金融词汇</td></tr>
+<tr><td><b>双重循环</b></td><td>知乎系：内循环+外循环的经济运行模式</td><td><span class="tag both">金融轨</span></td><td>同上</td></tr>
+<tr><td><b>贡献值联邦</b></td><td>元宝升维：跨国贡献值互认的联邦式结算</td><td><span class="tag intl">国际</span></td><td>⚠ 与金融轨关系待定</td></tr>
+<tr><td><b>新综合国力</b></td><td>元宝升维：以贡献值衡量国家综合国力，作国际实施抓手</td><td><span class="tag intl">国际</span></td><td>✅ 用户亲笔确认（豆包#8）</td></tr>
+</table>
+
+<h3>G · 治理 · 演化 · 历史</h3>
+<table>
+<tr><th>术语</th><th>定义</th><th>倾向</th><th>冲突/状态</th></tr>
+<tr><td><b>刚性架构总则</b></td><td>个人→团体→国家 / 消费→发展→清理历史遗留问题（白玺亲笔·豆包#9）</td><td><span class="tag both">共用</span></td><td>✅ 用户亲笔定死，优先级高</td></tr>
+<tr><td><b>历史负贡献清算体系</b></td><td>强制清算烂尾/战争罪责/生态/难民负担/殖民红利（白玺亲笔·豆包#9）</td><td><span class="tag intl">国际</span></td><td><span class="tag gap">敏感</span> 跨国强制清算缺执行主体</td></tr>
+<tr><td><b>事现鉴定性工具</b></td><td>用共创论的事现鉴对历史问题定性（替代国际扯皮/补偿谈判），以全球社保成立为前提</td><td><span class="tag intl">国际</span></td><td>⚠ 你本次新增：历史清算的定性方式</td></tr>
+<tr><td><b>数字世界统一法 / 世界统一法</b></td><td>立宪层法典：元宝实体《世界统一法》宪章初稿（20条8章）</td><td><span class="tag intl">国际</span></td><td>⚠ 全文独立帖待核</td></tr>
+<tr><td><b>美元负债模式</b></td><td>千问：美元负债＝知识/技术/权力三重独占的经济外壳</td><td><span class="tag intl">国际</span></td><td>✅ 宣言形态</td></tr>
+<tr><td><b>舆论闪电战</b></td><td>千问：以微博为主战场的验证/传播战术</td><td><span class="tag cn">国内</span></td><td>⚠ 战术表述</td></tr>
+<tr><td><b>三姬分金</b></td><td>白玺亲笔博弈论类比：用三姬分金解构共创论的利益分配</td><td><span class="tag both">方法</span></td><td>✅ 跨平台整合意图实证</td></tr>
+<tr><td><b>世界人民大团结</b></td><td>白皮书收官句（白玺亲笔·豆包#9）</td><td><span class="tag both">愿景</span></td><td>✅ 定调</td></tr>
+</table>
+
+<h2>五 · 待你逐一确认 / 裁定的清单</h2>
+<ol>
+<li><b>双框架分工</b>：请确认「七命题=哲学纲领/总纲与国际传播，五大公理=操作地基/落地验证」这一分层是否成立；以及§三对照表中各条的国内/国际倾向标注是否准确。</li>
+<li><b>Gzz/GZZ 定义</b>：同一概念已澄清，但需裁定定义版本——旧（黄金单位·只涨不跌）还是新（永久计量凭证）？或国内用化债锚、国际用生存权锚？</li>
+<li><b>基金体系（第二套术语）</b>：人民资本基金/数据税/双重循环，是<b>沿用</b>作全球社保接入的过渡词汇，还是<b>按共创论重新设计</b>？</li>
+<li><b>历史清算模块</b>：必纳白皮书。内容/形式需讨论——以<b>事现鉴作为定性工具</b>、以全球社保成立为前提，这个定性方式是否作为正式表述？</li>
+<li><b>共济值术语口径</b>：是否最终统一为「共济值」（已禁用旧口语词），各平台旧表述（共同值/UBV）是否一并收敛？</li>
+<li><b>英文白皮书 Final 1.0</b>：暂不作官方文本（你已确认）。是否仅保留为内部草稿，待框架定版后再重写？</li>
+</ol>
+
+<div class="foot">
+生成：2026-07-28 · 七命题×五大公理 框架对照 + 术语总表 v1 · 撰写视角：国内 AI agent 平台研究者。<br>
+依据：whitepaper.html §1（七命题原话）· theory_deepseek.html §2（五大公理原话）· 概念树 v2.1 · 各平台 corpus_index。<br>
+本文件为本地分析产物，<b>未上传</b>至任何官网或白皮书；仅整理供确认，不代替裁定。概念树与知识树已是最新，可作为后续逐一确定的基础。
+</div>
+
+</body>
+</html>

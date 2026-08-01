@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴（SXJ）产品定位说明</title>
+<style>
+  :root{
+    --brand-red:#A32D2D;
+    --brand-gold:#C9A24B;
+    --gongji:#2F6FED;   /* 共济值 A 蓝 */
+    --gongxian:#D99A2B; /* 贡献值 B 金 */
+    --fu:#D85A30;       /* 负贡献 珊瑚 */
+    --ink:#1f1c19;
+    --paper:#f7f3ec;
+    --card:#fffdf9;
+    --line:#e8ddca;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--paper);color:var(--ink);line-height:1.7;
+    padding:0 0 64px;
+  }
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
+  header{
+    background:linear-gradient(135deg,var(--brand-red),#7e1f1f);
+    color:#fff;padding:48px 20px 40px;text-align:center;
+    border-bottom:4px solid var(--brand-gold);
+  }
+  header .logo{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:64px;height:64px;border-radius:50%;
+    background:#F5F0E6;border:3px solid #fff;color:var(--brand-red);
+    font-weight:800;font-size:22px;margin-bottom:14px;
+  }
+  header h1{font-size:26px;font-weight:800;letter-spacing:1px}
+  header .sub{margin-top:8px;opacity:.9;font-size:14px}
+  .tag-row{margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+  .tag{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);
+    padding:4px 12px;border-radius:999px;font-size:12px}
+
+  section{margin-top:34px}
+  h2{font-size:19px;color:var(--brand-red);border-left:4px solid var(--brand-gold);
+    padding-left:10px;margin-bottom:14px;font-weight:800}
+  h3{font-size:15px;margin:18px 0 8px;color:#5a4a36;font-weight:700}
+  p{font-size:14.5px;color:#3a342c;margin-bottom:10px}
+  .lead{font-size:15.5px;background:var(--card);border:1px solid var(--line);
+    border-radius:12px;padding:16px 18px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .port{border-radius:14px;padding:18px;border:1px solid var(--line);background:var(--card);
+    box-shadow:0 3px 10px rgba(0,0,0,.05)}
+  .port.mini{border-top:5px solid var(--gongji)}
+  .port.app{border-top:5px solid var(--fu)}
+  .port h3{margin-top:0;display:flex;align-items:center;gap:8px}
+  .pill{font-size:11px;padding:2px 9px;border-radius:999px;color:#fff;font-weight:700}
+  .pill.m{background:var(--gongji)}
+  .pill.a{background:var(--fu)}
+  .port ul{list-style:none;margin-top:6px}
+  .port ul li{font-size:13.5px;padding:6px 0 6px 18px;position:relative;color:#3a342c}
+  .port ul li:before{content:"▪";position:absolute;left:2px;color:var(--brand-gold);font-size:14px}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;
+    background:var(--card);border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+  th,td{border:1px solid var(--line);padding:10px 12px;vertical-align:top;text-align:left}
+  th{background:#f0e6d4;color:#5a4a36;font-weight:700}
+  td.k{font-weight:700;color:var(--brand-red);width:74px;background:#faf4e9}
+  .ok{color:#2c7a3d;font-weight:700}
+  .no{color:var(--fu);font-weight:700}
+
+  .point{background:linear-gradient(135deg,#fff8ee,#fdeede);border:1px solid var(--brand-gold);
+    border-radius:12px;padding:16px 18px;font-size:14.5px}
+  .point b{color:var(--brand-red)}
+
+  .funnel{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:10px}
+  .fstep{color:#fff;text-align:center;padding:14px 0;font-weight:700;font-size:14px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08)}
+  .f1{width:100%;background:var(--gongji);border-radius:12px 12px 0 0}
+  .f2{width:78%;background:#5b7fd6;border-radius:0}
+  .f3{width:56%;background:var(--fu);border-radius:0 0 12px 12px}
+  .fcap{font-size:12.5px;color:#5a4a36;margin-top:10px;text-align:center}
+
+  .quote{font-size:13.5px;color:#5a4a36;background:#faf4e9;border-left:4px solid var(--brand-gold);
+    padding:12px 16px;border-radius:0 10px 10px 0;margin-top:12px}
+  footer{margin-top:40px;text-align:center;font-size:12px;color:#9a8a72}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">事</div>
+  <h1>事现鉴（SXJ）· 产品定位说明</h1>
+  <div class="sub">基于《世界人权宣言》第 22 条的可验证公共事实协议 · 公共验算尺</div>
+  <div class="tag-row">
+    <span class="tag">小程序 · 前锋</span>
+    <span class="tag">原生 App · 主场</span>
+    <span class="tag">不推销真理，只给防忽悠的免疫系统</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <h2>一句话定位</h2>
+    <div class="lead">
+      事现鉴是一把<strong>统一度量衡</strong>的公共验算尺：不替你下结论，只把"谁、在什么时间、凭什么说这件事"做成<strong>可验证、可回溯、不可篡改</strong>的公共记录。它不取代任何国家的社保，而是让"共济值 / 贡献值 / 负贡献"三值在统一规则下能被任何人独立验算。
+    </div>
+  </section>
+
+  <section>
+    <h2>双端口策略：一个产品，两种入口</h2>
+    <p>同一套协议、同一套设计语言，但按用户习惯分两个入口——<b>微信小程序当"前锋"广撒网，原生 App 当"主场"沉淀重度用户</b>。两者不是二选一，是漏斗关系。</p>
+    <div class="grid2">
+      <div class="port mini">
+        <h3><span class="pill m">已上线</span> 微信小程序</h3>
+        <p style="font-size:13px;color:#5a4a36;margin-bottom:4px">角色：<b>前锋 / 广撒网入口</b></p>
+        <ul>
+          <li>对应"已经在微信里的人"</li>
+          <li>最广普通大众，尤其中老年、数字素养低者</li>
+          <li>事件当事人 / 目击者（如彬县退休职工家属，日常就在微信群）</li>
+          <li>验证团里的非技术成员，微信友好零学习</li>
+        </ul>
+      </div>
+      <div class="port app">
+        <h3><span class="pill a">规划中</span> 原生 App</h3>
+        <p style="font-size:13px;color:#5a4a36;margin-bottom:4px">角色：<b>主场 / 重度工作台</b></p>
+        <ul>
+          <li>对应"愿意为这事专门留个应用的人"</li>
+          <li>重度 / 高频用户：验证团核心、长期记录者</li>
+          <li>在意"中立、不被平台挟持"的人</li>
+          <li>海外 / 非微信生态用户，可双商店出海</li>
+        </ul>
+      </div>
+    </div>
+    <div class="quote">一句话概括：<b>小程序找"路过的人"，App 留"留下的人"。</b></div>
+  </section>
+
+  <section>
+    <h2>最大的区别：入口归谁所有</h2>
+    <div class="point">
+      <b>小程序是"寄生"在微信里的</b>——用户其实属于微信，你只是微信里的一个小服务。微信哪天改规则、限流、甚至封你，你几乎没有还手之力。<br><br>
+      <b>App 是你自己的地盘</b>——用户装在你这，品牌、数据、推送都归你。代价是你要自己把人拉来装。<br><br>
+      对事现鉴特别要命的一点：我们的调性是"<b>公共、中立、可验证</b>"。一个依赖单一商业平台的工具，在"公共中立"这件事上<b>天然有张力</b>——平台自己就能定义什么能发、什么不能发。这也是为什么 App 必须存在，作为中立主场。
+    </div>
+  </section>
+
+  <section>
+    <h2>各自优缺点对比</h2>
+    <table>
+      <thead>
+        <tr><th style="width:74px">端口</th><th>优点</th><th>缺点</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="k">小程序</td>
+          <td>
+            <span class="ok">零安装</span>，微信群 / 朋友圈转发即达（对"扩散找同舟者、找同案"极有利）；<br>
+            触达中老年门槛低；开发快、上线快；微信自带基础信任。
+          </td>
+          <td>
+            <span class="no">受微信规则约束</span>（分享卡片样式受限、不能诱导分享、内容要过审）；<br>
+            用户归属感弱（在"最近使用"里易被忘）；后台 / 推送能力弱；基本出不了海；与"公共中立"调性有冲突。
+          </td>
+        </tr>
+        <tr>
+          <td class="k">原生 App</td>
+          <td>
+            <span class="ok">独立、中立、品牌完整</span>，契合"公共事实协议"定位；<br>
+            系统能力全（推送、离线、深度调用相机 / 文件对接证据）；可双商店上架、能出海；数据自主。
+          </td>
+          <td>
+            <span class="no">冷启动极难</span>——要用户主动去商店搜、下载、安装（老年 / 低意愿用户门槛高）；<br>
+            开发维护成本高（双端适配 + 审核 + 更新）；没有微信现成社交裂变；更新要用户同意。
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>漏斗关系：前锋导入，主场沉淀</h2>
+    <div class="funnel">
+      <div class="fstep f1">微信小程序 · 广撒网<br><span style="font-size:12px;font-weight:400">借微信裂变，尤其负贡献类找同案、共济值类找同舟者</span></div>
+      <div class="fstep f2">引导转化<br><span style="font-size:12px;font-weight:400">从"路过"到"留下"——被价值吸引，主动装 App</span></div>
+      <div class="fstep f3">原生 App · 主场<br><span style="font-size:12px;font-weight:400">验证团工作台、完整证据链、中立身份沉淀重度用户</span></div>
+    </div>
+    <div class="fcap">用户从微信被吸引过来，装 App 时不觉得是换了个产品——因为两边长得像一家。</div>
+  </section>
+
+  <section>
+    <h2>关键澄清：私域的是"主场"，公开的是"账本"</h2>
+    <div class="point">
+      事现鉴是<strong>私域平台</strong>吗？是，也不是——要看说的是哪一层：<br><br>
+      <b>① 私域的是"主场 / 关系"</b>：用户最终沉淀在你自己的 App 里，渠道与关系归你所有，不依附于任何单一商业平台。这正是"私域"真正的精神——把命根子从别人手里拿回来，抗限流、抗封禁、保中立。<br><br>
+      <b>② 公开的是"数据 / 内容"</b>：所有事现记录、证据、哈希链、SHA-256 锚点<strong>完全公开、可验证、可回溯、可跨端比对</strong>。任何人都能独立验算，平台无权偷偷改、也不能定义"什么能发"。<br><br>
+      两层<strong>正交、不矛盾</strong>：<span style="color:var(--brand-red);font-weight:700">壳是私域的（主权在你），核是公共的（账本归所有人）</span>。一句话——<span style="color:var(--brand-red);font-weight:700">私域主场，公开账本</span>。
+    </div>
+    <div class="quote">对应到技术上：App = 自有主权终端（私域主场）；哈希链 / SHA-256 锚点 = 公开可验证账本（公共协议）。两者一结合，就是"既私域又公共"的架构答案。</div>
+  </section>
+
+  <section>
+    <h2>下一步：视觉统一（不论谁是旗舰，先长得像一家）</h2>
+    <div class="lead">
+      当前原型、小程序、安卓三套的配色变量已一致，但布局 / 结构 / 文案是分开写的，所以看着仍像两个产品。建议优先做低成本、立刻见效的<strong>视觉统一</strong>：
+      <ul style="margin-top:8px;padding-left:18px;list-style:disc;font-size:14px">
+        <li>统一品牌红 #A32D2D + 金 #C9A24B 与三值色（蓝 / 金 / 珊瑚）；</li>
+        <li>统一按钮位置、卡片结构、状态标签文案；</li>
+        <li>统一"转发 / 跟贴"交互范式，确保跨端体验一致。</li>
+      </ul>
+      技术形态（HTML 原型 / 小程序 / RN 真 App）暂不强行合并——原型继续当"图纸"，定稿后落真代码。
+    </div>
+  </section>
+
+  <footer>
+    事现鉴 SXJ · 产品定位说明（工作稿）· 2026-07-31<br>
+    本页为内部对齐用，可裁剪进白皮书或合作方沟通材料。
+  </footer>
+
+</div>
+</body>
+</html>

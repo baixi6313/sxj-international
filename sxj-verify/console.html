@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴 · 他验控制台</title>
+<style>
+  :root{
+    --brand-red:#A32D2D; --gold:#C9A24B; --blue:#2F6FED; --bg:#F7F4EE; --card:#fff;
+    --ink:#241f1c; --muted:#7a7068; --ok:#2e8b57; --warn:#c9821f; --bad:#b3402f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55}
+  header{background:linear-gradient(135deg,var(--brand-red),#7d1f1f);color:#fff;padding:22px 26px}
+  header h1{margin:0;font-size:21px;letter-spacing:1px}
+  header p{margin:6px 0 0;opacity:.9;font-size:13px}
+  .wrap{max-width:960px;margin:18px auto;padding:0 16px}
+  .card{background:var(--card);border:1px solid #ece4d8;border-radius:12px;padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .card h2{margin:0 0 12px;font-size:16px;color:var(--brand-red)}
+  .btn{display:inline-block;border:none;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer;background:var(--brand-red);color:#fff;margin:4px 6px 4px 0}
+  .btn.alt{background:#efe7d8;color:var(--ink)}
+  .btn.gold{background:var(--gold);color:#3a2c0c}
+  textarea{width:100%;min-height:150px;border:1px solid #ddd4c6;border-radius:8px;padding:10px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12px;background:#efe7d8;color:var(--ink);margin:3px}
+  .pill.ok{background:#e3f3e9;color:var(--ok)}
+  .pill.warn{background:#fbf0dd;color:var(--warn)}
+  .pill.bad{background:#fbe3df;color:var(--bad)}
+  .big{font-size:30px;font-weight:700}
+  .muted{color:var(--muted);font-size:13px}
+  pre{background:#f4efe6;border-radius:8px;padding:12px;overflow:auto;font-size:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 8px;border-bottom:1px solid #efe7d8}
+  .sig{font-family:ui-monospace,monospace;font-size:12px;word-break:break-all;background:#f4efe6;padding:8px;border-radius:6px}
+  .hidden{display:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>事现鉴 · 他验控制台</h1>
+  <p>把"整个对话档案"变成可操作的第三方检验流程 · 零基础也能用</p>
+</header>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>① 送检包（交给外部 agent 的文件）</h2>
+    <p class="muted">把这 5 个文件 + 回执模板一并发给 ≥2 家冷方(无语料)独立平台 agent：</p>
+    <div id="pkg"></div>
+    <button class="btn alt" onclick="copyPkg()">复制文件清单</button>
+  </div>
+
+  <div class="card">
+    <h2>② 他验进度</h2>
+    <div class="row" style="align-items:center">
+      <div><div class="big" id="succN">0</div><div class="muted">外部成功回执（家）</div></div>
+      <div><div class="big" id="thr">2</div><div class="muted">发布门槛（家）</div></div>
+      <div style="flex:1">
+        <div id="gate" class="pill warn">未达门槛</div>
+        <div id="released" class="pill hidden ok">已发布</div>
+      </div>
+    </div>
+    <table id="receipts"><thead><tr><th>Agent</th><th>结论</th><th>日期</th><th>类型</th></tr></thead><tbody></tbody></table>
+  </div>
+
+  <div class="card">
+    <h2>③ 录入外部回执</h2>
+    <p class="muted">外部 agent 按 receipt-schema.json 填好回执后，把 JSON 粘到这里：</p>
+    <textarea id="receiptIn" placeholder='粘贴外部 agent 的回执 JSON …'></textarea>
+    <div style="margin-top:8px">
+      <button class="btn" onclick="addReceipt()">录入回执</button>
+      <button class="btn alt" onclick="loadSelf()">载入本平台自检回执(演示)</button>
+      <button class="btn alt" onclick="clearAll()">清空本地记录</button>
+    </div>
+    <div id="msg" class="muted" style="margin-top:8px"></div>
+  </div>
+
+  <div class="card">
+    <h2>④ 回执模板（给外部 agent 复制）</h2>
+    <pre id="template"></pre>
+    <button class="btn alt" onclick="copyTemplate()">复制回执模板</button>
+  </div>
+
+  <div class="card">
+    <h2>⑤ 决定层宣布发布</h2>
+    <p class="muted">门槛达成后，由始创者-白玺确认。此处仅在本地标记（正式发布仍由 verify_cli.py release 落盘）。</p>
+    <button class="btn gold" id="releaseBtn" onclick="markRelease()">标记已发布（白玺确认）</button>
+    <div id="relMsg" class="muted" style="margin-top:8px"></div>
+  </div>
+
+</div>
+
+<script>
+const LS_KEY = "sxj_verify_state_v1";
+const LEDGER_SHA = "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb"; // 与 verify_cli.py init/selfcheck 输出一致
+const PKG = [
+  "SXJ-verification-ledger.md  (主档案)",
+  "SXJ-claims.json  (机器可读断言 A01-A13)",
+  "pm/org/reports/edu-docking-protocol-v1.md  (教育对接协议 v1)",
+  "SXJ-submission-proof.md  (送检证明)",
+  "pm/selfcheck-2026-08-01.md  (本平台自检)",
+  "sxj-verify/receipt-schema.json  (回执模板)"
+];
+const TEMPLATE = {
+  "agent_id": "PlatformX-你的agent标识",
+  "verdict": "PASS",
+  "ledger_sha256": LEDGER_SHA,
+  "checked_at": "2026-08-01",
+  "assertions": {"A01":"pass","A02":"pass","A03":"pass","A04":"pass","A05":"pass","A06":"pass","A07":"pass","A08":"pass","A09":"pass","A10":"pass","A11":"pass","A12":"pass","A13":"pass"},
+  "reservations": ["D1/D2/D3 已声明未调和"],
+  "rights_opinion": {"R1":"agree","R2":"agree","R3":"agree","R4":"agree","R5":"agree","R6":"agree"},
+  "dept_stance": "承接/组建新部门/拒绝承担(三选一填)",
+  "note": "",
+  "signature": "SHA256(agent_id+verdict+ledger_sha256)前16位"
+};
+
+function load(){ try{return JSON.parse(localStorage.getItem(LS_KEY))||{receipts:[],released:false}}catch(e){return{receipts:[],released:false}} }
+function save(s){ localStorage.setItem(LS_KEY, JSON.stringify(s)) }
+
+function render(){
+  const s = load();
+  document.getElementById("pkg").innerHTML = PKG.map(p=>`<span class="pill">${p}</span>`).join(" ");
+  const ext = s.receipts.filter(r=>!String(r.agent_id||"").startsWith("本平台"));
+  const succ = ext.filter(r=>["PASS","CONDITIONAL"].includes(r.verdict)).length;
+  document.getElementById("succN").textContent = succ;
+  document.getElementById("thr").textContent = 2;
+  const gate = document.getElementById("gate");
+  if(s.released){ gate.className="pill ok"; gate.textContent="已发布"; document.getElementById("released").classList.remove("hidden"); }
+  else if(succ>=2){ gate.className="pill ok"; gate.textContent="门槛达成·可发布"; }
+  else { gate.className="pill warn"; gate.textContent="未达门槛"; }
+  const tb = document.querySelector("#receipts tbody"); tb.innerHTML="";
+  s.receipts.forEach(r=>{
+    const tr=document.createElement("tr");
+    const isSelf = String(r.agent_id||"").startsWith("本平台");
+    const vcls = r.verdict==="PASS"?"ok":(r.verdict==="FAIL"?"bad":"warn");
+    tr.innerHTML=`<td>${r.agent_id||"?"}</td><td><span class="pill ${vcls}">${r.verdict||"?"}</span></td><td>${r.checked_at||"?"}</td><td>${isSelf?"本平台自检":"外部"}</td>`;
+    tb.appendChild(tr);
+  });
+  document.getElementById("template").textContent = JSON.stringify(TEMPLATE,null,2);
+}
+function sha16(str){ let h=0; for(let i=0;i<str.length;i++){h=((h<<5)-h+str.charCodeAt(i))|0;} return (h>>>0).toString(16).padStart(8,"0")+(h>>>0).toString(16).padStart(8,"0"); }
+function addReceipt(){
+  const raw=document.getElementById("receiptIn").value.trim();
+  const msg=document.getElementById("msg");
+  if(!raw){ msg.textContent="请先粘贴回执 JSON"; return; }
+  let r; try{ r=JSON.parse(raw); }catch(e){ msg.textContent="JSON 解析失败: "+e.message; return; }
+  if(!r.agent_id||!r.verdict||!r.ledger_sha256){ msg.textContent="缺必填字段(agent_id/verdict/ledger_sha256)"; return; }
+  if(r.ledger_sha256!==LEDGER_SHA){ msg.textContent="回执 ledger_sha256 与送检档案不符，可能被拒收（请核对版本）"; return; }
+  if(!["PASS","FAIL","CONDITIONAL"].includes(r.verdict)){ msg.textContent="verdict 须为 PASS/FAIL/CONDITIONAL"; return; }
+  const s=load();
+  if(s.receipts.some(x=>x.agent_id===r.agent_id)){ msg.textContent="该 agent_id 已存在"; return; }
+  s.receipts.push(r); save(s); render();
+  msg.textContent="已录入："+r.agent_id+" → "+r.verdict;
+}
+function loadSelf(){ document.getElementById("receiptIn").value = JSON.stringify({agent_id:"本平台-PM自检节点(预备)",verdict:"PASS",ledger_sha256:LEDGER_SHA,checked_at:"2026-08-01",assertions:{A01:"pass"},reservations:["演示用"],rights_opinion:{R1:"agree"},dept_stance:"承接:PM决策层",note:"本平台自检，不计入外部门槛",signature:sha16("本平台-PM自检节点(预备)PASS"+LEDGER_SHA)},null,2); }
+function clearAll(){ if(confirm("清空本地录入的回执记录？")){ localStorage.removeItem(LS_KEY); render(); document.getElementById("msg").textContent="已清空"; } }
+function markRelease(){ const s=load(); s.released=true; save(s); render(); document.getElementById("relMsg").textContent="已标记为发布（须 verify_cli.py release --confirm 白玺-发布 正式落盘）"; }
+function copyPkg(){ navigator.clipboard.writeText(PKG.join("\n")); }
+function copyTemplate(){ navigator.clipboard.writeText(JSON.stringify(TEMPLATE,null,2)); }
+render();
+</script>
+</body>
+</html>

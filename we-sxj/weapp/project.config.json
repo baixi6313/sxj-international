@@ -1,0 +1,19 @@
+{
+  "description": "We+SXJ 数字记录小程序",
+  "packOptions": { "ignore": [], "include": [] },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": false,
+    "bigPackageSizeSupport": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.0.0",
+  "appid": "wx22ec573cb69acc7a",
+  "projectname": "we-sxj",
+  "condition": {},
+  "editorSetting": { "tabIndent": "insertSpaces", "tabSize": 2 }
+}

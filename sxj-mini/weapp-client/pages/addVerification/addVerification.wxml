@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="form-card">
+    <view class="input-group">
+      <text class="label">结论</text>
+      <picker mode="selector" range="{{verdicts}}" range-key="label" value="{{verdictIndex}}" bindchange="onVerdictChange">
+        <view class="picker">{{verdicts[verdictIndex].label}}</view>
+      </picker>
+    </view>
+    <view class="input-group">
+      <text class="label">理由</text>
+      <textarea class="textarea" placeholder="验证理由" value="{{content}}" bindinput="onContentInput" />
+    </view>
+    <view class="input-group">
+      <text class="label">验证人</text>
+      <input class="input" placeholder="留空则匿名" value="{{author}}" bindinput="onAuthorInput" />
+    </view>
+    <view class="btn-primary" bindtap="submit">提交</view>
+  </view>
+</view>

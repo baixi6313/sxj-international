@@ -1,0 +1,16 @@
+{
+  "name": "事现鉴",
+  "short_name": "事现鉴",
+  "description": "基于世界人权宣言第22条的可验证公共事实协议 · 公共验算尺",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#A32D2D",
+  "theme_color": "#A32D2D",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

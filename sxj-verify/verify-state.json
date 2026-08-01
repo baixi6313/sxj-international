@@ -1,0 +1,37 @@
+{
+  "ledger_sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+  "threshold": 2,
+  "receipts": [
+    {
+      "agent_id": "DuMate",
+      "verdict": "CONDITIONAL",
+      "ledger_sha256": "e0236e8c7ce78122a23cf73ff7132576f1336de540f99ed01bb4e621ff7b6ccb",
+      "checked_at": "2026-08-01",
+      "assertions": {
+        "A01": "pass",
+        "A02": "pass",
+        "A03": "pass",
+        "A04": "pass",
+        "A05": "pass",
+        "A06": "pass",
+        "A07": "pass",
+        "A08": "pass",
+        "A09": "unknown",
+        "A10": "pass",
+        "A11": "pass",
+        "A12": "pass",
+        "A13": "pass"
+      },
+      "reservations": [
+        "A09 SHA256无法在网页渲染层独立复算(技术限制)",
+        "D1 耿同学:网页账本(负贡献)与小程序账本(共济值)分类冲突——核心度量体系分类标准不统一",
+        "corpus_depth=low,判定不计入冷方≥2发布门槛(自述)"
+      ],
+      "dept_stance": "(c)拒绝承担,仅作独立验证节点",
+      "note": "签名 DuMate-R1-20260801;建议后续提供 raw-ledger 直链便于复算SHA。",
+      "signature": "dac7ebbc88990beb"
+    }
+  ],
+  "released": false,
+  "created_at": "2026-08-01T18:58:35+08:00"
+}

@@ -1,0 +1,180 @@
+page {
+  background-color: #f5f0e8;
+  color: #2b2b2b;
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.container {
+  padding: 30rpx;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #7a1f1f;
+  margin-bottom: 12rpx;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #888;
+  margin-bottom: 20rpx;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #a23b32, #7a1f1f);
+  color: #fff;
+  border-radius: 12rpx;
+  padding: 24rpx 0;
+  font-size: 30rpx;
+  text-align: center;
+  margin: 16rpx 0;
+}
+
+.btn-secondary {
+  background: #fff;
+  color: #a23b32;
+  border: 2rpx solid #a23b32;
+  border-radius: 12rpx;
+  padding: 22rpx 0;
+  font-size: 30rpx;
+  text-align: center;
+  margin: 16rpx 0;
+}
+
+.tag {
+  display: inline-block;
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+  font-size: 22rpx;
+  margin-right: 12rpx;
+}
+
+.tag-common { background: #e6f7ff; color: #1890ff; }
+.tag-contribution { background: #f6ffed; color: #52c41a; }
+.tag-negative { background: #fff1f0; color: #cf1322; }
+
+/* 状态标签：pill 样式，提高识别度 */
+.event-status {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  font-weight: 500;
+}
+.status-recording { background: #f5f5f5; color: #666; border: 1rpx solid #e0e0e0; }
+.status-verifying { background: #fff8e6; color: #c77f00; border: 1rpx solid #f5d598; }
+.status-verified { background: #f0f9eb; color: #4ca32e; border: 1rpx solid #b3e19d; }
+.status-accounted { background: #fef0f0; color: #a23b32; border: 1rpx solid #e6a3a3; }
+.status-resolved { background: #ecf5ff; color: #2f6fed; border: 1rpx solid #b3d8ff; }
+.status-invalid { background: #f4f4f5; color: #606266; border: 1rpx solid #e4e4e5; }
+
+.input-group {
+  margin-bottom: 24rpx;
+}
+
+.label {
+  display: block;
+  font-size: 28rpx;
+  color: #555;
+  margin-bottom: 10rpx;
+}
+
+.input, .textarea, .picker {
+  background: #fafafa;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 10rpx;
+  padding: 18rpx 20rpx;
+  font-size: 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.textarea {
+  height: 200rpx;
+}
+
+.tip {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
+  padding: 80rpx 0;
+}
+
+.footer {
+  text-align: center;
+  font-size: 22rpx;
+  color: #aaa;
+  padding: 40rpx 0 60rpx;
+}
+
+.hero {
+  background: linear-gradient(135deg, #7a1f1f, #a23b32);
+  border-radius: 20rpx;
+  padding: 50rpx 40rpx;
+  color: #fff;
+  margin-bottom: 24rpx;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 48rpx;
+  font-weight: 700;
+  margin-bottom: 12rpx;
+}
+
+.hero-desc {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 30rpx 0;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0,0,0,0.06);
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-num {
+  font-size: 48rpx;
+  font-weight: 700;
+  color: #a23b32;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #888;
+  margin-top: 6rpx;
+}
+
+
+
+
+
+
+
+
+
+

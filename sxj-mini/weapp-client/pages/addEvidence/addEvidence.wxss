@@ -1,0 +1,6 @@
+.section-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #7a1f1f;
+  margin-bottom: 24rpx;
+}

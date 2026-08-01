@@ -1,0 +1,20 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">协助人员确认</view>
+    <view class="hint">以下协助记录需你（被协助人）确认。确认后双方各获数字凭证：你得到共济值饮水凭证，协助人得到正贡献记录。</view>
+  </view>
+
+  <view wx:if="{{pending.length === 0}}" class="empty-card">暂无待确认记录</view>
+
+  <view wx:for="{{pending}}" wx:key="id" class="card confirm-item">
+    <view class="confirm-head">
+      <text class="confirm-name">{{item.assistant}}</text>
+      <text class="confirm-ml">帮 {{item.target}} 喝了 {{item.ml}}ml</text>
+    </view>
+    <view class="confirm-date">{{item.date}} · 哈希 {{item.hash.slice(0, 10)}}…</view>
+    <view class="confirm-actions">
+      <button class="btn-reject" bindtap="reject" data-id="{{item.id}}">拒绝</button>
+      <button class="btn-confirm" bindtap="confirm" data-id="{{item.id}}">确认</button>
+    </view>
+  </view>
+</view>

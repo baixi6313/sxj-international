@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="card">
+    <view class="card-title">协助人数排名</view>
+    <view class="hint">统计已确认的协助记录，按协助人数（帮助过几位不同的被协助人）排序。</view>
+  </view>
+
+  <view wx:if="{{ranking.length === 0}}" class="empty-card">暂无协助数据</view>
+
+  <view wx:for="{{ranking}}" wx:key="name" class="card rank-item">
+    <view class="rank-no rank-no-{{index + 1}}">{{index + 1}}</view>
+    <view class="rank-main">
+      <view class="rank-name">{{item.name}}</view>
+      <view class="rank-sub">协助 {{item.people}} 人 · {{item.times}} 次 · 共 {{item.ml}}ml</view>
+    </view>
+    <view class="rank-people">{{item.people}}<text class="rank-people-unit">人</text></view>
+  </view>
+</view>
