@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千问(Qianwen)对话语料索引 · 共创论·事现鉴</title>
+<style>
+  :root{
+    --bg:#0e1116; --fg:#e6edf3; --dim:#9aa7b4; --acc:#5ec8d8; --acc2:#c8a25e;
+    --bd:#222b36; --card:#161c24; --card2:#1b232d; --old:#e06c75; --new:#7ec699;
+    --mvp:#c678dd; --gap:#e5c07b; --meta:#61afef;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;padding:28px 22px 60px}
+  .wrap{max-width:1120px;margin:0 auto}
+  h1{font-size:23px;margin:0 0 4px;letter-spacing:.5px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:16px}
+  .banner{border:1px solid var(--acc2);background:linear-gradient(90deg,rgba(200,162,94,.10),rgba(200,162,94,.02));border-radius:10px;padding:12px 15px;font-size:12.8px;color:#e9d9b8;margin-bottom:18px}
+  .banner b{color:var(--acc2)}
+  .banner .k{display:inline-block;background:var(--card2);border:1px solid var(--bd);border-radius:5px;padding:1px 7px;margin:2px 3px 0 0;font-size:11.5px;color:var(--fg)}
+  table{width:100%;border-collapse:collapse;font-size:12.6px;margin-bottom:22px}
+  th,td{border:1px solid var(--bd);padding:8px 10px;vertical-align:top;text-align:left}
+  th{background:var(--card2);color:var(--acc);font-weight:600;font-size:12px}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .no{color:var(--dim);font-weight:700;white-space:nowrap}
+  .t{color:var(--fg);font-weight:600}
+  .lnk{color:var(--acc);text-decoration:none;font-size:11px;word-break:break-all}
+  .lnk:hover{text-decoration:underline}
+  .tag{display:inline-block;border-radius:4px;padding:1px 6px;font-size:10.5px;margin:1px 2px 1px 0;white-space:nowrap}
+  .t-key{background:rgba(94,200,216,.16);color:var(--acc);border:1px solid rgba(94,200,216,.35)}
+  .t-star{background:rgba(229,192,123,.18);color:var(--gap);border:1px solid rgba(229,192,123,.4)}
+  .t-old{background:rgba(224,108,117,.16);color:var(--old);border:1px solid rgba(224,108,117,.4)}
+  .t-mis{background:rgba(198,120,221,.16);color:var(--mvp);border:1px solid rgba(198,120,221,.4)}
+  .hl{background:var(--card);border:1px solid var(--bd);border-left:3px solid var(--acc2);border-radius:8px;padding:12px 15px;margin:0 0 16px}
+  .hl h3{margin:0 0 6px;font-size:14px;color:var(--acc2)}
+  .hl p{margin:5px 0;color:var(--dim);font-size:12.6px}
+  .hl b{color:var(--fg)}
+  .kw{color:var(--acc)}
+  .foot{margin-top:26px;font-size:11.5px;color:var(--dim);border-top:1px solid var(--bd);padding-top:12px;line-height:1.7}
+  .foot a{color:var(--acc);text-decoration:none}
+  code{background:var(--card2);border:1px solid var(--bd);border-radius:4px;padding:0 5px;font-size:11.5px;color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>千问（Qianwen·通义）对话语料索引</h1>
+  <div class="sub">6 段分享对话全量归档 · 用户 2026-07-28 提供 · 共创论·事现鉴 知识树配套底表（与 yuanbao_corpus_index.html 同构）</div>
+
+  <div class="banner">
+    <b>⚙ 抓取方式（本轮关键技术突破）：</b>千问分享页 <code>www.qianwen.com/share/chat/&lt;id&gt;</code> 是<b>纯客户端 SPA</b>——WebFetch 仅能取到标题/头像，正文在 JS 运行时经私有 API 拉取。本次逆向出真实接口：<span class="k">POST https://chat2-api.qianwen.com/api/v1/share/info</span> + body <span class="k">{"share_id":"&lt;id&gt;"}</span>，返回完整对话 JSON（<code>data.session.record_list</code> 内含 <code>request_messages[].content</code> 用户提问 + <code>response_messages[].content</code> 千问回答）。6 段全部成功抓取并转写为可读文本（<code>qw_transcripts/</code>）。<br>
+    <b>⚠ 与元宝/DeepSeek 不同</b>：那两平台分享页服务端渲染、WebFetch 直出正文；千问必须走 API 逆向。本批 6 段均已本地留存，<b>未上传官网/白皮书</b>。<br>
+    <b>📌 标题/会话名错配说明</b>：B、E 两段「分享页显示名」与「会话内部标题」不一致（B：外汇交易解读↔咸阳彬州金位；E：华富医疗基金质询函↔医疗收费伦理），经核对正文属<b>多主题长对话</b>（前后段切换主题），非错配错误，已分别在备注标注。
+  </div>
+
+  <div class="hl" style="border-left:3px solid var(--old)">
+    <h3 style="color:var(--old)">★ 本批最重要：A 段 =《第四次系统置信度切换宣言》完整展开</h3>
+    <p>段 <b>A</b>（798b4cdb）将事现鉴从「认知解放工具」提升为「<b>历史范式切换引擎</b>」，系统论述「<b>美元负债模式 = 三重独占（知识/技术/权力）的经济外壳</b>」，并完整展开「<b>第四次系统置信度切换</b>」——此概念此前仅见于 DeepSeek 主干（theory_deepseek / 对话11）的一句话式提法，千问侧首次成「宣言」形态。事现鉴命中 127 次、公开验证 34 次、GZZ 50 次、负贡献 31 次，是<b>验证层叙事最密</b>的一段。</p>
+  </div>
+
+  <div class="hl">
+    <h3>⏳ 拓扑提示：F 段是 6 段中最早（2025-09-14 起）</h3>
+    <p>段 <b>F</b>（d668df18）时间跨度 <b>2025-09-14 → 2025-12-17</b>，与寰宇光锥舟 v1（Gitee 首提交 2025-09-07）、GSSO 改名节点（2025-12-02）同期。这印证用户「四平台 = 顺序演化 + <b>部分重叠</b>」的修正：千问<b>并非纯晚期平台</b>，早期框架内容亦在千问讨论过（F 段即在讲贡献值三标准：环境/人文/数据）。故「越晚越清晰」是整体趋势，但时间轴有重叠，不能理解为四平台严格先后。</p>
+  </div>
+
+  <table>
+    <tr><th>#</th><th>标签</th><th>标题 / 主题</th><th>轮次 · 时间</th><th>关键概念命中</th><th>框架 / 涉及理论</th><th>链接</th><th>备注</th></tr>
+
+    <tr>
+      <td class="no">1</td>
+      <td><span class="tag t-star">★关键</span><span class="tag t-key">第四次切换</span></td>
+      <td class="t">《事现鉴》与美元负债模式：历史切换的宣言</td>
+      <td>12 轮<br>2026-07-27 → 07-28</td>
+      <td><span class="kw">事现鉴</span>127 · <span class="kw">共创论</span>25 · 负贡献31 · GZZ50 · 美元负债12 · 系统置信度8 · 第四次13 · 公开验证34</td>
+      <td>第四次系统置信度切换宣言（事现鉴=历史范式切换引擎）；美元负债模式=三重独占（知识/技术/权力）经济外壳</td>
+      <td><a class="lnk" href="https://www.qianwen.com/share/chat/798b4cdb136a412ba4cf07c706804ca2" target="_blank">798b4cdb…</a></td>
+      <td>会话内名「查询关于'白玺'和'寰宇光锥舟'的相关信息」。与 DeepSeek 主干「第四次系统置信度切换」同概念、千问侧首次成宣言形态。<b>本批最核心</b></td>
+    </tr>
+
+    <tr>
+      <td class="no">2</td>
+      <td><span class="tag t-mis">多主题</span></td>
+      <td class="t">外汇交易记录解读 + 咸阳彬州金位（庚辛）方向解析</td>
+      <td>19 轮<br>2026-06-30 → 07-24</td>
+      <td><span class="kw">事现鉴</span>22</td>
+      <td>开篇外汇交易记录解读（日元 JPY 兑换、2026-06-30 截图）→ 后段咸阳彬州金位（庚辛=西方金·八卦五行方位）方向解析；事现鉴应用于地理方位分析</td>
+      <td><a class="lnk" href="https://www.qianwen.com/share/chat/3b6ef11f6dd54f96998b2f1014c11dee" target="_blank">3b6ef11f…</a></td>
+      <td>分享页显示名「外汇交易记录深度解读」与会话名「咸阳彬州金位」不一致 → 经核对属<b>多主题长对话</b>（前后段切换主题），非错配。庚辛金位=新增应用角</td>
+    </tr>
+
+    <tr>
+      <td class="no">3</td>
+      <td><span class="tag t-key">身份侧写</span></td>
+      <td class="t">白玺：养老护理身份侧写<span class="pill pill-old">千问曾标"高产学者"·AI 夸饰已剔除</span></td>
+      <td>15 轮<br>2026-07-21</td>
+      <td><span class="kw">共创论</span>107 · <span class="kw">全球社保</span>27 · 白玺46</td>
+      <td>白玺身份侧写（元宝 #28/#29 一手自述支撑）；千问 C 段曾以"养老护理研究高产学者"作画像标签，属 AI 生成夸饰、非白玺本人内容，已从概念树剔除。</td>
+      <td><a class="lnk" href="https://www.qianwen.com/share/chat/b812d9d299f942d088cf4b40d2626d31" target="_blank">b812d9d2…</a></td>
+      <td>与元宝「白玺真实身份侧写」节点互证；共创论高频(107)。「黑箱问题全民共识」呼应事现鉴公开验证</td>
+    </tr>
+
+    <tr>
+      <td class="no">4</td>
+      <td><span class="tag t-key">经济新范式</span></td>
+      <td class="t">白玺共创论：数字时代经济新范式</td>
+      <td>20 轮<br>2026-07-10 → 07-14</td>
+      <td><span class="kw">共创论</span>62 · <span class="kw">光锥</span>5 · 全球社保7</td>
+      <td>数字时代经济新范式；「舆论闪电战」战术（微博主战场 vs 基金/证监会）；猪爸（白玺昵称）</td>
+      <td><a class="lnk" href="https://www.qianwen.com/share/chat/a53255ba934b4f52b242d5b6673cae9c" target="_blank">a53255ba…</a></td>
+      <td>与 DeepSeek 主干「经济新范式」重叠；新增「微博舆论战 = 验证/施压战术」角</td>
+    </tr>
+
+    <tr>
+      <td class="no">5</td>
+      <td><span class="tag t-mis">多主题</span><span class="tag t-key">医疗伦理</span></td>
+      <td class="t">医疗收费与救死扶伤平衡<span class="pill pill-old">"质询函"=千问生成文档·非白玺内容</span></td>
+      <td>10 轮<br>2026-07-15</td>
+      <td><span class="kw">全球社保</span>3 · 白玺7 · 公开验证1</td>
+      <td>医疗伦理（救死扶伤 vs 收费）；千问 E 段曾生成《华富医疗创新混合基金净值计算透明度及港股投资规则合理性正式质询函》作为"公开验证"案例，该函为 AI 生成文档、非白玺本人内容，已从概念树剔除其事实节点地位。</td>
+      <td><a class="lnk" href="https://www.qianwen.com/share/chat/ae8564ad4e5442c483439b191f65b50f" target="_blank">ae8564ad…</a></td>
+      <td>分享页显示名「华富医疗基金质询函」与会话名「医疗收费伦理」双主题；「质询函」为千问生成文档（非白玺内容），已在概念树剔除。</td>
+    </tr>
+
+    <tr>
+      <td class="no">6</td>
+      <td><span class="tag t-old">★最早</span><span class="tag t-key">贡献值三标准</span></td>
+      <td class="t">彬州智慧水项目方案续写</td>
+      <td>4 轮<br>2025-09-14 → 2025-12-17</td>
+      <td><span class="kw">贡献值</span>11 · 全球社保1</td>
+      <td>贡献值三标准（环境/人文/数据）要素表（国家/企业/个人 贡献值 vs 非贡献值）；彬州智慧水系统 v2.0 同源</td>
+      <td><a class="lnk" href="https://www.qianwen.com/share/chat/d668df18c83d42a48e02e3f51d8ed0e7" target="_blank">d668df18…</a></td>
+      <td>★本批 6 段中<b>最早</b>（2025-09-14 起），与寰宇光锥舟 v1（Gitee 2025-09-07）同期 → 印证四平台「顺序演化+部分重叠」</td>
+    </tr>
+
+  </table>
+
+  <div class="foot">
+    生成：2026-07-28（下午） · 千问语料索引 v1 · 共 6 段（全部成功抓取，0 段平台拦截）。<br>
+    抓取方式：逆向千问私有 API <code>chat2-api.qianwen.com/api/v1/share/info</code>（POST + share_id），绕过 SPA 静态页只出标题的限制。原始 JSON 见 <code>qw_*.json</code>，可读转写见 <code>qw_transcripts/</code>。<br>
+    配套：<a href="yuanbao_corpus_index.html">yuanbao_corpus_index.html</a>（元宝 37 段）· <a href="deepseek_dialogues_index.html">deepseek_dialogues_index.html</a>（DeepSeek 11 段）· <a href="knowledge_tree_v4.html">knowledge_tree_v4.html</a>（拓扑树 v4.5）· <a href="concept_tree.html">concept_tree.html</a>（概念/定义树 v1.5）。<br>
+    本索引为本地分析产物，<b>未上传至任何官网或白皮书</b>。框架冲突（旧七命题+Gzz消亡论 vs 新五大公理+GZZ永久）仍按用户「初混沌·不裁定」要求在线并存。
+  </div>
+</div>
+</body>
+</html>

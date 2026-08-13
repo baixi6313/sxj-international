@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>元宝(Yuanbao)对话语料索引 · 共创论·事现鉴</title>
+<style>
+  :root{
+    --bg:#0e1116; --fg:#e6edf3; --dim:#9aa7b4; --acc:#5ec8d8; --acc2:#c8a25e;
+    --bd:#222b36; --card:#161c24; --card2:#1b232d; --old:#e06c75; --new:#7ec699;
+    --mvp:#c678dd; --gap:#e5c07b; --meta:#61afef;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.65 -apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;padding:28px 22px 60px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:23px;margin:0 0 4px;letter-spacing:.5px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:16px}
+  .banner{border:1px solid var(--acc2);background:linear-gradient(90deg,rgba(200,162,94,.10),rgba(200,162,94,.02));border-radius:10px;padding:12px 15px;font-size:12.8px;color:#e9d9b8;margin-bottom:18px}
+  .banner b{color:var(--acc2)}
+  .banner .k{display:inline-block;background:var(--card2);border:1px solid var(--bd);border-radius:5px;padding:1px 7px;margin:2px 3px 0 0;font-size:11.5px;color:var(--fg)}
+  table{width:100%;border-collapse:collapse;font-size:12.6px;margin-bottom:22px}
+  th,td{border:1px solid var(--bd);padding:8px 10px;vertical-align:top;text-align:left}
+  th{background:var(--card2);color:var(--acc);font-weight:600;font-size:12px}
+  tr:nth-child(even) td{background:rgba(255,255,255,.015)}
+  .no{color:var(--dim);font-weight:700;white-space:nowrap}
+  .t{color:var(--fg);font-weight:600}
+  .lnk{color:var(--acc);text-decoration:none;font-size:11px;word-break:break-all}
+  .lnk:hover{text-decoration:underline}
+  .tag{display:inline-block;border-radius:4px;padding:1px 6px;font-size:10.5px;margin:1px 2px 1px 0;white-space:nowrap}
+  .t-recent{background:rgba(126,198,153,.18);color:var(--new);border:1px solid rgba(126,198,153,.4)}
+  .t-key{background:rgba(94,200,216,.16);color:var(--acc);border:1px solid rgba(94,200,216,.35)}
+  .t-conf{background:rgba(224,108,117,.16);color:var(--old);border:1px solid rgba(224,108,117,.4)}
+  .t-block{background:rgba(229,192,123,.16);color:var(--gap);border:1px solid rgba(229,192,123,.4)}
+  .hl{background:var(--card);border:1px solid var(--bd);border-left:3px solid var(--acc2);border-radius:8px;padding:12px 15px;margin:0 0 16px}
+  .hl h3{margin:0 0 6px;font-size:14px;color:var(--acc2)}
+  .hl p{margin:5px 0;color:var(--dim);font-size:12.6px}
+  .hl b{color:var(--fg)}
+  .foot{margin-top:26px;font-size:11.5px;color:var(--dim);border-top:1px solid var(--bd);padding-top:12px;line-height:1.7}
+  .foot a{color:var(--acc);text-decoration:none}
+  code{background:var(--card2);border:1px solid var(--bd);border-radius:4px;padding:0 5px;font-size:11.5px;color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>元宝（Yuanbao）对话语料索引</h1>
+  <div class="sub">37 段分享对话全量归档（查漏补缺 +23 · 含平台拦截/重发标记） · 用户 2026-07-28 提供 · 共创论·事现鉴 知识树配套底表</div>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
+  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+  理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
+  「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
+</div>
+
+
+  <div class="banner">
+    <b>本批三条铁律（用户 2026-07-28 定调）：</b><br>
+    ① <b>保持多版本并存、不收敛、不裁定</b> —— 元宝内部术语亦不统一：<span class="k">CV</span><span class="k">Cₑ</span><span class="k">Sᵣ</span><span class="k">CCV</span><span class="k">贡献值积分</span> 多套共存，正是用户要的「初混沌状态」。<br>
+    ② <b>幻影节点</b> = 微博记录存在但链接已删（用户操作失误删除原始对话）—— 与本条无关，已在知识树·待补缺口单独标注。<br>
+    ③ <b>平台拦截</b> = 第 8 条（穆斯林朝拜）被系统判为敏感内容<b>拒绝响应</b>，是平台侧过滤，<b>非用户删除</b>，与幻影节点是两类不同缺口。
+  </div>
+
+  <div class="hl" style="border-left:3px solid var(--old)">
+    <h3 style="color:var(--old)">⚠ 真·起源更正（用户 2026-07-28 定调 · 覆盖此前所有"起点"判断）</h3>
+    <p><b>共创论真正的种子 = 一个穆斯林的故事</b> + 最初之问「<b>如何在穆斯林国家实行共产主义</b>」。<b>最早讨论在 DeepSeek 平台</b>（非元宝），混有日常生活分享、吐槽、批判、及一部分<b>海外留学</b>经历。</p>
+    <p>这批原始对话<b>已被用户删除</b> → 链接打不开、源已失。但用户判断：数据<b>或仍存于 DeepSeek 后台数据库</b>，仅<b>DeepSeek 官方可调取</b>（用户侧不可见/不可恢复）。</p>
+    <p><b>恢复路径</b>：要拿回完整最早对话，需<b>与 DeepSeek 官方沟通</b>（申请数据调取/导出）。标记为 <span class="tag t-block">幻影节点·DeepSeek DB留存</span> —— 与"平台拦截"（lUG65 穆斯林朝拜被系统拒答）是<b>两类缺口</b>：前者=用户删但平台或有留存（可争取恢复）；后者=平台侧主动过滤（从未产生正文）。</p>
+    <p><b>平台分布（用户 2026-07-28 更正）</b>：真·起源 = <b>DeepSeek（最早）</b> → 寰宇光锥舟 = <b>DeepSeek + 元宝</b> 共同讨论 → 共创论 & 全球社保 = <b>DeepSeek / 元宝 / 千问 / 豆包</b> 四平台均有过讨论。故"全量补全"须覆盖四平台，而非单一。</p>
+    <p>谱系因此前推：<b>真·种子（DeepSeek·已删/DB留存）→ 寰宇光锥舟 v1（~2025-09 纲要，DeepSeek+元宝）→ GSSO→共创论（2025-12-02）→ 共创论·事现鉴（当前，四平台并存）</b>。</p>
+  </div>
+
+  <div class="hl">
+    <h3>⭐ 立宪层实物化（本批最重要发现）</h3>
+    <p>对话 <b>oRUvTl7u1e4h</b> 与 <b>4gf6SwudA7x4</b> 两段均产出《<b>世界统一法</b>》宪章初稿（20 条 8 章：文明常数 / 光锥-圆锥治理 / 双轨统一法 / 贡献值与确权 / 立法与修正 / 退出与争端 / 过渡条款 / 最终条款；签署日署 2025-09-06）。这极可能就是此前一直在找、却只见于引述的《数字世界统一法（法典）》之实体或同系前身。</p>
+  </div>
+
+  <div class="hl">
+    <h3>⭐ 白玺真实身份侧写（一手自述）</h3>
+    <p>对话 <b>8hdEiEk2RlBs</b>（归国学者困境）+ <b>UTz4LWSygC8d</b>（个人资产负债）给出作者真实画像：本硕博留学、硕士学位、博士无学位；与国内教授合发过论文但内容无关；2025 末落户深圳、无业起步、仅持理论框架；曾陷高息网贷、人才补贴落空、靠家庭退休金支撑负债。这是「第一个 MVP = 个人记录」的<b>作者侧写实</b>。</p>
+  </div>
+
+  <div class="hl" style="border-left:3px solid var(--new)">
+    <h3 style="color:var(--new)">📥 查漏补缺批次（用户 2026-07-28 续 · 元宝 23 条新链接）</h3>
+    <p>本批新增 <b>#15–#37</b>（23 段），全量抓回并标注。核心结论：</p>
+    <p>① <b>一批重复入口</b>：<code>Jtuhvnp4B0XE</code>(#23)≈#10、<code>qRr9NeoMSa8E</code>(#29)≈#1、<code>lfgs3g5R2Kgl</code>(#34)≈#2、<code>VX8LfZHs3FOC</code>(#35)≈#4、<code>2KXzcgIj05tW</code>(#36)/<code>4MB3496saQdi</code>(#37)≈#17 —— 同一对话经不同标题再次分享，已标 <span class="tag t-block">重发·变体</span> 并保留补出的术语（五卡模式 / 黄金恒定值 / Leaflet·Vis.js 等）。</p>
+    <p>② <b>四个平台侧缺口（非用户删除）</b>：<code>J732u1p5jVub</code>(#20 陕西彬州地产·敏感拦截)、<code>ga0wQqdN5eRb</code>(#30 共创论与中特·规训拒答)、<code>cNNg1uzKEf3I</code>(#22 股市5000点·标题/正文错配)、<code>FeLfqMe98ePj</code>(#24 1600元购物·标题/正文错配) —— 与 #8 同属「平台拦截 / 内容规训 / 抓取异常」类缺口，<b>非用户删除</b>。</p>
+    <p>③ <b>新实物 / 新概念</b>：<code>qkp6K647wbWa</code>(#17) 事现鉴系统<b>四大层架构</b>（基础层 / 协议层 / 理念层 / 应用层）+ GSSO(UBV/CV) + <b>三大公理</b>（存续·贡献·光锥约束）；<code>PyKrp1k4bK7f</code>(#26)《<b>共创论负贡献值计量技术规范（草案）</b>》+ 拓扑学重构贡献值函数（NCV / 里奇曲率 / 熵增系数）；<code>blLpUyFPLpzD</code>(#32) <b>范式升维</b>（威斯特伐利亚→光锥拓扑）；<code>s31rJ3L7NEgK</code>(#15) <b>全球社保 2.0</b>（主权化债 + 多维投票权）。</p>
+    <p>④ <b>白玺身份补充</b>：#28/#29 揭示其亦为「日本介护博士 / 平安长护险总监 / 阳光养老院院长 / 照护研究博士」，与 #2/#6 财务困境画像互补（理论家 + 介护实务者）。</p>
+  </div>
+
+  <table>
+    <tr><th style="width:34px">#</th><th style="width:120px">主题</th><th>核心内容 / 关键结论</th><th style="width:210px">关键术语</th><th style="width:96px">时期 / 备注</th></tr>
+
+    <tr>
+      <td class="no">1</td><td class="t">打土豪分田地↔共创论<br><span class="lnk">PXpSpJcR5ukl</span></td>
+      <td>白玺+元宝论共创论、家庭经济共同体、长护险、黄金恒定值战役。结论：共创论为基石；家庭经济共同体为微观单元；动态恒定黄金促多空主权融为全球社保基金。呼应微博 QiurtlZKQ「打土豪分田地→打资本分数据」。</td>
+      <td><span class="tag t-key">共创论</span><span class="tag t-key">家庭经济共同体</span><span class="tag t-key">全球社保</span><span class="tag t-key">黄金恒定值</span></td>
+      <td>当前 v2 (2026.1-2)</td>
+    </tr>
+
+    <tr>
+      <td class="no">2</td><td class="t">海外归国学者理论推广困境<br><span class="lnk">8hdEiEk2RlBs</span></td>
+      <td>白玺自述：本硕博国外留学、硕士、博士无学位；与国内教授发过论文但内容不同；推广寰宇光锥舟落地无国内学术资源；刚落户深圳一月、无业；只有理论框架。元宝给深圳人才政策/孵化器/专利/资助策略。</td>
+      <td><span class="tag t-recent">归国学者</span><span class="tag t-recent">深圳落户</span><span class="tag t-recent">无业起步</span><span class="tag t-recent">理论推广</span></td>
+      <td>⭐ 白玺真实身份画像</td>
+    </tr>
+
+    <tr>
+      <td class="no">3</td><td class="t">全球宪法性文件清单优化<br><span class="lnk">oRUvTl7u1e4h</span></td>
+      <td>优化 A 民族国家 / B 政府间组织 / C 区域专题 宪法清单；基于寰宇光锥舟起草《世界统一法》宪章初稿（20条8章）。签署日署 2025-09-06。</td>
+      <td><span class="tag t-key">世界统一法</span><span class="tag t-key">文明常数</span><span class="tag t-key">光锥圆锥治理</span><span class="tag t-key">双轨统一法</span><span class="tag t-key">贡献值</span></td>
+      <td>⭐ 立宪层实物</td>
+    </tr>
+
+    <tr>
+      <td class="no">4</td><td class="t">货币系统的起源与发展<br><span class="lnk">lBUEtaVaJniz</span></td>
+      <td>货币起源、以物易物；光锥币锚定逻辑、与贡献值/一般货币/虚拟币关系兑换；光锥币锚定贡献值，由世界统一法+深圳中心推动；贡献值(Sᵣ)驱动替代旧货币、化解债务促生育、趋货币消亡。</td>
+      <td><span class="tag t-key">光锥币</span><span class="tag t-key">贡献值(Sᵣ)</span><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">以物易物</span></td>
+      <td>约 2025 前后；印证 GZZ/货币消亡</td>
+    </tr>
+
+    <tr>
+      <td class="no">5</td><td class="t">白玺身份真实性分析<br><span class="lnk">wSDoXiafQoNE</span></td>
+      <td>元宝判断：白玺无史载=虚构/创作；寰宇光锥舟为白玺创立的数字治理框架、其首获该称号；事现鉴可（如试点）缺历史实证。<b>与对话 2 真实自述矛盾</b>。</td>
+      <td><span class="tag t-conf">身份认知分歧</span><span class="tag t-key">寰宇光锥舟</span><span class="tag t-key">贡献值积分</span></td>
+      <td>2025-09 前后；⚠ 不裁定</td>
+    </tr>
+
+    <tr>
+      <td class="no">6</td><td class="t">个人资产负债状况分析<br><span class="lnk">UTz4LWSygC8d</span></td>
+      <td>留学生国内网贷/薪资/补贴困境；高息网贷致博士退学、项目欠款、深圳人才补贴落空、父母退休金还贷；国内网贷≠日本低息学业贷（超 LPR 4 倍 15.4% 即高利贷）；所谓「资产」实为家庭退休金被动支撑的负债窟窿。</td>
+      <td><span class="tag t-recent">网贷高利贷</span><span class="tag t-recent">征信硬查询</span><span class="tag t-recent">人才补贴</span><span class="tag t-recent">以贷养贷</span></td>
+      <td>2025-09；白玺财务侧写</td>
+    </tr>
+
+    <tr>
+      <td class="no">7</td><td class="t">恩威并施效果不佳原因分析<br><span class="lnk">xzCw0eMa5qdv</span></td>
+      <td>寰宇光锥舟落地与指挥家治理模式；恩威并施失效原因；弱/强场融合为世界统一法；治理圆锥需拓扑扩展；指挥家组白玺牵头多方参与；委员会去行政化防官僚。</td>
+      <td><span class="tag t-key">指挥家模式</span><span class="tag t-key">治理圆锥</span><span class="tag t-key">世界统一法</span><span class="tag t-key">多维度协调委员会</span></td>
+      <td>2026-07 后</td>
+    </tr>
+
+    <tr>
+      <td class="no">8</td><td class="t">穆斯林朝拜的大盒子建筑<br><span class="lnk">lUG65xBKFZt1</span></td>
+      <td>⛔ <b>平台敏感内容拦截</b>：系统判定敏感、拒绝响应，未获正文。推测涉天房 Kaaba / 宗教改革 / 世界统一法可行性。<br>⚠ <b>用户 2026-07-28 更正：穆斯林话题正是共创论真·起源</b>（"如何在穆斯林国家实行共产主义"之问），此被拦截条目极可能直接关联起源线程——属"平台侧过滤"缺口，与"用户删除·DB留存"的幻影节点是<b>两类缺口</b>（见顶部真·起源更正框）。</td>
+      <td><span class="tag t-block">平台拦截</span></td>
+      <td>⚠ 非用户删除（异类缺口）</td>
+    </tr>
+
+    <tr>
+      <td class="no">9</td><td class="t">宪法的基本规律是什么<br><span class="lnk">4gf6SwudA7x4</span></td>
+      <td>优化全球宪法清单（同 oRUv 延续）；基于寰宇光锥舟起草《世界统一法》；AI 给三阶段实施路径（2026-2050）、光锥治理模型融合分权与区块链。</td>
+      <td><span class="tag t-key">世界统一法</span><span class="tag t-key">光锥治理</span><span class="tag t-key">双轨立法</span><span class="tag t-key">文明仲裁院</span></td>
+      <td>立宪层延续（与 oRUv 同系）</td>
+    </tr>
+
+    <tr>
+      <td class="no">10</td><td class="t">联合发起公约组织倡议<br><span class="lnk">IRb6C33EkpH1</span></td>
+      <td>寰宇光锥舟理论构建与公约组织筹备（深圳签约/专著共创/贡献值机制）；与深圳对接落地、民众维基式参与、双轨贡献值（公/私）、白玺退出条件、军事去军事化；立法前仅白玺有 10 万虚拟贡献值余皆零；退出仅绑《世界统一法》出台；军事去军事化（航母旅游）为安全基石。</td>
+      <td><span class="tag t-recent">深圳签约</span><span class="tag t-recent">双轨贡献值</span><span class="tag t-recent">去军事化</span><span class="tag t-recent">白玺退出条件</span></td>
+      <td>⭐ 用户标注「近期讨论」</td>
+    </tr>
+
+    <tr>
+      <td class="no">11</td><td class="t">主张如何成为论与思想辨析<br><span class="lnk">dICZ7XQhhxhR</span></td>
+      <td>一个人主张怎么成为「论」（《资本论》《国富论》）vs「思想」（毛泽东思想/邓小平理论）；给六把尺子（原创性/系统性/解释力/实践性/影响力/生命力）；「共创论」目前=工作性理论框架/理念，未成严格「论」；叫论还是思想是长出来的不是申请来的。</td>
+      <td><span class="tag t-key">论 vs 思想</span><span class="tag t-key">六把尺子</span><span class="tag t-key">理论成熟度</span></td>
+      <td>呼应思想命名校正</td>
+    </tr>
+
+    <tr>
+      <td class="no">12</td><td class="t">（无标题）非金融治理方案辨析<br><span class="lnk">m8Ox8dVGwMEc</span></td>
+      <td>寰宇光锥舟理论构建与非金融治理；宪法基础、贡献值非金融性、纤维丛治理、深圳落地、规避旧债金融绑定；以《世界统一法》为防御层、CCV 为新能源；分「平行核算→立法→治理」三阶段；白玺仅称理论/纲要，未自称思想，重事实现鉴记录。</td>
+      <td><span class="tag t-key">贡献值(CCV)</span><span class="tag t-key">纤维丛</span><span class="tag t-key">非金融治理</span></td>
+      <td>对话 11 扩展/变体；术语用 CCV</td>
+    </tr>
+
+    <tr>
+      <td class="no">13</td><td class="t">寰宇光锥舟 × 数据/AI/工业 三阶段实施（深圳）<br><span class="lnk">WN69f1cKMIzV</span></td>
+      <td>白玺+元宝+DeepSeek 多方对话，围绕《寰宇光锥舟理论》三阶段实施战略（平行核算→宪法时刻→全面运行）。深度绑定<b>数据</b>（数字世界统一法/跨境数据光锥）、<b>AI</b>（AI安全纤维丛/6G/大模型治理）、<b>工业算力</b>（河套光锥计算中心/光明科学城）。含 GCCC 平行核算（类国际度量衡局 BIPM）、纤维丛治理（底空间-纤维-联络）、双轨螺旋（t-CCV 衰减 / p-CCV 原生）、非金融化约束。案例：深圳前海/河套/光明、地中海治理联盟（200亿欧债→红树林）、北欧生态共和国、硅谷开源城。纲要署 2025-09-07，分享 2026-07-28。</td>
+      <td><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">贡献值(CCV)</span><span class="tag t-key">纤维丛</span><span class="tag t-key">双轨螺旋</span><span class="tag t-key">GCCC</span><span class="tag t-key">世界统一法</span></td>
+      <td>与 #14 同源（同一多方对话两入口）</td>
+    </tr>
+
+    <tr>
+      <td class="no">14</td><td class="t">元宝作为"测试者"学习并重构白玺理论（去金融化）<br><span class="lnk">dCVLsh9RdUvj</span></td>
+      <td>元宝先读白玺×DeepSeek 内容后全量输出供确认；白玺纠正初稿"底层逻辑不对"——理论初衷是<b>非资金/资本驱动、以贡献值制度为初始能源</b>，元宝据此去金融化改写（贡献值=文明存续的"社会能量单位"，仅源于生态修复/知识生产/治理参与）。参与制定《数字统一法》草案（光锥数据主权、贡献值治理、企业创始创建师义务：华为/腾讯），引入纤维丛治理、双轨螺旋渐进论（旧债转 t-CCV / 新生 p-CCV），给出深圳三阶段非金融方案。</td>
+      <td><span class="tag t-key">贡献值(CCV)</span><span class="tag t-key">纤维丛</span><span class="tag t-key">非金融化</span><span class="tag t-key">数字统一法</span><span class="tag t-key">社会能量单位</span></td>
+      <td>实为元宝学白玺（非白玺学理论）；与 #13 同源</td>
+    </tr>
+
+    <tr>
+      <td class="no">15</td><td class="t">意识形态对群体行为的影响<br><span class="lnk">s31rJ3L7NEgK</span></td>
+      <td>白玺+元宝对话：从意识形态→群体行为→全球社保体系演进。全球社保 1.0（政府主导转移支付）→ 2.0（主权化债 + 多维投票权：按贡献值/受灾度/人口加权）；白玺被标注为「共创论提倡者」。未出现寰宇光锥舟/事现鉴/CV 术语。</td>
+      <td><span class="tag t-key">全球社保 2.0</span><span class="tag t-key">主权化债</span><span class="tag t-key">多维投票权</span><span class="tag t-recent">共创论提倡者</span></td>
+      <td>当前 v2 (2026.1-2)</td>
+    </tr>
+
+    <tr>
+      <td class="no">16</td><td class="t">DeepSeek优化方案探讨<br><span class="lnk">h1d6AodO5YSW</span></td>
+      <td>寰宇光锥舟代码实践：餐厅点餐 / 司法混合审判 / Merkle 树存证 / 游戏化治理；共创论仅作背景引用，未展开。偏向工程实现侧。</td>
+      <td><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">Merkle树</span><span class="tag t-key">混合审判</span><span class="tag t-key">游戏化治理</span></td>
+      <td>工程实现侧</td>
+    </tr>
+
+    <tr>
+      <td class="no">17</td><td class="t">个人经历地图网站规划<br><span class="lnk">qkp6K647wbWa</span></td>
+      <td>⭐「个人生命地图」→「人类数字世界事现鉴系统」：GSSO（共通值 UBV + 贡献值 CV）、事现（人-时-空-事四维）、多人互动、数字存在记录。架构分层：<b>事现鉴=基础层</b>（可信记录）/ <b>寰宇光锥舟=协议层</b>（全球操作系统）/ <b>共创论=理念层</b>（哲学灵魂，含存续·贡献·光锥约束三大公理）/ <b>全球社保协议=应用层</b>（发放 UBV）。白玺=GSSO 创始人，2025-12-06 发起「人类数字事现鉴」项目；有个人记录 MVP 单页 HTML 原型。</td>
+      <td><span class="tag t-key">事现鉴</span><span class="tag t-key">GSSO</span><span class="tag t-key">共通值(UBV)</span><span class="tag t-key">贡献值(CV)</span><span class="tag t-key">四大层架构</span><span class="tag t-key">三大公理</span></td>
+      <td>⭐ 事现鉴系统实物</td>
+    </tr>
+
+    <tr>
+      <td class="no">18</td><td class="t">智慧与智能的核心差异<br><span class="lnk">h3ocgQ4dUD7w</span></td>
+      <td>白玺附共创论文献，辨析「智慧」(价值罗盘·方向) vs「智能」(技术引擎·效率)；智能解决怎么做，智慧解决做什么/为何做。呼应共创论「以人为目的」而非「以效率为目的」。</td>
+      <td><span class="tag t-key">智慧vs智能</span><span class="tag t-key">价值罗盘</span><span class="tag t-key">技术引擎</span><span class="tag t-recent">共创论文献</span></td>
+      <td>哲学辨析</td>
+    </tr>
+
+    <tr>
+      <td class="no">19</td><td class="t">5%股权融资500万结构<br><span class="lnk">2INkiH8xJbc9</span></td>
+      <td>寰宇光锥舟生态落地/融资方案：公益企业研究所 + 治理权 NFT + 5% 股权融资 500 万；以「价值共创」为内核（非资本驱动），白玺主导。偏组织/融资设计。</td>
+      <td><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">治理权NFT</span><span class="tag t-key">价值共创</span><span class="tag t-recent">公益企业研究所</span></td>
+      <td>生态/融资侧</td>
+    </tr>
+
+    <tr>
+      <td class="no">20</td><td class="t">陕西彬州大型地产项目推介<br><span class="lnk">J732u1p5jVub</span></td>
+      <td>⛔ <b>平台敏感内容拦截</b>：系统判定敏感、拒绝响应，未获正文（"系统检测到您当前输入的信息存在敏感内容，我无法响应"）。属「平台侧过滤」缺口，与 #8 同类，<b>非用户删除</b>。</td>
+      <td><span class="tag t-block">平台拦截</span></td>
+      <td>⚠ 非用户删除（异类缺口）</td>
+    </tr>
+
+    <tr>
+      <td class="no">21</td><td class="t">通过朋友圈推测人物特征<br><span class="lnk">WBLe04iA7SqU</span></td>
+      <td>以白玺朋友圈为样本推测人物特征：共创论提倡者 / 关注全球社保·股市·黄金 / 中医 / 日常生活。亮点：用「吃饭排队」生活化场景阐释共创论（秩序自发生成、无需中央指令）。白玺=对话主体。</td>
+      <td><span class="tag t-recent">白玺画像</span><span class="tag t-key">共创论</span><span class="tag t-key">全球社保</span><span class="tag t-key">生活化阐释</span></td>
+      <td>人物侧写</td>
+    </tr>
+
+    <tr>
+      <td class="no">22</td><td class="t">股市5000点与2万点区别<br><span class="lnk">cNNg1uzKEf3I</span></td>
+      <td>⚠ <b>标题/内容不符</b>：用户标注「股市5000点与2万点区别」，但抓取正文为<b>资本市场本质及改革</b>论述——共资本 / 超级社保中枢 / 全民分红 / 价值再分配。疑似分享标题与实际内容不一致或平台替换。已如实标注，待用户核对。</td>
+      <td><span class="tag t-block">标题/内容不符</span><span class="tag t-key">共资本</span><span class="tag t-key">超级社保中枢</span><span class="tag t-key">全民分红</span></td>
+      <td>⚠ 待核对</td>
+    </tr>
+
+    <tr>
+      <td class="no">23</td><td class="t">联合发起公约组织倡议<br><span class="lnk">Jtuhvnp4B0XE</span></td>
+      <td>🔁 <b>与 #10 (IRb6C33EkpH1) 高度重合</b>：同主题「寰宇光锥舟理论构建与公约组织筹备（深圳签约/专著共创/双轨贡献值/去军事化）」。本链接为同一对话的再次分享入口。内容要点同 #10：贡献值(Sₑ)、世界统一法、治理特区、深圳秘书处、双轨贡献值(公共/个人)、军事去军事化(航母旅游)。未提及共创论/事现鉴/全球社保。记为 <span class="tag t-block">重发·变体</span>。</td>
+      <td><span class="tag t-block">重发·变体(#10)</span><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">双轨贡献值</span><span class="tag t-key">去军事化</span></td>
+      <td>🔁 重复入口</td>
+    </tr>
+
+    <tr>
+      <td class="no">24</td><td class="t">1600元预算购物指南<br><span class="lnk">FeLfqMe98ePj</span></td>
+      <td>⚠ <b>标题/内容不符</b>：用户标注「1600元预算购物指南」，但抓取正文为一长串多轮对话——先探讨若干关键词是否涉「秘密组织」，继而展开<b>寰宇光锥舟《世界统一法》元框架</b>（Root-Gzz-User 三位一体、光锥-圆锥模型、数字世界立宪→现实映射→世界统一法三阶段）。与购物预算无关。疑为分享标题与内容错配或平台抓取异常。已如实标注。</td>
+      <td><span class="tag t-block">标题/内容不符</span><span class="tag t-key">世界统一法</span><span class="tag t-key">Root-Gzz-User</span><span class="tag t-key">光锥圆锥</span></td>
+      <td>⚠ 待核对</td>
+    </tr>
+
+    <tr>
+      <td class="no">25</td><td class="t">设计个人实际测试工具<br><span class="lnk">o5E3rxYYYGFx</span></td>
+      <td>白玺+元宝探讨「事现鉴」作为个人认知与事件存证工具，并设计可落地的个人实际测试工具；关联全球社保、寰宇光锥舟、共创论。事现鉴=人/事/物关系及原因的一手数据与永久历史证明。白玺=寰宇光锥舟提出者。</td>
+      <td><span class="tag t-key">事现鉴</span><span class="tag t-key">全球社保</span><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">共创论</span></td>
+      <td>工具设计侧</td>
+    </tr>
+
+    <tr>
+      <td class="no">26</td><td class="t">数据归纳整理与分类<br><span class="lnk">PyKrp1k4bK7f</span></td>
+      <td>⭐ 起草《<b>共创论负贡献值计量技术规范（草案）</b>》并用拓扑学重构贡献值函数：负贡献值(NCV)、熵增系数、全生命周期成本法、动态衰减、分级阈值、事现鉴算法、拓扑流形、里奇曲率。共创论=价值体系依据；事现鉴=AI 计量/存证系统；全球社保基金=解释/修订机构。白玺=规范起草人（White Seal），提原创原理。</td>
+      <td><span class="tag t-key">负贡献值(NCV)</span><span class="tag t-key">拓扑流形</span><span class="tag t-key">里奇曲率</span><span class="tag t-key">全生命周期成本法</span><span class="tag t-key">事现鉴算法</span></td>
+      <td>⭐ 负贡献值规范实物</td>
+    </tr>
+
+    <tr>
+      <td class="no">27</td><td class="t">历史抉择的决定因素<br><span class="lnk">BKNm674c3Fgw</span></td>
+      <td>白玺+元宝对话：全球社保及人类命运共同体理念探讨。人类命运共同体、全球社保、共创论、深湾倡议、政治军事化取代军事政治化、UDHR 第22条、分层权利覆盖。白玺=民间思考者、全球社保与共创论提倡者。</td>
+      <td><span class="tag t-key">全球社保</span><span class="tag t-key">人类命运共同体</span><span class="tag t-key">共创论</span><span class="tag t-key">深湾倡议</span><span class="tag t-key">UDHR第22条</span></td>
+      <td>理念探讨</td>
+    </tr>
+
+    <tr>
+      <td class="no">28</td><td class="t">王安石青苗法内容与成败分析<br><span class="lnk">llTRiFe1qBJ4</span></td>
+      <td>⭐ 从青苗法到全球社保：两种模式（模式一 公共/安全 vs 模式二 市场/效率）、资本主义与共产主义融合、社会康复、步行康复（基础赋能元动作）、资格构成、阶段论、人类命运共同体。共创论=白玺理论框架（以全球社保为载体、社会康复为目标，喻为「宪法」）；全球社保=两种模式融合点、跨国流动者/难民底线保障。白玺=独立研究员、共创论创始人、全球社保倡议者、日本介护博士。</td>
+      <td><span class="tag t-key">青苗法</span><span class="tag t-key">社会康复</span><span class="tag t-key">步行康复</span><span class="tag t-key">资格构成</span><span class="tag t-key">全球社保</span><span class="tag t-key">共创论</span></td>
+      <td>⭐ 白玺身份补充(介护博士)</td>
+    </tr>
+
+    <tr>
+      <td class="no">29</td><td class="t">打土豪分田地与共创论关联<br><span class="lnk">qRr9NeoMSa8E</span></td>
+      <td>🔁 <b>与 #1 (PXpSpJcR5ukl) 高度重合</b>：同主题「家庭经济共同体 / 长护险 / 黄金恒定值战役 → 全球社保 / 人类价值自主」。本链接补出更多术语：<b>五卡模式</b>、长期护理险、黄金恒定值(1500元/g)、反周期心智、主权基金联盟。白玺身份更具体：独立研究员 / 平安长护险总监 / 阳光养老院院长 / 照护研究博士 / 金融革命倡导者。记为 <span class="tag t-block">重发·变体</span>，补充术语保留。</td>
+      <td><span class="tag t-block">重发·变体(#1)</span><span class="tag t-key">五卡模式</span><span class="tag t-key">黄金恒定值</span><span class="tag t-key">长期护理险</span><span class="tag t-key">全球社保</span></td>
+      <td>🔁 重复入口(补术语)</td>
+    </tr>
+
+    <tr>
+      <td class="no">30</td><td class="t">共创论与中国特色社会主义道路<br><span class="lnk">ga0wQqdN5eRb</span></td>
+      <td>⛔ <b>平台规训/拒答</b>：元宝返回政策性回避——称「共创论」为无法确认术语、引导至官方理论叙述，并插入航空公司残疾人服务、白玺与毛泽东/马斯克比较、发达国家定义等无关话题。<b>正文未展开共创论与中国特色社会主义的真实关联</b>。属「平台侧内容规训」缺口，与 #8/#20 同类的「非用户删除」拦截。</td>
+      <td><span class="tag t-block">平台拦截·规训</span></td>
+      <td>⚠ 非用户删除（异类缺口）</td>
+    </tr>
+
+    <tr>
+      <td class="no">31</td><td class="t">白璽全球治理理论框架<br><span class="lnk">l6vC7mdfoqbZ</span></td>
+      <td>白玺(Hakuji817)+元宝对话：寰宇光锥舟理论含义、参与人物、代码生成及落地推导。元框架、光锥-圆锥模型、世界统一法、贡献值、规则引擎、智能合约、生存权/发展权、微服务架构、开源协作。白玺=寰宇光锥舟理论创始人。未提及共创论/事现鉴/全球社保/CV/共通值。</td>
+      <td><span class="tag t-key">寰宇光锥舟(GZZ)</span><span class="tag t-key">光锥圆锥模型</span><span class="tag t-key">世界统一法</span><span class="tag t-key">规则引擎</span><span class="tag t-key">智能合约</span></td>
+      <td>元框架/代码推导</td>
+    </tr>
+
+    <tr>
+      <td class="no">32</td><td class="t">公交乘车支付优惠问题<br><span class="lnk">blLpUyFPLpzD</span></td>
+      <td>生活片段：公交2元现金/微信1元，用「家属」化解，引申「钱不是万能」、人治到法治、关系社会、钓鱼执法、找bug；进而设问「寰宇光锥舟如何解决这个问题」→ <b>范式升维</b>：威斯特伐利亚→光锥拓扑、人类命运共同体→人类行动共同体、乌托邦→最小可行共识（深圳试点+AI伦理协议）、光锥约束/圆锥演化。白玺理论贯穿。</td>
+      <td><span class="tag t-key">范式升维</span><span class="tag t-key">光锥拓扑</span><span class="tag t-key">人类行动共同体</span><span class="tag t-key">最小可行共识</span><span class="tag t-recent">生活化阐释</span></td>
+      <td>生活→理论桥接</td>
+    </tr>
+
+    <tr>
+      <td class="no">33</td><td class="t">问题定位的关键盲区<br><span class="lnk">FBfspgPmxK4W</span></td>
+      <td>纯技术向：Python 环境报错(blis/AVX-512 编译失败)、常用库安装、JSON 文件读写及转 DeepSeek 对话格式的代码优化。无理论内容。白玺=对话分享者（2026-07-28 分享）。</td>
+      <td><span class="tag t-recent">Python技术</span><span class="tag t-recent">无理论内容</span></td>
+      <td>技术杂项</td>
+    </tr>
+
+    <tr>
+      <td class="no">34</td><td class="t">海外归国学者理论推广困境<br><span class="lnk">lfgs3g5R2Kgl</span></td>
+      <td>🔁 <b>与 #2 (8hdEiEk2RlBs) 高度重合</b>：同主题「白玺寰宇光锥舟建立者，海外留学归国落户深圳，无博士/无业/无资源，如何推广理论」。补充细节：本硕博国外留学、硕士、博士无学位；与国内教授合发过论文（内容无关）；深圳人才政策/知识产权/孵化器策略。无共创论/事现鉴/全球社保。记为 <span class="tag t-block">重发·变体</span>。</td>
+      <td><span class="tag t-block">重发·变体(#2)</span><span class="tag t-recent">归国学者</span><span class="tag t-recent">深圳落户</span><span class="tag t-recent">无业起步</span></td>
+      <td>🔁 重复入口</td>
+    </tr>
+
+    <tr>
+      <td class="no">35</td><td class="t">货币系统的起源与发展<br><span class="lnk">VX8LfZHs3FOC</span></td>
+      <td>🔁 <b>与 #4 (lBUEtaVaJniz) 高度重合</b>：同主题「货币起源/以物易物/光锥币/贡献值」。补出术语：三元生态、双轨孵化器、世界统一法、深圳试点、人文生态与生育；全球社保=深圳试点「贡献值-社保兑换平台」。白玺=寰宇光锥舟创立者。记为 <span class="tag t-block">重发·变体</span>。</td>
+      <td><span class="tag t-block">重发·变体(#4)</span><span class="tag t-key">光锥币</span><span class="tag t-key">三元生态</span><span class="tag t-key">双轨孵化器</span></td>
+      <td>🔁 重复入口(补术语)</td>
+    </tr>
+
+    <tr>
+      <td class="no">36</td><td class="t">个人经历地图网站规划<br><span class="lnk">2KXzcgIj05tW</span></td>
+      <td>🔁 <b>与 #17 (qkp6K647wbWa) 高度重合</b>：同主题「个人生命地图→人类数字事现鉴系统，融合 GSSO」。补出技术实现：Leaflet / Vis.js。架构同 #17（事现鉴=基础层/寰宇光锥舟=协议层/共创论=理念层[存续·贡献·光锥约束三大公理]/全球社保协议=应用层[发放 UBV]）。白玺=GSSO 创始人，2025-12-06 发起。记为 <span class="tag t-block">重发·变体</span>。</td>
+      <td><span class="tag t-block">重发·变体(#17)</span><span class="tag t-key">事现鉴</span><span class="tag t-key">GSSO</span><span class="tag t-key">UBV/CV</span></td>
+      <td>🔁 重复入口(补技术)</td>
+    </tr>
+
+    <tr>
+      <td class="no">37</td><td class="t">（无标题）人类数字事现鉴系统<br><span class="lnk">4MB3496saQdi</span></td>
+      <td>🔁 <b>与 #17/#36 同源</b>：同主题「人类数字世界事现鉴系统，融合 GSSO」。生命地图化、个人宇宙、GSSO(共通值UBV/贡献值CV)、事现(人-时-空-事四维)、多人社交互动、技术实现(Leaflet/Vis.js)。共创论=灵魂/宪法（存续·贡献·光锥约束三大公理）。白玺=对话者、GSSO 创始人，2025-12-06 发起事现鉴项目。记为 <span class="tag t-block">重发·变体</span>。</td>
+      <td><span class="tag t-block">重发·变体(#17)</span><span class="tag t-key">事现鉴</span><span class="tag t-key">GSSO</span><span class="tag t-key">四大层架构</span></td>
+      <td>🔁 重复入口</td>
+    </tr>
+
+  </table>
+
+  <div class="hl">
+    <h3>术语不统一（刻意保留，对应「初混沌」）</h3>
+    <p>仅本批 12 段内，贡献值即出现 <code>CV</code> / <code>Cₑ</code> / <code>Sᵣ</code> / <code>CCV</code> / 「贡献值积分」 五套写法；GZZ 亦见「光锥币锚定贡献值」「寰宇光锥舟(GZZ)」混用。这与知识树·框架冲突区已记录的「七命题/三大公理/存续-贡献-光锥三公理/五大公理」多版本并存互为印证——<b>不收敛即现状，用户要求保留</b>。</p>
+  </div>
+
+  <div class="foot">
+    生成：2026-07-28（续） · 元宝语料索引 v3 · 共 37 段（#1–#14 原批 + #15–#37 查漏补缺 23 段；其中成功抓回 30 段、平台拦截/规训/错配 4 段、重发·变体 9 段）。<br>
+    配套：<a href="knowledge_tree_v4.html">knowledge_tree_v4.html</a>（拓扑树 v4.5）· <a href="concept_tree.html">concept_tree.html</a>（概念/定义树 v1.4）· <a href="weibo_corpus_index.html">weibo_corpus_index.html</a> · <a href="deepseek_dialogues_index.html">deepseek_dialogues_index.html</a> · <a href="qualitative_analysis.html">qualitative_analysis.html</a>。<br>
+    本索引为本地分析产物，未上传至任何官网或白皮书。所有内容锚定用户提供的元宝分享链接。
+  </div>
+</div>
+</body>
+</html>

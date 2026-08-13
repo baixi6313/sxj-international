@@ -1,0 +1,39 @@
+page {
+  background: #0b1f3a;
+  color: #e8eef7;
+  font-family: -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.65;
+}
+.section { padding: 20rpx 28rpx 8rpx; }
+.card {
+  background: #122c4f;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0,0,0,.25);
+}
+.h1 { font-size: 40rpx; font-weight: 800; color: #ffffff; }
+.h2 { font-size: 34rpx; font-weight: 700; color: #7fd1ff; margin: 14rpx 0 16rpx; }
+.h3 { font-size: 30rpx; font-weight: 700; color: #aee0ff; margin: 8rpx 0; }
+.muted { color: #9fb3cc; font-size: 24rpx; }
+.small { font-size: 22rpx; color: #8aa0bd; }
+.tag {
+  display: inline-block; padding: 2rpx 14rpx; border-radius: 20rpx;
+  font-size: 22rpx; background: #1d3e66; color: #9fd0ff; margin-right: 8rpx;
+}
+.pill { display:inline-block; padding: 4rpx 16rpx; border-radius: 24rpx; font-size: 22rpx; font-weight: 600; }
+.pill-ubv { background:#103b2e; color:#5fe3a8; }
+.pill-cv  { background:#13314f; color:#7fd1ff; }
+.pill-ncv { background:#4a1f2b; color:#ff8aa0; }
+.row { display:flex; justify-content:space-between; align-items:center; }
+.divider { height:1rpx; background:#1d3e66; margin: 16rpx 0; }
+.mono { font-family: "SFMono-Regular", Consolas, monospace; font-size: 20rpx; color:#7fd1ff; word-break: break-all; }
+
+/* 测试版横幅（全站顶部） */
+
+
+
+.data-stamp { font-size:20rpx; color:#8aa0bd; padding:8rpx 28rpx 0; }
+
+

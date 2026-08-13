@@ -1,0 +1,8 @@
+.consensus { display:flex; justify-content:space-around; text-align:center; }
+.metric { flex:1; }
+.m-num { font-size:44rpx; font-weight:800; color:#5fe3a8; }
+.m-label { font-size:22rpx; color:#9fb3cc; margin-top:4rpx; }
+.net-pos { color:#5fe3a8; font-weight:700; font-size:26rpx; }
+.net-neg { color:#ff8aa0; font-weight:700; font-size:26rpx; }
+.chain-row { padding:10rpx 0; border-bottom:1rpx dashed #1d3e66; }
+.chain-row:last-child { border-bottom:none; }

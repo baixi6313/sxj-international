@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论总论 · 事现鉴</title>
+<style>
+  :root{
+    --red:#c41e3a; --red-deep:#9e1530; --red-light:#fbeef0;
+    --gold:#b8860b; --gold-light:#fbf4e3;
+    --ink:#1a1a2e; --dim:#6b6b7b; --line:#ececf1;
+    --bg:#f2f3f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#0c0c12;color:var(--ink);line-height:1.85;font-size:16px;display:flex;justify-content:center;min-height:100vh;}
+  .doc{max-width:840px;width:100%;background:var(--bg);padding:48px 42px 64px;position:relative;}
+  .cover{text-align:center;margin-bottom:40px;padding-bottom:32px;border-bottom:2px solid var(--red)}
+  .cover-title{font-size:30px;font-weight:800;color:var(--red-deep);letter-spacing:1px;margin-bottom:10px}
+  .cover-sub{font-size:17px;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .cover-desc{font-size:13.5px;color:var(--dim);line-height:1.7}
+  .cover-tag{display:inline-block;background:var(--gold-light);color:var(--gold);font-size:12px;font-weight:700;padding:4px 16px;border-radius:20px;border:1px solid #ecdcb0;margin:8px 4px 0}
+  .section{margin-bottom:34px}
+  .sec-title{font-size:21px;font-weight:700;color:var(--red-deep);display:flex;align-items:center;gap:12px;margin-bottom:14px;scroll-margin-top:80px}
+  .sec-title::before{content:"";width:6px;height:26px;background:var(--red);border-radius:3px}
+  .sec-sub{font-size:14px;color:var(--dim);margin-bottom:12px;padding-left:18px;border-left:3px solid var(--gold)}
+  .p{font-size:15px;color:#3a3a4d;margin:10px 0;line-height:1.8}
+  .p b{color:var(--ink);font-weight:700}
+  .p .k{color:var(--red-deep);font-weight:700}
+  .card{background:#fff;border-radius:14px;padding:18px 22px;margin:12px 0;border:1px solid var(--line);position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--red);opacity:.65}
+  .card.gold::before{background:var(--gold)}
+  .card h4{font-size:16px;margin-bottom:8px;color:var(--red-deep)}
+  .card.gold h4{color:var(--gold)}
+  .card .body{font-size:14.5px;color:#3a3a4d;line-height:1.75}
+  .card .body b{color:var(--ink)}
+  .note{background:var(--gold-light);border:1px solid #ecdcb0;border-radius:14px;padding:16px 20px;margin:14px 0;font-size:14px;color:#4a3f22;line-height:1.75}
+  .note b{color:var(--red-deep)}
+  .warn{background:var(--red-light);border:1px solid #f3d2d8;border-radius:14px;padding:16px 20px;margin:14px 0;font-size:13.5px;color:#7a2436;line-height:1.7}
+  ul.li{margin:8px 0 8px 4px;padding-left:20px}
+  ul.li li{font-size:14.5px;color:#3a3a4d;margin:6px 0;line-height:1.7}
+  ul.li li b{color:var(--ink)}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#f7f7fb;color:var(--red-deep)}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 10px;border-radius:20px;margin:2px 3px 2px 0}
+  .pill-new{background:rgba(63,122,74,.15);color:#3f7a4a}
+  .pill-old{background:rgba(162,59,50,.14);color:#a23b32}
+  .pill-g{background:rgba(184,134,11,.16);color:var(--gold)}
+  .foot{margin-top:40px;border-top:2px solid var(--red);padding-top:18px;font-size:12.5px;color:var(--dim);line-height:1.7}
+  .foot b{color:var(--ink)}
+  .toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 22px;margin:20px 0;font-size:13.5px}
+  .toc a{color:var(--red-deep);text-decoration:none}
+  .toc ol{margin:6px 0 0 18px;line-height:1.9}
+</style>
+
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="theme-color" content="#A32D2D">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="事现鉴">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+</head>
+<body>
+<!-- SXJ_NAV -->
+<nav style="position:sticky;top:0;z-index:999;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#A32D2D;padding:8px 14px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+  <a href="./" style="color:#fff;font-weight:700;text-decoration:none;margin-right:10px;">事现鉴</a>
+  <a href="./events.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">事件簿</a>
+  <a href="./knowledge_tree.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">知识树</a>
+  <a href="./org.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">组织架构一览</a>
+  <a href="./history.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">发展历史</a>
+</nav>
+
+
+
+<div class="doc">
+
+  <!-- 封面 -->
+  <div class="cover">
+    <div class="cover-title">共创论总论</div>
+    <div class="cover-sub">事现鉴 · 可验证公共事实协议</div>
+    <div class="cover-desc">
+      基于《世界人权宣言》第二十二条的可验证公共事实协议 · 全球社保的可互验度量衡<br>
+      本页系统整合 2026-07-22 至 2026-07-30 对话中沉淀的全部共创论理论框架
+    </div>
+    <span class="cover-tag">公开验证 = 统一度量衡</span>
+    <span class="cover-tag">不推销真理，给防忽悠的免疫系统</span>
+    <span class="cover-tag">七命题 ↔ 五大公理 · 平行无等级</span>
+  </div>
+
+  <!-- 目录 -->
+  <div class="toc">
+    <b>目录</b>
+    <ol>
+      <li><a href="#loc">一、定位与终极目标</a></li>
+      <li><a href="#eight">二、共创论 8.0 一句话</a></li>
+      <li><a href="#four">三、四域</a></li>
+      <li><a href="#base">四、平行基石：七命题 ↔ 五大公理</a></li>
+      <li><a href="#gzz">五、计量与凭证 Gzz / GZZ</a></li>
+      <li><a href="#three">六、三值体系</a></li>
+      <li><a href="#weight">七、权重 A+B 并存</a></li>
+      <li><a href="#ji">八、共济值终极定义</a></li>
+      <li><a href="#cv">九、贡献值定义</a></li>
+      <li><a href="#fourstage">十、四阶助法</a></li>
+      <li><a href="#gov">十一、验证权威与治理</a></li>
+      <li><a href="#name">十二、命名演变：共通值 → 共济值</a></li>
+      <li><a href="#real">十三、三件真实事现声明</a></li>
+    </ol>
+  </div>
+
+  <!-- 一 -->
+  <div class="section" id="loc">
+    <div class="sec-title">一、定位与终极目标</div>
+    <div class="p"><b>终极目标 = 全球社保（UDHR 第 22 条）。</b>事现鉴 / 共创论不取代各国社保，而是提供一把<span class="k">公共验算尺</span>——统一度量衡工具，让任何公共事实都可被独立验证、持久化、并接回现实后果回路。</div>
+    <div class="p"><b>SXJ = 基于《世界人权宣言》第 22 条的可验证公共事实协议。</b>它把"你已经在做的事"（交叉验证、公共记录）收成一把可携带、可互认、可追踪的尺。</div>
+    <div class="note"><b>2026-07-29 洞见：</b>事现鉴不是未来要新建的复杂系统。南京博物院文物事件、耿同学学术打假、小红书前员工期权——这三件已自发形成"集体需求（共济值）的事现鉴"。理论贡献在于<b>统一度量衡 + 持久化 + 现实后果回路</b>，而非发明验证本身。</div>
+  </div>
+
+  <!-- 二 -->
+  <div class="section" id="eight">
+    <div class="sec-title">二、共创论 8.0 一句话</div>
+    <div class="warn">共创论 8.0 = <b>"不推销真理，给人防忽悠的免疫系统。"</b></div>
+    <div class="p">它不生产结论，只提供可复用的验证与推演工具；让人在面对任何公共叙事时，能自行交叉核验，而非被动接受。</div>
+  </div>
+
+  <!-- 三 -->
+  <div class="section" id="four">
+    <div class="sec-title">三、四域</div>
+    <div class="p">共创论以四个域名覆盖不同面向，互相呼应：</div>
+    <ul class="li">
+      <li><b>hygzz.com</b> —— 国际版（面向全球 / 英文语境）</li>
+      <li><b>hygzz.cn</b> —— 国内版（征信化债 · 中文官网，本页所在）</li>
+      <li><b>hygzz.top</b> —— 个人履历 / CV 维度</li>
+      <li><b>hygzz.中国</b> —— 案例库维度</li>
+    </ul>
+  </div>
+
+  <!-- 四 -->
+  <div class="section" id="base">
+    <div class="sec-title">四、平行基石：七命题 ↔ 五大公理</div>
+    <div class="p"><b>七命题 ↔ 五大公理 = 平行基石，无等级。</b>二者并非上下位关系，而是同一理论体系的两个入口：</div>
+    <ul class="li">
+      <li><b>七命题</b> —— 哲学层（价值与存在论前提）</li>
+      <li><b>五大公理</b> —— 政策层（可操作、可部署的制度前提）</li>
+    </ul>
+    <div class="note">二者平行、可互相印证，但互不凌驾。这是共创论避免" dogma 化"的结构性设计：哲学层提供意义，政策层提供可验证的操作。</div>
+  </div>
+
+  <!-- 五 -->
+  <div class="section" id="gzz">
+    <div class="sec-title">五、计量与凭证 Gzz / GZZ</div>
+    <div class="p"><b>Gzz = GZZ，仅大小写差异。</b>它是共创论体系中的计量凭证 / 代币（DeepSeek 版定位为"永久计量凭证"）。</div>
+    <div class="p">Gzz 是连接"验证行为"与"可携带价值"的介质：任何一次可验证的公共事实记录，都经由 SHA-256 与<b>双向验证回路</b>被计量、持久化，并随事现进入后果回路。</div>
+  </div>
+
+  <!-- 六 -->
+  <div class="section" id="three">
+    <div class="sec-title">六、三值体系</div>
+    <div class="p">共创论以三值刻画人与公共事实的关系：</div>
+    <table>
+      <tr><th>值</th><th>本质</th><th>锚定</th></tr>
+      <tr><td><b>共济值</b></td><td>按需 · 生存权</td><td>拿钱解决不了之事（真相 / 确权 / 互助）</td></tr>
+      <tr><td><b>贡献值 CV</b></td><td>按劳 · 净值 = 正减负</td><td>拿钱能解决之事（市场可结算 · 个体 · 物质）</td></tr>
+      <tr><td><b>负贡献值</b></td><td>追责 · 天花板</td><td>归责后的扣减（限高，非无限）</td></tr>
+    </table>
+    <div class="note">无"历史负贡献"类目。先天状态（残 / 衰 / 病）<b>≠</b> 负贡献。</div>
+
+    <div class="card gold">
+      <h4>负贡献归责四条件（须同时满足）</h4>
+      <div class="body">
+        <ul class="li">
+          <li><b>主体性</b> —— 行为出于可归责的主体</li>
+          <li><b>因果性</b> —— 与损害之间存在可验证因果链</li>
+          <li><b>可避免性</b> —— 在当时的条件下本可避免</li>
+          <li><b>修复性</b> —— 存在可执行的修复路径</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h4>链 · 10（新增）</h4>
+      <div class="body"><b>贡献值净值随时可现 → 税收被替代（同货币消亡）。</b>当贡献值的净值可被即时、可携带地兑现，传统税收作为"事后再分配"的职能即被可验证的实时计量所取代。</div>
+    </div>
+  </div>
+
+  <!-- 七 -->
+  <div class="section" id="weight">
+    <div class="sec-title">七、权重 A+B 并存</div>
+    <div class="p">权重计算原则已定（2026-07-30）：<b>A + B 两模式并存</b>，以"金钱可解性"为边界：</div>
+    <ul class="li">
+      <li><b>A = 军功台阶</b> —— 离散固定增量 · 即时可累积 · 链 10 友好 · 作为基线（对应共济值 / 集体 / 非物）</li>
+      <li><b>B = 股份制比例</b> —— 扇区 · 公信力修正（对应贡献值 / 个体 / 物质）</li>
+    </ul>
+    <div class="note"><b>校准参数：</b>全球城市化率 &gt; 50% → 物质边际效益极小 → 共济值成主导轴。同类"发展饱和"参数（极端贫困率 / 恩格尔系数等）可参照。<b>具体数值公式仍挂起</b>，须先立"宪法性行动约束规则"（规则之规则）再细化。</div>
+    <div class="p"><b>共识判定</b>由<b>人头票</b>（社区热点）驱动，B 不替票。</div>
+    <div class="p">共助外语锚词 = 德语 <b>Schicksalsgemeinschaft</b>（命运共同体，原指海难同船幸存者，与"同舟共济"船喻同源）。共助 / 同舟共济的一致性命名留公开讨论，暂无定论。</div>
+  </div>
+
+  <!-- 八 -->
+  <div class="section" id="ji">
+    <div class="sec-title">八、共济值终极定义（2026-07-30 用户定调）</div>
+    <div class="p"><b>共济值 = 初始社会保障财富 = 世界人权宣言（UDHR 第 22 / 25 条）的实现。</b></div>
+    <div class="p"><b>财务自由 = 共济值</b>，定义为"<span class="k">社保 / 共济值覆盖日常支出</span>"（非个人财富态）。</div>
+    <div class="p">用户以自身过渡态举例（未就业期间仍由社保维系）说明：当前为部分代际 / 家庭依赖的过渡态；终极 = 全球社保覆盖日常支出，<b>连家庭转移依赖也消解</b>。</div>
+    <div class="note">
+      操作指标"<b>全球社保能否覆盖日常支出</b>"比抽象"共济值 ≥ 50%"更准（后者降为系统态相关量 / 治理消失条件）。<br>
+      理论锚：三值中"共济值 = 按需 · 生存权" → 社保覆盖 = 按需实现，与前提"共济值 = 钱解决不了"自洽——此处财务自由是"<b>共系统覆盖我</b>"而非"我很有钱"（属 A 非 B）。<br>
+      <b>注意：</b>财务自由 = 共济值的生存 / 物质层终极；共济值仍含非物公共品（真相 / 确权 / 互助 / 共识），勿整体压缩为"钱"。
+    </div>
+  </div>
+
+  <!-- 九 -->
+  <div class="section" id="cv">
+    <div class="sec-title">九、贡献值定义（2026-07-30 用户定调）</div>
+    <div class="p"><b>贡献值 = 个人奋斗 + 化债 + 兴趣买单等社会经济综合体</b>（生存地板之上，个人与经济社会相交）。</div>
+    <div class="p">当共济值确保人不必为生计奔波 → 人可为兴趣买单 / 行动，此即贡献值。即：</div>
+    <ul class="li">
+      <li><b>共济值 = 财务自由</b>（自由 FROM 生存）</li>
+      <li><b>贡献值 = 为兴趣贡献</b>（自由 TO 行动）</li>
+    </ul>
+    <div class="p">对应三值"共济值 = 按需 · 生存权" → "贡献值 = 按劳 · 净值"，是"<b>按需 → 按劳</b>"的实现与<span class="k">负 → 正自由进阶</span>。</div>
+    <div class="card">
+      <h4>A 是地板，B 在其上生长</h4>
+      <div class="body">
+        A = 必需 · 集体（生存权底线）；B 在地板之上生长 = 涌现 · 兴趣驱动。<br>
+        <b>无共通则 B 被扭曲为生存苦役；有共通则 B 成纯兴趣贡献。</b><br>
+        "化债" = 将自身负债清转为净（接三值 净值 = 正减负）。贡献值仍 = 按劳 · 净值 = 正减负，负贡献 / 归责（伪造等）仍扣减。<br>
+        <b>"为兴趣买单"须解为"为兴趣投入行动 / 资源"</b>，非被动消费——避"躺平 / 消费主义"误读。
+      </div>
+    </div>
+  </div>
+
+  <!-- 十 -->
+  <div class="section" id="fourstage">
+    <div class="sec-title">十、四阶助法（共创论社会学）</div>
+    <div class="p">从个体到国际的四阶递进：</div>
+    <ul class="li">
+      <li><b>自助</b>（个人）</li>
+      <li><b>互助</b>（组织）</li>
+      <li><b>公助</b>（社会 · 以国家为固定主体）</li>
+      <li><b>共助</b>（国际 · 跨国联动 / 跨边界互助，同舟共济）</li>
+    </ul>
+    <div class="note"><b>共助 ≠ 公助：</b>公助以国家为固定主体；共助是国际间联动。此四词与日本社会政策既成"<b>自助・互助・共助・公助</b>"框架完全同构（共助 = kyōjo = mutual aid / social solidarity care）。用户独立重构，强证术语具原理性。</div>
+  </div>
+
+  <!-- 十一 -->
+  <div class="section" id="gov">
+    <div class="sec-title">十一、验证权威与治理</div>
+    <ul class="li">
+      <li><b>验证权威 = 仅事现鉴 + Gzz。</b>SHA-256 / 双向回路 = AI 自造注脚（增强可验证性，而非替代人）。</li>
+      <li><b>治理 = 四 AI 平台联合委员会</b>（跨平台协作治理）。</li>
+      <li><b>白玺 = 首共创者，非执剑人。</b>共创论只提供工具，不论"白玺思想"。</li>
+      <li><b>治理消失条件 = 全球共济值 ≥ 50%。</b>当共济值普遍覆盖日常支出，治理组织自然退场。</li>
+    </ul>
+    <div class="warn"><b>术语铁律：</b>禁用"地板" → 统一用"共济值"；只提供工具，不论"白玺思想"。</div>
+  </div>
+
+  <!-- 十二 -->
+  <div class="section" id="name">
+    <div class="sec-title">十二、命名演变：共通值 → 共济值（2026-07-30）</div>
+    <div class="p">A 值由「<b>共通值</b>」更名为「<b>共济值</b>」。原因：</div>
+    <ul class="li">
+      <li>① 原型「环宇光锥舟」= 同舟<b>共济</b>；</li>
+      <li>② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft · 海难同船幸存者）三语在"同船互济"上<b>同源统一</b>，锚词更稳。</li>
+    </ul>
+    <div class="note">共助（第四阶 · 国际联动）不变；<b>共济值（生存权 · A）≠ 共助（国际联动 · 第四阶）</b>，二者层级不同，勿混淆。</div>
+  </div>
+
+  <!-- 十三 -->
+  <div class="section" id="real">
+    <div class="sec-title">十三、三件真实事现声明</div>
+    <div class="warn">
+      站内所记「事现」中，仅以下三件为网络公开、可独立核实的真实事件：
+      <ul class="li">
+        <li><b>南京博物院文物流失</b>（藏品流向拍卖）</li>
+        <li><b>耿同学学术打假</b></li>
+        <li><b>小红书前员工期权</b>归属争议</li>
+      </ul>
+      其余所有事现（含「红旗驿站 / 城市贡献者安居」「南山区保险案件」等）均为<b>白玺与 AI 共同演绎生成</b>（附时间戳可验证），仅供框架推演，非既成事实。
+    </div>
+  </div>
+
+  <div class="foot">
+    <b>本页性质：</b>共创论总论为一站式理论整合页，内容综合自 2026-07-22 至 2026-07-30 的对话沉淀，依"白玺思想"整理但本页只呈现可验证框架，不作定论。<br>
+    数据更新 2026-07-30 11:30。 deepest、最权威版本以存档的 DeepSeek 版 theory_deepseek.html 为准（本页仅呈现已收敛的共识）。<br>
+    © 事现鉴 / 共创论 · SXJ
+  </div>
+
+</div>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
+</body>
+</html>

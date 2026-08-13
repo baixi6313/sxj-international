@@ -1,0 +1,42 @@
+
+    <view class="metric">
+      <view class="m-num">{{consensus.credibility}}</view>
+      <view class="m-label">公信力分</view>
+    </view>
+    <view class="metric">
+      <view class="m-num">{{consensus.recognitionPct}}%</view>
+      <view class="m-label">认可度 S/(S+O+D)</view>
+    </view>
+  </view>
+  <view class="muted" style="padding:0 28rpx">
+    证据 E={{consensus.E}} ｜ 支持 {{consensus.S}} · 反对 {{consensus.O}} · 存疑 {{consensus.D}}
+  </view>
+
+  <!-- 验证团成员：CV 账本 -->
+  <view class="h2">验证团成员（实名 + 城市 IP · CV 账本）</view>
+  <view class="card member" wx:for="{{members}}" wx:key="name">
+    <view class="row">
+      <text class="h3">{{item.name}}</text>
+      <text class="{{item.isNeg ? 'net-neg' : 'net-pos'}}">{{item.isNeg ? '负贡献 ' + item.net : '贡献值 B +' + item.net}}</text>
+    </view>
+    <view class="muted">
+      <text class="tag">{{item.role}}</text>
+      <text class="small">📍 {{item.city}}（城市级）</text>
+    </view>
+    <view class="small" style="margin-top:6rpx">{{item.action}}</view>
+  </view>
+
+  <!-- SHA-256 哈希链 -->
+  <view class="h2">SHA-256 哈希链（双向回路）</view>
+  <view class="card">
+    <view class="muted" style="margin-bottom:10rpx">链头 prevHash = 0；每条验证记录 = sha256(prevHash | 行动者 | 角色 | 动作 | 净值)。</view>
+    <view class="chain-row" wx:for="{{chain}}" wx:key="seq">
+      <text class="small" style="color:#7fd1ff">#{{item.seq}} {{item.actor}}（{{item.role}}）{{item.delta >= 0 ? '+' : ''}}{{item.delta}}</text>
+      <view class="mono">↳ {{item.hashShort}}</view>
+      <view class="mono" style="color:#5a6f8c">prev {{item.prevShort}}</view>
+    </view>
+    <view class="divider"></view>
+    <view class="small" style="color:#5fe3a8">根哈希 rootHash：</view>
+    <view class="mono" style="color:#5fe3a8">{{rootShort}}</view>
+  </view>
+</view>

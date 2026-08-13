@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/events/events",
+    "pages/group/group"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#0b1f3a",
+    "navigationBarTitleText": "事现鉴 · 验证团",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#0b1f3a"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

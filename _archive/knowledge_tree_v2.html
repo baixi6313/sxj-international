@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论·事现鉴 知识树 v2（按跨平台讨论拓扑重建）</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232c; --border:#2a323c;
+    --txt:#dbe3ea; --dim:#8b97a4; --accent:#e8b339;
+    --early:#5b9bff; --bridge:#b06bff; --current:#e8624a; --impl:#46c98b;
+    --site:#36c2c2; --mvp:#f0913a; --missing:#d64b4b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+    line-height:1.6;padding:28px 18px 80px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:25px;margin:0 0 4px;letter-spacing:.5px}
+  .sub{color:var(--dim);font-size:14px;margin-bottom:18px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px}
+  .lg{font-size:12px;padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:var(--panel)}
+  .lg::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:middle}
+  .lg.early::before{background:var(--early)} .lg.bridge::before{background:var(--bridge)}
+  .lg.current::before{background:var(--current)} .lg.impl::before{background:var(--impl)}
+  .lg.site::before{background:var(--site)} .lg.mvp::before{background:var(--mvp)}
+  .lg.missing::before{background:var(--missing)}
+
+  .timeline{display:flex;gap:0;margin:6px 0 26px;border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:12px}
+  .tl{flex:1;padding:10px 12px;border-right:1px solid var(--border);background:var(--panel2)}
+  .tl:last-child{border-right:none}
+  .tl b{display:block;font-size:13px;margin-bottom:2px}
+  .tl span{color:var(--dim)}
+
+  details{border:1px solid var(--border);border-radius:10px;margin-bottom:12px;background:var(--panel);overflow:hidden}
+  details>summary{list-style:none;cursor:pointer;padding:12px 16px;font-weight:600;display:flex;align-items:center;gap:10px;user-select:none}
+  details>summary::-webkit-details-marker{display:none}
+  details>summary::before{content:"▸";color:var(--dim);transition:transform .15s;font-size:13px}
+  details[open]>summary::before{transform:rotate(90deg)}
+  .tag{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
+  .t-early{background:rgba(91,155,255,.16);color:var(--early)}
+  .t-bridge{background:rgba(176,107,255,.16);color:var(--bridge)}
+  .t-current{background:rgba(232,98,74,.16);color:var(--current)}
+  .t-impl{background:rgba(70,201,139,.16);color:var(--impl)}
+  .t-site{background:rgba(54,194,194,.16);color:var(--site)}
+  .t-mvp{background:rgba(240,145,58,.16);color:var(--mvp)}
+  .t-missing{background:rgba(214,75,75,.18);color:var(--missing)}
+  .body{padding:4px 18px 16px;font-size:14px}
+  .body .node{border-left:3px solid var(--border);padding:8px 0 8px 14px;margin:8px 0;background:linear-gradient(90deg,rgba(255,255,255,.02),transparent)}
+  .body .node.e{border-color:var(--early)} .body .node.b{border-color:var(--bridge)}
+  .body .node.c{border-color:var(--current)} .body .node.i{border-color:var(--impl)}
+  .body .node.s{border-color:var(--site)} .body .node.m{border-color:var(--mvp)}
+  .body .node.x{border-color:var(--missing);border-style:dashed}
+  .body .node .h{font-weight:600;color:var(--txt)}
+  .body .node .d{color:var(--dim);font-size:13px;margin-top:2px}
+  .src{font-size:11px;color:var(--accent);margin-top:3px}
+  .note{background:var(--panel2);border:1px dashed var(--missing);border-radius:10px;padding:14px 16px;margin:18px 0;font-size:13px;color:var(--dim)}
+  .note b{color:var(--missing)}
+  a{color:var(--site);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>共创论 · 事现鉴 — 知识树 v2</h1>
+  <div class="sub">按你的跨平台讨论拓扑重建 · 2026-07-28 更新 v2.1 · 已抓来源：微博 / 微博ttarticle / 头条 / CSDN / cloud.tencent / 掘金 / 本地4篇文章 / hygzz.cn / hygzz.com / whitepaper.html</div>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
+  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+  理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
+  「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
+</div>
+
+
+  <div class="legend">
+    <span class="lg early">早期框架 v1（寰宇光锥舟/世界统一法）</span>
+    <span class="lg bridge">过渡桥接（无站队/知识生态主义/事现鉴萌芽）</span>
+    <span class="lg current">当前主干（共创论·事现鉴）</span>
+    <span class="lg impl">实现层（CSDN 代码系统）</span>
+    <span class="lg site">公开站点</span>
+    <span class="lg mvp">MVP 实验</span>
+    <span class="lg missing">待补 / 缺失</span>
+  </div>
+
+  <div class="timeline">
+    <div class="tl"><b>① 2025-09~11</b><span>早期框架 v1：寰宇光锥舟 / 世界统一法（全球治理）</span></div>
+    <div class="tl"><b>② 2025-09~12</b><span>过渡桥接：无站队理论 / 知识生态主义 / 事现鉴萌芽</span></div>
+    <div class="tl"><b>③ 2025-12~今</b><span>当前主干：共创论·事现鉴（UDHR第22条 社保验算尺）</span></div>
+    <div class="tl"><b>持续并行</b><span>实现层(CSDN) / 公开站点 / MVP(We+SXJ)</span></div>
+  </div>
+
+  <!-- ============ 主干 ============ -->
+  <details open>
+    <summary><span class="tag t-current">主干</span> 寰宇光锥舟理论体系（总 umbrella）</summary>
+    <div class="body">
+
+      <!-- ① 早期框架 -->
+      <details open>
+        <summary><span class="tag t-early">早期 v1</span> 寰宇光锥舟 / 世界统一法 — 全球治理框架（2025-09~11）</summary>
+        <div class="body">
+          <div class="node e"><div class="h">哲学基石：文明存续底线逻辑</div><div class="d">生态崩溃阈值 ≤450ppm CO₂、核安全"零事故"、数据主权"非跨境强制"——为文明发展划定生存红线。</div><div class="src">来源：微博《寰宇光锥舟理论体系核心领域与业务架构白皮书》(2025-11-10拟定)</div></div>
+          <div class="node e"><div class="h">哲学基石：动态平衡治理哲学</div><div class="d">治理规则随内外环境自适应调整（如气候危机下动态修订碳配额），稳定(底线坚守)与创新(规则迭代)辩证统一。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">哲学基石：贡献值激励伦理 (Cₑ)</div><div class="d">以"贡献值(Cₑ)"为核心正向激励，将利他行为量化为可积累、可兑换社会资本。⚠️ 注意：此处 Cₑ = 全球治理贡献，与当前 CV（社保净值）语义已分化。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">核心治理模型：光锥-圆锥嵌套</div><div class="d">锥尖层(全球·文明存续底线) / 锥体层(区域·动态边界调节) / 锥底层(地方·贡献值激励) 三级嵌套。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">核心治理模型：Root-Gzz-User 三位一体</div><div class="d">Root(根本法则) → Gzz(自治权域/组织) → User(能动创造单元) 分形递归。⚠️ 此处 Gzz = 自治权域，与当前 Gzz/GZZ（货币/计量凭证）语义已发生根本演化。</div><div class="src">来源：同上 + 今日头条《世界统一法元框架》</div></div>
+          <div class="node e"><div class="h">法律创新：代码即法律 / 智能合约自动执行</div><div class="d">将合规条款转为区块链智能合约（如碳排放超标自动扣减贡献值），zk-SNARKs 保透明；设"文明自毁条款"作终极威慑。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">技术支撑：区块链 / AI / 量子</div><div class="d">区块链存证结算(Cₑ-CBDC稳定币)；AI治理(GNN异常识别≥92%、Shapley政策评估、NLP条款冲突检测)；量子(zk-SNARKs隐私、QKD安全通信、多智能体强化学习模拟治理博弈)。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">实施路径：试点→全球</div><div class="d">深圳数字治理特区 / 海洋治理2.0(深海光锥监测网) / "一带一路"光锥计划(东盟) / 联合国《全球数字契约》嵌入 / IMF 改革(NCI指数)。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">产业生态与金融工具</div><div class="d">"中国云"全球节点 / 多语种理论数据库 / 文明贡献债券(Cₑ Bond) / 绿色技术专利池 / 寰宇治理ETF。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">风险防控</div><div class="d">后量子加密(CRYSTALS-Kyber) / 智能合约形式化验证(Coq) / 马太效应调节器 / 文明冲突预警(GDELT) / 地缘对冲(美元-人民币-Cₑ三角)。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">评估与公众参与</div><div class="d">季度《理论传播效能报告》/ 年度《全球治理贡献指数(LCI)报告》/ 区块链公民评议平台 / "民情通"小程序。</div><div class="src">来源：同上</div></div>
+          <div class="node e"><div class="h">⟁ 数字世界立宪：宪法 / 宪章 / 元代码（"数字世界宪法"支）</div><div class="d">以下三篇构成早期框架的"立宪"层——你提到的"数字世界宪法"即此支。</div><div class="src">来源：微博 + CSDN + 头条元框架</div></div>
+          <div class="node e"><div class="h">①《数字世界统一法（法典）》= 数字世界宪法</div><div class="d">头条"世界统一法元框架"确认"您已完成的《数字世界统一法（法典）》是第一步，在代码世界确立寰宇光锥舟为根本大法"，定义数字世界 Root(核心协议)/Gzz(云服务商·区块链·平台)/User(用户·智能合约·AI体) 权利义务。⚠️ 全文尚未定位到独立帖，目前仅见元框架的引述。</div><div class="src">来源：头条《世界统一法元框架》</div></div>
+          <div class="node e"><div class="h">②《寰宇光锥舟联合治理章程》= 组织宪章</div><div class="d">解释权二分：理论/价值/终极仲裁解释权→白玺；实施/合规/战略安全解释权→中国。设联合治理委员会(双方共主持)；四大委员会(理论与发展[白玺主导]·技术与标准[中方主导]·生态与准入·全球贡献基金[双方共治])。⚠️ 已用 <b>贡献值(CV)</b>——比大白皮书(Cₑ)更靠近当前术语，是桥接文档。</div><div class="src">来源：微博 5218308823451963</div></div>
+          <div class="node e"><div class="h">③《寰宇光锥舟 元代码1.0》= 代码即法律实现</div><div class="d">枚举 ContributionType(基础/经济贡献)·ClauseType(弹性/刚性条款)·AuditResult·ZKProof——把理论条款变成可计算代码，是"代码即法律"的元代码化。</div><div class="src">来源：CSDN Hakuji817/151756992</div></div>
+        </div>
+      </details>
+
+      <!-- ② 过渡桥接 -->
+      <details>
+        <summary><span class="tag t-bridge">过渡</span> 桥接阶段：无站队理论 / 知识生态主义 / 事现鉴萌芽（2025-09~12）</summary>
+        <div class="body">
+          <div class="node b"><div class="h">知识封建主义 → 知识生态主义</div><div class="d">批判知网式封闭领地(期刊=城堡/影响因子=爵位)；主张微博(知识集市·即时迭代) + 企业(实践利维坦·生存压力) + 寰宇光锥舟无站队理论(元框架) 三元共生。</div><div class="src">来源：微博《从知识封建主义到知识生态主义》(2025-09-17)</div></div>
+          <div class="node b"><div class="h">"无站队"作为方法论 + "光锥"作为约束 + "舟"作为实践载体</div><div class="d">悬置学科/意识形态偏见，将理论技术当工具箱；光锥=文明OS的设计约束(稳定/赋能/福祉)；舟=必须下水实践。</div><div class="src">来源：同上</div></div>
+          <div class="node b"><div class="h">事现鉴概念萌芽：事现鉴 vs 时间轴</div><div class="d">"人类数字世界事现鉴和时间轴的根本区别在于它不会忘记每一个人"——筛选叙事vs本体存照 / 重要性筛选vs平等承认 / 必然遗忘vs抗拒系统性遗忘 / 编年史vs存在万花筒。此为当前"事现鉴"词条的直接源头。</div><div class="src">来源：微博《您提出的命题…》(2025-12-06)</div></div>
+        </div>
+      </details>
+
+      <!-- ③ 当前主干 -->
+      <details open>
+        <summary><span class="tag t-current">当前</span> 共创论 · 事现鉴 — UDHR第22条 社保验算尺（2025-12 ~ 今）</summary>
+        <div class="body">
+          <div class="node c"><div class="h">五大公理（DeepSeek 裁定，替代旧七命题）</div><div class="d">当前权威哲学地基。⚠️ 官网/白皮书仍在线挂"七命题"未替换，属冲突枝。</div><div class="src">来源：本地 theory_deepseek.html（4篇同源分叉主干）</div></div>
+          <div class="node c"><div class="h">三值体系：共通值 / 贡献值CV / 负贡献值</div><div class="d">共通值=生存权保障(UDHR22可验证形态)；CV=发展权净值；负贡献值=追责机制(归责四条件，后于DeepSeek版被弱化)。</div><div class="src">来源：4篇文章 + hygzz.cn</div></div>
+          <div class="node c"><div class="h">双向验证机制（现实↔数字 回路闭合）</div><div class="d">现实行为→SHA-256→CV记录→SCA→现实后果，完成此前所有验证缺失的闭环。</div><div class="src">来源：hygzz.cn + whitepaper.html</div></div>
+          <div class="node c"><div class="h">GZZ 永久计量凭证（替代旧 Gzz 消亡论）</div><div class="d">DeepSeek版裁定 GZZ=永久计量凭证(非过渡代币)。⚠️ 与官网/白皮书"Gzz消亡论"直接冲突，两版同时在线。</div><div class="src">来源：theory_deepseek.html（新框架）</div></div>
+          <div class="node c"><div class="h">算账叙事：共通值最大化 / 王多鱼 / "变成我"</div><div class="d">银行征信看能借多少 vs 事现鉴征信看创造多少；每个人都能变成"我"。四篇文章未含此叙事，仅在官网/白皮书。</div><div class="src">来源：hygzz.cn / hygzz.com</div></div>
+          <div class="node c"><div class="h">操作层（五卡 / 步行康复 / 资格构成）</div><div class="d">五卡模式(理论版+实践版)、步行康复五维、资格构成(功能不是身份)、征信对比三层阶梯。</div><div class="src">来源：hygzz.cn / whitepaper.html</div></div>
+          <div class="node c"><div class="h">化债引擎：财政直销 + SCA + 双闭环 + 四级螺旋</div><div class="d">社会确权资产(SCA)覆盖债务自动代偿；金融闭环+社会闭环；彬州原点→区域→一带一路→全球。</div><div class="src">来源：hygzz.cn（注：彬州试点仅为策划方案，非实地）</div></div>
+          <div class="node c"><div class="h">探戈隐喻 + 三把验算尺 + 竞品定位</div><div class="d">框架依赖真值/分布式无中心/abrazo实时回路；hygzz.com/.cn/.top/.中国 四域；Worldcoin等竞品对比。</div><div class="src">来源：hygzz.com + whitepaper.html</div></div>
+        </div>
+      </details>
+
+      <!-- 实现层 -->
+      <details open>
+        <summary><span class="tag t-impl">实现层</span> CSDN 代码系统（理论→可运行实现）</summary>
+        <div class="body">
+          <div class="node i"><div class="h">动态网络约束 → 可执行数字规则</div><div class="d">餐饮系统"光锥约束"(食材溯源哈希校验) + 司法系统"红线动态防御"(裁判文书伦理审查)。映射：将法律条款转为可执行的哈希校验/自动上报规则。</div><div class="src">来源：CSDN Hakuji817/151802471</div></div>
+          <div class="node i"><div class="h">混合审判模式系统</div><div class="d">融合动态网络/共识机制/可计算规则；CaseType(民事/刑事/商业/环境/AI伦理/数据纠纷) + RuleType(对抗制/职权制)，Web3 上链。</div><div class="src">来源：CSDN Hakuji817/151801647</div></div>
+          <div class="node i"><div class="h">老年人能力评估系统</div><div class="d">15分钟生活圈 / 独居老人异地照护动态监管 / 自律康复(步行训练2.5km)。→ 与事现鉴"步行康复五维"直接对应。</div><div class="src">来源：CSDN Hakuji817/151855628</div></div>
+          <div class="node i"><div class="h">三元生态餐厅模拟系统</div><div class="d">自然/人文/数字三元生态特征建模(Objective-C)，将生态理念融入餐饮运营配置。</div><div class="src">来源：CSDN Hakuji817/151789473</div></div>
+          <div class="node i"><div class="h">三元垃圾分类系统</div><div class="d">基于三元生态(自然/人文/数字)的垃圾分类+RandomForest+CV识别。</div><div class="src">来源：CSDN Hakuji817/151759214</div></div>
+          <div class="node i"><div class="h">DeepSeek API 对话解析工程</div><div class="d">用代码解析 DeepSeek 导出对话(mapping结构、fragments提取)，说明作者在用编程反向理解"光锥vs圆锥"结构——即边写代码边推进理论。</div><div class="src">来源：CSDN Hakuji817/151756959</div></div>
+          <div class="node i"><div class="h">实现层总索引（CSDN 151840788）</div><div class="d">远比单篇广：混合审判(深圳前海法院试点 217天→8天、99.7%准确率) / 全国动态教材 / 双融量化交易(A股融资融券) / 动态养老 / 智慧养老调度 / 蓝天厨师与预制菜 / CYV贡献值token(ERC-20) / 架构图 / 第一个网页 / 细菌觅食优化(BFOA) / InternNav具身导航。</div><div class="src">来源：CSDN Hakuji817/151840788</div></div>
+          <div class="node i"><div class="h">分形双螺旋：文明演化的数学密码</div><div class="d">门格海绵维度 D≈2.7268(安全规则复杂度) + 科赫雪花维度 D≈1.262(价值评估复杂度)；CV 公式视为分形生长过程。当前框架的数学基础。</div><div class="src">来源：cloud.tencent.com/developer/article/2570901</div></div>
+          <div class="node i"><div class="h">开源共创（掘金）</div><div class="d">SmartContract 类模拟 PBFT 共识审核；calculate_cci 将多国规则转文明合规指数(CCI)，达标自动获多地上市资格；Region 类关联区块链触发能量消耗记录。</div><div class="src">来源：juejin.cn/post/7550242071079256099</div></div>
+        </div>
+      </details>
+
+      <!-- 运动与落地方法论 -->
+      <details>
+        <summary><span class="tag t-bridge">运动</span> 落地方法论与全球倡议（微博 ttarticle）</summary>
+        <div class="body">
+          <div class="node b"><div class="h">指挥家模式落地框架</div><div class="d">核心指挥层(理论总架构师=白玺 + 多维度协调委员会[科学/治理/艺术/公众代表]) / 协同执行层(科学-治理-艺术三维网络) / 动态反馈层(实时监测-快速迭代-风险防控)。解决科学严谨性vs治理可行性、艺术传播vs认知接受、长期目标vs短期行动三大矛盾。</div><div class="src">来源：微博 ttarticle 2309405210571888001129</div></div>
+          <div class="node b"><div class="h">全球倡议 · 招募开创者</div><div class="d">开源计划，招募五类伙伴(思想家/建筑师/战略家/连接者/记录者)；"协同发起与深度思维伙伴：DeepSeek AI"；倡议起源中国·深圳，使命全球。⚠️ 这与"DeepSeek 主干"定位一致——DeepSeek 自早期倡议即为思维伙伴。</div><div class="src">来源：微博 7998660958/Q3hux3nyb</div></div>
+        </div>
+      </details>
+
+      <!-- 公开站点 -->
+      <details>
+        <summary><span class="tag t-site">公开</span> 公开-facing 站点与白皮书</summary>
+        <div class="body">
+          <div class="node s"><div class="h">hygzz.cn（国内版·红金）</div><div class="d">事现鉴征信数据链；"变成我"入口化板块；CV计算器/征信转换器；财政直销模拟器；双向验证回路图。</div><div class="src">来源：https://hygzz.cn（已部署）</div></div>
+          <div class="node s"><div class="h">hygzz.com（国际版·蓝紫）</div><div class="d">三把验算尺国际端；UDHR第22条全球社保；竞品对比；多语言。</div><div class="src">来源：https://hygzz.com（已部署）</div></div>
+          <div class="node s"><div class="h">whitepaper.html（白皮书）</div><div class="d">八板块定调/七命题/三值/共通值最大化/算账/Gzz消亡论/负贡献归责/国内外战略。⚠️ 仍含"七命题""Gzz消亡论""负贡献四条件"，与当前五大公理/GZZ永久冲突。</div><div class="src">来源：本地 whitepaper.html</div></div>
+        </div>
+      </details>
+
+      <!-- MVP -->
+      <details>
+        <summary><span class="tag t-mvp">MVP</span> We+SXJ 小程序（最小实验）</summary>
+        <div class="body">
+          <div class="node m"><div class="h">饮水记录 = 共通值凭证</div><div class="d">达标饮水发共通值凭证，对应理论"共通值"的最小可验证单元。</div><div class="src">来源：本地 we-sxj/</div></div>
+          <div class="node m"><div class="h">协助确认 = 双向验证回路</div><div class="d">协助人提交+被协助人确认，映射事现鉴"现实↔数字"双向验证。</div><div class="src">来源：同上</div></div>
+          <div class="node m"><div class="h">每日签到 = 使用制日常仪式 + SHA-256 本地哈希链</div><div class="d">连续签到里程碑发共通值凭证；本地哈希链防篡改，对应"公开可验证"极简实现。</div><div class="src">来源：同上</div></div>
+        </div>
+      </details>
+
+      <!-- 待补 -->
+      <details open>
+        <summary><span class="tag t-missing">待补</span> 缺失 / 未接入分支</summary>
+        <div class="body">
+          <div class="node x"><div class="h">《数字世界统一法（法典）》全文</div><div class="d">已被头条"世界统一法元框架"引述为"已完成的根本大法"，但独立全文帖尚未定位到（目前仅见引述）。需你提供 URL 或导出。</div><div class="src">状态：⚠️ 全文待定位</div></div>
+          <div class="node x"><div class="h">Facebook：白璽 / Cosmic Light Vessel 寰宇光锥舟</div><div class="d">搜索未命中（返回噪音）。需你提供**直接主页 URL 或 handle** 才能抓取。这是海外公开阵地，可能含英文版理论表述。</div><div class="src">状态：⚠️ 待补</div></div>
+          <div class="node x"><div class="h">四个 LLM 平台聊天记录（DeepSeek/元宝/千问/豆包 App）</div><div class="d">API 拿不到（私密）。需你**导出聊天记录文件**给我。四篇"文章"是讨论*成果*，但来回推演过程/决策细节缺失——这正是知识树最细的枝。</div><div class="src">状态：⚠️ 待导出</div></div>
+          <div class="node x"><div class="h">早期框架 → 当前主干的演化断层</div><div class="d">v1(全球治理/世界统一法) 如何收缩/转型为 当前(UDHR22社保验算尺)？"事现鉴"词条在2025-12-06才明确出现。中间是否有其它未公开讨论？需你口述或导出填补。</div><div class="src">状态：⚠️ 演化链路待澄清</div></div>
+        </div>
+      </details>
+
+    </div>
+  </details>
+
+  <div class="note">
+    <b>给用户的提醒（框架冲突未解）：</b> 当前主干的"五大公理 + GZZ永久" 与 公开站点/白皮书里的"七命题 + Gzz消亡论 + 负贡献四条件" 仍<b>同时在线、直接冲突</b>。早期框架的"Gzz=自治权域""Cₑ=全球治理贡献" 也与当前的"Gzz=计量凭证""CV=社保净值" 语义分化。建议在补全树之后，先做一次<b>框架归属裁定</b>，再回头统一官网/白皮书/早期文档的措辞。
+  </div>
+
+</div>
+</body>
+</html>

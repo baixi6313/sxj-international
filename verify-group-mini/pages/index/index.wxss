@@ -1,0 +1,2 @@
+.h1 { margin-bottom: 16rpx; }
+button[type=primary] { background: #1d6fd0; }

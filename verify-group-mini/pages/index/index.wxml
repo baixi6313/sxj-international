@@ -1,0 +1,39 @@
+
+
+  <view class="h2">三层模型</view>
+  <view class="card" wx:for="{{layers}}" wx:key="t">
+    <view class="row"><text class="h3">{{item.t}}</text></view>
+    <view class="muted">{{item.d}}</view>
+  </view>
+
+  <view class="h2">四阶助法（共创论社会学）</view>
+  <view class="card" wx:for="{{aids}}" wx:key="m">
+    <view class="row">
+      <text class="h3">{{item.s}} · {{item.m}}</text>
+      <text class="small">{{item.c}}</text>
+    </view>
+    <view class="muted">{{item.note}}</view>
+  </view>
+  <view class="muted" style="padding:0 28rpx">共助 ≠ 公助：公助以国家为固定主体；共助是国际间联动。呼应原型「寰宇光锥舟 = 同舟共济」。</view>
+
+  <view class="h2">权重 A / B 模型（原则已定，公式待定）</view>
+  <view class="card" wx:for="{{weights}}" wx:key="k">
+    <view class="row"><text class="h3">{{item.k}}</text></view>
+    <view class="muted">{{item.v}}</view>
+  </view>
+
+  <view class="h2">共济值 与 贡献值 的本质（A / B 终极定义）</view>
+  <view class="card">
+    <view class="pill pill-ubv">A 共济值</view>
+    <view class="muted" style="margin-top:10rpx">{{ab.a}}</view>
+  </view>
+  <view class="card">
+    <view class="pill pill-cv">B 贡献值</view>
+    <view class="muted" style="margin-top:10rpx">{{ab.b}}</view>
+  </view>
+  <view class="card">
+    <view class="muted">{{ab.rel}}</view>
+  </view>
+
+  <button type="primary" bindtap="goEvents" style="margin:24rpx 28rpx 40rpx;background:#1d6fd0">查看事现鉴事件簿 →</button>
+</view>

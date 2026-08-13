@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>共创论·事现鉴 全网知识树 v3 + 平台足迹地图</title>
+<style>
+  :root{
+    --bg:#0f1419; --panel:#161d26; --panel2:#1c2530; --line:#2a3645;
+    --txt:#e6edf3; --dim:#9bb0c3; --acc:#5ec8d8; --acc2:#e0a458;
+    --red:#e06c75; --green:#7ec699; --amber:#e5c07b; --blue:#6cb6ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--txt);line-height:1.65;padding:32px 20px 80px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-size:26px;letter-spacing:.5px;margin-bottom:6px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:14px}
+  h2{font-size:19px;margin:34px 0 14px;color:var(--acc);border-left:4px solid var(--acc);padding-left:10px}
+  .lead{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:18px 0;font-size:14.5px}
+  .lead b{color:var(--acc2)}
+  /* footprint map */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:16px 0}
+  .card{border-radius:12px;padding:14px 16px;border:1px solid var(--line);background:var(--panel)}
+  .card h3{font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none}
+  .g{background:var(--green)} .r{background:var(--red)} .a{background:var(--amber)} .b{background:var(--blue)}
+  .card ul{list-style:none;font-size:13px;color:var(--dim)}
+  .card li{padding:3px 0;border-top:1px dashed var(--line)}
+  .card li:first-child{border-top:none}
+  .card li b{color:var(--txt);font-weight:600}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;margin-left:6px;vertical-align:middle}
+  .t-have{background:rgba(126,198,153,.18);color:var(--green)}
+  .t-none{background:rgba(224,108,117,.18);color:var(--red)}
+  .t-noise{background:rgba(229,192,123,.18);color:var(--amber)}
+  /* tree */
+  details{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--panel);overflow:hidden}
+  summary{cursor:pointer;padding:12px 16px;font-weight:600;font-size:15px;list-style:none;display:flex;align-items:center;gap:8px}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"▸";color:var(--acc);transition:.2s}
+  details[open]>summary::before{content:"▾"}
+  .body{padding:4px 16px 16px;border-top:1px solid var(--line)}
+  .node{border-left:3px solid var(--line);margin:8px 0 8px 14px;padding:8px 12px;background:var(--panel2);border-radius:0 8px 8px 0}
+  .node .h{font-weight:600;font-size:14px;margin-bottom:3px}
+  .node .d{font-size:13px;color:var(--dim)}
+  .src{font-size:11.5px;color:var(--acc);margin-top:5px;font-style:italic}
+  .e{color:var(--red)} .e .src{color:var(--red)}
+  .i{color:var(--amber)} .i .src{color:var(--amber)}
+  .x{color:var(--blue)} .x .src{color:var(--blue)}
+  .g2{color:var(--green)} .g2 .src{color:var(--green)}
+  .k{color:var(--acc2)}
+  .warn{background:rgba(224,108,117,.1);border:1px solid var(--red);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13.5px}
+  .warn b{color:var(--red)}
+  .ok{background:rgba(126,198,153,.1);border:1px solid var(--green);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:13.5px}
+  .ok b{color:var(--green)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);color:var(--acc)}
+  .foot{color:var(--dim);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>共创论·事现鉴 · 全网知识树 v3</h1>
+  <div class="sub">在 [白玺] [共创论] [寰宇光锥舟] [贡献值] [事现鉴] 五个关键词下，对 微博 / CSDN / 腾讯云 / 头条 / Gitee / AtomGit / 知乎 / 抖音 / 视频号 / 公众号 / 小红书 / 贴吧 / 豆瓣 的系统性爬取结果 · 2026-07-28</div>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
+  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+  理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
+  「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
+</div>
+
+
+  <div class="lead">
+    <b>先说结论（反直觉）：</b>你以为"全网铺开"会有很多内容，但实测表明——<b>你的理论内容高度集中于一个小型平台集群</b>（微博 + CSDN + 腾讯云开发者社区 + 头条 + Gitee/AtomGit），而<b>知乎、抖音、视频号、微信公众号、小红书、百度贴吧、豆瓣基本没有你的内容</b>（或不可公开检索）。更关键的是，全网看起来"很热闹"其实多半是<b>同名干扰</b>（另一个"白玺"是抖音黄金主播、还有一个是河南胸科医院医生）和<b>术语污染</b>（"共创"是极通用的学术/商业/政策词，把你的"共创论"淹没了）。所以"补全知识树"的正确路径不是去无内容的平台找，而是把<b>已有内容的那 5 个平台</b>的导出文件接进来。
+  </div>
+
+  <h2>一、平台足迹地图（本次最核心的发现）</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3><span class="dot g"></span>有内容 · 核心集群</h3>
+      <ul>
+        <li><b>微博</b> <span class="tag t-have">核心</span><br>白皮书 / 联合治理章程 / 事现鉴vs时间轴 / 全球倡议 / 世界统一法元框架</li>
+        <li><b>CSDN</b> (Hakuji817) <span class="tag t-have">实现层</span><br>动态网络约束 / 混合审判 / 老年人评估 / 三元生态 / 元代码1.0 / 网络配置</li>
+        <li><b>腾讯云开发者社区</b> <span class="tag t-have">理论+数学</span><br>分形双螺旋 / GSSO全球社保协议 / 专栏106180</li>
+        <li><b>头条</b> (toutiao/wuk) <span class="tag t-have">理论</span><br>世界统一法元框架</li>
+        <li><b>Gitee 码云</b> (Bation) <span class="tag t-have">代码库</span><br>寰宇光锥舟OS / 寰宇光锥舟 仓库</li>
+        <li><b>AtomGit / GitCode</b> <span class="tag t-have">开源托管</span><br>GSSO 全球社保协议组织</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="dot r"></span>无内容 · 已确认缺席</h3>
+      <ul>
+        <li><b>知乎</b> <span class="tag t-none">无</span><br>仅返回通用"共创"百科/MBA内容，搜不到寰宇光锥舟/事现鉴</li>
+        <li><b>抖音</b> <span class="tag t-none">无</span><br>仅通用"共创"+同名黄金主播白玺，无理论内容</li>
+        <li><b>视频号</b> <span class="tag t-none">无证据</span><br>无法公开检索，无证据</li>
+        <li><b>微信公众号</b> <span class="tag t-none">无</span><br>仅"白玺医生"(非用户)，无事现鉴账号</li>
+        <li><b>小红书</b> <span class="tag t-none">无</span><br>未浮现相关内容</li>
+        <li><b>百度贴吧 / 豆瓣 / 简书 / 博客园</b> <span class="tag t-none">无</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="dot a"></span>同名干扰 · 必须甄别</h3>
+      <ul>
+        <li><b>白玺 = 你</b>（寰宇光锥舟创始人）<br>微博/CSDN/腾讯云/Gitee/头条</li>
+        <li><b>白玺 = 抖音黄金拍卖主播</b><br>2019起，1.8万粉，卖黄金/拍卖 — <b>非你</b></li>
+        <li><b>白玺 = 河南胸科医院医生</b><br>结核内科主治医师 — <b>非你</b></li>
+        <li><b>《白玺诀》= 小说</b><br>王珺著，西夏题材 — 无关</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="dot b"></span>术语污染 · 搜索陷阱</h3>
+      <ul>
+        <li><b>"共创"</b> 是极通用词：价值共创 / 影视共创 / 抖音共创 / 乡村振兴"共创"政策术语</li>
+        <li>搜"共创"海量返回<b>学术与商业概念</b>，你的"共创论·事现鉴"是<b>同名异义</b></li>
+        <li>必须用 <b>寰宇光锥舟 / 事现鉴 / 贡献值(CV)</b> 等专属词才能命中</li>
+        <li>这也是为什么你"觉得全网都在谈"其实大多不是你</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="warn">
+    <b>⚠ 重要修正：</b>之前两轮我假设"四篇文章+官网+白皮书≈理论全貌"，并建议你去知乎/抖音/视频号补内容。本次实测推翻了后半句——<b>这些平台目前没有你的理论内容</b>。真正该去导出的，是<b>微博、CSDN、腾讯云开发者社区、Gitee、AtomGit</b> 这五个已验证有内容的平台。
+  </div>
+
+  <h2>二、知识树本体（按已验证来源重建）</h2>
+
+  <details open>
+    <summary>🌱 早期根 · 寰宇光锥舟 v1（全球治理理论）</summary>
+    <div class="body">
+      <div class="node"><div class="h">核心哲学：文明存续三大基石</div>
+        <div class="d">文明存续底线逻辑（450ppm CO₂ / 核零事故 / 数据主权非跨境强制）；动态平衡治理哲学；贡献值激励伦理（早期用 Cₑ）。</div>
+        <div class="src">来源：微博 白皮书(ttarticle 2309405210533665570833)</div></div>
+      <div class="node"><div class="h">核心治理模型</div>
+        <div class="d">光锥-圆锥嵌套（锥尖/锥体/锥底三级）；双轨立法（物理世界+数字世界）；Root-Gzz-User 三位一体分形结构。</div>
+        <div class="src">来源：微博 白皮书 / 头条 世界统一法元框架(1859682462628864)</div></div>
+      <div class="node"><div class="h">数字世界立宪层</div>
+        <div class="d">《数字世界统一法（法典）》= 数字世界宪法（全文独立帖待定位）；《寰宇光锥舟 元代码1.0》= 代码即法律实现（ContributionType / ClauseType / ZKProof）。</div>
+        <div class="src">来源：微博引述 / CSDN 151756992</div></div>
+      <div class="node g2"><div class="h">分形双螺旋：数学基础</div>
+        <div class="d">门格海绵 D≈2.7268（规则引擎/治理复杂度）；科赫雪花 D≈1.262（贡献值CV评估维度）。使理论从哲学思辨迈入定量科学。</div>
+        <div class="src">来源：腾讯云开发者社区 2570901</div></div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>🌉 关键桥接 · GSSO 全球社保协议（早期→当前的转折点）</summary>
+    <div class="body">
+      <div class="node k"><div class="h">GSSO = 寰宇光锥舟 收缩到"社保验算尺"的枢纽</div>
+        <div class="d">《GSSO全球社保协议组织·开源共建宣言》明确锚定 <b>《世界人权宣言》第22条</b>（人人有权享受社会保障）。把早期宏大的"世界统一法"收缩为可验证的"全球社保协议"，这正是<b>事现鉴"国际验算尺"的前身</b>。</div>
+        <div class="src">来源：腾讯云 2596797 / AtomGit GitCode 开源项目</div></div>
+      <div class="node k"><div class="h">定位："为生存底线编程"</div>
+        <div class="d">宣言称其"不是慈善倡议也不是政治宣言，而是一组为人类生存底线编程的、开放且可验证的技术协议"。这把"文明存续"从宏大叙事落到了 UDHR Art.22 的具体度量。</div>
+        <div class="src">来源：腾讯云 2596797</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>🔗 过渡桥接（早期根 → 当前主干）</summary>
+    <div class="body">
+      <div class="node"><div class="h">事现鉴 vs 时间轴（不会忘记每一个人，2025-12-06）</div>
+        <div class="d">筛选叙事 vs 本体存照；重要性筛选 vs 平等承认；必然遗忘 vs 抗拒系统性遗忘。范式性超越：从"编年"到"存档"，从"讲述故事"到"守护存在"。</div>
+        <div class="src">来源：微博 5240819281299760</div></div>
+      <div class="node"><div class="h">无站队理论 / 知识生态主义</div>
+        <div class="d">批判"知识封建主义"；定位微博/企业/"寰宇光锥舟"无站队理论三角色。</div>
+        <div class="src">来源：微博</div></div>
+      <div class="node"><div class="h">全球倡议·招募开创者</div>
+        <div class="d">开源计划，五类伙伴（思想家/建筑师/战略家/连接者/记录者）；协同发起与"深度思维伙伴：DeepSeek AI"；起源中国·深圳。</div>
+        <div class="src">来源：微博 Q3hux3nyb</div></div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>🌳 当前主干 · 共创论·事现鉴</summary>
+    <div class="body">
+      <div class="node"><div class="h">五大公理（DeepSeek 裁定新框架，2026-07-27）</div>
+        <div class="d">以"不推销真理，给人防忽悠的免疫系统"为纲；双向反射论 / 动态抵消论 / 使用效率本体论等。已声明替代旧七命题。</div>
+        <div class="src">来源：本地 4篇文章（DeepSeek主干权威）</div></div>
+      <div class="node"><div class="h">事现鉴双向验证机制</div>
+        <div class="d">现实行为→SHA-256→CV记录→SCA→现实后果，回路闭合；区别于单向 attest / 单向 score。</div>
+        <div class="src">来源：本地 4篇文章 / hygzz.cn / hygzz.com</div></div>
+      <div class="node"><div class="h">三值体系</div>
+        <div class="d">共通值（生存权·按需，UDHR Art.22 可验证形态）/ 贡献值 CV（发展权·按劳）/ 负贡献值（追责·修复）。</div>
+        <div class="src">来源：本地 4篇文章 / hygzz.cn</div></div>
+      <div class="node e"><div class="h">GZZ 永久计量凭证（新） vs Gzz 消亡论（旧·冲突）</div>
+        <div class="d">新框架：GZZ = 永久计量凭证（丢弃消亡论）。但 <b>hygzz.cn / hygzz.com / whitepaper.html 仍在线挂着"Gzz消亡论"</b>——两个冲突版本同时存活。</div>
+        <div class="src">来源：4篇文章（新） vs 官网/白皮书（旧·冲突）</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>⚙️ 实现层（CSDN + Gitee，四篇文章未覆盖的"操作层"）</summary>
+    <div class="body">
+      <div class="node"><div class="h">动态网络约束系统</div>
+        <div class="d">把理论写成可执行数字规则：餐饮/司法"底线-红线"增强系统。</div>
+        <div class="src">来源：CSDN 151802471</div></div>
+      <div class="node"><div class="h">混合审判模式系统</div>
+        <div class="d">对抗制+职权制融合；深圳前海法院试点 217天→8天、99.7%准确率。</div>
+        <div class="src">来源：CSDN 151801647</div></div>
+      <div class="node"><div class="h">老年人能力评估 / 步行康复五维</div>
+        <div class="d">15分钟生活圈 / 独居老人异地照护 / 步行康复——对应事现鉴"步行康复五维"。</div>
+        <div class="src">来源：CSDN 151855628</div></div>
+      <div class="node"><div class="h">三元生态（自然/人文/数字）</div>
+        <div class="d">三元生态餐厅模拟系统 / 三元垃圾分类系统。</div>
+        <div class="src">来源：CSDN 151789473</div></div>
+      <div class="node"><div class="h">寰宇光锥舟OS（Gitee 代码库）</div>
+        <div class="d">仓库含：寰宇光锥舟OS1.0 / 智慧养老调度系统 / 三元生态教材.py / 螺旋架构图。</div>
+        <div class="src">来源：Gitee Bation（寰宇光锥舟OS / 寰宇光锥舟）</div></div>
+      <div class="node"><div class="h">其他可运行子系统（实现层总索引 151840788）</div>
+        <div class="d">全国动态教材 / 双融量化交易(A股融资融券) / 动态养老 / 智慧养老调度 / 蓝天厨师·预制菜 / CYV贡献值token(ERC-20) / 第一个网页 / 细菌觅食优化 / InternNav。</div>
+        <div class="src">来源：CSDN 151840788</div></div>
+      <div class="node i"><div class="h">品牌外延：技术学习笔记也挂"寰宇光锥舟"</div>
+        <div class="d">如《网络配置中涉及的所有高级概念》(151972668) 是纯网络工程学习文，也以该品牌发布——说明品牌同时承载"理论"与"作者个人编程成长"。</div>
+        <div class="src">来源：CSDN 151972668</div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>🚀 运动与落地 · 公开站点 · MVP</summary>
+    <div class="body">
+      <div class="node"><div class="h">指挥家模式落地框架</div>
+        <div class="d">把理论推向实施的"指挥家"方法论（微博 ttarticle）。</div>
+        <div class="src">来源：微博</div></div>
+      <div class="node x"><div class="h">公开站点</div>
+        <div class="d">hygzz.cn（国内版·红金）/ hygzz.com（国际版·蓝紫），均已上线 HTTP 200。</div>
+        <div class="src">来源：实测抓取</div></div>
+      <div class="node"><div class="h">MVP：We+SXJ 小程序</div>
+        <div class="d">饮水记录=共通值凭证 / 协助确认=双向验证 / 每日签到=使用制仪式 / SHA-256链=公开可验证；待导入微信开发者工具。</div>
+        <div class="src">来源：本地 we-sxj/</div></div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>🩹 待补 / 冲突（决定完整度的关键）</summary>
+    <div class="body">
+      <div class="node e"><div class="h">红色冲突枝：旧框架仍在线</div>
+        <div class="d">hygzz.cn / hygzz.com / whitepaper.html 仍挂 <b>七命题 + Gzz消亡论 + 负贡献归责四条件</b>，与主干<b>五大公理 + GZZ永久</b>直接矛盾。知识树现在有两个互相冲突的版本同时存活。</div>
+        <div class="src">来源：官网/白皮书（旧） vs 4篇文章（新）</div></div>
+      <div class="node i"><div class="h">数字世界统一法典全文</div>
+        <div class="d">《数字世界统一法（法典）》被多次引述为"第一步根本大法"，但<b>独立全文帖尚未定位</b>，目前只见引述片段。</div>
+        <div class="src">来源：待你提供 URL 或导出</div></div>
+      <div class="node i"><div class="h">知乎/抖音/视频号 内容空缺（已确认）</div>
+        <div class="d">本次实测：这些平台没有你的理论内容。补全不应指向它们，而应指向已验证有内容的 5 平台导出。</div>
+        <div class="src">来源：全网爬取实测</div></div>
+      <div class="node"><div class="h">4 个 LLM 聊天记录（最细枝）</div>
+        <div class="d">DeepSeek/元宝/千问/豆包 App 内私密聊天，API 无法读取，需你导出文件。含来回推演与决策细节。</div>
+        <div class="src">来源：待你导出</div></div>
+    </div>
+  </details>
+
+  <h2>三、给你的行动建议（按优先级）</h2>
+  <div class="ok">
+    <b>① 先做框架归属裁定（最高优先）：</b>新"五大公理+GZZ永久"是否已正式取代旧"七命题+Gzz消亡论"？若"是"，须回头改 hygzz.cn / hygzz.com / whitepaper.html 消除冲突——否则知识树永远是"双版本分裂"状态。<br><br>
+    <b>② 补全来源 = 导出 5 个有内容的平台：</b>微博 / CSDN / 腾讯云开发者社区 / Gitee / AtomGit 的导出文件给我，即可把"早期根+实现层+立宪层"全部织进树，且可反复重跑。<br><br>
+    <b>③ 不必去知乎/抖音/视频号"补内容"：</b>实测它们没有你的理论；若有，是同名干扰或通用"共创"噪音。若要扩展影响力，那应是"未来发布"动作，不是"补全已有"。<br><br>
+    <b>④ 导出 4 个 LLM 聊天记录：</b>拿到最细的决策脉络枝。<br><br>
+    <b>⑤ 定位《数字世界统一法（法典）》全文</b>与 <b>Facebook 主页 URL</b>（白璽/Cosmic Light Vessel），补齐立宪层与海外节点。
+  </div>
+
+  <div class="foot">
+    数据来源：2026-07-28 全网 WebSearch + WebFetch 系统性爬取（微博/CSDN/腾讯云/头条/Gitee/AtomGit/知乎/抖音/视频号/公众号/小红书/贴吧/豆瓣）。同名干扰与术语污染已逐项甄别。知识树 v1（平面映射表）→ v2（含早期根+实现层）→ v3（含平台足迹地图+GSSO桥接+冲突标注）。
+  </div>
+</div>
+</body>
+</html>

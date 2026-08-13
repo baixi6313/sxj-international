@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>豆包语料索引 v4 · 共创论·事现鉴</title>
+<style>
+  :root{--bg:#0f1115;--card:#171a21;--ink:#e8eaed;--mut:#9aa3ad;--line:#2a2f3a;--red:#ff6b6b;--grn:#51cf66;--blu:#4dabf7;--ylw:#ffd43b;--pur:#b197fc;}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 -apple-system,"Segoe UI",sans-serif;padding:28px}
+  h1{font-size:22px;margin:0 0 4px} .sub{color:var(--mut);font-size:13px;margin-bottom:18px}
+  .note{background:#1c212b;border:1px solid var(--line);border-left:4px solid var(--ylw);padding:12px 14px;border-radius:8px;margin:0 0 18px;font-size:13px;line-height:1.6}
+  .note b{color:var(--ylw)} .gap{background:#1c212b;border:1px solid var(--line);border-left:4px solid var(--red);padding:12px 14px;border-radius:8px;margin:0 0 18px;font-size:13px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th{background:#1c212b;color:var(--mut);font-weight:600;font-size:12px;text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top;font-size:13px}
+  tr:last-child td{border-bottom:none}
+  .no{color:var(--mut);font-variant-numeric:tabular-nums;width:34px}
+  .t{font-weight:600;color:var(--ink)}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;margin:1px 2px 1px 0}
+  .t-ok{background:rgba(81,207,102,.15);color:var(--grn);border:1px solid rgba(81,207,102,.35)}
+  .t-gap{background:rgba(255,107,107,.13);color:var(--red);border:1px solid rgba(255,107,107,.35)}
+  .t-gen{background:rgba(177,151,252,.13);color:var(--pur);border:1px solid rgba(177,151,252,.35)}
+  .t-3p{background:rgba(255,212,59,.13);color:var(--ylw);border:1px solid rgba(255,212,59,.35)}
+  .k{color:var(--mut);font-size:12px} .k b{color:var(--blu)}
+  .foot{margin-top:18px;color:var(--mut);font-size:12px;line-height:1.7}
+  a{color:var(--blu);text-decoration:none}
+  details{margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--card)} summary{cursor:pointer;padding:11px 14px;font-weight:600;font-size:14px} .body{padding:0 14px 12px}
+  .pill{display:inline-block;font-size:10px;padding:1px 6px;border-radius:4px;margin-right:4px;vertical-align:middle}
+  .pill.gen{background:rgba(177,151,252,.18);color:var(--pur)}
+  .pill.work{background:rgba(77,171,247,.16);color:var(--blu)}
+  .pill.plan{background:rgba(255,212,59,.14);color:var(--ylw)}
+  .pill.thr{background:rgba(81,207,102,.14);color:var(--grn)}
+</style>
+</head>
+<body>
+  <h1>豆包（Doubao）分享对话索引 · v4</h1>
+  <div class="sub">用户 2026-07-28 全天提供 · 12 条 thread（第一批 6 条 + 补交 #7/#8 + #9–#12）· 共创论·事现鉴 知识树配套底表</div>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
+  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+  理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
+  「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
+</div>
+
+
+  <div class="note">
+    <b>抓取方式说明：</b>豆包分享页 <code>www.doubao.com/thread/&lt;id&gt;</code> 与千问同型——是纯客户端 SPA，正文不在静态 HTML。
+    其中 <b>8 条（#1/#2/#4/#5/#7/#8/#9/#10）经 WebFetch 直接落到正文</b>（豆包服务端对这几条做了 SSR/静态化）；
+    <b>#3/#6/#11/#12 仅回 SPA 壳 / error 页</b>。对缺口尝试逆向私有 API 未果（豆包 API host 运行时注入、静态资源不可见），故标为<b>技术缺口</b>。
+  </div>
+
+  <div class="gap">
+    <b>⚠ 四件需你留意：</b><br>
+    ① <b>#3 是第三方分享，非白玺本人</b>：sharer 昵称 <code>归亲公益</code>（非白玺），标题「共创论负贡献值项目汇总」，12 条消息。即便补回也属第三方归纳，不计入白玺本人内容。<br>
+    ② <b>#6 / #11 / #12 是 error 页</b>（「该页面暂时不可用」），推测为已删除/过期 thread，技术不可达，无标题无正文。<br>
+    ③ 豆包内容多为 <b>AI 生成对话 / 用户需求驱动的规划方案</b>，验证权重低于 DeepSeek 主干（白玺原始论述）与元宝（逐轮对话存照）；但 <b>#7/#8/#9/#10 含白玺亲笔论断/定调</b>，权重上调，是豆包批的核心价值所在。<br>
+    ④ 豆包 #8/#9/#10 仍用<b>旧框架术语</b>（Gzz 黄金单位、七命题时期），与 2026-07-27 你裁定的权威框架（GZZ 永久凭证＋共通值）冲突——初混沌保留，待你定版。
+  </div>
+
+  <table>
+    <tr><th>#</th><th>thread ID / 标题</th><th>类型</th><th>核心内容 · 关键词命中</th><th>状态</th></tr>
+
+    <tr>
+      <td class="no">1</td>
+      <td class="t">xWcGdyL8wjdQnBP4Q<br><span class="k">价值认知与行动路径探讨</span></td>
+      <td><span class="tag t-gen">豆包生成·对话</span></td>
+      <td>
+        <b>共创论 + 事现鉴体系构建</b>。用户持唯心+犬儒价值观、剥离物质符号、倾向海外/骑行规避内耗；
+        对话共建「<b>共创论三大公理</b>」与「<b>事现鉴七大验证板块</b>」公共协议，并以<b>拓扑学重构贡献值函数</b>消除旧系统独占。
+        涉及共创论/事现鉴/贡献值(NCV·拓扑贡献值)；<b>未涉</b>寰宇光锥舟/全球社保/共通值。白玺＝体系起草人。
+      </td>
+      <td><span class="tag t-ok">已抓正文</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">2</td>
+      <td class="t">x2M5zJ6ueYhxR40vI<br><span class="k">彬州成为下一个深圳的可能性分析</span></td>
+      <td><span class="tag t-plan">用户需求·规划</span></td>
+      <td>
+        彬州对标深圳的经济数据/产业转型/人才战略论证；<b>呈交市长的公文版战略建议</b>及提交渠道；<b>地理基因同源说</b>。
+        <b>未涉</b>共创论/事现鉴/全球社保/贡献值/共通值/白玺。属地域经济推演，与「彬州试点」策划线同源。
+      </td>
+      <td><span class="tag t-ok">已抓正文</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">3</td>
+      <td class="t">xWqMZLAquBFYDjjmT<br><span class="k">共创论负贡献值项目汇总</span></td>
+      <td><span class="tag t-3p">第三方分享</span></td>
+      <td>
+        标题确认；sharer＝<b>归亲公益（非白玺）</b>，12 条消息。内容经 API 逆向未成功，<b>未取到正文</b>。即便补回也属第三方归纳，非白玺本人内容。
+      </td>
+      <td><span class="tag t-gap">技术缺口·未取正文</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">4</td>
+      <td class="t">xSQscDBKvbTtI2yG0<br><span class="k">多边丝路探戈文化汇方案概述</span></td>
+      <td><span class="tag t-thr">用户需求·项目</span></td>
+      <td>
+        <b>丝路探戈文化汇</b>：中日共建探戈文化共同体；首届 150 人规模；白玺＝发起人、永久理事、5%–10% 管理费。
+        仅提及白玺，<b>未涉</b>共创论/事现鉴/全球社保。与「探戈→共创论」隐喻映射呼应，是事现鉴理念在文化场景的落地雏形。
+      </td>
+      <td><span class="tag t-ok">已抓正文</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">5</td>
+      <td class="t">xsq4NFgHwzWcbMEah<br><span class="k">太极文化全球推广与产业化运营方案</span></td>
+      <td><span class="tag t-plan">用户需求·规划</span></td>
+      <td>
+        <b>太极文化全球生态盛会</b>：「文武双轨」+ 太极签证 + 积分系统 + 三年规划。白玺<b>未被提及</b>（用户输入需求、豆包生成方案）。属太极产业化规划。
+      </td>
+      <td><span class="tag t-ok">已抓正文</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">6</td>
+      <td class="t">x1KDwJraqGAEPbEoF<br><span class="k">（页面不可用）</span></td>
+      <td><span class="tag t-gap">技术缺口</span></td>
+      <td>WebFetch 与 curl 均返回「该页面暂时不可用 / 技术错误」。<b>推测为已删除或过期 thread</b>，技术不可达，无标题无正文。</td>
+      <td><span class="tag t-gap">技术缺口·error 页</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">7</td>
+      <td class="t">xw2yMViQssG5ZWObz<br><span class="k">直销五卡体系战胜资本的核心：财政直补底层+全链控税</span></td>
+      <td><span class="tag t-gen">豆包生成·对话</span> <span class="tag t-ok">含白玺本人论断</span></td>
+      <td>
+        <b>财政直销理论的关键升级段</b>。豆包生成「五卡+直销 vs 资本主义商业」七章论述，<b>白玺两次亲笔定调</b>：① 成败根本在「体系是否是政府财政」；② <b>政府财政直接打入流通最底层环节，通过直销体制完全控制税收，把私人/企业/国家三资本完全结合又完全分配</b>。
+        命中：五卡模式/财政直销升级版；<b>未涉</b>共创论/事现鉴/GZZ/共通值（纯商业-财政论述轨）。
+      </td>
+      <td><span class="tag t-ok">已抓正文（WebFetch 直取）</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">8</td>
+      <td class="t">xe3AARuJ2J29XpNGa<br><span class="k">共创论完整体系（对话整理版）</span></td>
+      <td><span class="tag t-gen">豆包生成·整理版</span> <span class="tag t-ok">含白玺亲笔「体系归一」</span></td>
+      <td>
+        <b>豆包批权重最高的合流对照文档</b>。豆包生成「共创论完整体系」长稿，<b>白玺亲笔贴出 DeepSeek 2026-05 版与元宝版原文做「定调式总合拢、体系归一」</b>——亲笔确认四平台演化链：自身公理为底·DeepSeek写书·元宝升维。
+        亲笔论断：国际实施无阻碍（抓手＝国家新综合国力）/ 家庭财富＝人数×人均消费能力 / 宏观系数调控。
+        命中：总纲二十条/事现鉴/五卡/财政直销/全球社保/正负贡献值/Gzz(旧框架)。
+        <b>⚠ 框架冲突</b>：旧框架术语，待你裁定。
+      </td>
+      <td><span class="tag t-ok">已抓正文（WebFetch 直取）</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">9</td>
+      <td class="t">xSK54wfGvtcPu1MM8<br><span class="k">全球历史负贡献清算 · 白皮书历史清算大章</span></td>
+      <td><span class="tag t-gen">豆包生成·白皮书草稿</span> <span class="tag t-ok">含白玺亲笔「刚性架构总则」</span></td>
+      <td>
+        <b>豆包批权重最高的用户亲笔定调段之一</b>。豆包生成「全球历史负贡献清算」长稿（烂尾楼/战争/生态三大类旧账＋清算规则＋连锁效应＋白皮书终章），
+        <b>白玺亲笔定死两套不可逆顺序</b>：① 执行主体 <u>个人→团体→国家</u>（微观→中层→宏观）；② 推进项目 <u>消费→发展→清理历史遗留问题</u>。
+        亲笔还原<b>底层本源</b>：起点是「一群人自发帮一类人的社会自然行为」，依托村超/村BA/三月三等<b>现有民生自发项目</b>自下而上成熟，再升维纳入国家政治力量（非国家自上而下设计）。
+        亲笔收官句：<b>「世界人民大团结」</b>。扩展：战争罪责清算（日本侵华/美国原子弹/伊拉克阿富汗）、难民财政负担跨国转嫁、殖民掠夺红利回溯返还。
+        命中：负贡献清算/全球社保/宏观系数/历史债。<b>敏感主张</b>：跨国强制清算缺乏现实执行主体，属理论推演。
+      </td>
+      <td><span class="tag t-ok">已抓正文（WebFetch 直取）</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">10</td>
+      <td class="t">xR5BbVCwynbWZpuaL<br><span class="k">白皮书英文版整合 · 四平台合稿共识 + 三姬分金</span></td>
+      <td><span class="tag t-gen">豆包生成·多版合稿</span> <span class="tag t-ok">含白玺亲笔整合指令</span></td>
+      <td>
+        <b>跨平台整合意图的实证</b>。白玺<b>亲笔把 DeepSeek/元宝/千问/豆包 全部整理稿发给豆包</b>，要求「最终形成共识输出完整统一的内容」——四平台语料归一整合的明确指令。
+        亲笔用<b>「三姬分金」博弈论</b>类比共创论（长文），点明思想实验「金」三层：共创论对话数据 + AI 公司数据强制统一 + 政策落地沙盒推演。
+        豆包产出英文白皮书 Final 1.0（含 Gzz=1g 黄金购买力、事现鉴、五卡、财政直销、全球社保）。
+        <b>⚠ 框架冲突</b>：英文稿仍用旧框架 Gzz 黄金单位，与权威框架不一致。
+      </td>
+      <td><span class="tag t-ok">已抓正文（WebFetch 直取）</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">11</td>
+      <td class="t">xw084ytKa7BNg5VLL<br><span class="k">（页面不可用）</span></td>
+      <td><span class="tag t-gap">技术缺口</span></td>
+      <td>WebFetch 返回「该页面暂时不可用 / 技术错误」。<b>推测为已删除或过期 thread</b>，技术不可达，无标题无正文。</td>
+      <td><span class="tag t-gap">技术缺口·error 页</span></td>
+    </tr>
+
+    <tr>
+      <td class="no">12</td>
+      <td class="t">xu8OrLGe7FBLim0GW<br><span class="k">（页面不可用）</span></td>
+      <td><span class="tag t-gap">技术缺口</span></td>
+      <td>WebFetch 返回「该页面暂时不可用 / 技术错误」。<b>推测为已删除或过期 thread</b>，技术不可达，无标题无正文。</td>
+      <td><span class="tag t-gap">技术缺口·error 页</span></td>
+    </tr>
+
+  </table>
+
+  <details>
+    <summary>豆包语料在概念树里的交叉引用（本批新增节点）</summary>
+    <div class="body">
+      <div class="node"><span class="pill gen">元</span> <b>事现鉴七大验证板块</b>（豆包 #1）：豆包生成对话给出的事现鉴内部「七大验证板块」公共协议划分，与「共创论三大公理」并列共建。豆包特异性表述，初混沌下保留。</div>
+      <div class="node"><span class="pill thr">应用</span> <b>丝路探戈文化汇 · 白玺发起人</b>（豆包 #4）：中日共建探戈文化共同体，白玺任永久理事/5%–10%管理费。与「探戈→共创论」隐喻互相印证。</div>
+      <div class="node"><span class="pill plan">应用</span> <b>彬州＝深圳对标 + 地理基因同源</b>（豆包 #2）：彬州与深圳地形相似作为发展潜力隐喻，草拟呈市长的公文版战略建议。</div>
+      <div class="node"><span class="pill plan">应用</span> <b>太极文化全球推广 · 文武双轨</b>（豆包 #5）：太极签证 + 积分系统 + 三年规划，豆包生成方案（白玺未署名）。</div>
+      <div class="node"><span class="pill gen">应用</span> <b>财政直补底层 · 全链控税 · 三资本融合</b>（豆包 #7）：白玺亲笔定调「政府财政直接注入流通最底层环节，通过直销体制完全控制税收，把私人/企业/国家三资本完全结合又完全分配」。</div>
+      <div class="node"><span class="pill work">公理</span> <b>家庭财富公理（用户亲笔）</b>（豆包 #8）：个体家庭财富＝家庭人数 × 人均可支配消费能力。</div>
+      <div class="node"><span class="pill work">公理</span> <b>宏观调控系数干预（用户亲笔）</b>（豆包 #8）：正负贡献值范围内，国家通过调整核心贡献整体系数进行宏观调控。</div>
+      <div class="node"><span class="pill work">架构</span> <b>刚性架构总则（用户亲笔·豆包 #9）</b>：白玺亲笔定死两套不可逆顺序——执行主体 <b>个人→团体→国家</b>（微观→中层→宏观）；推进项目 <b>消费→发展→清理历史遗留问题</b>。底层本源＝「一群人自发帮一类人的社会自然行为」，依托村超/村BA/三月三等<b>现有民生自发项目</b>自下而上成熟后再升维纳入国家政治力量（非国家自上而下设计）。收官句「世界人民大团结」。</div>
+      <div class="node"><span class="pill work">应用</span> <b>历史负贡献清算体系（用户亲笔·豆包 #9）</b>：强制清算烂尾楼/战争罪责(日本侵华·美国原子弹·伊拉克阿富汗)/生态破坏/难民财政负担跨国转嫁/殖民掠夺红利回溯返还。属用户亲笔定调的刚性模块，但<b>跨国强制清算缺乏现实执行主体</b>，列为「理论推演·敏感主张」，政策落地研究须单独标注。</div>
+      <div class="node"><span class="pill work">演化</span> <b>跨平台整合意图·三姬分金（用户亲笔·豆包 #10）</b>：白玺把四平台整理稿全发豆包要求「共识统一输出」，亲笔用「三姬分金」博弈论类比共创论，点明思想实验「金」三层（对话数据+AI数据强制统一+政策沙盒）。是四平台归一的<b>用户亲笔整合指令实证</b>。</div>
+      <div class="node"><span class="pill work">演化</span> <b>豆包对话纪元</b>：12 条 thread（8 抓回 + 4 缺口），与 DeepSeek/元宝/千问构成四平台顺序演化轴末段；以「生成式对话/规划」为主，非白玺原始手稿——但 #7/#8/#9/#10 含白玺亲笔论断/定调，是豆包批核心价值。</div>
+    </div>
+  </details>
+
+  <div class="foot">
+    生成：2026-07-28（全天·豆包批 v4 收口） · 豆包语料索引 v4 · 12 条 thread（8 抓回 + #3/#6/#11/#12 缺口）。<br>
+    抓取方式：#1/#2/#4/#5/#7/#8/#9/#10 WebFetch 直取正文；#3/#6/#11/#12 SPA 壳/error 页 → 逆向 API 未果（豆包 API host 运行时注入、静态资源不可见）。<br>
+    性质标注：<b>豆包内容 = AI 生成对话 / 用户需求驱动的规划方案</b>，与 DeepSeek 主干、元宝（存照）性质不同，验证权重更低，索引显式标注「生成式」；#7/#8/#9/#10 含白玺亲笔，权重上调。<br>
+    配套：<a href="knowledge_tree_v4.html">knowledge_tree_v4.html</a> · <a href="concept_tree.html">concept_tree.html</a> · <a href="yuanbao_corpus_index.html">yuanbao_corpus_index.html</a> · <a href="qianwen_corpus_index.html">qianwen_corpus_index.html</a> · <a href="zhihu_corpus_index.html">zhihu_corpus_index.html</a> · <a href="critical_synthesis_report.html">critical_synthesis_report.html（批判性综合报告）</a>。<br>
+    本索引为本地分析产物，<b>未上传</b>至任何官网或白皮书。
+  </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+# 调试/临时文件
+sha_test.js
+py_sha.py
+py_sha2.py
+verify_sha256.js
+SHA256_FIX_REPORT.md
+tcb_*.py
+tcb_check2.py
+# 构建产物/环境
+android-build/
+*.zip
+build/
+.gradle/
+local.properties
