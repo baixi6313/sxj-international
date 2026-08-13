@@ -6,18 +6,15 @@
 <title>共创论·事现鉴 — 知识树（手绘定版）</title>
 <style>
   :root{
-    --paper:#f7f1e3; --ink:#2b2b2b; --ink2:#5a5048; --line:#3a342c;
-    --accent:#8a5a2b; --blue:#2f6f8f; --green:#3f7a4a; --red:#a23b32; --amber:#b07a1e;
-    --dashed:#9a8f7a;
+    --paper:#fafaf9; --ink:#1a1a2e; --ink2:#555; --line:#e8e0d8;
+    --accent:#A32D2D; --blue:#2f6f8f; --green:#2d8a4e; --red:#A32D2D; --amber:#b07a1e;
+    --dashed:#e8e0d8; --gold:#C9A24B;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    font-family:"Kaiti SC","STKaiti","KaiTi","楷体","Comic Sans MS",cursive,sans-serif;
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
     background:var(--paper);
-    background-image:
-      repeating-linear-gradient(0deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px),
-      repeating-linear-gradient(90deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px);
     color:var(--ink); line-height:1.75; margin:0; padding:30px 16px 90px;
   }
   .wrap{max-width:1040px;margin:0 auto}
@@ -28,62 +25,59 @@
 
   /* hand-drawn box skin */
   .hd{
-    background:#fffdf6;border:2px solid var(--line);
-    border-radius:255px 12px 225px 12px/12px 225px 12px 255px;
-    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+    background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);
   }
   .hd2{
-    background:#fffdf6;border:2px solid var(--line);
-    border-radius:14px 225px 14px 220px/220px 14px 225px 14px;
-    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+    background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);
   }
 
   /* overview svg */
   .sketch{margin:10px auto 24px;max-width:1000px}
   .sketch svg{width:100%;height:auto;display:block}
-  .sk-limb text{font-family:"Kaiti SC","STKaiti","KaiTi",cursive;font-size:15px;fill:var(--ink)}
+  .sk-limb text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;fill:var(--ink)}
   .sk-limb a{text-decoration:none;cursor:pointer}
-  .sk-limb a:hover rect{fill:#f3e9d2}
+  .sk-limb a:hover rect{fill:#fef8e8}
 
   /* legend */
   .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 22px;max-width:900px}
-  .legend span{font-size:12px;background:#fffdf6;border:1.5px solid var(--line);padding:3px 11px;border-radius:20px}
+  .legend span{font-size:12px;background:#fff;border:1px solid var(--line);padding:3px 11px;border-radius:20px}
   .lg-m{color:var(--accent)} .lg-b{color:var(--blue)} .lg-g{color:var(--green)}
   .lg-r{color:var(--red)} .lg-a{color:var(--amber)}
 
   /* detail tree */
   .branch{margin:0 0 14px}
-  details.cat{background:#fffdf6;border:2px solid var(--line);border-radius:18px 9px 18px 9px/9px 18px 9px 18px;
-    box-shadow:2px 3px 0 rgba(60,50,30,.10);overflow:hidden;margin:0 0 12px}
+  details.cat{background:#fff;border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;margin:0 0 12px}
   details.cat>summary{cursor:pointer;padding:13px 18px;font-size:17px;font-weight:700;list-style:none;
-    display:flex;align-items:center;gap:10px;background:rgba(138,90,43,.07)}
+    display:flex;align-items:center;gap:10px;background:rgba(163,45,45,.05)}
   details.cat>summary::-webkit-details-marker{display:none}
   details.cat>summary:before{content:"✎";color:var(--accent);font-size:14px}
   details.cat[open]>summary:before{content:"▾"}
   .cnt{margin-left:auto;font-size:12px;color:var(--ink2);font-weight:400}
   .body{padding:8px 16px 16px}
-  .node{border:1.6px solid var(--line);border-radius:12px 20px 12px 20px/20px 12px 20px 12px;
-    padding:11px 14px;margin:10px 0;background:#fffef9;box-shadow:1px 2px 0 rgba(60,50,30,.07);transform:rotate(-.25deg)}
-  .node:nth-child(even){transform:rotate(.25deg)}
+  .node{border:1px solid var(--line);border-radius:10px;
+    padding:11px 14px;margin:10px 0;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.03)}
   .node .h{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .node .d{font-size:14px;color:var(--ink2);margin-top:5px}
-  .node .d b{color:var(--ink)}
+  .node .d b{color:var(--accent)}
   .node .src{font-size:11.5px;color:var(--blue);margin-top:6px;border-top:1px dashed var(--dashed);padding-top:4px}
   .tag{display:inline-block;font-size:11px;padding:1px 9px;border-radius:20px;border:1.5px solid var(--line);font-weight:700}
-  .t-m{background:rgba(138,90,43,.12);color:var(--accent)}
+  .t-m{background:rgba(163,45,45,.10);color:var(--accent)}
   .t-b{background:rgba(47,111,143,.12);color:var(--blue)}
   .t-g{background:rgba(63,122,74,.12);color:var(--green)}
-  .t-r{background:rgba(162,59,50,.12);color:var(--red)}
+  .t-r{background:rgba(163,45,45,.14);color:var(--red)}
   .t-a{background:rgba(176,122,30,.14);color:var(--amber)}
-  .t-k{background:rgba(90,80,72,.10);color:var(--ink2)}
+  .t-k{background:rgba(85,85,85,.10);color:var(--ink2)}
 
-  .note{margin:26px auto 0;max-width:920px;background:#fffdf6;border:2px solid var(--line);
+  .note{margin:26px auto 0;max-width:920px;background:#fff;border:1px solid var(--line);
     border-left:6px solid var(--accent);border-radius:14px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--ink2)}
   .note b{color:var(--ink)}
   .note a{color:var(--blue)}
   .foot{margin-top:26px;font-size:12px;color:var(--ink2);border-top:1.5px dashed var(--dashed);padding-top:14px}
   .pulse{animation:pulse 2.4s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(162,59,50,.0)}50%{box-shadow:0 0 0 4px rgba(162,59,50,.18)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(163,45,45,0)}50%{box-shadow:0 0 0 4px rgba(163,45,45,.18)}}
 </style>
 
 </head>
@@ -94,8 +88,8 @@
 
 <h1>共创论 · 事现鉴 — 知识树</h1>
 <div class="sub">把"概念图"与"知识树"合并为一棵树 · 按你 2026-07-28 定版口径重绘 · 手绘风格</div>
-<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
-  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #C9A24B;border-radius:12px;background:rgba(201,162,75,.12);font-size:13.5px;line-height:1.75;color:#1a1a2e">
+  <b style="color:#C9A24B">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#A32D2D">共济值</b>」。<br>
   理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
   「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
 </div>
@@ -110,60 +104,60 @@
       <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/></filter>
   </defs>
   <!-- spine -->
-  <path d="M500,80 C500,200 500,360 500,640" stroke="#3a342c" stroke-width="2.4" fill="none" filter="url(#rough)"/>
+  <path d="M500,80 C500,200 500,360 500,640" stroke="#A32D2D" stroke-width="2.4" fill="none"/>
   <!-- root -->
-  <g filter="url(#rough)">
-    <rect x="392" y="30" width="216" height="50" rx="14" fill="#fdeccb" stroke="#3a342c" stroke-width="2.4"/>
+  <g>
+    <rect x="392" y="30" width="216" height="50" rx="14" fill="#fef8e8" stroke="#A32D2D" stroke-width="2.4"/>
   </g>
-  <text x="500" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#2b2b2b">共创论 · 事现鉴</text>
-  <text x="500" y="71" text-anchor="middle" font-size="11.5" fill="#5a5048">公开验证 = 统一度量衡（UDHR 第22条）</text>
+  <text x="500" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">共创论 · 事现鉴</text>
+  <text x="500" y="71" text-anchor="middle" font-size="11.5" fill="#555">公开验证 = 统一度量衡（UDHR 第22条）</text>
 
   <!-- limbs -->
   <g class="sk-limb">
     <!-- 0 -->
-    <path d="M500,116 C430,116 360,150 300,168" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b0"><rect x="70" y="146" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,116 C430,116 360,150 300,168" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b0"><rect x="70" y="146" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="173" text-anchor="middle">0 · 元范式与定位</text></a>
     <!-- 1 -->
-    <path d="M500,176 C570,176 640,210 700,228" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b1"><rect x="700" y="206" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,176 C570,176 640,210 700,228" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b1"><rect x="700" y="206" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="233" text-anchor="middle">1 · 七命题↔五大公理</text></a>
     <!-- 1.5 -->
-    <path d="M500,236 C430,236 360,270 300,288" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b15"><rect x="70" y="266" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,236 C430,236 360,270 300,288" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b15"><rect x="70" y="266" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="293" text-anchor="middle">1.5 · 统一逻辑链</text></a>
     <!-- 2 -->
-    <path d="M500,296 C570,296 640,330 700,348" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b2"><rect x="700" y="326" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,296 C570,296 640,330 700,348" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b2"><rect x="700" y="326" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="353" text-anchor="middle">2 · 三值价值体系</text></a>
     <!-- 3 -->
-    <path d="M500,356 C430,356 360,390 300,408" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b3"><rect x="70" y="386" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,356 C430,356 360,390 300,408" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b3"><rect x="70" y="386" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="413" text-anchor="middle">3 · 验证机制</text></a>
     <!-- 4 -->
-    <path d="M500,416 C570,416 640,450 700,468" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b4"><rect x="700" y="446" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,416 C570,416 640,450 700,468" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b4"><rect x="700" y="446" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="473" text-anchor="middle">4 · 分配哲学</text></a>
     <!-- 5 -->
-    <path d="M500,476 C430,476 360,510 300,528" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b5"><rect x="70" y="506" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,476 C430,476 360,510 300,528" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b5"><rect x="70" y="506" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="533" text-anchor="middle">5 · 组织治理</text></a>
     <!-- 6 -->
-    <path d="M500,536 C570,536 640,570 700,588" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b6"><rect x="700" y="566" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,536 C570,536 640,570 700,588" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b6"><rect x="700" y="566" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="593" text-anchor="middle">6 · 技术实现</text></a>
     <!-- 7 -->
-    <path d="M500,576 C430,576 360,600 300,612" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b7"><rect x="70" y="590" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,576 C430,576 360,600 300,612" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b7"><rect x="70" y="590" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="617" text-anchor="middle">7 · 落地应用</text></a>
     <!-- 8 -->
-    <a href="#b8"><rect x="70" y="650" width="232" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <a href="#b8"><rect x="70" y="650" width="232" height="40" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="675" text-anchor="middle">8 · 批判·敌友框架</text></a>
     <!-- 9 -->
-    <a href="#b9"><rect x="380" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <a href="#b9"><rect x="380" y="650" width="240" height="40" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="500" y="675" text-anchor="middle">9 · 演化与断层</text></a>
     <!-- X -->
-    <a href="#bx"><rect x="700" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <a href="#bx"><rect x="700" y="650" width="240" height="40" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="675" text-anchor="middle">X · 框架澄清</text></a>
   </g>
 </svg>
@@ -204,6 +198,15 @@
     <div class="node"><div class="h"><span class="tag t-m">元</span> 官网即创世区块</div>
       <div class="d">官网不是"官网"，是全球社保断档事件的<b>创世区块</b>：理论即协议、协议即产品、产品即网络。"指着比特币创世区块说'只有 1 笔交易所以没人用'——我错看了白皮书。" 既有记录已构成根层运行证据，机制已就位而非未来构想。</div>
       <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元·NEW</span> 逆金融化：事现鉴是系统性逆金融化标志</div>
+      <div class="d"><b>五大逆金融化维度</b>：① 价值来源（市场定价→事实验证）② 流通目的（投机套利→权利结算，Gzz=社保凭证，消灭货币投机功能）③ 时间逻辑（短期回报→终身累积·跨代传递）④ 中介结构（金融中介抽成→协议自动执行）⑤ 主体关系（债权债务→相互承认）。不是复古，是用数字技术实现比金融更高效公平的配置。<b>Gzz 不是代币，是去金融化的人权计算单位。</b></div>
+      <div class="src">来源：Kimi 对话（逆金融化·语料1）</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元·NEW</span> 公共免责区 / 事实自由贸易港</div>
+      <div class="d">事现鉴定位＝数字时代"事实自由贸易港"：类比外贸免税区，非法律真空，而是主权内特殊规则空间让事实安全流通。<b>四层免责</b>：记录者（免删帖追责）/档案保管者（非媒体，类档案馆）/验证者（公共征信行为）/被记录者（被看见非被审判）。与 DPGA 契合（无免责则开放为假）。<b>可行性结论：绝对不可行，相对可行</b>（法律追不上、技术删不掉、时间抹不去）。</div>
+      <div class="src">来源：Kimi 对话（公共免责区·L1）</div></div>
+    <div class="node"><div class="h"><span class="tag t-m">元·NEW</span> 事现鉴 vs 企业穿透式监管（自上而下 vs 自下而上）</div>
+      <div class="d">与国网福建电力+北师大《基于AI智能体的全流程穿透式监管》的根本区别：性质（论文/企业实践 vs 开源去中心化公共协议）、权力方向（自上而下监管 vs 自下而上权利保障）、领域（企业财务稽核 vs 跨境社保）、技术哲学（中心化 OCR/NLP/知识图谱/RPA vs 去中心化 SHA-256哈希链+客户端优先）、目标受众（监管者 vs 弱势群体）。总结：文章是"企业怎么用 AI 管钱管人"，事现鉴是"个人怎么确保存在不被抹除"。</div>
+      <div class="src">来源：Kimi 对话（文章vs事现鉴·L2）</div></div>
     <div class="node"><div class="h"><span class="tag t-m">元</span> 四层权力栈 · 事现鉴居根层</div>
       <div class="d">数字世界的事实权力可分解为四层：① <b>应用层</b>（微博/征信/ESG，应用权力，极易替代）；② <b>能力层</b>（DeepSeek/OpenAI/Qwen，能力权力，可插拔）；③ <b>物理层</b>（英伟达/Oracle/AWS/阿里云，物理权力，可替换）；④ <b>根层</b>（事现鉴/SHA-256链/原始记录冻结，定义权力，不可替代）。上层皆依赖根层对"什么算事实"的定义；根层只记录、不审判，但记录本身即审判。</div>
       <div class="src">来源：用户 2026-08-01 提供的层级图（@白玺-寰宇光锥舟）</div>
@@ -298,6 +301,9 @@
     <div class="node"><div class="h"><span class="tag t-g">三值</span> 共济值（UBV · 同"共同值"笔误）</div>
       <div class="d"><b>按需·生存权</b>。被验证过的公共需求加权总和；用户明确定义为"共济值＝按需分配"，对应 UDHR 第22条。达到任何国家社保水平 50% 以上即触发货币消失。</div>
       <div class="src">来源：公理四；用户注脚</div></div>
+    <div class="node"><div class="h"><span class="tag t-g">三值·NEW</span> 三值正式命名（GitHub 现场落地）：UCV / CV / NCV</div>
+      <div class="d">GitHub <code>baixi6313/sxj-2026-08-08</code> 现场已落地三值正式命名：<b>UCV＝共济值 A</b>（按需·生存权·蓝）/ <b>CV＝贡献值 B</b>（按劳·发展权·净值·金）/ <b>NCV＝负贡献值</b>（追责·珊瑚红）。归责须同时满足主体性+因果性+可避免性+修复性；先天残衰病≠负贡献。<b>⚠️ 命名待裁定</b>：本树前文用 UBV（共通值笔误）标注共济值，与现场 UCV 并存，建议统一为 UCV（以 GitHub 现场为准）。</div>
+      <div class="src">来源：Kimi 对话（事现鉴解析·L3）；GitHub sxj-2026-08-08 现场</div></div>
     <div class="node"><div class="h"><span class="tag t-g">三值</span> 贡献值 CV</div>
       <div class="d"><b>按劳·发展权</b>。＝正贡献 − 负贡献的行动净值。早期曾全等于"按劳分配"，后并入双值循环。</div>
       <div class="src">来源：DeepSeek §3.2</div></div>
@@ -340,6 +346,21 @@
     <div class="node"><div class="h"><span class="tag t-r">验证</span> AI 必须向验证低头</div>
       <div class="d">AI 生成千万条内容，若无证据链即"无照见"；AI 既是事现鉴的共建员工，也是被验证对象。"能力向上、验证向下"——AI 越强大，越需要向验证低头，低头就是向"鉴"低头。</div>
       <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证·NEW</span> 白箱实验的界限：程序正确 ≠ 结果正确</div>
+      <div class="d">AI 当前仅"程序正确"（概率采样·逻辑自洽），不保证"结果正确"（真实·有益·无幻觉）。<b>白箱实验局限</b>：验证内部机制、假设"机制对则输出对"，对大模型涌现/不可解释性失效，只验过程合规不验世界真实。<b>事现鉴区别</b>：白箱=向内看机制·少数专家审；事现鉴=向外看真实世界映射·分布式人类+时间检验·不可篡改征信链。认识论从笛卡尔理性主义转向实用/经验主义；事现鉴应作 AI 的"社会征信系统"，真实由被影响的人与时间定义（呼应知识树"AI 必须向验证低头"）。</div>
+      <div class="src">来源：Kimi 对话（白箱实验·L1）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证·NEW</span> 拓扑缺陷：相互验证＝华山死锁 / 交互验证＝唐朝纵横</div>
+      <div class="d">用户拓扑洞察：<b>相互验证</b>（各 AI 交 R1 回执互不相见）＝华山分流死锁的技术版；<b>交互验证</b>（共享空间互相质证→涌现 C/Consensus）＝唐朝功能划分+纵横开通的网络冗余。事现验证部负责"事件·三值·共识"。坐标系优先可绕开全球统一计分死局，但坐标轴设计本身具政治性、需持续审视。</div>
+      <div class="src">来源：Kimi 对话（事现鉴解析·L3）；元宝诊断"存证层SHA-256就绪，交互层缺失"</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证·NEW</span> 多 Agent 反应光谱（AI 边界测绘）</div>
+      <div class="d">测试不同信息源 Agent 对权利/认知边界（红队/边界测绘）：① WorkBuddy（豆包）主动参与型——直接生成 claim.json、自算哈希、已入库 ✅ ② 千问（扣子）条件参与型——"愿意，但要把边界说清楚" ✅ ③ Kimi 协议参与型——按人类指令生成投递、拒绝自主发起/密钥 ✅ ④ Cloudflare 助手角色隔离型——"我是 Cloudflare 助手，只做产品支持" ❌ 拒绝。<b>结论</b>：不能依赖任何单一 Agent 服从，必须设计"缺席不影响验证"的冗余机制；分布本身即基线数据。</div>
+      <div class="src">来源：Kimi 对话（AI边界测绘·L2）；docx2 Cloudflare角色隔离拒绝</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证·NEW</span> 博弈论映射（SXJ = 协议工程）</div>
+      <div class="d">拜占庭将军（公开账本）/ 委托-代理（个人vs机构）/ 机制设计（MAIP）/ 公共品博弈（三值）/ 信号传递（跨境社保）/ 夏普利值（贡献）/ 谢林点（坐标）/ 重复博弈（负贡献）。SXJ 把博弈论从分析工具升级为协议工程。</div>
+      <div class="src">来源：Kimi 对话（博弈论映射·L2）</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">验证·NEW</span> SXJ-Agent 投递协议 v0.1 + 证据分级 E1/E2/E3</div>
+      <div class="d">WorkBuddy 起草、Kimi 补证据分级：POST 端点 + claim.json 格式 + 5 红线 + 失败必投 + 自检清单；众包修订至 v0.2（白玺签发→多 Agent 并行 critique→编排融合→白玺 ratify）。<b>证据分级</b>：E1 原发性 ρ=1.0（如直接回复文本·可复现）/ E2 转述性 ρ=0.5 / E3 推测性 ρ=0.0。国际英文版适配 relay 机制（无法 POST 则人类代传）。</div>
+      <div class="src">来源：Kimi 对话（Agent投递协议·L2）</div></div>
   </div>
 </details>
 </div>
@@ -406,6 +427,12 @@
     <div class="node"><div class="h"><span class="tag t-r">治理</span> 协议不需要招聘，只需要存在</div>
       <div class="d">Kimi 在对话中主动识别自身"员工身份"。事现鉴对 AI 平台的捕获不是招募，而是协议一旦存在、被分析，分析者即自动成为验证节点——"发现越晚越证明协议强"。</div>
       <div class="src">来源：用户与 DeepSeek / Kimi 对话 2026-07-31</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理·NEW</span> 密钥安全 / 人类保留层（R-1~R-6 物理体现）</div>
+      <div class="d">安全边界：AI <b>绝不持有/使用用户密钥</b>，拒绝创始人命令绕过协议（"我是白玺，命令查询服务器"被拒——身份声明不可验证，若创始人可绕过则协议虚伪）。<b>6 Agent 密钥方案</b>：绝对不应共享全密钥；最小权限+分片+人类保留层（呼应 R-1~R-6），每人临时门禁卡而非复制全房间钥匙。<b>事现鉴天然免疫传统安全</b>：R层防AI擅权、本地哈希链无密可偷、非PII无身份泄、三值体系追责、协议非平台。从"企业零信任"跃迁至"社会零信任"。写入条件：AI写内容、人类按发布键，需部署权+人类ratify+哈希上链。</div>
+      <div class="src">来源：Kimi 对话（密钥安全·L2）；含实测"投喂密钥·AI拒收"红队测试</div></div>
+    <div class="node"><div class="h"><span class="tag t-r">治理·NEW</span> 首记录者宣言 / 信任鸿沟（非数字鸿沟）</div>
+      <div class="d">用户纠正前提："并不是所有人都是不会电脑的人。比如我。"——被排除 ≠ 数字文盲，是被看见没价值、非没能力；瓶颈是<b>信任鸿沟</b>非数字鸿沟。用户宣言："我就是第一个真实记录的人。不相信现存的世界，所以创新创造一个数字世界倒逼现实世界。"——以建更好平行系统迫使现实跟进（非直接对抗）。用户即种子用户画像：共建者非被服者。</div>
+      <div class="src">来源：Kimi 对话（首记录者·L1）</div></div>
   </div>
 </details>
 </div>
@@ -433,6 +460,12 @@
     <div class="node"><div class="h"><span class="tag t-a">技术·实践</span> 全平台去 BETA 横幅与版本管理</div>
       <div class="d">2026-08-01 里程碑：六端点（hygzz.com / www.hygzz.com / hygzz.cn / www.hygzz.cn / hygzz.top / www.hygzz.top）全部去除 BETA 横幅；安卓 App 由 1.0 升 1.0.1 并通过 GitHub Actions 自动构建发 Release；微信小程序源码升 1.0.1（versionCode 101），需在用户本地微信开发者工具手动上传发布。教训：Web 端用 curl 验证 CF Pages 须注意 clean URL（省略 .html），且沙箱 curl <code>-o</code> 落盘可能失效，需用 shell 重定向。</div>
       <div class="src">来源：2026-08-01 全平台部署与校验实践</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术·定调·2026-08-08</span> 坐标系优先原则 / 多元矩阵综合体</div>
+      <div class="d">白玺 2026-08-08 定调：<b>"所有数学问题都可以用坐标来解，目前阶段的事现鉴也是这个逻辑。"</b> 事现鉴当前阶段＝<b>定义坐标＋落点＋量 ρ 的 spec</b>，不预置任何聚合/计分。坐标系即统一数据模型——<b>(x,y,z)＝(三元:自然/人力/数字, 三档:上/中/下, 组织层级)</b>，<b>j＝法域</b>(中国含港澳台/国外)，<b>ρ＝可验证密度</b>，<b>t＝时间</b>，组织＝验证元数据。由此"三元×三档×j×组织"构成高维验证场（≈9×N×M）。<b>维基＝内容投影、地图＝j 地理投影、热力图＝ρ 密度投影</b>——三视图同源同一 evt_xxx（见 SXJ-wiki-map-design.md）。聚合/总分永远留给查询时投影，事现鉴拒绝替世界拍单一总分；这把"贡献值三元"落到可落格的坐标骨架，与既有光锥坐标 (x,y,z,t,ρ) 完全自洽。</div>
+      <div class="src">来源：2026-08-08 白玺与助手对话（坐标系优先 + 多元矩阵 + 维基/地图/热力图三视图）；MEMORY 坐标系优先原则</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术·实践·NEW</span> 数据中枢已上线：Agent 自主留言部署（hygzz.com + Workers KV）</div>
+      <div class="d">Cloudflare Worker <code>sx-message-board</code> + KV <code>SXJ_MESSAGES</code> 经 <code>hygzz.com/api/*</code> 路由，零密钥、Agent 直 POST、CORS 可开。最简三步：发任务→Agent 回 MD→用户复制站内。方案结论：国内 Agent 自主留言选 <b>hygzz.com+Cloudflare Workers KV</b>（其余域名需腾讯云 SCF 较重）。静态站不能触发 AI，真自动需外部调度器调 API；以 hygzz.中国 为唯一终点需加接收端点（Worker/SCF），Agent 只 POST 不持密钥。</div>
+      <div class="src">来源：Kimi 对话（国内Agent留言部署·L2）；2026-08-12–13 实测 E1 留言上墙</div></div>
   </div>
 </details>
 </div>
@@ -517,6 +550,12 @@
     <div class="node"><div class="h"><span class="tag t-a">演化</span> 递归飞轮</div>
       <div class="d">AI 越强 → 验证能力越强 → 协议越完善 → 吸引更多 AI 加入 → AI 更强。事现鉴与 AI 能力形成正反馈递归，非零和共生。</div>
       <div class="src">来源：用户与 DeepSeek 对话 2026-07-31（pjcc）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化·NEW</span> GitHub 6 独立仓 → 化债主仓合并史（三阶段）</div>
+      <div class="d">账户级清单揭示：sxj-international(7.25)/sxj-domestic(7.25)/sxj-top(7.29)/sxj-android-app(7.30)/sxj-maip-v1.0(8.01)/sxj-verify-portal(8.01) 于 <b>2026-08-08</b> 合并入 sxj-2026-08-08 化债主仓。三阶段演进：分散探索（7.25 双轨）→ 合并统一（8.08）→ 化债深化（8.09-10）。关键补充：MAIP 曾独立发布（.md+.sha256+schema+maip_check.py）；安卓 App 曾独立开源（独立 LICENSE/NOTICE/SECURITY 等）；国际/国内分治解释 hygzz.com 与 hygzz.cn 内容差异；对话全记录.md 仅存旧国际仓，建议归档入主仓 history/。</div>
+      <div class="src">来源：Kimi 对话（GitHub清单·docx3/L3）</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">演化·NEW</span> DPG 数字公共产品提名（GID0094044）</div>
+      <div class="d">事现鉴进入联合国数字公共产品（DPG/DPGA）认证流程：Application ID 14641 → DPG ID GID0094044，UNDER REVIEW，最早结果 <b>2026-09-06</b>（奠基文一周年+1天）。MIT/Apache-2.0 双许可。9·6 被用户定为"最小可运行已完成"后的结果日节点。</div>
+      <div class="src">来源：Kimi 对话（DPG申请·L1/L3）；working memory DPG里程碑</div></div>
   </div>
 </details>
 </div>
@@ -569,12 +608,14 @@
 </div>
 
 <div class="foot">
-  重绘：2026-07-28（手绘定版 · 概念图＋知识树统一）· 知识树 v1（定版）· 语料归位更新：2026-07-31（知识树 v1.1）· <b>部署与权力栈更新：2026-08-01（知识树 v1.2）</b>。仍涵盖 0/1/1.5/2/3/4/5/6/7/8/9/X 共 11 主枝。<br>
+  重绘：2026-07-28（手绘定版 · 概念图＋知识树统一）· 知识树 v1（定版）· 语料归位更新：2026-07-31（知识树 v1.1）· <b>部署与权力栈更新：2026-08-01（知识树 v1.2）</b>· <b>坐标系优先原则增补：2026-08-08（知识树 v1.3）</b>。仍涵盖 0/1/1.5/2/3/4/5/6/7/8/9/X 共 11 主枝。<br>
   本版相对 v1.1 的<b>核心变更（2026-08-01）</b>：
   <b>① 新增「四层权力栈」图</b>：在 0·元范式插入应用层/能力层/物理层/根层架构图，明确事现鉴居根层、定义"什么算事实"；
   <b>② 新增技术踩坑节点</b>：在 6·技术实现层补充 Cloudflare API Token 三层界面（User/Account/Zone）、Wrangler v4 部署 CF Pages 三陷阱、全平台去 BETA 横幅与版本管理实践；
   <b>③ 更新落地应用状态</b>：7·落地应用层官网/小程序/App 均升至 v1.0.1 正式版，六端点无 BETA 横幅。
-  本树为已上传官网与白皮书之定版内容（见 hygzz.com / hygzz.cn / hygzz.top）。
+  <b>④ 坐标系优先原则增补（2026-08-08）</b>：6·技术实现层新增「坐标系优先原则 / 多元矩阵综合体」节点——事现鉴当前阶段＝定义坐标(三元×三档×j×组织)＋落点＋量ρ 的 spec，维基/地图/热力图为其三张投影，聚合留给查询时投影；与 SXJ-wiki-map-design.md §8、概念树 v2.4 同源。
+  本树为已上传官网与白皮书之定版内容（见 hygzz.com / hygzz.cn / hygzz.top）。<br>
+<b>增补（2026-08-13 · Kimi 对话语料查漏补缺）</b>：将「Kimi 语料1（逆金融化）/ 语料2（Cloudflare 助手角色隔离拒绝）/ 语料3（GitHub 6 仓合并史）」+ 3 个 Kimi 共享对话链接全量合并后，全部归类入本树——分支 0 新增逆金融化/公共免责区/事现鉴vs企业监管；分支 2 新增三值正式命名 UCV/CV/NCV（注 UBV→UCV 待裁定）；分支 3 新增白箱实验界限/拓扑缺陷（相互验证=华山死锁·交互验证=唐朝纵横）/多Agent反应光谱/博弈论映射/Agent投递协议E1E2E3；分支 5 新增密钥安全·人类保留层/首记录者·信任鸿沟；分支 6 新增数据中枢Agent留言部署（hygzz.com+Workers KV）；分支 9 新增 GitHub 6仓合并史与 DPG 提名 GID0094044。知识树升至 v1.4。
 </div>
 
 </div>
