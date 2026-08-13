@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>事现维基 · 带公证的卷宗 — 事现鉴 SXJ</title>
+<meta name="description" content="事现鉴维基层：每条事现＝条目坐标(x,y,z,t,ρ) + 多当事人三值归因 + 验证包裹 + 来源链 + 版本史。继承维基百科的可验证原则，但验证门控 ≠ 开放编辑。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23A32D2D'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='%23F5F0E6'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23A32D2D'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<style>
+.layout{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+
+/* 索引侧栏 */
+.idx{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;position:sticky;top:66px}
+.idx .ih{padding:11px 14px;background:var(--bg-warm);border-bottom:1px solid var(--border);
+  font-size:.8rem;font-weight:700;color:var(--text-dim);display:flex;align-items:center;gap:6px}
+.idx .ih span{margin-left:auto;font-family:var(--mono);font-size:.72rem;color:var(--text-faint)}
+.idx ul{list-style:none;max-height:60vh;overflow-y:auto}
+.idx li{border-bottom:1px solid var(--border)}
+.idx li:last-child{border-bottom:none}
+.idx button{width:100%;text-align:left;background:none;border:none;padding:10px 14px;cursor:pointer;
+  font-family:inherit;transition:.14s;display:flex;flex-direction:column;gap:3px}
+.idx button:hover{background:var(--red-light)}
+.idx button.on{background:var(--red);color:#fff}
+.idx button.on .iid,.idx button.on .imeta{color:#f4e9c9}
+.idx .iid{font-family:var(--mono);font-size:.68rem;color:var(--red);font-weight:700}
+.idx .it{font-size:.83rem;font-weight:600;line-height:1.35}
+.idx .imeta{font-size:.68rem;color:var(--text-faint);font-family:var(--mono)}
+.idx button.ph{opacity:.55}
+.idx-search{width:100%;box-sizing:border-box;margin-top:8px;padding:7px 10px;font-size:.82rem;
+  border:1px solid var(--border);border-radius:8px;background:#fff;color:var(--text);outline:none}
+.idx-search:focus{border-color:var(--red)}
+
+/* 条目主体 */
+.entry{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px}
+.entry .ehead{border-bottom:2px solid var(--red);padding-bottom:14px;margin-bottom:16px}
+.entry .eid{font-family:var(--mono);font-size:.76rem;color:var(--red);font-weight:700;letter-spacing:1px}
+.entry h2{font-size:clamp(1.2rem,3vw,1.6rem);font-weight:800;margin:5px 0 9px;line-height:1.3}
+.entry .ebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.78rem;color:var(--text-dim)}
+.entry .summary{font-size:.95rem;color:var(--text);line-height:1.75;margin-bottom:6px}
+
+.fsec{margin-top:22px}
+.fsec > h4{font-size:.86rem;font-weight:800;color:var(--red);margin-bottom:9px;
+  display:flex;align-items:center;gap:7px;letter-spacing:.3px}
+.fsec > h4 .num{background:var(--red);color:#fff;width:19px;height:19px;border-radius:5px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;font-family:var(--mono);flex:0 0 auto}
+.fsec > h4 .hint{margin-left:auto;font-size:.7rem;color:var(--text-faint);font-weight:400}
+
+/* 坐标条 */
+.coord{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:8px}
+.coord .ci{background:var(--bg-warm);border:1px solid var(--border);border-radius:9px;padding:10px 11px}
+.coord .ci .cl{font-family:var(--mono);font-size:.66rem;color:var(--text-faint);font-weight:700}
+.coord .ci .cv{font-size:.85rem;font-weight:700;margin-top:2px}
+.coord .ci .cs{font-size:.68rem;color:var(--text-faint)}
+.coord .ci.rhoc{border-color:var(--gold);background:var(--gold-light)}
+.rhoformula{font-family:var(--mono);font-size:.75rem;color:#6b5520;background:var(--gold-light);
+  border:1px dashed var(--gold);border-radius:7px;padding:8px 11px;margin-top:8px}
+
+/* 三值归因 */
+.party{display:flex;gap:11px;align-items:flex-start;padding:11px 12px;border:1px solid var(--border);
+  border-radius:9px;margin-bottom:8px;background:#fff}
+.party.A{border-left:4px solid var(--val-a)}
+.party.B{border-left:4px solid var(--val-b)}
+.party.C{border-left:4px solid var(--val-c)}
+.party.N{border-left:4px solid #9aa0a6;background:#fbfbfa}
+.party .pw{font-size:.86rem;font-weight:700;flex:0 0 auto}
+.party .pn{font-size:.79rem;color:var(--text-dim);flex:1;min-width:150px}
+
+/* 验证包裹 */
+.pkg{background:#1e1b18;color:#e8e0d0;border-radius:9px;padding:13px 15px;font-family:var(--mono);font-size:.76rem;line-height:1.75}
+.pkg .k{color:#C9A24B}
+.pkg .miss{color:#d88a70;font-style:italic}
+
+/* 来源链 */
+.src{display:flex;gap:9px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--border);font-size:.83rem}
+.src:last-child{border-bottom:none}
+.src .vf{font-size:.66rem;font-weight:800;border-radius:4px;padding:2px 7px;flex:0 0 auto;margin-top:2px;white-space:nowrap}
+.vf.yes{background:#dff3e6;color:#1e6338}
+.vf.partial{background:#fdf1d8;color:#8a5a10}
+.vf.weak{background:#fbe3dc;color:#8a2f18}
+
+/* 版本史 */
+.ver{position:relative;padding-left:20px}
+.ver::before{content:'';position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:var(--border)}
+.vitem{position:relative;padding:0 0 14px 0}
+.vitem::before{content:'';position:absolute;left:-18px;top:6px;width:9px;height:9px;border-radius:50%;
+  background:#fff;border:2px solid var(--gold)}
+.vitem:last-child::before{background:var(--red);border-color:var(--red)}
+.vitem .vt{font-family:var(--mono);font-size:.7rem;color:var(--text-faint);font-weight:700}
+.vitem .vx{font-size:.82rem;color:var(--text-dim);line-height:1.65}
+
+.disc{background:var(--red-light);border:1px solid #f0cfcf;border-radius:9px;padding:11px 13px;
+  font-size:.8rem;color:#7a2020;line-height:1.65}
+.phwarn{background:#f2efe9;border:1px dashed #b9b2a6;border-radius:9px;padding:12px 14px;
+  font-size:.83rem;color:#6a655c;margin-bottom:14px}
+.mile{display:inline-block;background:var(--gold);color:#3a2a00;font-size:.68rem;font-weight:800;
+  border-radius:5px;padding:2px 8px;margin-left:6px}
+</style>
+</head>
+<body>
+
+<nav class="sxj-nav">
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/><circle cx="12" cy="12" r="7.4" fill="#A32D2D"/><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
+    事现鉴 · 坐标场
+  </a>
+  <a href="index.html">三元总览</a>
+  <a href="axis.html">坐标轴</a>
+  <a href="wiki.html" class="on">事现维基</a>
+  <a href="map.html">光锥地图</a>
+  <a href="heat.html">热力密度</a>
+  <a href="../index.html" class="sp">← 返回主站</a>
+</nav>
+
+<div class="page-head">
+  <h1>事现维基 · <em>带公证的卷宗</em></h1>
+  <div class="lead">维基百科是一本书，谁都能改、靠共识；事现鉴的维基是一份<b>带公证的卷宗</b> —— 内容也是协作出来的，但每条都经过公共验算尺量过 ρ、封了包、上了链。</div>
+  <div class="spec">投影 条目层 · spec: SXJ-wiki-map-design.md §3</div>
+</div>
+
+<div class="wrap">
+
+  <div class="note red">
+    <b>关键边界：验证门控 ≠ 开放编辑。</b>
+    继承维基百科的「可验证 / 有来源 / 中立」原则，但<b>不开放任意编辑</b>。
+    条目成立靠<b>多当事人验证 + 公共验算尺量 ρ</b>，而非投票或共识。
+    同一事件对不同当事人可并存共济值 A 与负贡献 C（D1 裁定）——靠枚举全部当事人、分别归值来定类，而非单一视角。
+  </div>
+
+  <div class="filters">
+    <div class="fgroup"><label>x · 三元</label><div class="chips" id="f-x"></div></div>
+    <div class="fgroup"><label>y · 三档</label><div class="chips" id="f-y"></div></div>
+    <div class="fgroup"><label>j · 法域</label><div class="chips" id="f-j"></div></div>
+  </div>
+
+  <div class="layout">
+    <aside class="idx">
+      <div class="ih">条目索引 <span id="idx-n"></span>
+        <input id="wikiSearch" class="idx-search" type="search" placeholder="筛选事现：编号 / 标题 / 当事人 / 来源…" autocomplete="off">
+      </div>
+      <ul id="idx-list"></ul>
+    </aside>
+    <main class="entry" id="entry"></main>
+  </div>
+
+</div>
+
+<footer class="sxj-foot">
+  <p><a href="index.html">三元总览</a><a href="axis.html">坐标轴</a><a href="map.html">光锥地图</a><a href="heat.html">热力密度</a></p>
+  <p style="margin-top:8px">© 2026 事现鉴 SXJ · 条目格式为 spec，SXJ 自身不持有中央内容库</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var state={x:'all',y:'all',j:'all',cur:null,search:''};
+  var q=new URLSearchParams(location.search);
+  if(q.get('e')) state.cur=q.get('e');
+  if(q.get('q')) state.search=q.get('q');
+
+  function chips(el,items,key,useShort){
+    var h='<button class="chip'+(state[key]==='all'?' on':'')+'" data-v="all">全部</button>';
+    items.forEach(function(it){
+      h+='<button class="chip'+(state[key]===it.key?' on':'')+'" data-v="'+it.key+'">'
+        +(useShort?it.short:it.name)+'</button>';
+    });
+    el.innerHTML=h;
+    el.querySelectorAll('.chip').forEach(function(b){
+      b.onclick=function(){ state[key]=b.dataset.v; render(); };
+    });
+  }
+
+  function list(){
+    var L=SXJ.project({x:state.x,y:state.y,j:state.j});
+    var term=state.search.trim().toLowerCase();
+    if(term){
+      L=L.filter(function(e){
+        var hay=[e.id,e.title,e.summary||'',
+          (e.parties||[]).map(function(p){return (p.who||'')+' '+(p.note||'');}).join(' '),
+          (e.sources||[]).map(function(s){return (s.x||'')+' '+(s.note||'');}).join(' ')
+        ].join(' ').toLowerCase();
+        return hay.indexOf(term)>=0;
+      });
+    }
+    return L;
+  }
+
+  function render(){
+    chips(document.getElementById('f-x'),SXJ.TRIAD,'x',true);
+    chips(document.getElementById('f-y'),SXJ.TIER,'y',false);
+    chips(document.getElementById('f-j'),SXJ.JURIS,'j',false);
+
+    var L=list();
+    if(!L.length){ state.cur=null; }
+    else if(!state.cur || !L.some(function(e){return e.id===state.cur;})) state.cur=L[0].id;
+
+    document.getElementById('idx-n').textContent=L.length+' / '+SXJ.EVENTS.length;
+    document.getElementById('idx-list').innerHTML=L.map(function(e){
+      var tri=SXJ.triad(e.x), ti=SXJ.tier(e.y);
+      return '<li><button class="'+(e.id===state.cur?'on ':'')+(e.placeholder?'ph':'')+'" data-id="'+e.id+'">'
+        +'<span class="iid">'+e.id+(e.placeholder?' · 占位':'')+'</span>'
+        +'<span class="it">'+e.title+'</span>'
+        +'<span class="imeta">('+tri.short+','+ti.short+') · '+(e.t||'—')+' · ρ '
+        +(typeof e.rho==='number'?e.rho.toFixed(3):'—')+'</span></button></li>';
+    }).join('') || '<li><div style="padding:16px;color:#8892a0;font-size:.84rem;text-align:center">无匹配条目</div></li>';
+
+    document.querySelectorAll('#idx-list button').forEach(function(b){
+      b.onclick=function(){ state.cur=b.dataset.id; render();
+        if(window.innerWidth<900) document.getElementById('entry').scrollIntoView({behavior:'smooth'}); };
+    });
+
+    renderEntry();
+  }
+
+  function renderEntry(){
+    var el=document.getElementById('entry');
+    if(!state.cur){ el.innerHTML='<div style="padding:40px;text-align:center;color:#8892a0">当前筛选下没有条目。</div>'; return; }
+    var e=SXJ.byId(state.cur);
+    var tri=SXJ.triad(e.x), ti=SXJ.tier(e.y), z=SXJ.orgLevel(e.z), j=SXJ.juris(e.j), st=SXJ.STATUS[e.status];
+
+    /* ① 条目坐标 */
+    var rhoBox = (typeof e.rho==='number')
+      ? '<div class="ci rhoc"><div class="cl">ρ 可验证密度</div><div class="cv rho" style="color:'+SXJ.rhoColor(e.rho)+'">'+e.rho.toFixed(4)+'</div><div class="cs">'+(e.rho>=SXJ.META.rhoMin?'≥ 门槛':'&lt; 门槛 '+SXJ.META.rhoMin)+'</div></div>'
+      : '<div class="ci"><div class="cl">ρ 可验证密度</div><div class="cv rho none">未量测</div><div class="cs">'+(e.rhoNote||'')+'</div></div>';
+    var coord='<div class="coord">'
+      +'<div class="ci"><div class="cl">x · 三元</div><div class="cv">'+tri.icon+' '+tri.short+'</div><div class="cs">'+tri.name+'</div></div>'
+      +'<div class="ci"><div class="cl">y · 三档</div><div class="cv">'+ti.short+'</div><div class="cs">'+ti.name+'</div></div>'
+      +'<div class="ci"><div class="cl">z · 组织层级</div><div class="cv">'+z.name+'</div><div class="cs">'+z.desc+'</div></div>'
+      +'<div class="ci"><div class="cl">j · 法域</div><div class="cv">'+j.name+'</div><div class="cs">'+(e.geo?e.geo.place:(e.geoNote||'—'))+'</div></div>'
+      +'<div class="ci"><div class="cl">t · 时间</div><div class="cv">'+(e.t||'—')+'</div><div class="cs">'+(e.t?'':'时间未定')+'</div></div>'
+      +rhoBox+'</div>';
+    if(e.rhoBreakdown){
+      var b=e.rhoBreakdown;
+      coord+='<div class="rhoformula">ρ = conf '+b.conf+' × 来源独立度 '+b.sourceIndep
+        +' × 证据等级 '+b.evidenceGrade+' × 角色权重 '+b.roleWeight.toFixed(2)+' = <b>'+e.rho.toFixed(4)+'</b>'
+        +'<br>'+e.rhoNote+'</div>';
+    }
+
+    /* ② 多当事人三值归因 */
+    var parties = e.parties.length ? e.parties.map(function(p){
+      var k=p.value||'N';
+      var badge=p.value?'<span class="vbadge '+p.value+'">'+p.value+' · '+SXJ.VALUES[p.value].name+'</span>'
+                       :'<span class="vbadge N">不归值</span>';
+      return '<div class="party '+k+'">'+badge+'<span class="pw">'+p.who+'</span><span class="pn">'+p.note+'</span></div>';
+    }).join('') : '<div class="phwarn">本条目不作三值归因（非真实事现）。</div>';
+
+    /* ③ 验证包裹 */
+    var pkg='<div class="pkg">'
+      +'<div><span class="k">protocol</span> : '+SXJ.META.protocol+'</div>'
+      +'<div><span class="k">sha256   </span> : '+(e.pkg.sha256?e.pkg.sha256:'<span class="miss">未生成 — 尚未封包</span>')+'</div>'
+      +'<div><span class="k">cert     </span> : '+(e.pkg.cert?e.pkg.cert:'<span class="miss">未生成自包含双语证书</span>')+'</div>'
+      +'<div><span class="k">note     </span> : '+e.pkg.note+'</div>'
+      +'</div>';
+
+    /* ④ 来源链 */
+    var vfName={yes:'可复核',partial:'部分可复核',weak:'弱证据'};
+    var src = e.sources.length ? e.sources.map(function(s){
+      var g=s.verifiable||'weak';
+      return '<div class="src"><span class="vf '+g+'">'+(vfName[g]||g)+'</span><span>'+s.label+'</span></div>';
+    }).join('') : '<div class="src"><span style="color:#8892a0;font-style:italic">无来源记录</span></div>';
+
+    /* ⑤ 版本史 */
+    var ver='<div class="ver">'+e.versions.map(function(v){
+      return '<div class="vitem"><div class="vt">'+v.t+'</div><div class="vx">'+v.text+'</div></div>';
+    }).join('')+'</div>';
+
+    el.innerHTML=
+      (e.placeholder?'<div class="phwarn"><b>⚠ 占位示例 · 非真实事现</b><br>经事现验证部判定（VF-08），本条<b>不计入</b>已验证事现总数，仅用于演示录入流程。此处如实标注，不伪称为已验证事现。</div>':'')
+      +'<div class="ehead">'
+        +'<div class="eid">'+e.id+(e.ledgerAlias?' · 账本别名 '+e.ledgerAlias:'')+'</div>'
+        +'<h2>'+e.title+(e.milestone?'<span class="mile">首个真实 ρ 测量点</span>':'')+'</h2>'
+        +'<div class="ebar">'
+          +'<span class="stat"><i style="background:'+st.color+'"></i>'+st.name+'</span>'
+          +'<span>·</span><span>('+tri.short+', '+ti.short+') · '+j.name+' · t = '+(e.t||'—')+'</span>'
+        +'</div>'
+      +'</div>'
+      +'<p class="summary">'+e.summary+'</p>'
+      +'<div class="fsec"><h4><span class="num">1</span>条目坐标 <span class="hint">(x, y, z, j, t, ρ) — 比标题更精确的时空定位</span></h4>'+coord+'</div>'
+      +'<div class="fsec"><h4><span class="num">2</span>多当事人三值归因 <span class="hint">枚举全部当事人，分别归 A / B / C</span></h4>'+parties+'</div>'
+      +'<div class="fsec"><h4><span class="num">3</span>验证包裹 <span class="hint">sha256 + 自包含双语证书</span></h4>'+pkg+'</div>'
+      +'<div class="fsec"><h4><span class="num">4</span>来源链 <span class="hint">SXJ 引用的是可验证包裹，不是链接</span></h4>'+src+'</div>'
+      +'<div class="fsec"><h4><span class="num">5</span>版本史 <span class="hint">ledger 哈希链 · 追加不可改 · 人类保留裁定 R-1..R-6</span></h4>'+ver+'</div>'
+      +(e.discrepancy?'<div class="fsec"><h4><span class="num">!</span>跨账本不一致（如实登记）</h4><div class="disc">'+e.discrepancy+'</div></div>':'')
+      +'<div class="fsec"><h4><span class="num">→</span>在其他视图中查看</h4>'
+        +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
+        +'<a class="chip" href="axis.html">坐标场中的 ('+tri.short+', '+ti.short+') 格</a>'
+        +'<a class="chip" href="map.html">地图上的落点</a>'
+        +'<a class="chip" href="heat.html">热力图中的 ρ</a>'
+        +'</div></div>';
+  }
+
+  var ws=document.getElementById('wikiSearch');
+  if(state.search) ws.value=state.search;
+  ws.addEventListener('input', function(){ state.search=ws.value; render(); });
+
+  render();
+})();
+</script>
+</body>
+</html>

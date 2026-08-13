@@ -5,6 +5,23 @@
 import hashlib, hmac, json, os, sys, time, datetime, mimetypes
 import urllib.request, urllib.error, urllib.parse
 
+def _load_dotenv(path=".env"):
+    """Load .env (gitignored secret store) into os.environ. Does not override existing env vars."""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                k, v = k.strip(), v.strip().strip('"').strip("'")
+                if k and k not in os.environ:
+                    os.environ[k] = v
+    except FileNotFoundError:
+        pass
+
+_load_dotenv()
+
 SID = os.environ.get("TENCENT_SECRET_ID", "")
 SKEY = os.environ.get("TENCENT_SECRET_KEY", "")
 

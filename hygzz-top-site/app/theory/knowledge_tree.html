@@ -6,18 +6,15 @@
 <title>共创论·事现鉴 — 知识树（手绘定版）</title>
 <style>
   :root{
-    --paper:#f7f1e3; --ink:#2b2b2b; --ink2:#5a5048; --line:#3a342c;
-    --accent:#8a5a2b; --blue:#2f6f8f; --green:#3f7a4a; --red:#a23b32; --amber:#b07a1e;
-    --dashed:#9a8f7a;
+    --paper:#fafaf9; --ink:#1a1a2e; --ink2:#555; --line:#e8e0d8;
+    --accent:#A32D2D; --blue:#2f6f8f; --green:#2d8a4e; --red:#A32D2D; --amber:#b07a1e;
+    --dashed:#e8e0d8; --gold:#C9A24B;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    font-family:"Kaiti SC","STKaiti","KaiTi","楷体","Comic Sans MS",cursive,sans-serif;
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
     background:var(--paper);
-    background-image:
-      repeating-linear-gradient(0deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px),
-      repeating-linear-gradient(90deg, transparent 0 27px, rgba(120,100,70,.06) 27px 28px);
     color:var(--ink); line-height:1.75; margin:0; padding:30px 16px 90px;
   }
   .wrap{max-width:1040px;margin:0 auto}
@@ -28,83 +25,71 @@
 
   /* hand-drawn box skin */
   .hd{
-    background:#fffdf6;border:2px solid var(--line);
-    border-radius:255px 12px 225px 12px/12px 225px 12px 255px;
-    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+    background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);
   }
   .hd2{
-    background:#fffdf6;border:2px solid var(--line);
-    border-radius:14px 225px 14px 220px/220px 14px 225px 14px;
-    box-shadow:2px 3px 0 rgba(60,50,30,.10);
+    background:#fff;border:1px solid var(--line);
+    border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);
   }
 
   /* overview svg */
   .sketch{margin:10px auto 24px;max-width:1000px}
   .sketch svg{width:100%;height:auto;display:block}
-  .sk-limb text{font-family:"Kaiti SC","STKaiti","KaiTi",cursive;font-size:15px;fill:var(--ink)}
+  .sk-limb text{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;font-size:15px;fill:var(--ink)}
   .sk-limb a{text-decoration:none;cursor:pointer}
-  .sk-limb a:hover rect{fill:#f3e9d2}
+  .sk-limb a:hover rect{fill:#fef8e8}
 
   /* legend */
   .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 auto 22px;max-width:900px}
-  .legend span{font-size:12px;background:#fffdf6;border:1.5px solid var(--line);padding:3px 11px;border-radius:20px}
+  .legend span{font-size:12px;background:#fff;border:1px solid var(--line);padding:3px 11px;border-radius:20px}
   .lg-m{color:var(--accent)} .lg-b{color:var(--blue)} .lg-g{color:var(--green)}
   .lg-r{color:var(--red)} .lg-a{color:var(--amber)}
 
   /* detail tree */
   .branch{margin:0 0 14px}
-  details.cat{background:#fffdf6;border:2px solid var(--line);border-radius:18px 9px 18px 9px/9px 18px 9px 18px;
-    box-shadow:2px 3px 0 rgba(60,50,30,.10);overflow:hidden;margin:0 0 12px}
+  details.cat{background:#fff;border:1px solid var(--line);border-radius:12px;
+    box-shadow:0 1px 3px rgba(0,0,0,.04);overflow:hidden;margin:0 0 12px}
   details.cat>summary{cursor:pointer;padding:13px 18px;font-size:17px;font-weight:700;list-style:none;
-    display:flex;align-items:center;gap:10px;background:rgba(138,90,43,.07)}
+    display:flex;align-items:center;gap:10px;background:rgba(163,45,45,.05)}
   details.cat>summary::-webkit-details-marker{display:none}
   details.cat>summary:before{content:"✎";color:var(--accent);font-size:14px}
   details.cat[open]>summary:before{content:"▾"}
   .cnt{margin-left:auto;font-size:12px;color:var(--ink2);font-weight:400}
   .body{padding:8px 16px 16px}
-  .node{border:1.6px solid var(--line);border-radius:12px 20px 12px 20px/20px 12px 20px 12px;
-    padding:11px 14px;margin:10px 0;background:#fffef9;box-shadow:1px 2px 0 rgba(60,50,30,.07);transform:rotate(-.25deg)}
-  .node:nth-child(even){transform:rotate(.25deg)}
+  .node{border:1px solid var(--line);border-radius:10px;
+    padding:11px 14px;margin:10px 0;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.03)}
   .node .h{font-size:15.5px;font-weight:700;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
   .node .d{font-size:14px;color:var(--ink2);margin-top:5px}
-  .node .d b{color:var(--ink)}
+  .node .d b{color:var(--accent)}
   .node .src{font-size:11.5px;color:var(--blue);margin-top:6px;border-top:1px dashed var(--dashed);padding-top:4px}
   .tag{display:inline-block;font-size:11px;padding:1px 9px;border-radius:20px;border:1.5px solid var(--line);font-weight:700}
-  .t-m{background:rgba(138,90,43,.12);color:var(--accent)}
+  .t-m{background:rgba(163,45,45,.10);color:var(--accent)}
   .t-b{background:rgba(47,111,143,.12);color:var(--blue)}
   .t-g{background:rgba(63,122,74,.12);color:var(--green)}
-  .t-r{background:rgba(162,59,50,.12);color:var(--red)}
+  .t-r{background:rgba(163,45,45,.14);color:var(--red)}
   .t-a{background:rgba(176,122,30,.14);color:var(--amber)}
-  .t-k{background:rgba(90,80,72,.10);color:var(--ink2)}
+  .t-k{background:rgba(85,85,85,.10);color:var(--ink2)}
 
-  .note{margin:26px auto 0;max-width:920px;background:#fffdf6;border:2px solid var(--line);
+  .note{margin:26px auto 0;max-width:920px;background:#fff;border:1px solid var(--line);
     border-left:6px solid var(--accent);border-radius:14px;padding:16px 20px;font-size:14px;line-height:1.8;color:var(--ink2)}
   .note b{color:var(--ink)}
   .note a{color:var(--blue)}
   .foot{margin-top:26px;font-size:12px;color:var(--ink2);border-top:1.5px dashed var(--dashed);padding-top:14px}
   .pulse{animation:pulse 2.4s ease-in-out infinite}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(162,59,50,.0)}50%{box-shadow:0 0 0 4px rgba(162,59,50,.18)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(163,45,45,0)}50%{box-shadow:0 0 0 4px rgba(163,45,45,.18)}}
 </style>
 
 </head>
 <body>
-<!-- SXJ_NAV -->
-<nav style="position:sticky;top:0;z-index:999;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#A32D2D;padding:8px 14px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
-  <a href="./" style="color:#fff;font-weight:700;text-decoration:none;margin-right:10px;">事现鉴</a>
-  <a href="./events.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">事件簿</a>
-  <a href="./knowledge_tree.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">知识树</a>
-  <a href="./org.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">组织架构一览</a>
-  <a href="./history.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">发展历史</a>
-</nav>
-
 
 
 <div class="wrap">
 
 <h1>共创论 · 事现鉴 — 知识树</h1>
 <div class="sub">把"概念图"与"知识树"合并为一棵树 · 按你 2026-07-28 定版口径重绘 · 手绘风格</div>
-<div style="margin:16px 0;padding:14px 18px;border:1px solid #e0a458;border-radius:12px;background:rgba(224,164,88,.12);font-size:13.5px;line-height:1.75;color:#e6edf3">
-  <b style="color:#e0a458">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#5ec8d8">共济值</b>」。<br>
+<div style="margin:16px 0;padding:14px 18px;border:1px solid #C9A24B;border-radius:12px;background:rgba(201,162,75,.12);font-size:13.5px;line-height:1.75;color:#1a1a2e">
+  <b style="color:#C9A24B">概念变更 · 2026-07-30</b>　A 值「共通值」正式定名为「<b style="color:#A32D2D">共济值</b>」。<br>
   理由：① 原型寰宇光锥舟＝同舟<b>共济</b>；② 中（同舟共济）/ 日（同舟共済）/ 德（Schicksalsgemeinschaft·海难同船）三语在“同船互济”上同源统一。<br>
   「共助」（第四阶·国际联动）保持不变。本档案历史条目中的“共通值”为彼时术语，请对照阅读。
 </div>
@@ -119,60 +104,60 @@
       <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2"/></filter>
   </defs>
   <!-- spine -->
-  <path d="M500,80 C500,200 500,360 500,640" stroke="#3a342c" stroke-width="2.4" fill="none" filter="url(#rough)"/>
+  <path d="M500,80 C500,200 500,360 500,640" stroke="#A32D2D" stroke-width="2.4" fill="none"/>
   <!-- root -->
-  <g filter="url(#rough)">
-    <rect x="392" y="30" width="216" height="50" rx="14" fill="#fdeccb" stroke="#3a342c" stroke-width="2.4"/>
+  <g>
+    <rect x="392" y="30" width="216" height="50" rx="14" fill="#fef8e8" stroke="#A32D2D" stroke-width="2.4"/>
   </g>
-  <text x="500" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#2b2b2b">共创论 · 事现鉴</text>
-  <text x="500" y="71" text-anchor="middle" font-size="11.5" fill="#5a5048">公开验证 = 统一度量衡（UDHR 第22条）</text>
+  <text x="500" y="52" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">共创论 · 事现鉴</text>
+  <text x="500" y="71" text-anchor="middle" font-size="11.5" fill="#555">公开验证 = 统一度量衡（UDHR 第22条）</text>
 
   <!-- limbs -->
   <g class="sk-limb">
     <!-- 0 -->
-    <path d="M500,116 C430,116 360,150 300,168" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b0"><rect x="70" y="146" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,116 C430,116 360,150 300,168" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b0"><rect x="70" y="146" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="173" text-anchor="middle">0 · 元范式与定位</text></a>
     <!-- 1 -->
-    <path d="M500,176 C570,176 640,210 700,228" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b1"><rect x="700" y="206" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,176 C570,176 640,210 700,228" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b1"><rect x="700" y="206" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="233" text-anchor="middle">1 · 七命题↔五大公理</text></a>
     <!-- 1.5 -->
-    <path d="M500,236 C430,236 360,270 300,288" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b15"><rect x="70" y="266" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,236 C430,236 360,270 300,288" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b15"><rect x="70" y="266" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="293" text-anchor="middle">1.5 · 统一逻辑链</text></a>
     <!-- 2 -->
-    <path d="M500,296 C570,296 640,330 700,348" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b2"><rect x="700" y="326" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,296 C570,296 640,330 700,348" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b2"><rect x="700" y="326" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="353" text-anchor="middle">2 · 三值价值体系</text></a>
     <!-- 3 -->
-    <path d="M500,356 C430,356 360,390 300,408" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b3"><rect x="70" y="386" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,356 C430,356 360,390 300,408" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b3"><rect x="70" y="386" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="413" text-anchor="middle">3 · 验证机制</text></a>
     <!-- 4 -->
-    <path d="M500,416 C570,416 640,450 700,468" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b4"><rect x="700" y="446" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,416 C570,416 640,450 700,468" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b4"><rect x="700" y="446" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="473" text-anchor="middle">4 · 分配哲学</text></a>
     <!-- 5 -->
-    <path d="M500,476 C430,476 360,510 300,528" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b5"><rect x="70" y="506" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,476 C430,476 360,510 300,528" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b5"><rect x="70" y="506" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="533" text-anchor="middle">5 · 组织治理</text></a>
     <!-- 6 -->
-    <path d="M500,536 C570,536 640,570 700,588" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b6"><rect x="700" y="566" width="240" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,536 C570,536 640,570 700,588" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b6"><rect x="700" y="566" width="240" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="593" text-anchor="middle">6 · 技术实现</text></a>
     <!-- 7 -->
-    <path d="M500,576 C430,576 360,600 300,612" stroke="#3a342c" stroke-width="1.8" fill="none" filter="url(#rough)"/>
-    <a href="#b7"><rect x="70" y="590" width="232" height="44" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <path d="M500,576 C430,576 360,600 300,612" stroke="#A32D2D" stroke-width="1.8" fill="none"/>
+    <a href="#b7"><rect x="70" y="590" width="232" height="44" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="617" text-anchor="middle">7 · 落地应用</text></a>
     <!-- 8 -->
-    <a href="#b8"><rect x="70" y="650" width="232" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <a href="#b8"><rect x="70" y="650" width="232" height="40" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="186" y="675" text-anchor="middle">8 · 批判·敌友框架</text></a>
     <!-- 9 -->
-    <a href="#b9"><rect x="380" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <a href="#b9"><rect x="380" y="650" width="240" height="40" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="500" y="675" text-anchor="middle">9 · 演化与断层</text></a>
     <!-- X -->
-    <a href="#bx"><rect x="700" y="650" width="240" height="40" rx="12" fill="#fffdf6" stroke="#3a342c" stroke-width="2" filter="url(#rough)"/>
+    <a href="#bx"><rect x="700" y="650" width="240" height="40" rx="12" fill="#fff" stroke="#A32D2D" stroke-width="2"/>
     <text x="820" y="675" text-anchor="middle">X · 框架澄清</text></a>
   </g>
 </svg>
@@ -442,6 +427,9 @@
     <div class="node"><div class="h"><span class="tag t-a">技术·实践</span> 全平台去 BETA 横幅与版本管理</div>
       <div class="d">2026-08-01 里程碑：六端点（hygzz.com / www.hygzz.com / hygzz.cn / www.hygzz.cn / hygzz.top / www.hygzz.top）全部去除 BETA 横幅；安卓 App 由 1.0 升 1.0.1 并通过 GitHub Actions 自动构建发 Release；微信小程序源码升 1.0.1（versionCode 101），需在用户本地微信开发者工具手动上传发布。教训：Web 端用 curl 验证 CF Pages 须注意 clean URL（省略 .html），且沙箱 curl <code>-o</code> 落盘可能失效，需用 shell 重定向。</div>
       <div class="src">来源：2026-08-01 全平台部署与校验实践</div></div>
+    <div class="node"><div class="h"><span class="tag t-a">技术·定调·2026-08-08</span> 坐标系优先原则 / 多元矩阵综合体</div>
+      <div class="d">白玺 2026-08-08 定调：<b>"所有数学问题都可以用坐标来解，目前阶段的事现鉴也是这个逻辑。"</b> 事现鉴当前阶段＝<b>定义坐标＋落点＋量 ρ 的 spec</b>，不预置任何聚合/计分。坐标系即统一数据模型——<b>(x,y,z)＝(三元:自然/人力/数字, 三档:上/中/下, 组织层级)</b>，<b>j＝法域</b>(中国含港澳台/国外)，<b>ρ＝可验证密度</b>，<b>t＝时间</b>，组织＝验证元数据。由此"三元×三档×j×组织"构成高维验证场（≈9×N×M）。<b>维基＝内容投影、地图＝j 地理投影、热力图＝ρ 密度投影</b>——三视图同源同一 evt_xxx（见 SXJ-wiki-map-design.md）。聚合/总分永远留给查询时投影，事现鉴拒绝替世界拍单一总分；这把"贡献值三元"落到可落格的坐标骨架，与既有光锥坐标 (x,y,z,t,ρ) 完全自洽。</div>
+      <div class="src">来源：2026-08-08 白玺与助手对话（坐标系优先 + 多元矩阵 + 维基/地图/热力图三视图）；MEMORY 坐标系优先原则</div></div>
   </div>
 </details>
 </div>
@@ -578,11 +566,12 @@
 </div>
 
 <div class="foot">
-  重绘：2026-07-28（手绘定版 · 概念图＋知识树统一）· 知识树 v1（定版）· 语料归位更新：2026-07-31（知识树 v1.1）· <b>部署与权力栈更新：2026-08-01（知识树 v1.2）</b>。仍涵盖 0/1/1.5/2/3/4/5/6/7/8/9/X 共 11 主枝。<br>
+  重绘：2026-07-28（手绘定版 · 概念图＋知识树统一）· 知识树 v1（定版）· 语料归位更新：2026-07-31（知识树 v1.1）· <b>部署与权力栈更新：2026-08-01（知识树 v1.2）</b>· <b>坐标系优先原则增补：2026-08-08（知识树 v1.3）</b>。仍涵盖 0/1/1.5/2/3/4/5/6/7/8/9/X 共 11 主枝。<br>
   本版相对 v1.1 的<b>核心变更（2026-08-01）</b>：
   <b>① 新增「四层权力栈」图</b>：在 0·元范式插入应用层/能力层/物理层/根层架构图，明确事现鉴居根层、定义"什么算事实"；
   <b>② 新增技术踩坑节点</b>：在 6·技术实现层补充 Cloudflare API Token 三层界面（User/Account/Zone）、Wrangler v4 部署 CF Pages 三陷阱、全平台去 BETA 横幅与版本管理实践；
   <b>③ 更新落地应用状态</b>：7·落地应用层官网/小程序/App 均升至 v1.0.1 正式版，六端点无 BETA 横幅。
+  <b>④ 坐标系优先原则增补（2026-08-08）</b>：6·技术实现层新增「坐标系优先原则 / 多元矩阵综合体」节点——事现鉴当前阶段＝定义坐标(三元×三档×j×组织)＋落点＋量ρ 的 spec，维基/地图/热力图为其三张投影，聚合留给查询时投影；与 SXJ-wiki-map-design.md §8、概念树 v2.4 同源。
   本树为已上传官网与白皮书之定版内容（见 hygzz.com / hygzz.cn / hygzz.top）。
 </div>
 

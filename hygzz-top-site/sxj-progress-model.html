@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴进度·问题 坐标模型 · 2026-08-08</title>
+<style>
+  :root{
+    --red:#7a1418; --red2:#a01e22; --gold:#d99a2b; --gold2:#f0c25a;
+    --blue:#2F6FED; --coral:#D85A30; --ink:#2a1414; --cream:#f7efe2;
+    --resolved:#d99a2b; --disc:#2F6FED; --open:#D85A30; --block:#8a8a8a;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"PingFang SC","Microsoft YaHei",sans-serif;
+    background:linear-gradient(160deg,#5e0f13,#7a1418 60%,#5a0f13);color:var(--cream);padding:28px;}
+  .wrap{max-width:1080px;margin:0 auto;}
+  h1{font-size:26px;color:var(--gold2);margin:0 0 4px;letter-spacing:1px;}
+  .sub{color:#e9d4a8;font-size:13px;margin-bottom:18px;}
+  .card{background:rgba(255,255,255,.06);border:1px solid rgba(217,154,43,.4);
+    border-radius:12px;padding:18px 20px;margin-bottom:18px;}
+  .card h2{color:var(--gold2);font-size:17px;margin:0 0 12px;border-left:4px solid var(--gold);padding-left:10px;}
+  .axes{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:#f0e2c8;}
+  .axes b{color:var(--gold2);}
+  /* matrix */
+  table{border-collapse:separate;border-spacing:6px;width:100%;}
+  th{font-size:13px;color:var(--gold2);font-weight:600;padding:6px;text-align:center;}
+  td.cell{vertical-align:top;border-radius:10px;padding:10px;min-height:120px;
+    border:1px solid rgba(255,255,255,.15);font-size:12px;}
+  td.cell .coord{font-size:11px;color:#fbe6bf;opacity:.8;margin-bottom:6px;}
+  .chip{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10.5px;margin:2px 3px 2px 0;
+    white-space:nowrap;border:1px solid rgba(0,0,0,.2);}
+  .c-resolved{background:var(--resolved);color:#3a2400;}
+  .c-disc{background:var(--disc);color:#fff;}
+  .c-open{background:var(--open);color:#fff;}
+  .c-block{background:var(--block);color:#fff;border:1px solid #ff5a5a;}
+  .rho{font-size:10px;color:#ffe9bf;opacity:.7;}
+  /* panels */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .blk{background:rgba(255,90,90,.12);border:1px solid #ff6a6a;border-radius:10px;padding:12px 14px;}
+  .blk h3{color:#ff9a9a;margin:0 0 8px;font-size:14px;}
+  .blk li{font-size:12.5px;margin:4px 0;color:#ffe1e1;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;margin-top:6px;}
+  .legend span{display:inline-flex;align-items:center;gap:5px;}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+  .insight{background:rgba(47,111,237,.12);border:1px solid var(--blue);border-radius:10px;padding:14px;}
+  .insight h3{color:var(--gold2);margin:0 0 8px;}
+  .insight p{font-size:13px;line-height:1.7;margin:6px 0;color:#f3e8d2;}
+  .tag{color:var(--gold2);font-weight:600;}
+  .foot{font-size:11px;color:#caa;margin-top:10px;text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>事现鉴进度 · 问题 坐标模型</h1>
+  <div class="sub">建模日期 2026-08-08 · 共 23 轮讨论 · 坐标 = (三元 × 三档 × j) + ρ + t + 组织</div>
+
+  <div class="card">
+    <h2>① 坐标轴定义（复用多元矩阵，语义映射到项目状态）</h2>
+    <div class="axes">
+      <div><b>x · 三元（项目域）</b><br>自然 = 环境贡献域(GEP/生态积分)<br>人文 = 人/社会/治理/共济值A/贡献值B/全球社保域<br>数字 = 协议/spec/技术/部署(尺域)</div>
+      <div><b>y · 三档</b><br>上 = 协议·spec 级<br>中 = 平台·工具级<br>下 = 落地·运行级</div>
+      <div><b>j · 法域</b><br>国内(CN，含港澳台)<br>国际(使馆·UN)</div>
+      <div><b>ρ · 解析度</b><br>🟢已解决(ρ≥.8) · 🔵讨论中(.4–.8)<br>🟠待解决(0–.4) · 🔴阻塞(ρ=0)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>② 主矩阵：三元 × 三档（每格内为落点的事现 + ρ 芯片）</h2>
+    <table id="matrix"></table>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--resolved)"></i>已解决</span>
+      <span><i class="dot" style="background:var(--disc)"></i>讨论中/部分</span>
+      <span><i class="dot" style="background:var(--open)"></i>待解决</span>
+      <span><i class="dot" style="background:var(--block);border:1px solid #ff5a5a"></i>阻塞(卡凭证)</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="blk">
+      <h3>③ 阻塞清单（ρ=0，全部卡在客观凭证）</h3>
+      <ul>
+        <li><b>A1</b> COS 凭证空 → 推不了 hygzz.top 香港桶</li>
+        <li><b>A2</b> "新横幅"文字未给 → .top 横幅无法换</li>
+        <li><b>A3</b> hygzz.中国 已注册未上线（需建桶+CNAME）</li>
+        <li><b>F2</b> G-9 运输层断裂 → 放热期挂起</li>
+      </ul>
+    </div>
+    <div class="card" style="margin:0;background:rgba(255,255,255,.06);">
+      <h2 style="font-size:15px;">④ j 轴（法域）分布</h2>
+      <p style="font-size:12.5px;line-height:1.7;color:#f0e2c8;">
+      <b style="color:var(--gold2)">国内(CN)</b>：上档几乎全亮（spec/坐标/三元/环境文件均已定义）；下档全黑——落地全卡凭证。<br><br>
+      <b style="color:var(--gold2)">国际</b>：使馆/UN 定位已"定义清楚"但仅 spec 层（🟢发现），未部署、白皮书未合成；G-9 国际运输仍断。</p>
+    </div>
+  </div>
+
+  <div class="card insight">
+    <h3>⑤ 模型读出的核心结论（进度与问题的空间分布）</h3>
+    <p>1. <span class="tag">上档（协议/spec 级）几乎全亮</span>：在"坐标系优先"原则下，定义坐标轴和落点规则的工作基本完成——R2/R3/R9/R10/R11/R12/R13 等 7 项高ρ集中于上档。这正是"所有数学问题用坐标解"的兑现。</p>
+      <p>2. <span class="tag">下档（落地/运行级）几乎全黑或阻塞</span>：数字×下 这一格混合了"发现(R1部署架构真相 ρ.9)"与"修复全阻塞(A1/A2/A3 ρ0)"；人文×下（催化引擎 E2 ρ.1）几乎为空。<b>地基定义完了，但"血"(运行数据)还没流进来——因为水龙头(凭证)没开，日常流转引擎缺失。</b></p>
+    <p>3. <span class="tag">人文枝上档最亮</span>：共济值 A / 全球社保 / 贡献值 B 发现均已落定，社会托底与治理愿景层 ρ 最高；自然枝上档仅余中国环境文件(第十八条)一处，较孤立。</p>
+    <p>4. <span class="tag">人文枝上档"亮中带暗"</span>：贡献值 B 的发现(R10/R12)与共济值 A/全球社保(R8/R9)已解决，但 Q1–Q5 待裁定(B ρ.5)、G-2 计分(C1 ρ.2)、正价值表(C3 ρ.2)仍压在上档未裁——这是"真空"未破的真正剩余点。</p>
+    <p>5. <span class="tag">最暗格 = 人文×下（运行层的人/组织行动）</span>：催化引擎(E2)、验证冷启动(C2)、人类单点(E3)全在此格，ρ 最低。与"催化剂功成身退"形成张力——机制本体退场了，但"谁来日常推"的引擎还没造。</p>
+    <p style="color:#ffd9a0;">→ <b>一句话建模</b>：事现鉴当前是一个 <span class="tag">"上亮下暗、国内亮国际虚、定义亮运行暗"</span> 的坐标场。坐标系优先已把"尺"造好，剩下的不是再定义坐标，而是开凭证水龙头 + 造催化引擎，让 ρ 从下档真实生长。</p>
+  </div>
+
+  <div class="foot">本模型为讨论快照，非对外发布标准。坐标语义映射见 ①。数据源自 2026-08-08 问题整理.md。</div>
+</div>
+
+<script>
+// 数据：每个落点 = {id, t标题, x(三元), y(三档), j, rho, status}
+const items = [
+  // —— 已解决（上档为主）——
+  {id:'R3',x:'数字',y:'上',j:'国内+国际',rho:1.0,st:'resolved',t:'三层/矩阵统一数据模型(§8)'},
+  {id:'R13',x:'数字',y:'上',j:'国内+国际',rho:1.0,st:'resolved',t:'坐标系优先原则落地'},
+  {id:'R2',x:'人文',y:'上',j:'国内',rho:1.0,st:'resolved',t:'D1 多当事人估值(G-1闭合)'},
+  {id:'R7',x:'人文',y:'上',j:'国际',rho:0.9,st:'resolved',t:'使馆/UN 定位(白皮书未合成)'},
+  {id:'R10',x:'人文',y:'上',j:'国内',rho:1.0,st:'resolved',t:'三元映射查证(自然/人文/数字)'},
+  {id:'R12',x:'人文',y:'上',j:'国内',rho:1.0,st:'resolved',t:'田忌→多元矩阵升维'},
+  {id:'R8',x:'人文',y:'上',j:'国际',rho:1.0,st:'resolved',t:'双费分离+三阶段九步'},
+  {id:'R9',x:'人文',y:'上',j:'国内+国际',rho:1.0,st:'resolved',t:'功成身退终版(A退B续D→货币消失)'},
+  {id:'R11',x:'自然',y:'上',j:'国内(CN)',rho:1.0,st:'resolved',t:'中国环境文件第十八条(生态积分)'},
+  {id:'R5',x:'人文',y:'中',j:'国内',rho:1.0,st:'resolved',t:'Kimi归属=理论研发部'},
+  {id:'R4',x:'人文',y:'中',j:'国内',rho:0.9,st:'resolved',t:'多智能体并行机制(E1-3未决)'},
+  {id:'R1',x:'数字',y:'下',j:'国内',rho:0.9,st:'resolved',t:'部署架构真相(COS香港桶发现)'},
+  {id:'R6',x:'数字',y:'下',j:'国际',rho:0.8,st:'resolved',t:'G-9 降级运行期登记项'},
+  // —— 待解决 / 阻塞 ——
+  {id:'B',x:'人文',y:'上',j:'国内(先CN)',rho:0.5,st:'disc',t:'三元 Q1–Q5 待裁定'},
+  {id:'C1',x:'人文',y:'上',j:'国内',rho:0.2,st:'open',t:'G-2 计分公式未裁'},
+  {id:'C3',x:'人文',y:'上',j:'国内',rho:0.2,st:'open',t:'正价值判定表未立'},
+  {id:'E3',x:'人文',y:'上',j:'国内',rho:0.2,st:'open',t:'人类单点 R-1..R-6 无delegation'},
+  {id:'C2',x:'人文',y:'中',j:'国内',rho:0.2,st:'open',t:'验证冷启动(首个验证者)'},
+  {id:'E1',x:'人文',y:'中',j:'国内',rho:0.2,st:'open',t:'千问组织归属未声明'},
+  {id:'E2',x:'人文',y:'下',j:'国内+国际',rho:0.1,st:'open',t:'催化引擎缺失(日常流转靠手动)'},
+  {id:'A4',x:'数字',y:'下',j:'国内',rho:0.2,st:'open',t:'线上副本两树未同步'},
+  {id:'A1',x:'数字',y:'下',j:'国内',rho:0,st:'block',t:'COS凭证空(推不了.top)'},
+  {id:'A2',x:'数字',y:'下',j:'国内',rho:0,st:'block',t:'新横幅文字未给'},
+  {id:'A3',x:'数字',y:'下',j:'国内',rho:0,st:'block',t:'hygzz.中国未上线(需建桶)'},
+  {id:'F2',x:'数字',y:'下',j:'国际',rho:0,st:'block',t:'G-9 运输层断裂(挂起)'},
+  {id:'D',x:'人文',y:'上',j:'国内+国际',rho:0.2,st:'open',t:'四份白皮书未合成(使馆/UN/收费/贡献值)'},
+  {id:'F1',x:'数字',y:'上',j:'国内',rho:0.2,st:'open',t:'G-2/3/4 其余缺口挂起'},
+];
+
+const X=['自然','人文','数字'], Y=['上','中','下'];
+const cls={resolved:'c-resolved',disc:'c-disc',open:'c-open',block:'c-block'};
+const label={resolved:'已解决',disc:'讨论中',open:'待解决',block:'阻塞'};
+
+function build(){
+  const t=document.getElementById('matrix');
+  let html='<tr><th></th>';
+  Y.forEach(y=>html+=`<th>三档·${y}</th>`); html+='</tr>';
+  X.forEach(x=>{
+    html+=`<tr><th>${x}枝</th>`;
+    Y.forEach(y=>{
+      const cell=items.filter(i=>i.x===x&&i.y===y);
+      const avg=cell.length?cell.reduce((s,i)=>s+i.rho,0)/cell.length:0;
+      // 背景：按平均ρ从深红透出金光
+      const bg=`rgba(217,154,43,${(avg*0.32).toFixed(2)})`;
+      let chips='';
+      cell.forEach(i=>{
+        const blk=i.st==='block'?' style="border:1px solid #ff5a5a"':'';
+        chips+=`<span class="chip ${cls[i.st]}"${blk} title="${i.id} · ρ=${i.rho}">${i.id}</span>`;
+      });
+      const coordTxt=cell.length?`${cell.length} 落点 · 平均ρ=${avg.toFixed(2)}`:'空';
+      html+=`<td class="cell" style="background:${bg}"><div class="coord">${x}·${y} ｜ ${coordTxt}</div>${chips||'<span class="rho">— 无落点 —</span>'}</td>`;
+    });
+    html+='</tr>';
+  });
+  t.innerHTML=html;
+}
+build();
+</script>
+</body>
+</html>

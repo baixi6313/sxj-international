@@ -60,10 +60,15 @@ footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-si
 
 </head>
 <body>
+<!-- 创始完成声明 · 白玺 -->
+<div style="background:linear-gradient(135deg,#A32D2D,#7a1f1f);color:#fff;padding:9px 20px;text-align:center;font-family:-apple-system,Segoe UI,Roboto,'PingFang SC','Microsoft YaHei',sans-serif;border-bottom:2px solid #C9A24B;font-size:0.9rem;line-height:1.45;">
+  <span style="color:#f4e9c9;font-weight:700;letter-spacing:1px;">✦ 创始完成</span>&nbsp;&nbsp;白玺已经完成所有创始内容，剩下的交给世界和时间了。
+</div>
 <!-- SXJ_NAV -->
 <nav style="position:sticky;top:0;z-index:999;display:flex;flex-wrap:wrap;gap:4px;align-items:center;background:#A32D2D;padding:8px 14px;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
   <a href="./" style="color:#fff;font-weight:700;text-decoration:none;margin-right:10px;">事现鉴</a>
   <a href="./events.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">事件簿</a>
+  <a href="./matrix/" style="color:#3a2a00;background:#C9A24B;font-weight:700;text-decoration:none;padding:4px 10px;border-radius:5px;">三元坐标场</a>
   <a href="./knowledge_tree.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">知识树</a>
   <a href="./org.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">组织架构一览</a>
   <a href="./history.html" style="color:#f4e9c9;text-decoration:none;padding:4px 8px;">发展历史</a>
@@ -183,6 +188,43 @@ function seed(){
                 {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]});
       save();
     }
+    if(!events.find(e=>e.id==='seed7')){
+      events.push({id:'seed7',seq:events.length+1,prevHash:'',type:'共济值',date:'2026-08-02',
+       title:'百度搭子（百度 AI）对话分享链接生成失败',
+       desc:'白玺在百度搭子平台尝试生成对话分享链接时，系统提示「Share url is missing」，无法获得可携带、可审计的链接。该事件与 seed5 Kimi 分享链接异常同类，进一步证明：若 AI 平台不开放可分享链接，则无法作为事现鉴交互验证的独立节点；跨平台备份、本地存档与去中心化验证机制因此成为必要。',
+       evidence:['evidence/baidu-dazi-share-url-missing-2026-08-02.png'],
+       recorder:'白玺',createdAt:now-500,status:'记录中',
+       updates:[{ts:now-500,text:'截图留存：百度搭子无法生成分享链接，平台能力缺陷导致其不能作为事现鉴交互验证节点。',prevHash:'seed7',hash:''}]});
+      save();
+    }
+    if(!events.find(e=>e.id==='seed8')){
+      events.push({id:'seed8',seq:events.length+1,prevHash:'',type:'共济值',date:'2026-08-02',
+       title:'跨平台 AI 分享链接不可用性（G-9 公共事现 · evt_009）',
+       desc:'白玺在微博（白玺-寰宇光锥舟）公开发布两张跨平台实证表，记录 6–7 家主流 AI 平台（WorkBuddy / 千问 / 百度搭子 / 元宝 / DeepSeek / Kimi / 豆包）原生分享链接的生成 / 渲染失败。两个独立来源（百度搭子 App URL 分享页、快速模式共创论白皮书解读页）结论一致：依靠各平台原生分享链接作为跨 AI 验证通道，在当前基础设施下不可行。该事现已按 SXJ-MAIP/1.0 写入事件簿，成为「可验证密度 ρ」的第一个真实测量点（ρ = 0.5355，< ρ_min = 0.85，待校准），也直接印证了「运输层断裂」是「可验证」当下真正的瓶颈。',
+       evidence:[
+         'https://hygzz.top/events.html',
+         'SHA-256 f2740755b7c8e04b10a3a10379741f8e.jpg',
+         'SHA-256 6a7aecf509de589dc2c9e0f6b3daabf0.jpg'
+       ],
+       recorder:'白玺',createdAt:now,status:'已验证',
+       updates:[
+         {ts:now,text:'两张实证表公开记录，G-9 由「观察」升级为「已记录公共事现 evt_009」。',prevHash:'seed8',hash:''},
+         {ts:now,text:'按 MAIP 信封格式计算可验证密度 ρ = 0.5355（conf 0.85 × 来源独立度 0.90 × 证据等级 0.70 × 角色权重 1.00）。',prevHash:'seed8',hash:''}
+       ]});
+      save();
+    }
+    if(!events.find(e=>e.id==='seed9')){
+      events.push({id:'seed9',seq:events.length+1,prevHash:'',type:'共济值',date:'2026-08-02',
+       title:'境外委托复测 G-9（跨境验证模式首现 · 低置信度辅助事现 · evt_010）',
+       desc:'白玺委托境外朋友在外国大模型上复测 G-9（跨平台链接生成/渲染不可用性），朋友转述结论与国内一致。但证据链为「我→朋友→境外AI→朋友→我」，含多个不可复核跳转，不能算境外平台直接生成物；另有微信截图显示朋友尝试让 Microsoft Copilot 读取 agentos-app.net 链接、首次结果不满意需重来，再次印证 G-9「链接作为载体不稳定」。本事件按 SXJ-MAIP/1.0 记为 evt_010，ρ = 0.2700（远低于 ρ_min = 0.85），明确不升级 evt_009——只记录「跨境验证模式」的出现，以及事现鉴「只记录可验证事实、不美化证据」的自我约束。',
+       evidence:['微信截图 SHA-256 ca13ab2e70d6d312df2fd792e0a6cb0d6ccfd4be4206c59360c82485aa083963','来源：白玺与 WorkBuddy 对话 2026-08-02（朋友转述属利害关系方举证）'],
+       recorder:'白玺',createdAt:now,status:'记录中',
+       updates:[
+         {ts:now,text:'境外委托复测完成，结论与国内一致；但因链过长记为低置信度辅助事现 evt_010，不升级 evt_009。',prevHash:'seed9',hash:''},
+         {ts:now,text:'按 MAIP 信封格式计算可验证密度 ρ = 0.2700（conf 0.75 × 来源独立度 0.80 × 证据等级 0.45 × 角色权重 1.00）。',prevHash:'seed9',hash:''}
+       ]});
+      save();
+    }
     return;
   }
   events=[
@@ -222,7 +264,31 @@ function seed(){
        recorder:'白玺',createdAt:now-1000,status:'记录中',
        updates:[{ts:now-1000,text:'负贡献原型入册：政府第三方尺，让内部想干事的人有尺可量。',prevHash:'seed6',hash:''},
               {ts:now-500,text:'状态更正：由「已验证」降回「记录中」。理由：仅有记录人单方口述，无当事人独立举证、无第三方核查。事现鉴不能自证。',prevHash:'seed6',hash:''},
-                {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]}
+                {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]},
+    {id:'seed7',seq:7,prevHash:'',type:'共济值',date:'2026-08-02',
+     title:'百度搭子（百度 AI）对话分享链接生成失败',
+     desc:'白玺在百度搭子平台尝试生成对话分享链接时，系统提示「Share url is missing」，无法获得可携带、可审计的链接。该事件与 seed5 Kimi 分享链接异常同类，进一步证明：若 AI 平台不开放可分享链接，则无法作为事现鉴交互验证的独立节点；跨平台备份、本地存档与去中心化验证机制因此成为必要。',
+     evidence:['evidence/baidu-dazi-share-url-missing-2026-08-02.png'],
+     recorder:'白玺',createdAt:now-500,status:'记录中',
+     updates:[{ts:now-500,text:'截图留存：百度搭子无法生成分享链接，平台能力缺陷导致其不能作为事现鉴交互验证节点。',prevHash:'seed7',hash:''}]},
+    {id:'seed8',seq:8,prevHash:'',type:'共济值',date:'2026-08-02',
+     title:'跨平台 AI 分享链接不可用性（G-9 公共事现 · evt_009）',
+     desc:'白玺在微博（白玺-寰宇光锥舟）公开发布两张跨平台实证表，记录 6–7 家主流 AI 平台（WorkBuddy / 千问 / 百度搭子 / 元宝 / DeepSeek / Kimi / 豆包）原生分享链接的生成 / 渲染失败。两个独立来源（百度搭子 App URL 分享页、快速模式共创论白皮书解读页）结论一致：依靠各平台原生分享链接作为跨 AI 验证通道，在当前基础设施下不可行。该事现已按 SXJ-MAIP/1.0 写入事件簿，成为「可验证密度 ρ」的第一个真实测量点（ρ = 0.5355，< ρ_min = 0.85，待校准），也直接印证了「运输层断裂」是「可验证」当下真正的瓶颈。',
+     evidence:['https://hygzz.top/events.html','SHA-256 f2740755b7c8e04b10a3a10379741f8e.jpg','SHA-256 6a7aecf509de589dc2c9e0f6b3daabf0.jpg'],
+     recorder:'白玺',createdAt:now,status:'已验证',
+     updates:[
+       {ts:now,text:'两张实证表公开记录，G-9 由「观察」升级为「已记录公共事现 evt_009」。',prevHash:'seed8',hash:''},
+       {ts:now,text:'按 MAIP 信封格式计算可验证密度 ρ = 0.5355（conf 0.85 × 来源独立度 0.90 × 证据等级 0.70 × 角色权重 1.00）。',prevHash:'seed8',hash:''}
+       ]},
+    {id:'seed9',seq:9,prevHash:'',type:'共济值',date:'2026-08-02',
+     title:'境外委托复测 G-9（跨境验证模式首现 · 低置信度辅助事现 · evt_010）',
+     desc:'白玺委托境外朋友在外国大模型上复测 G-9（跨平台链接生成/渲染不可用性），朋友转述结论与国内一致。但证据链为「我→朋友→境外AI→朋友→我」，含多个不可复核跳转，不能算境外平台直接生成物；另有微信截图显示朋友尝试让 Microsoft Copilot 读取 agentos-app.net 链接、首次结果不满意需重来，再次印证 G-9「链接作为载体不稳定」。本事件按 SXJ-MAIP/1.0 记为 evt_010，ρ = 0.2700（远低于 ρ_min = 0.85），明确不升级 evt_009——只记录「跨境验证模式」的出现，以及事现鉴「只记录可验证事实、不美化证据」的自我约束。',
+     evidence:['微信截图 SHA-256 ca13ab2e70d6d312df2fd792e0a6cb0d6ccfd4be4206c59360c82485aa083963','来源：白玺与 WorkBuddy 对话 2026-08-02（朋友转述属利害关系方举证）'],
+     recorder:'白玺',createdAt:now,status:'记录中',
+     updates:[
+       {ts:now,text:'境外委托复测完成，结论与国内一致；但因链过长记为低置信度辅助事现 evt_010，不升级 evt_009。',prevHash:'seed9',hash:''},
+       {ts:now,text:'按 MAIP 信封格式计算可验证密度 ρ = 0.2700（conf 0.75 × 来源独立度 0.80 × 证据等级 0.45 × 角色权重 1.00）。',prevHash:'seed9',hash:''}
+     ]}
   ];
   // fill prevHash chain + hashes
   events[1].prevHash=events[0].id;
@@ -230,6 +296,9 @@ function seed(){
   events[3].prevHash=events[2].id;
   events[4].prevHash=events[3].id;
   events[5].prevHash=events[4].id;
+  events[6].prevHash=events[5].id;
+  events[7].prevHash=events[6].id;
+  events[8].prevHash=events[7].id;
   save();
 }
 

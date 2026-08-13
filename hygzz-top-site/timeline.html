@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>事现鉴 · 时间轴 | hygzz.中国</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23A32D2D'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='%23F5F0E6'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23A32D2D'/%3E%3C/svg%3E">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#fafaf9;--card:#fff;--text:#1a1a2e;--text-dim:#555;--border:#e8e0d8;
+  --red:#A32D2D;--red-light:#fef0f0;--gold:#C9A24B;--gold-light:#fef8e8;
+  --blue:#2F6FED;--amber:#D99A2B;--coral:#D85A30;
+}
+body{font-family:-apple-system,Segoe UI,Roboto,'PingFang SC','Microsoft YaHei',sans-serif;color:var(--text);background:var(--bg);line-height:1.7}
+
+/* 创始完成横幅 */
+.founding{background:linear-gradient(135deg,#A32D2D,#7a1f1f);color:#fff;text-align:center;padding:9px 20px;font-size:.9rem;border-bottom:2px solid var(--gold)}
+.founding b{color:#f4e9c9;letter-spacing:1px}
+
+/* 导航 */
+nav{background:linear-gradient(135deg,#8E1F1F,#5e1414);padding:10px 20px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;position:sticky;top:0;z-index:100}
+nav a{color:#f4e9c9;text-decoration:none;padding:5px 10px;font-size:.88rem;border-radius:6px;transition:.15s}
+nav a:hover,.nav a.on{background:rgba(201,162,75,.35);color:#fff}
+nav a.on.gold{background:var(--gold);color:#1a1a2e;font-weight:700}
+
+.page-head{max-width:900px;margin:0 auto;padding:28px 18px 0}
+.page-head h1{font-size:1.6rem;color:var(--red);margin-bottom:4px}
+.page-head p{font-size:.9rem;color:var(--text-dim)}
+
+.wrap{max-width:900px;margin:0 auto;padding:20px 18px 60px}
+
+/* 时间轴主体 */
+.timeline{position:relative;padding-left:36px;margin:24px 0}
+.timeline::before{content:'';position:absolute;left:15px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--red),var(--gold),var(--blue));border-radius:2px}
+
+.tl-item{position:relative;margin-bottom:28px;padding:14px 18px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.04);transition:transform .15s, box-shadow .15s}
+.tl-item:hover{transform:translateX(4px);box-shadow:0 4px 12px rgba(163,45,45,.08)}
+.tl-item::before{content:'';position:absolute;left:-29px;top:22px;width:12px;height:12px;border-radius:50%;border:2px solid var(--red);background:var(--bg);z-index:1}
+.tl-item.city-profile::before{border-color:var(--gold);background:var(--gold-light);width:14px;height:14px;left:-30px;top:20px}
+.tl-item.milestone::before{border-color:var(--blue);background:#e8f0fe;width:16px;height:16px;left:-32px;top:19px;box-shadow:0 0 0 3px rgba(47,111,237,.15)}
+
+.tl-year{display:inline-block;background:linear-gradient(135deg,var(--red),#c44);color:#fff;font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:10px;margin-bottom:6px;letter-spacing:1px}
+.tl-year.gold{background:linear-gradient(135deg,var(--gold),#b8892d);color:#1a1a2e}
+.tl-year.blue{background:linear-gradient(135deg,var(--blue),#1a5ed4)}
+
+.tl-title{font-size:1rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.tl-title a{color:var(--red);text-decoration:none}
+.tl-title a:hover{text-decoration:underline}
+
+.tl-desc{font-size:.88rem;color:var(--text-dim);line-height:1.65}
+
+.tl-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tl-tag{font-size:.72rem;padding:2px 8px;border-radius:8px;background:#f5f0e6;color:#6b6459;border:1px solid #efe2bf}
+.tl-tag.nat{background:#e8f5e9;color:#1b5e20;border-color:#c8e6c9}
+.tl-tag.hum{background:#fce4ec;color:#880e4f;border-color:#f8bbd0}
+.tl-tag.dig{background:#e8eaf6;color:#1a237e;border-color:#c5cae9}
+.tl-tag.A{background:#e8f0fe;color:#0d47a1;border-color:#bbdefb;font-weight:600}
+.tl-tag.B{background:#fff8e1;color:#f57f17;border-color:#ffecb3;font-weight:600}
+.tl-tag.C{background:#fbe9e7;color:#bf360c;border-color:#ffcdd2;font-weight:600}
+.tl-tag.city{background:var(--gold-light);color:#8a6d3b;border-color:#ffe082;font-weight:600}
+
+.tl-geo{font-size:.78rem;color:#888;margin-top:4px}
+.tl-geo svg{vertical-align:middle;margin-right:3px}
+
+/* 图例 */
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:.82rem}
+.legend-item{display:flex;align-items:center;gap:5px}
+.legend-dot{width:10px;height:10px;border-radius:50%;border:2px solid}
+.legend-dot.red{border-color:var(--red);background:var(--bg)}
+.legend-dot.gold{border-color:var(--gold);background:var(--gold-light)}
+.legend-dot.blue{border-color:var(--blue);background:#e8f0fe}
+
+/* 统计条 */
+.stat-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:20px 0}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.stat-card .num{font-size:1.6rem;font-weight:700;color:var(--red)}
+.stat-card .label{font-size:.78rem;color:var(--text-dim);margin-top:2px}
+
+footer{text-align:center;color:var(--text-dim);font-size:.8rem;padding:26px;border-top:1px solid var(--border)}
+
+@media(max-width:600px){
+  .timeline{padding-left:28px}
+  .tl-item::before{left:-21px;width:10px;height:10px}
+  .wrap{padding:12px 12px 40px}
+}
+</style>
+</head>
+<body>
+
+<div class="founding"><b>✦ 创始完成</b>&nbsp;&nbsp;白玺已经完成所有创始内容，剩下的交给世界和时间了。</div>
+
+<nav>
+  <a href="./index.html">首页</a>
+  <a href="./matrix/index.html">三元坐标场</a>
+  <a class="on gold" href="./timeline.html">时间轴</a>
+  <a href="./cases/README.md">案例库</a>
+  <a href="./relay/brief-intl.md">国际验证中继</a>
+</nav>
+
+<div class="page-head">
+  <h1>⏱️ 事现鉴 · 时间轴</h1>
+  <p>光锥时空事件点按时间排列 —— 每个事件是一页带公证的卷宗</p>
+</div>
+
+<div class="wrap">
+
+  <!-- 统计概览 -->
+  <div class="stat-bar" id="statsBar"></div>
+
+  <!-- 图例 -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot red"></div> 普通事现</div>
+    <div class="legend-item"><div class="legend-dot gold"></div> 城市坐标定位</div>
+    <div class="legend-item"><div class="legend-dot blue"></div> 里程碑</div>
+    <span style="margin-left:auto;color:#888;font-size:.78rem">点击事件可跳转维基详情</span>
+  </div>
+
+  <!-- 时间轴由 JS 渲染 -->
+  <div class="timeline" id="timeline"></div>
+
+</div>
+
+<footer>事现鉴 SXJ · 基于《世界人权宣言》第22条的可验证公共事实协议 · hygzz.中国</footer>
+
+<script src="matrix/data.js"></script>
+<script>
+(function(){
+  // 按年份排序所有事件
+  var events = SXJ.EVENTS.filter(function(e){ return !e.placeholder; }).map(function(e){
+    return { e: e, y: SXJ.eventYear(e) };
+  }).filter(function(item){ return item.y !== null; }).sort(function(a,b){ return a.y - b.y; });
+
+  // 统计
+  var s = SXJ.stats();
+  document.getElementById('statsBar').innerHTML =
+    '<div class="stat-card"><div class="num">'+s.total+'</div><div class="label">真实事现</div></div>' +
+    '<div class="stat-card"><div class="num">'+s.cellsOccupied+'</div><div class="label">已占格位 / 9</div></div>' +
+    '<div class="stat-card"><div class="num">'+s.measured+'</div><div class="label">已量测 ρ</div></div>' +
+    '<div class="stat-card"><div class="num">'+(s.minYear||'—')+'–'+(s.maxYear||'—')+'</div><div class="label">时间跨度</div></div>';
+
+  // 渲染时间轴
+  var html = '';
+  events.forEach(function(item){
+    var e = item.e;
+    var tri = SXJ.triad(e.x);
+    var isCity = e.cityProfile;
+    var isMile = e.milestone;
+    var cls = 'tl-item';
+    if (isCity) cls += ' city-profile';
+    if (isMile) cls += ' milestone';
+
+    var yearCls = 'tl-year';
+    if (isCity) yearCls += ' gold';
+    if (isMile) yearCls += ' blue';
+
+    // 三元标签
+    var triTag = '<span class="tl-tag ' + e.x + '">' + (tri ? tri.short : e.x) + '</span>';
+    // 档位标签
+    var tier = SXJ.tier(e.y);
+    var tierTag = '<span class="tl-tag">' + (tier ? tier.short : e.y) + '</span>';
+    // 法域标签
+    var jur = SXJ.juris(e.j);
+    var jurTag = '<span class="tl-tag">' + (jur ? jur.name.replace('（','(').replace('）',')') : e.j) + '</span>';
+
+    // 当事人值标签
+    var valTags = '';
+    (e.parties || []).forEach(function(p){
+      if (p.value) valTags += '<span class="tl-tag ' + p.value + '">' + p.value + ' ' + (p.who.length > 12 ? p.who.substring(0,12)+'…' : p.who) + '</span>';
+    });
+
+    // 城市标签
+    if (isCity) valTags += '<span class="tl-tag city">🏙️ 城市坐标';
+
+    // 地理
+    var geoHtml = '';
+    if (e.geo && e.geo.place) {
+      geoHtml = '<div class="tl-geo">📍 ' + e.geo.place + (e.geo.precision ? ' (' + e.geo.precision + ')' : '') + '</div>';
+    }
+
+    // ρ 显示
+    var rhoHtml = '';
+    if (typeof e.rho === 'number') {
+      rhoHtml = ' <span style="color:' + SXJ.rhoColor(e.rho) + ';font-weight:600;font-size:.85rem">ρ=' + e.rho.toFixed(4) + '</span>';
+    } else if (e.rhoNote) {
+      rhoHtml = ' <span style="color:#999;font-size:.8rem">' + e.rhoNote.substring(0,30) + '</span>';
+    }
+
+    // SCA 映射提示
+    var scaHtml = '';
+    if (e.scaMapping) {
+      scaHtml = '<div style="margin-top:6px;font-size:.8rem;color:var(--amber);border-left:2px solid var(--amber);padding-left:8px;background:#fffbf0;padding:8px 8px 4px;border-radius:0 6px 6px 0">' +
+        '<b>SCA 映射：</b>' + e.scaMapping.dims.map(function(d){ return d.name + '(' + (d.weight*100) + '%)→' + d.mapsTo; }).join(' / ') +
+        '</div>';
+    }
+
+    html += '<div class="' + cls + '">' +
+      '<span class="' + yearCls + '">' + item.y + '</span>' +
+      '<div class="tl-title"><a href="matrix/wiki.html?e=' + e.id + '">' + e.title + '</a>' + rhoHtml + '</div>' +
+      '<div class="tl-desc">' + (e.summary ? e.summary.substring(0, 200) + (e.summary.length > 200 ? '…' : '') : '') + '</div>' +
+      '<div class="tl-tags">' + triTag + tierTag + jurTag + valTags + '</div>' +
+      geoHtml + scaHtml +
+      '</div>';
+  });
+
+  document.getElementById('timeline').innerHTML = html;
+})();
+</script>
+</body>
+</html>

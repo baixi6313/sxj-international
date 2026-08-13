@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴 · 中立桌子（root→spec · 光锥点阵）</title>
+<style>
+  :root{
+    --brand:#8E1F1F; --brand2:#B5342F; --brand-deep:#5e1414;
+    --gold:#C9A24B; --gold-deep:#A67C2E; --gold-soft:#f3e6c4;
+    --bg:#F2ECDF; --paper:#FBF7EE; --card:#FFFFFF;
+    --ink:#241a14; --muted:#8A8170; --line:#E4D8C2;
+    --common:#2F6FED; --contribution:#D99A2B; --negative:#D85A30;
+    --ok:#5BAE6A; --neutral:#9AA0A6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#26201a;display:flex;justify-content:center;padding:22px 0;color:var(--ink);}
+  .phone{width:390px;height:844px;background:var(--bg);border-radius:44px;overflow:hidden;position:relative;box-shadow:0 28px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;border:10px solid #0e0b08;}
+  .statusbar{height:42px;background:var(--brand-deep);display:flex;align-items:center;justify-content:space-between;padding:0 22px;color:#f3e6c4;font-size:12px;font-weight:600;flex:0 0 auto;}
+  .brandbar{height:54px;background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 18px;flex:0 0 auto;box-shadow:0 2px 0 var(--gold-deep);}
+  .brandbar .logo{display:flex;align-items:center;gap:9px;font-size:19px;font-weight:800;letter-spacing:3px;}
+  .brandbar .logo .seal{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e9c977,#b8862f);display:flex;align-items:center;justify-content:center;color:#5e1414;font-size:13px;font-weight:900;box-shadow:0 0 0 2px rgba(201,162,75,.5);}
+  .beta{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#3a2a08;font-size:10px;font-weight:800;padding:3px 9px;border-radius:20px;letter-spacing:.5px;box-shadow:0 1px 3px rgba(0,0,0,.3);}
+  .screen-wrap{flex:1 1 auto;overflow-y:auto;position:relative;background:var(--bg);}
+  .screen{display:none;padding:16px 16px 28px;min-height:100%;}
+  .screen.active{display:block;}
+  .tabbar{height:66px;background:linear-gradient(180deg,#fff,#f6efe0);border-top:2px solid var(--gold-deep);display:flex;flex:0 0 auto;box-shadow:0 -3px 10px rgba(0,0,0,.08);}
+  .tabbar button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:10.5px;color:var(--muted);position:relative;}
+  .tabbar button .ic{font-size:19px;line-height:1;}
+  .tabbar button.active{color:var(--brand);font-weight:800;}
+  .tabbar button.active::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:30px;height:3px;background:var(--gold-deep);border-radius:2px;}
+
+  h3{font-size:15px;line-height:1.4;}
+  .muted{color:var(--muted);font-size:12px;}
+  .card{background:var(--card);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 3px 12px rgba(60,40,20,.08);border:1px solid var(--line);}
+  .hero{background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(94,20,20,.3);border:1px solid var(--gold-deep);}
+  .hero .k{font-size:10.5px;opacity:.85;letter-spacing:1px;color:var(--gold-soft);}
+  .hero .v{font-size:16px;font-weight:800;margin-top:6px;line-height:1.5;}
+
+  .sec-title{font-size:13px;font-weight:800;margin:4px 2px 10px;display:flex;align-items:center;gap:7px;color:var(--brand-deep);}
+  .sec-title::before{content:"";width:4px;height:15px;background:linear-gradient(var(--gold),var(--gold-deep));border-radius:3px;}
+
+  .note{font-size:11px;color:var(--muted);line-height:1.65;background:var(--gold-soft);border:1px dashed var(--gold-deep);border-radius:10px;padding:10px 12px;margin-bottom:14px;}
+  .note b{color:var(--brand);}
+
+  /* 光锥点阵 */
+  .cone-wrap{position:relative;border-radius:16px;overflow:hidden;margin-bottom:14px;border:1px solid var(--brand-deep);box-shadow:0 4px 16px rgba(94,20,20,.35);}
+  .cone-wrap canvas{display:block;width:100%;height:200px;}
+  .cone-cap{position:absolute;left:10px;bottom:8px;font-size:10px;color:var(--gold-soft);text-shadow:0 1px 3px #000;letter-spacing:.5px;}
+  .cone-legend{position:absolute;right:10px;top:8px;font-size:9.5px;color:#e9d9b0;text-align:right;text-shadow:0 1px 2px #000;line-height:1.5;}
+  .cone-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:3px;vertical-align:middle;}
+
+  .chips{display:flex;gap:8px;margin-bottom:12px;}
+  .chip{flex:1;text-align:center;font-size:11.5px;font-weight:700;padding:8px 0;border-radius:10px;background:#fff;border:1px solid var(--line);color:var(--muted);}
+  .chip.active{background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;border-color:var(--brand-deep);box-shadow:0 2px 8px rgba(94,20,20,.3);}
+
+  /* 事现卡 */
+  .evt{background:#fff;border-radius:14px;padding:13px;margin-bottom:11px;box-shadow:0 2px 9px rgba(60,40,20,.07);border-left:4px solid var(--neutral);cursor:pointer;border:1px solid var(--line);}
+  .evt .row1{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .tag{font-size:10px;font-weight:800;padding:2px 8px;border-radius:6px;color:#fff;background:var(--neutral);}
+  .rho{font-size:11px;font-weight:800;color:var(--brand);}
+  .evt h3{margin-bottom:5px;font-size:14px;}
+  .evt .desc{font-size:12px;color:#5a5248;line-height:1.55;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;}
+  .evt .foot{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .minimap{width:64px;height:34px;flex:0 0 auto;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#eef3f8;}
+  .rho-row{display:flex;align-items:center;gap:6px;flex:1;}
+  .rho-bar{flex:1;height:8px;border-radius:6px;background:#ece3d2;overflow:hidden;}
+  .rho-bar i{display:block;height:100%;border-radius:6px;}
+  .rho-num{font-size:11px;font-weight:800;color:var(--brand);min-width:34px;text-align:right;}
+  .curv{width:14px;height:14px;border-radius:4px;flex:0 0 auto;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1);}
+
+  .det-head{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap;}
+  .det h2{font-size:18px;line-height:1.4;margin-bottom:6px;color:var(--brand-deep);}
+  .det .meta{color:var(--muted);font-size:12px;margin-bottom:12px;}
+  .det .block{margin-bottom:14px;}
+  .det .block .bt{font-size:12px;font-weight:800;color:var(--brand);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+  .det .block .bt::before{content:"";width:4px;height:13px;background:var(--gold-deep);border-radius:2px;}
+  .det .block p{font-size:13px;line-height:1.7;color:#333;}
+  .coord{display:grid;grid-template-columns:auto 1fr;gap:7px 12px;background:var(--gold-soft);border-radius:10px;padding:11px 13px;font-size:12.5px;}
+  .coord .k{color:var(--gold-deep);font-weight:800;}
+  .coord .v{color:#333;word-break:break-word;}
+  .hash{font-family:ui-monospace,Menlo,monospace;font-size:9.5px;color:var(--muted);word-break:break-all;background:#f6f2e9;padding:8px 10px;border-radius:8px;border:1px dashed var(--line);}
+  .bigmap{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);background:#eef3f8;display:block;margin-top:4px;}
+
+  .btn{display:block;width:100%;border:0;border-radius:12px;padding:13px;font-size:14px;font-weight:800;background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;margin-top:6px;box-shadow:0 3px 10px rgba(94,20,20,.3);}
+  .btn.ghost{background:#fff;color:var(--brand);border:1.5px solid var(--brand);box-shadow:none;}
+  .btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#3a2a08;box-shadow:0 3px 10px rgba(166,124,46,.35);}
+  .back{display:inline-flex;align-items:center;gap:4px;color:var(--brand);font-size:13px;font-weight:700;margin-bottom:12px;cursor:pointer;}
+
+  label.fld{display:block;font-size:12px;font-weight:800;color:var(--ink);margin:12px 2px 6px;}
+  .inp{width:100%;background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font-size:13px;font-family:inherit;color:var(--ink);}
+  .inp:focus{border-color:var(--gold-deep);outline:none;}
+  textarea.inp{height:74px;resize:none;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .preview{background:#f3f7ff;border-radius:12px;padding:12px;margin-top:14px;border:1px solid #d8e6ff;}
+  .preview .bt{font-size:12px;font-weight:800;color:var(--common);margin-bottom:8px;}
+
+  .verify-row{display:flex;gap:10px;margin-top:10px;}
+  .verify-row .vbtn{flex:1;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:9px;font-size:13px;font-weight:700;text-align:center;color:var(--brand-deep);}
+  .verify-row .vbtn.sup{border-color:var(--ok);color:var(--ok);}
+  .verify-row .vbtn.chg{border-color:var(--negative);color:var(--negative);}
+  .adjud{background:#fff7f0;border:1.5px solid #f0d9c4;border-radius:12px;padding:12px;margin-top:12px;}
+  .adjud .bt{font-size:12px;font-weight:800;color:var(--negative);margin-bottom:8px;}
+  .adjud .abtn{display:inline-block;margin:4px 6px 0 0;background:#fff;border:1.5px solid var(--brand);color:var(--brand);border-radius:20px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;}
+
+  .pkg-hero{background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;border-radius:18px;padding:16px 18px;margin-bottom:14px;border:1px solid var(--gold-deep);}
+  .pkg-hero .k{font-size:10.5px;opacity:.85;letter-spacing:1px;color:var(--gold-soft);}
+  .pkg-hero .v{font-size:16px;font-weight:800;margin-top:6px;line-height:1.5;}
+  .src{background:var(--gold-soft);border-radius:12px;padding:12px;font-size:11.5px;color:var(--brand-deep);line-height:1.65;margin-top:6px;border:1px dashed var(--gold-deep);}
+  .cert-prev{background:var(--paper);border:2px solid var(--gold-deep);border-radius:12px;padding:14px;margin-top:14px;box-shadow:inset 0 0 0 4px #fff, 0 3px 10px rgba(0,0,0,.08);}
+  .cert-prev .ct{font-size:13px;font-weight:800;color:var(--brand-deep);text-align:center;letter-spacing:2px;}
+  .cert-prev .cs{font-size:10px;color:var(--muted);text-align:center;margin-bottom:8px;}
+
+  /* 贡献值 Tab */
+  .stat-row{display:flex;gap:10px;margin-bottom:14px;}
+  .stat{flex:1;background:linear-gradient(135deg,var(--brand),var(--brand-deep));color:#fff;border-radius:14px;padding:12px 10px;text-align:center;box-shadow:0 3px 10px rgba(94,20,20,.25);}
+  .stat.g{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#3a2a08;}
+  .stat .n{font-size:20px;font-weight:900;}
+  .stat .l{font-size:10.5px;opacity:.9;margin-top:2px;}
+  .contrib-item{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:12px;padding:11px 12px;margin-bottom:9px;border:1px solid var(--line);box-shadow:0 2px 7px rgba(60,40,20,.05);}
+  .contrib-item .dot{width:9px;height:9px;border-radius:50%;margin-top:4px;flex:0 0 auto;background:var(--gold-deep);}
+  .contrib-item .c-t{font-size:12.5px;font-weight:700;color:var(--ink);}
+  .contrib-item .c-m{font-size:11px;color:var(--muted);margin-top:2px;}
+  .placeholder-note{font-size:11.5px;color:var(--muted);line-height:1.6;background:#fff;border:1px dashed var(--line);border-radius:10px;padding:11px 13px;margin-bottom:14px;}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar">
+    <span>9:41</span>
+    <span style="display:flex;gap:6px;align-items:center;"><span>📶</span><span>🔋</span></span>
+  </div>
+  <div class="brandbar">
+    <div class="logo"><span class="seal">鉴</span>事现鉴</div>
+    <span class="beta">中立桌子 · 光锥点阵</span>
+  </div>
+
+  <div class="screen-wrap">
+    <!-- 共济值（feed / 桌子） -->
+    <section id="gongji" class="screen active">
+      <div class="hero">
+        <div class="k">root → spec（Gzz）· 国际中立</div>
+        <div class="v">不是系统，是一张可携带的、<b>国际中立</b>的桌子。<br>桌上每一点 = 一个可验证事现（光锥坐标 (x,y,z,t,j,ρ)）。</div>
+      </div>
+
+      <div class="cone-wrap">
+        <canvas id="cone" width="358" height="200"></canvas>
+        <div class="cone-legend"><i style="background:#9aa0a6"></i>低ρ<br><i style="background:#C9A24B"></i>中ρ<br><i style="background:#D85A30"></i>高ρ</div>
+        <div class="cone-cap">光锥坐标点阵 · 每点=一个事现</div>
+      </div>
+
+      <div class="chips">
+        <div class="chip active" data-f="all" onclick="setFilter('all')">全部</div>
+        <div class="chip" data-f="cn" onclick="setFilter('cn')">中国桌</div>
+        <div class="chip" data-f="intl" onclick="setFilter('intl')">国际桌</div>
+      </div>
+
+      <div class="sec-title">共济值 · 桌面事现流</div>
+      <div id="feed"></div>
+    </section>
+
+    <!-- 贡献值（Tab） -->
+    <section id="gongxian" class="screen">
+      <div class="sec-title">贡献值 · 你的贡献台账</div>
+      <div class="placeholder-note">当前为<b>贡献记录</b>。数值化计分（共济值 A / 贡献值 B / 负贡献）待 spec 立住后再议——桌子摆好，才谈桌上菜。这里的每一条，都是你为「让更多平台坐上桌」做的具体动作。</div>
+      <div class="stat-row">
+        <div class="stat"><div class="n" id="st-place">0</div><div class="l">摆上桌</div></div>
+        <div class="stat g"><div class="n" id="st-vote">0</div><div class="l">支持/质疑</div></div>
+        <div class="stat"><div class="n" id="st-adj">0</div><div class="l">裁定</div></div>
+        <div class="stat g"><div class="n" id="st-cert">0</div><div class="l">导出证书</div></div>
+      </div>
+      <div id="contrib-list"></div>
+    </section>
+
+    <!-- 摆事现 -->
+    <section id="record" class="screen">
+      <div class="sec-title">摆一条事现（光锥上的一个点）</div>
+      <label class="fld">主张（一句话说清发生了什么）</label>
+      <textarea class="inp" id="f-claim" placeholder="例：某平台对话分享链接无法生成，跨 5 家均复现"></textarea>
+      <div class="grid2">
+        <div><label class="fld">x · 平台</label><input class="inp" id="f-x" value="微博"></div>
+        <div><label class="fld">y · 账号</label><input class="inp" id="f-y" value="白玺-寰宇光锥舟"></div>
+      </div>
+      <div class="grid2">
+        <div><label class="fld">z · 上下文</label><input class="inp" id="f-z" value="G-9 实证"></div>
+        <div><label class="fld">t · 时间戳</label><input class="inp" id="f-t" value="自动" disabled></div>
+      </div>
+      <div class="grid2">
+        <div><label class="fld">j · 法域</label>
+          <select class="inp" id="f-j">
+            <option value="中国" selected>中国（含港澳台）</option>
+            <option value="国际">国际 / 境外</option>
+            <option value="全球">全球</option>
+          </select>
+        </div>
+        <div><label class="fld">语言</label><input class="inp" id="f-lang" value="中 / EN" disabled></div>
+      </div>
+      <label class="fld">证据（贴文本或图描述，自动算 SHA-256）</label>
+      <textarea class="inp" id="f-evi" placeholder="例：两张截图，内容显示 5 家平台分享链接均失败"></textarea>
+      <div class="preview">
+        <div class="bt">自动产出（MAIP 信封）</div>
+        <div class="coord">
+          <span class="k">ledger_sha256</span><span class="v" id="p-ledger" style="font-family:ui-monospace,Menlo,monospace;font-size:9.5px;word-break:break-all;">填写后实时计算…</span>
+          <span class="k">ρ 预估</span><span class="v" id="p-rho">—</span>
+        </div>
+        <div class="rho-bar" style="height:8px;border-radius:6px;background:#ece3d2;overflow:hidden;margin:6px 0;"><i id="p-rho-bar" style="display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--gold),var(--negative));"></i></div>
+        <div class="muted" style="font-size:11px;line-height:1.5;">ρ = conf × 来源独立度 × 证据等级 × 角色权重（第一版可操作化，待校准）</div>
+      </div>
+      <button class="btn" onclick="placeOnTable()">摆上桌（冻结 ledger_sha256）</button>
+    </section>
+
+    <!-- 包裹（导出证书） -->
+    <section id="package" class="screen">
+      <div class="pkg-hero">
+        <div class="k">功能 ③ · 导出包裹</div>
+        <div class="v">把桌带走。<br>一键生成<b>自包含 HTML 证书</b>——不依赖任何平台链接，直接绕过 G-9。</div>
+      </div>
+      <div class="cert-prev" id="cert-prev">
+        <div class="ct">事现鉴 · 事现证书</div>
+        <div class="cs">SXJ · CERTIFICATE OF VERIFIED EVENT</div>
+        <div class="muted" style="font-size:11px;text-align:center;margin-top:6px;">选择一条事现，点下方按钮即生成可下载的双语证书（含印章 / 坐标 / ledger_sha256）。</div>
+      </div>
+      <div class="sec-title" style="margin-top:16px;">为哪条事现出证</div>
+      <div id="pkg-list"></div>
+      <div class="src">成功标准：又多一个 AI 平台（不分国内/国际）能用导出的证书坐上桌。达成即 MVP 完成，之后才谈共济值 / 贡献值。</div>
+    </section>
+
+    <!-- 事现详情 -->
+    <section id="detail" class="screen det">
+      <span class="back" onclick="goTab('gongji')">‹ 返回桌子</span>
+      <div id="detail-body"></div>
+    </section>
+  </div>
+
+  <nav class="tabbar">
+    <button class="active" data-tab="gongji"><span class="ic">▦</span>共济值</button>
+    <button data-tab="gongxian"><span class="ic">◈</span>贡献值</button>
+    <button data-tab="record"><span class="ic">＋</span>摆事现</button>
+    <button data-tab="package"><span class="ic">⤓</span>包裹</button>
+  </nav>
+</div>
+
+<script>
+/* ============ SHA-256（与小程序端同源） ============ */
+function sha256(input){var ascii=unescape(encodeURIComponent(input));function rr(v,a){return(v>>>a)|(v<<(32-a));}
+var mp=Math.pow,maxW=mp(2,32),len='length',i,j,result='',words=[],abL=ascii[len]*8;var h=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],pc=k[len],ic={};
+for(var c=2;pc<64;c++){if(!ic[c]){for(i=0;i<313;i+=c)ic[i]=c;h[pc]=(mp(c,.5)*maxW)|0;k[pc++]=(mp(c,1/3)*maxW)|0;}}
+ascii+='\x80';while(ascii[len]%64-56)ascii+='\x00';for(i=0;i<ascii[len];i++){j=ascii.charCodeAt(i);words[i>>2]|=j<<((3-i)%4)*8;}
+words[words[len]]=(abL/maxW)|0;words[words[len]]=abL;for(j=0;j<words[len];){var w=words.slice(j,j+=16),oh=h,h=h.slice(0,8);
+for(i=0;i<64;i++){var w15=w[i-15],w2=w[i-2],a=h[0],e=h[4];
+var t1=h[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&h[5])^(~e&h[6]))+k[i]+(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+var t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&h[1])^(a&h[2])^(h[1]&h[2]));h=[t1+t2|0].concat(h);h[4]=(h[4]+t1)|0;}
+for(i=0;i<8;i++)h[i]=(h[i]+oh[i])|0;}for(i=0;i<8;i++){for(j=3;j+1;j--){var b=(h[i]>>(j*8))&255;result+=((b<16)?'0':'')+b.toString(16);}}return result;}
+
+/* ============ 数据 ============ */
+const SEED=[
+ {id:"evt_009",claim:"跨平台 AI 分享链接不可用性（G-9）",x:"多平台",y:"白玺-寰宇光锥舟",z:"MAIP §6.1 圆桌互见",t:"2026-08-02",j:"中国",lon:105,lat:35,
+  desc:"WorkBuddy/千问/百度搭子/元宝/DeepSeek 均出现过对话分享链接无法生成或渲染，圆桌互见依赖的可分享链接作为广播载体不稳定。",
+  evi:["两张截图（SHA-256 已存）"],rho:0.5355,support:0,question:0,status:"recording"},
+ {id:"evt_010",claim:"境外朋友委托复测 G-9（跨境验证模式首现）",x:"国外大模型",y:"白玺朋友→白玺",z:"验证模式出现",t:"2026-08-02",j:"国际",lon:-40,lat:48,
+  desc:"白玺委托境外朋友在国外大模型复测 G-9。证据链多一层转手，按事现鉴规矩只记为低置信度辅助事现，不升级 evt_009。",
+  evi:["微信截图（SHA-256 ca13ab2e…）","朋友转述（无直接平台截图）"],rho:0.2700,support:0,question:0,status:"recording"},
+ {id:"evt_001",claim:"南京博物院《江南春》等藏品流向拍卖",x:"网络",y:"事现鉴",z:"公众知情权",t:"2026-02-09",j:"中国",lon:105,lat:35,
+  desc:"捐赠藏品被质疑失踪后现身拍卖，公众交叉验证推动省级调查组通报，24 人被查、4 幅追回。",
+  evi:["工信部备案信息 / 多家媒体报道截图"],rho:0.91,support:128,question:6,status:"verified"},
+ {id:"evt_004",claim:"耿同学学术打假：图像数据造假交叉验证",x:"学术圈",y:"事现鉴",z:"基本事实",t:"2026-03-20",j:"中国",lon:105,lat:35,
+  desc:"多名网友交叉验证某论文图像数据疑似造假，推动作者回应与机构介入。",
+  evi:["论文原文 / 网友比对图 / 机构通报"],rho:0.88,support:212,question:4,status:"verified"}
+];
+
+let events = loadEvents();
+let contrib = loadContrib();
+let curFilter = 'all';
+
+function loadEvents(){ try{ const s=localStorage.getItem('sxj_events'); if(s) return JSON.parse(s);}catch(e){} return SEED.slice(); }
+function saveEvents(){ try{ localStorage.setItem('sxj_events', JSON.stringify(events)); }catch(e){} }
+function loadContrib(){ try{ const s=localStorage.getItem('sxj_contrib'); if(s) return JSON.parse(s);}catch(e){} return []; }
+function saveContrib(){ try{ localStorage.setItem('sxj_contrib', JSON.stringify(contrib)); }catch(e){} }
+function logContrib(type, text){ contrib.unshift({type, text, t:new Date().toISOString().slice(0,10)}); if(contrib.length>50)contrib.pop(); saveContrib(); renderContrib(); }
+
+/* ============ ρ 颜色（光锥曲率色块） ============ */
+function rhoColor(rho){
+  // 灰 -> 金 -> 红
+  const lo=[154,160,166], mid=[201,162,75], hi=[216,90,48];
+  let c;
+  if(rho<0.5){ const k=rho/0.5; c=lo.map((v,i)=>Math.round(v+(mid[i]-v)*k)); }
+  else { const k=(rho-0.5)/0.5; c=mid.map((v,i)=>Math.round(v+(hi[i]-v)*k)); }
+  return `rgb(${c[0]},${c[1]},${c[2]})`;
+}
+
+/* ============ 世界地图（合规示意图·中国含港澳台） ============ */
+function worldMapSVG(j, lon, lat, w, h){
+  w=w||320; h=h||160;
+  const W=320,H=160;
+  const proj=(lo,la)=>[ (lo+180)/360*W, (90-la)/180*H ];
+  // 大陆示意（极简、无标注，仅作世界背景）
+  const blobs={
+    na:[[-160,65],[-140,60],[-125,48],[-120,35],[-105,25],[-95,30],[-80,28],[-75,45],[-85,55],[-100,60],[-125,65]],
+    sa:[[-80,10],[-60,5],[-50,-10],[-40,-22],[-55,-35],[-70,-50],[-75,-30],[-80,-10]],
+    af:[[-15,35],[10,35],[30,32],[45,12],[50,0],[40,-15],[25,-34],[15,-30],[10,-5],[-10,5],[-17,15]],
+    eu:[[-10,40],[5,40],[20,40],[35,45],[40,55],[25,60],[5,55],[-5,45]],
+    au:[[115,-20],[130,-12],[145,-15],[150,-30],[140,-38],[120,-35],[113,-25]]
+  };
+  const china=[[78,35],[80,30],[85,28],[90,30],[96,28],[100,22],[108,21],[110,20],[118,22],[122,30],[121,38],[120,40],[122,45],[130,48],[127,53],[120,53],[115,48],[110,45],[105,48],[100,42],[95,45],[88,48],[82,45],[78,40]];
+  const taiwan=[[120,22],[122,22],[122,25],[120,25]];
+  const hainan=[[109,18.5],[111,18.5],[111,20],[109,20]];
+  const poly=(pts)=>pts.map(p=>proj(p[0],p[1]).map(n=>n.toFixed(1)).join(',')).join(' ');
+  let grid='';
+  for(let gx=0;gx<=W;gx+=40) grid+=`<line x1="${gx}" y1="0" x2="${gx}" y2="${H}" stroke="#d6e0ea" stroke-width="0.5"/>`;
+  for(let gy=0;gy<=H;gy+=32) grid+=`<line x1="0" y1="${gy}" x2="${W}" y2="${gy}" stroke="#d6e0ea" stroke-width="0.5"/>`;
+  let others='';
+  for(const k in blobs) others+=`<polygon points="${poly(blobs[k])}" fill="#dfe7ee" stroke="#cdd8e2" stroke-width="0.5"/>`;
+  const cnFill='url(#cngrad)';
+  const [mx,my]=proj(lon,lat);
+  // 法域标签位置
+  const isCN = (j==='中国');
+  return `<svg viewBox="0 0 ${W} ${H}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="cngrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#8E1F1F"/>
+      </linearGradient>
+    </defs>
+    <rect x="0" y="0" width="${W}" height="${H}" fill="#eef3f8" rx="6"/>
+    ${grid}${others}
+    <polygon points="${poly(china)}" fill="${cnFill}" stroke="#5e1414" stroke-width="1"/>
+    <polygon points="${poly(taiwan)}" fill="${cnFill}" stroke="#5e1414" stroke-width="1"/>
+    <polygon points="${poly(hainan)}" fill="${cnFill}" stroke="#5e1414" stroke-width="1"/>
+    <text x="${(proj(105,30))[0]}" y="${(proj(105,30))[1]}" font-size="9" fill="#fff" font-weight="700" text-anchor="middle">中国</text>
+    <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="6" fill="none" stroke="#D85A30" stroke-width="1.5"/>
+    <circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="3" fill="#D85A30"/>
+    <text x="6" y="${H-6}" font-size="8" fill="#8A8170">示意图·非精确国界（台湾、香港、澳门属中国）</text>
+  </svg>`;
+}
+
+/* ============ 光锥点阵 ============ */
+function drawCone(){
+  const cv=document.getElementById('cone'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#3a1212'); g.addColorStop(1,'#1c0808');
+  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+  // 光锥（过去锥，向下张开）
+  const cx=W/2, apexY=14, baseY=H-14;
+  ctx.beginPath(); ctx.moveTo(cx,apexY); ctx.lineTo(8,baseY); ctx.lineTo(W-8,baseY); ctx.closePath();
+  ctx.fillStyle='rgba(201,162,75,0.06)'; ctx.fill();
+  ctx.strokeStyle='rgba(201,162,75,0.35)'; ctx.lineWidth=1; ctx.stroke();
+  // t 轴
+  ctx.strokeStyle='rgba(243,230,196,0.5)'; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(cx,apexY); ctx.lineTo(cx,baseY); ctx.stroke(); ctx.setLineDash([]);
+  // 点
+  const pts=events.filter(e=>passFilter(e));
+  pts.forEach((e,idx)=>{
+    const d = pts.length>1 ? idx/(pts.length-1) : 0.5; // 时间深度
+    const halfW = (baseY-apexY)*d*0.92;
+    // 用 id 哈希做横向抖动，保证分布稳定
+    let hsh=0; for(const ch of e.id) hsh=(hsh*31+ch.charCodeAt(0))>>>0;
+    const rnd=(hsh%1000)/1000; // 0..1
+    const x = cx + (rnd-0.5)*2*halfW;
+    const y = apexY + d*(baseY-apexY);
+    const r = 3 + e.rho*9;
+    const col = rhoColor(e.rho);
+    ctx.beginPath(); ctx.arc(x,y,r+3,0,Math.PI*2);
+    ctx.fillStyle = col.replace('rgb','rgba').replace(')',',0.18)'); ctx.fill();
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle = col; ctx.fill();
+    ctx.lineWidth=1; ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.stroke();
+  });
+  // 标注
+  ctx.fillStyle='rgba(243,230,196,0.7)'; ctx.font='10px sans-serif';
+  ctx.fillText('t 时间 ↓', cx+6, apexY+14);
+}
+
+/* ============ 过滤 ============ */
+function passFilter(e){ if(curFilter==='all')return true; if(curFilter==='cn')return e.j==='中国'; if(curFilter==='intl')return e.j!=='中国'; return true; }
+function setFilter(f){ curFilter=f; document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.dataset.f===f)); renderFeed(); drawCone(); }
+
+/* ============ 渲染 feed ============ */
+const feedEl=document.getElementById('feed');
+function renderFeed(){
+  const list=events.filter(passFilter);
+  if(!list.length){ feedEl.innerHTML='<div class="note">此桌暂无事现。去「摆事现」放第一个点。</div>'; return; }
+  feedEl.innerHTML=list.map(e=>`
+    <div class="evt" onclick="openDetail('${e.id}')" style="border-left-color:${rhoColor(e.rho)};">
+      <div class="row1"><span class="tag" style="background:${e.status==='verified'?'var(--ok)':'var(--neutral)'}">${e.status==='verified'?'已验证':'验证中'}</span><span class="rho">ρ ${e.rho}</span></div>
+      <h3>${e.claim}</h3>
+      <div class="desc">${e.desc}</div>
+      <div class="foot">
+        <div class="minimap">${worldMapSVG(e.j, e.lon, e.lat, 64, 34)}</div>
+        <div class="rho-row">
+          <div class="curv" style="background:${rhoColor(e.rho)}"></div>
+          <div class="rho-bar"><i style="width:${Math.round(e.rho*100)}%;background:${rhoColor(e.rho)}"></i></div>
+          <span class="rho-num">${e.rho}</span>
+        </div>
+      </div>
+      <div class="muted" style="font-size:10.5px;margin-top:6px;">${e.x} · ${e.y} · ${e.t} · ${e.j==='中国'?'🌐 中国':'🌐 国际'}</div>
+    </div>`).join('');
+}
+
+/* ============ 贡献值 Tab ============ */
+function renderContrib(){
+  document.getElementById('st-place').textContent = events.filter(e=>e.byMe).length;
+  document.getElementById('st-vote').textContent  = contrib.filter(c=>c.type==='vote').length;
+  document.getElementById('st-adj').textContent   = contrib.filter(c=>c.type==='adjud').length;
+  document.getElementById('st-cert').textContent  = contrib.filter(c=>c.type==='cert').length;
+  const list=document.getElementById('contrib-list');
+  if(!contrib.length){ list.innerHTML='<div class="note">还没有贡献记录。摆一条事现、投一票、或导出一张证书，都会记在这里。</div>'; return; }
+  const map={place:'摆上桌',vote:'支持/质疑',adjud:'裁定',cert:'导出证书'};
+  list.innerHTML=contrib.map(c=>`
+    <div class="contrib-item"><div class="dot"></div>
+      <div><div class="c-t">${map[c.type]||c.type}</div><div class="c-m">${c.text} · ${c.t}</div></div>
+    </div>`).join('');
+}
+
+/* ============ 详情 ============ */
+const detailBody=document.getElementById('detail-body');
+function openDetail(id){
+  const e=events.find(x=>x.id===id); if(!e)return;
+  const ledger=calcLedger(e);
+  const isCN=e.j==='中国';
+  detailBody.innerHTML=`
+    <div class="det-head"><span class="tag" style="background:${e.status==='verified'?'var(--ok)':'var(--neutral)'}">${e.status==='verified'?'已验证':'验证中'}</span><span class="rho">ρ ${e.rho}</span></div>
+    <h2>${e.claim}</h2>
+    <div class="meta">${e.x} · ${e.y} · ${e.z} · ${e.t}</div>
+    <div class="block"><div class="bt">法域 j · 世界地图</div>
+      ${worldMapSVG(e.j, e.lon, e.lat, 320, 160)}
+    </div>
+    <div class="block"><div class="bt">坐标（光锥上的点）</div>
+      <div class="coord">
+        <span class="k">x 平台</span><span class="v">${e.x}</span>
+        <span class="k">y 账号</span><span class="v">${e.y}</span>
+        <span class="k">z 上下文</span><span class="v">${e.z}</span>
+        <span class="k">t 时间</span><span class="v">${e.t}</span>
+        <span class="k">j 法域</span><span class="v">${e.j}${isCN?'（含港澳台）':''}</span>
+        <span class="k">ρ 密度</span><span class="v" style="color:${rhoColor(e.rho)};font-weight:800;">${e.rho}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+        <span style="font-size:11px;color:var(--muted);">光锥曲率色块</span>
+        <div class="curv" style="width:22px;height:22px;border-radius:6px;background:${rhoColor(e.rho)}"></div>
+        <span style="font-size:11px;color:var(--muted);">ρ 密度条</span>
+        <div class="rho-bar" style="flex:1;height:10px;"><i style="width:${Math.round(e.rho*100)}%;background:${rhoColor(e.rho)}"></i></div>
+      </div>
+    </div>
+    <div class="block"><div class="bt">事现描述</div><p>${e.desc}</p></div>
+    <div class="block"><div class="bt">证据（SHA-256）</div>${e.evi.map(x=>`<div class="hash">${x}</div>`).join('')}</div>
+    <div class="block"><div class="bt">ledger_sha256（冻结指纹）</div><div class="hash">${ledger}</div></div>
+    <div class="block"><div class="bt">验证流（桌上对话）</div>
+      <div class="verify-row">
+        <div class="vbtn sup" onclick="vote('${e.id}','sup')">支持 ${e.support}</div>
+        <div class="vbtn chg" onclick="vote('${e.id}','chg')">质疑 ${e.question}</div>
+      </div>
+    </div>
+    <div class="adjud">
+      <div class="bt">你的裁定（人类保留 · 仅你可点）</div>
+      <span class="abtn" onclick="adjud('${e.id}','成立')">成立</span>
+      <span class="abtn" onclick="adjud('${e.id}','不成立')">不成立</span>
+      <span class="abtn" onclick="adjud('${e.id}','待补证')">待补证</span>
+    </div>
+    <button class="btn gold" style="margin-top:14px;" onclick="genOne('${e.id}')">⤓ 导出这张证书（自包含 HTML）</button>
+  `;
+  goTab('detail');
+}
+function vote(id,kind){
+  const e=events.find(x=>x.id===id);
+  if(kind==='sup')e.support++; else e.question++;
+  logContrib('vote', (kind==='sup'?'支持':'质疑')+'：'+e.claim);
+  saveEvents(); renderFeed(); drawCone();
+  alert((kind==='sup'?'已支持':'已质疑')+'：'+e.claim);
+}
+function adjud(id,verdict){
+  const e=events.find(x=>x.id===id);
+  e.status=verdict==='成立'?'verified':(verdict==='不成立'?'invalid':'recording');
+  logContrib('adjud','裁定「'+verdict+'」：'+e.claim);
+  saveEvents(); renderFeed(); drawCone(); openDetail(id);
+}
+function calcLedger(e){
+  return sha256(JSON.stringify({id:e.id,claim:e.claim,x:e.x,y:e.y,z:e.z,t:e.t,j:e.j,evi:e.evi}));
+}
+
+/* ============ 摆事现 ============ */
+function lonlatForJ(j){ if(j==='中国')return [105,35]; if(j==='国际')return [-40,48]; return [10,20]; }
+function livePreview(){
+  const claim=document.getElementById('f-claim').value.trim();
+  const x=document.getElementById('f-x').value, y=document.getElementById('f-y').value,
+        z=document.getElementById('f-z').value, j=document.getElementById('f-j').value,
+        evi=document.getElementById('f-evi').value.trim();
+  if(!claim||!evi){document.getElementById('p-ledger').textContent='填写后实时计算…';document.getElementById('p-rho').textContent='—';document.getElementById('p-rho-bar').style.width='0%';return;}
+  const ledger=sha256(JSON.stringify({claim,x,y,z,j,evi}));
+  document.getElementById('p-ledger').textContent=ledger;
+  const rho=(0.85*0.9*0.7*1.0).toFixed(4);
+  document.getElementById('p-rho').textContent=rho;
+  document.getElementById('p-rho-bar').style.width=Math.round(rho*100)+'%';
+}
+['f-claim','f-x','f-y','f-z','f-evi','f-j'].forEach(id=>document.getElementById(id).addEventListener('input',livePreview));
+function placeOnTable(){
+  const claim=document.getElementById('f-claim').value.trim();
+  const evi=document.getElementById('f-evi').value.trim();
+  if(!claim||!evi){alert('先填主张和证据');return;}
+  const t=new Date().toISOString().slice(0,10);
+  const j=document.getElementById('f-j').value;
+  const [lon,lat]=lonlatForJ(j);
+  const e={id:'evt_'+Date.now(),claim,x:document.getElementById('f-x').value,y:document.getElementById('f-y').value,
+    z:document.getElementById('f-z').value,j,t,lon,lat,desc:claim,evi:[evi],rho:0.60,support:0,question:0,status:'recording',byMe:true};
+  events.unshift(e); saveEvents();
+  logContrib('place','摆上桌：'+claim);
+  alert('已摆上桌 ✓（ledger_sha256 已冻结）');
+  document.getElementById('f-claim').value=''; document.getElementById('f-evi').value=''; livePreview();
+  renderFeed(); drawCone(); goTab('gongji');
+}
+
+/* ============ 证书导出（自包含双语 HTML） ============ */
+function certHTML(e){
+  const ledger=calcLedger(e);
+  const isCN=e.j==='中国';
+  const mapSVG=worldMapSVG(e.j,e.lon,e.lat,320,160);
+  const rho=String(e.rho);
+  const today=new Date().toISOString().slice(0,10);
+  return `<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>事现鉴 · 事现证书 ${e.id}</title><style>
+ body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e9e2d2;margin:0;padding:24px;color:#241a14;}
+ .cert{max-width:680px;margin:0 auto;background:#FBF7EE;border:3px double #A67C2E;border-radius:14px;padding:30px 34px;box-shadow:0 10px 40px rgba(0,0,0,.2);position:relative;}
+ .cert::before{content:"";position:absolute;inset:8px;border:1px solid #C9A24B;border-radius:8px;pointer-events:none;}
+ .tt{text-align:center;font-size:22px;font-weight:900;color:#8E1F1F;letter-spacing:3px;margin-bottom:2px;}
+ .ts{text-align:center;font-size:11px;color:#8A8170;letter-spacing:2px;margin-bottom:18px;}
+ .row{display:flex;gap:18px;align-items:flex-start;margin-bottom:14px;}
+ .claim{font-size:17px;font-weight:800;color:#241a14;line-height:1.5;margin-bottom:6px;}
+ .desc{font-size:13px;color:#5a5248;line-height:1.7;}
+ .coord{background:#f3e6c4;border-radius:8px;padding:12px 14px;font-size:12.5px;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;}
+ .coord b{color:#A67C2E;}
+ .hash{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:#8A8170;word-break:break-all;background:#f6f2e9;border:1px dashed #E4D8C2;border-radius:6px;padding:8px;}
+ .rho{font-size:13px;font-weight:800;color:#8E1F1F;}
+ .seal{width:84px;height:84px;border-radius:50%;border:3px solid #8E1F1F;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#8E1F1F;flex:0 0 auto;background:radial-gradient(circle at 40% 35%,#f3e6c4,#e9d9b0);box-shadow:inset 0 0 0 2px #C9A24B;}
+ .seal .s1{font-size:11px;font-weight:800;letter-spacing:1px;}.seal .s2{font-size:15px;font-weight:900;}.seal .star{font-size:13px;margin-top:1px;}
+ .foot{margin-top:18px;border-top:1px solid #E4D8C2;padding-top:10px;font-size:10.5px;color:#8A8170;line-height:1.6;}
+ .en{margin-top:14px;padding:12px 14px;background:#f6f4ee;border-left:3px solid #2F6FED;font-size:11.5px;color:#3a4048;line-height:1.7;}
+ .en b{color:#2F6FED;}
+</style></head><body>
+<div class="cert">
+  <div class="tt">事现鉴 · 事现证书</div>
+  <div class="ts">SXJ · CERTIFICATE OF VERIFIED EVENT &nbsp;|&nbsp; root→spec (Gzz)</div>
+  <div class="claim">${e.claim}</div>
+  <div class="row">
+    <div style="flex:1;">
+      <div class="desc">${e.desc}</div>
+      <div style="margin-top:12px;">${mapSVG}</div>
+      <div style="font-size:11px;color:#8A8170;margin-top:4px;">法域 j：${e.j}${isCN?'（含港澳台）':''} · 坐标 (${e.lon}, ${e.lat})</div>
+    </div>
+    <div class="seal"><div class="s1">事现鉴</div><div class="s2">鉴</div><div class="star">★</div><div class="s1" style="font-size:8px;">SXJ</div></div>
+  </div>
+  <div class="coord">
+    <b>x 平台</b><span>${e.x}</span><b>y 账号</b><span>${e.y}</span>
+    <b>z 上下文</b><span>${e.z}</span><b>t 时间</b><span>${e.t}</span>
+    <b>j 法域</b><span>${e.j}</span><b>ρ 可验证密度</b><span class="rho">${rho}</span>
+  </div>
+  <div style="margin-top:12px;font-size:12px;font-weight:800;color:#8E1F1F;">ledger_sha256（冻结指纹）</div>
+  <div class="hash" style="margin-top:4px;">${ledger}</div>
+  <div class="en">
+    <b>Verification note:</b> This certificate is a self-contained, offline HTML artifact of a single verified event under the SXJ-MAIP/1.0 protocol. It depends on no platform link (bypasses G-9). Verify by recomputing the SHA-256 of the enclosed envelope and comparing with <b>ledger_sha256</b> above. The table is neutral and international by birth; jurisdiction dimension <b>j</b> is shown on the map. Taiwan, Hong Kong and Macau are parts of China.
+  </div>
+  <div class="foot">签发：事现鉴（root→spec·Gzz 中立桌子） · 锚点：UDHR 第22条（全球社保） · 日期：${today}<br>本证书只记录可验证事实，不构成任何国家法律或社会保障制度的替代。协议由平台共定后，事现鉴自动退场。</div>
+</div></body></html>`;
+}
+function download(filename, text){
+  const blob=new Blob([text],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 1500);
+}
+function genOne(id){
+  const e=events.find(x=>x.id===id); if(!e)return;
+  download('SXJ-证书-'+e.id+'.html', certHTML(e));
+  logContrib('cert','导出证书：'+e.claim);
+  alert('已生成自包含证书：SXJ-证书-'+e.id+'.html\n（双击打开即验真，不依赖任何平台链接）');
+}
+function genPackage(){
+  // 批量：把当前过滤下的事现都打包进一个证书册
+  const list=events.filter(passFilter);
+  let html='<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><title>事现鉴 · 证书册</title></head><body style="font-family:sans-serif;background:#e9e2d2;padding:20px;">';
+  html+='<h1 style="color:#8E1F1F;text-align:center;">事现鉴 · 事现证书册</h1>';
+  list.forEach(e=>{ html+='<div style="max-width:680px;margin:0 auto 20px;background:#FBF7EE;border:3px double #A67C2E;border-radius:12px;padding:18px;">'+certInner(e)+'</div>'; });
+  html+='</body></html>';
+  download('SXJ-证书册.html', html);
+  logContrib('cert','导出证书册（'+list.length+' 条）');
+  alert('已生成证书册，含 '+list.length+' 条事现。');
+}
+function certInner(e){
+  const ledger=calcLedger(e);
+  return `<h2 style="color:#241a14;">${e.claim}</h2>
+   <p style="font-size:13px;color:#5a5248;">${e.desc}</p>
+   ${worldMapSVG(e.j,e.lon,e.lat,320,160)}
+   <p style="font-size:11px;color:#8A8170;">法域 j：${e.j} · ρ ${e.rho}</p>
+   <div style="background:#f3e6c4;border-radius:8px;padding:10px;font-size:12px;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;">
+     <b style="color:#A67C2E;">x</b><span>${e.x}</span><b style="color:#A67C2E;">y</b><span>${e.y}</span>
+     <b style="color:#A67C2E;">z</b><span>${e.z}</span><b style="color:#A67C2E;">t</b><span>${e.t}</span>
+     <b style="color:#A67C2E;">j</b><span>${e.j}</span></div>
+   <div style="font-family:monospace;font-size:10px;color:#8A8170;word-break:break-all;background:#f6f2e9;border:1px dashed #E4D8C2;border-radius:6px;padding:8px;margin-top:8px;">${ledger}</div>`;
+}
+
+/* ============ 包裹列表 ============ */
+function renderPkg(){
+  document.getElementById('pkg-list').innerHTML=events.map(e=>`
+    <div class="card" style="display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;" onclick="genOne('${e.id}')">
+      <div style="flex:1;"><div style="font-size:13.5px;font-weight:700;">${e.claim}</div><div class="muted" style="font-size:11px;margin-top:2px;">${e.j} · ρ ${e.rho} · 点此出证</div></div>
+      <span style="font-size:20px;color:var(--gold-deep);">⤓</span>
+    </div>`).join('');
+}
+
+/* ============ 导航 ============ */
+function goTab(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(name).classList.add('active');
+  document.querySelectorAll('.tabbar button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+  if(name==='gongji'){ renderFeed(); drawCone(); }
+  if(name==='gongxian') renderContrib();
+  if(name==='package') renderPkg();
+}
+document.querySelectorAll('.tabbar button').forEach(b=>b.onclick=()=>goTab(b.dataset.tab));
+
+/* ============ 初始化 ============ */
+renderFeed(); drawCone(); renderContrib(); renderPkg();
+</script>
+</body>
+</html>

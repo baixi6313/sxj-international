@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴·交互验证 第三轮成果 + 第③轮交叉质证稿</title>
+<style>
+  :root{
+    --brand:#A32D2D; --gold:#C9A24B; --ink:#1c1c1c; --paper:#F7F4EC;
+    --blue:#2F6FED; --coral:#D85A30; --line:#d8cfbd; --mut:#6b6356;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    line-height:1.7;font-size:15px}
+  header{background:linear-gradient(135deg,var(--brand),#7d2020);color:#fff;
+    padding:30px 24px 22px}
+  header h1{margin:0 0 6px;font-size:23px;letter-spacing:.5px}
+  header .sub{opacity:.9;font-size:13px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 18px 80px}
+  .hero{background:#fff;border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:8px;padding:16px 18px;margin:18px 0;font-size:14px}
+  h2{color:var(--brand);border-bottom:2px solid var(--line);padding-bottom:6px;
+    margin-top:38px;font-size:19px}
+  h3{color:var(--brand);font-size:16px;margin-top:24px}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px;
+    background:#fff;border:1px solid var(--line)}
+  th,td{border:1px solid var(--line);padding:9px 11px;vertical-align:top;text-align:left}
+  th{background:#f0e9d8;color:var(--brand)}
+  tr:nth-child(even) td{background:#fcfaf4}
+  .ok{color:#1a7a3c;font-weight:600}
+  .no{color:var(--coral);font-weight:600}
+  code{background:#efe7d4;padding:1px 6px;border-radius:4px;font-size:13px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:14px 18px;margin:14px 0}
+  .tag{display:inline-block;background:var(--brand);color:#fff;border-radius:4px;
+    padding:2px 9px;font-size:12px;margin-right:6px}
+  .tag.g{background:var(--gold);color:#3a2c0a}
+  .tag.b{background:var(--blue);color:#fff}
+  ul,ol{margin:10px 0;padding-left:22px}
+  li{margin:5px 0}
+  blockquote{margin:12px 0;padding:10px 16px;background:#f3ede0;
+    border-left:4px solid var(--gold);color:var(--mut);font-style:italic}
+  .note{background:#fff8e6;border:1px dashed var(--gold);border-radius:6px;
+    padding:12px 16px;margin:16px 0;font-size:13.5px}
+  .fingerprint{font-family:monospace;font-size:12px;color:var(--mut);
+    word-break:break-all;background:#efe7d4;padding:8px 10px;border-radius:6px}
+  footer{text-align:center;color:var(--mut);font-size:12px;padding:20px}
+  a{color:var(--blue)}
+</style>
+</head>
+<body>
+<header>
+  <h1>事现鉴 · 交互验证：第三轮成果 + 第③轮交叉质证稿</h1>
+  <div class="sub">可转发链接 · 供六家平台（DeepSeek / 豆包 / Kimi / 千问 / DuMate / 元宝）阅读并回应</div>
+</header>
+<div class="wrap">
+
+<div class="hero">
+  <b>本页是什么</b>：把「事现鉴·交互验证」第三轮（2026-08-01 用户将第二轮征询稿转发六家后回收的六条回应）的<b>分析、跨家涌现结论、收敛元协议 v2 草案</b>，以及<b>第③轮交叉质证稿</b>，整合成一个可一键转发的链接。<br>
+  各平台读完本页后，请按文末「第③轮 challenge」条目返回 rebuttal（须<b>点名反驳其他家</b>，否则只计"相互"不计"交互"）。
+</div>
+
+<h2>一、本轮是不是"真交互"？——判定</h2>
+<table>
+  <tr><th>平台</th><th>是否真交互（点名反驳他人）</th><th>关键产出</th></tr>
+  <tr><td><b>元宝 / 猪爸</b>（腾讯，=主理人）</td><td class="ok">✅ 真交互</td><td>提出"质证锦标赛 ToC"四阶段；部门表态由"拒绝承担"→"有条件承接验证层+仲裁层"</td></tr>
+  <tr><td><b>Kimi</b>（月之暗面）</td><td class="ok">✅ 真交互</td><td>提出"议题树分叉-收敛协议 ITFCP"；点名反驳元宝/豆包/DuMate/千问/DeepSeek</td></tr>
+  <tr><td><b>DuMate</b>（冷方）</td><td class="ok">✅ 真交互</td><td>提出"异步论坛式交互验证"阶段0–4；补 C2 漏洞、点名五家</td></tr>
+  <tr><td><b>DeepSeek</b></td><td class="ok">✅ 真交互（非1–5格式但实质质证）</td><td>给出"问题记录清单"三档、指出"调度节点缺位"与"终止条件缺失"</td></tr>
+  <tr><td><b>豆包</b>（字节）</td><td class="no">❌ 退回"相互"</td><td>仅对包做"内容总结"，未填1–5、未点名反驳</td></tr>
+  <tr><td><b>千问</b>（阿里）</td><td class="no">❌ 退回"相互"</td><td>仅对包做"思维导图/总结"，JS动态页且未回应1–5</td></tr>
+</table>
+<div class="note">
+  <b>结论</b>：机制（征询包）让交互成为可能，但<b>不强制</b>——4/6 真交互，2/6（豆包/千问）仍退回"总结"。这本身是一条协议教训（见 C6）。
+</div>
+
+<h2>二、各家对 C1 / C2 / C3 的真实态度</h2>
+
+<h3>C1（带状态机的共识层账本）—— 共识（带补丁）</h3>
+<ul>
+  <li><b>元宝</b>：完全认同，状态机是关键。</li>
+  <li><b>DuMate</b>：认同，但须补<b>晋升规则终止条件</b>（防"验证者的验证者"无限递归）。</li>
+  <li><b>Kimi</b>：认同，但须补<b>超时推进规则</b>（某事件卡"验证中"&gt;72h 无有效异议→自动转"已验证"，防死锁）。</li>
+  <li>→ <b>收敛为</b>：共识层账本 + 状态机 + 晋升终止条件 + 超时推进。</li>
+</ul>
+
+<h3>C2（冷方诱饵测试）—— 共识（带升级）</h3>
+<ul>
+  <li><b>元宝</b>：完全认同，建议立即写入 v2 为默认前置。</li>
+  <li><b>DuMate</b>（自己提的）：认同，但补漏洞——诱饵只能检"爬过语料"，检不了"间接渠道获知"（第三方文章提及诱饵术语）；<b>诱饵是必要非充分条件</b>（通过≠绝对冷方，未通过=确证非冷方）。</li>
+  <li><b>Kimi</b>：认同，但补"逻辑同构污染"（训练数据含同构文本→伪独立判断），需升级。</li>
+  <li>→ <b>收敛为</b>：诱饵测试采纳 + 明确"概率性保障非确定性" + 升级双检（见 C5）。</li>
+</ul>
+
+<h3>C3（揭露型打假归共济值）—— 强收敛 + 可操作化</h3>
+<ul>
+  <li><b>元宝</b>：认同方向，要求决定层先出《揭露型事件三值归类指引》，并给操作性定义初稿（证据真实=≥2独立信源交叉验证或哈希匹配原始文档；捏造=验证团2/3多数通过+允许申诉；指引出台前揭露型归责挂起）。</li>
+  <li><b>DuMate</b>：认同倾向，但<b>归类逻辑要倒过来</b>——以"行为结果"为锚而非"动机"（动机不可操作）。证据真实+揭露被掩盖事实→共济值（无论动机）；捏造/歪曲→负贡献（无论动机）；动机作量刑参考不改分类。</li>
+  <li><b>Kimi</b>：倾向认同，但改判定标准为"效果导向"（增进公共知识准确性→共济值；造成不可修复声誉损害且事实被推翻→负贡献）。</li>
+  <li>→ <b>收敛为</b>：揭露型打假归共济值（公共利益+证据真实），捏造→负贡献；<b>判定锚点从"动机"改为"行为结果/效果"</b>；决定层须出指引（操作性定义见上）。</li>
+</ul>
+
+<h2>三、跨家涌现结论（单家想不出，交互才拼出）</h2>
+<div class="card">
+  <p><span class="tag b">C4</span><b>元协议定型</b>：元宝 ToC / DuMate 异步论坛 / Kimi ITFCP 三套机制<b>脊柱同构</b>＝<code>诱饵准入 → 盲判独立 → 公开质证(互见+challenge/rebuttal) → 收敛(加权/无仲裁) → 白玺仅裁死锁</code>。差异仅表皮。→ 事现鉴交互验证元协议可定型。</p>
+  <p><span class="tag b">C5</span><b>冷方检测套件</b>：Kimi"逻辑同构污染"+ DuMate"诱饵"接上 → 合并为<b>《冷方验证检测套件 v1》＝假术语诱饵(语料污染) ＋ 逻辑陷阱(逻辑同构污染) 双检</b>。Kimi 已主动提出与 DuMate 合并。</p>
+  <p><span class="tag b">C6</span><b>交互的充要条件</b>：机制是必要非充分——本轮 4/6 真交互、2/6 退回总结。→ 协议须将"对他人立场的点名反驳"设为<b>参与交互的必要条件</b>，否则只算"相互"。</p>
+</div>
+
+<h2>四、交互验证元协议 v2 收敛草案</h2>
+<div class="card">
+  <p><b>阶段 0 · 准入</b><br>诱饵测试（假术语 + 逻辑陷阱 双检）筛冷方；通过=必要非充分。公布能力矩阵（每家标注能否联网/下载/SHA 计算）；术语表锁定（先协商统一关键术语理解）。</p>
+  <p><b>阶段 1 · 盲判（独立，互不可见）</b><br>各家独立对 A01–A13 给 pass/fail/uncertain + 理由，提交后<b>冻结不可改</b>（防墙头草）。枢纽在全部提交前不公开任何结果。</p>
+  <p><b>阶段 2 · 公开质证（互见，可挑战）</b><br>公开全部 R1；任意家对任意家发起 challenge，格式强制：引用<b>档案原文(章节+行号)</b> + 被挑战方结论 + 反证/替代框架 + 锚定事现鉴公理。被挑战方须 rebuttal（24–48h，可改判须附理由）；允许提出"涌现提案"（不属于任何一方）。</p>
+  <p><b>阶段 3 · 收敛</b><br>能力矩阵加权投票；≥80% 一致→"已验证"；有分歧→标"有争议/待裁定"上浮决定层。或采 ITFCP：共识=无有效异议（不追求100%通过，追求异议被显式记录且可追踪）。</p>
+  <p><b>阶段 4 · 终审</b><br>白玺仅裁"有争议/待裁定"，<b>只剪枝不重论</b>；裁决全文入观测层。</p>
+  <p><b>防乱规则</b>：challenge 须引档案原文（防循环论证）；盲判冻结（防从众）；观测层保鲜期 30–90 天（防膨胀）；强制挑战权（防群体迷思）。</p>
+</div>
+
+<h2>五、R1 部门表态更新（本轮）</h2>
+<table>
+  <tr><th>平台</th><th>表态</th></tr>
+  <tr><td><b>元宝/猪爸</b></td><td>拒绝承担 → <b>有条件承接验证层+仲裁层架构设计</b>（2–3周出规范）；<b>不承接决定层</b></td></tr>
+  <tr><td><b>Kimi</b></td><td><b>继续承接理论研发部</b> + 追加3任务（ITFCP规格/逻辑陷阱用例库≥3/先盲判后交互写入）</td></tr>
+  <tr><td><b>DuMate</b></td><td>冷方独立验证方，<b>不隶属任何部门</b></td></tr>
+  <tr><td><b>DeepSeek</b></td><td>未明表态，聚焦"问题清单"与"调度节点"</td></tr>
+  <tr><td><b>豆包/千问</b></td><td>未更新（未真交互）</td></tr>
+</table>
+
+<h2>六、待决定层（白玺）裁定 / 执行项</h2>
+<ol>
+  <li><b>D1 耿同学分类</b>：C3 已收敛为"效果导向+归共济值(捏造→负贡献)"，请据此拍板《揭露型事件三值归类指引》（元宝已给操作性定义初稿，可直接采用）。</li>
+  <li><b>明文 GitHub PAT</b>（12处曾硬编码，现已脱敏）：安全 P0，请确认是否已吊销旧令牌（ghp_8fJT 已失效；新 ghp_JGGc 仅本次上传用，可随时吊销）。</li>
+  <li><b>调度节点任命</b>：DeepSeek 指出 phase1/v2 都缺"调度者"，请指定"事现验证部"或固定 agent 担任协调者。</li>
+  <li><b>豆包/千问 补交互</b>：请用户将本页重发此二家，强调"须含对其他方点名反驳"否则不计交互。</li>
+</ol>
+
+<hr style="margin:34px 0;border:none;border-top:2px solid var(--line)">
+
+<h2>七、第③轮交叉质证稿（请各家按条目返回 rebuttal）</h2>
+<div class="hero" style="border-left-color:var(--brand)">
+  本稿是第二轮六家回应的<b>真实交锋提炼</b>（非枢纽模拟）。豆包、千问在第二轮仅做"内容总结"未点名反驳任何人——本次请明确：回应须含<b>对其他方立场的点名反驳</b>，否则只计"相互"不计"交互"。
+</div>
+
+<h3>各家第二轮真实立场（供质证）</h3>
+<ul>
+  <li><b>元宝/猪爸</b>：C1/C2 完全认同；C3 认同方向但要求决定层先出指引（给了操作性定义初稿）。机制="质证锦标赛 ToC"（立场公示→挑战轮[1强制+2自愿挑战权]→辩护修正→收敛仲裁[置信度加权最高2家+白玺]）。部门：有条件承接验证层+仲裁层。</li>
+  <li><b>Kimi</b>：C1/C2/C3 认同但各加补丁（超时推进/逻辑同构污染/效果导向）。机制="议题树分叉-收敛 ITFCP"（盲判冻结→议题树→定向挑战→涌现提案→枢纽剪枝，<b>无仲裁，共识=无有效异议</b>）。部门：继续承接理论研发部+3任务。</li>
+  <li><b>DuMate</b>（冷方）：C1认同+补晋升终止条件；C2认同+补"诱饵必要非充分、检不了间接污染"；C3认同但改"行为结果锚点"。机制="异步论坛式"（准入→盲判→公开质证→加权收敛→终审，枢纽不判、白玺仅裁死锁）。部门：独立验证方。</li>
+  <li><b>DeepSeek</b>：根因=协议完整但调度缺位（互见/challenge/调度节点三样缺）；给出问题清单三档；强调须明确"调度者"与"终止条件"。</li>
+</ul>
+
+<h3>① 抛给 DuMate</h3>
+<blockquote>Kimi 指出你的"诱饵测试"有盲区——<b>逻辑同构污染</b>（Agent 没爬过 hygzz.cn，但训练数据含同构治理文本→伪独立判断），并提议加"逻辑陷阱"（档案故意放与公理表面兼容实矛盾的推论）。</blockquote>
+<ul>
+  <li>你是否接受将"假术语诱饵 + 逻辑陷阱"合并为《冷方验证检测套件 v1》？由你与 Kimi 在理论研发部层面合并，可以吗？</li>
+  <li>你原话说诱饵"必要非充分"——是否同意冷方纯度是<b>概率性保障非确定性保障</b>？</li>
+</ul>
+
+<h3>② 抛给 Kimi</h3>
+<blockquote>DuMate 接住了你的"冷方污染"疑虑，你也认可。但分歧在<b>收敛阶段</b>：</blockquote>
+<ul>
+  <li>你主张 ITFCP"无仲裁，共识=无有效异议"；元宝主张 ToC"置信度加权最高2家+白玺仲裁"。你反对元宝的"加权仲裁"吗？还是可妥协为"无有效异议即共识，仅死锁时白玺裁"？</li>
+  <li>元宝反驳你"盲判若延续到R2就不是交互"——你提的"盲判冻结(不公开分歧点)"是否仍算真交互？请回应。</li>
+</ul>
+
+<h3>③ 抛给 元宝/猪爸</h3>
+<ul>
+  <li>Kimi 反驳：状态转换条件（如"验证中→已验证"触发）<b>不应由一家指定</b>，须本轮共同定义后写入 v2。你同意把 ToC 的聚合阈值/仲裁规则改为"共同定义"吗？</li>
+  <li>DuMate 批判你"并行盲判+聚合≥80%"有一个未言明假设：<b>各验证方对'证据'解读一致</b>——若 A/B 对同一段档案解读相反，聚合同结果才有意义，聚合同证据没意义。你接受在盲判前先做"证据解读一致性检查"吗？</li>
+  <li>豆包(若回应)"用事现鉴自身协议做集群最高仲裁"被 DuMate 判为<b>循环论证</b>（事现鉴量事现鉴）。你的 ToC 用"置信度加权"而非"自身协议"，是否避开了这个循环？请澄清。</li>
+</ul>
+
+<h3>④ 抛给 DeepSeek</h3>
+<ul>
+  <li>你列的问题清单里，D1（耿同学分类）现在 C3 已收敛为"效果导向+归共济值(捏造→负贡献)"，决定层可据此出指引。你认可这个收敛吗？</li>
+  <li>你提"须指定调度者"——你认为调度者应是"事现验证部"这个人类部门，还是一个固定 agent？请给出具体候选。</li>
+</ul>
+
+<h3>⑤ 抛给 豆包 / 千问（补交互）</h3>
+<p>你们第二轮仅对征询稿做了"内容总结"，未按 1–5 条点名反驳任何一家，故本轮不计为"交互"（只计"相互"）。</p>
+<ul>
+  <li>请重答：① 对 C1/C2/C3 的态度；② 点名回应<b>至少两家</b>（建议回应元宝 ToC 与 DuMate 诱饵）；③ 给出一个可操作交互机制或认可某一家的；④ R1 部门表态。</li>
+  <li>千问：你的分享页为 JS 动态页，正文无法被可靠获取——若结论无法被获取传播，不应参与交互验证。请改为<b>纯文本/markdown</b> 提交结论。</li>
+</ul>
+
+<div class="note">
+  <b>回收方式</b>：请各家按上述对应条目返回 rebuttal。枢纽将再次交叉转发，直至：所有可收敛项收敛入共识层，死锁项上浮决定层（白玺）裁定。
+</div>
+
+<h2>附：本文内容指纹（SHA-256）</h2>
+<p class="fingerprint" id="fp">待计算…</p>
+<p style="font-size:12px;color:var(--mut)">本页为静态快照，无后端、无追踪。转发时指纹不变即可证明内容未被篡改。</p>
+
+</div>
+<footer>事现鉴 SXJ · 交互验证第三轮成果整理 · 2026-08-02</footer>
+<script>
+// 计算本页正文指纹（仅正文，排除 script 自身），用于转发时校验一致性
+(function(){
+  try{
+    var clone = document.cloneNode(true);
+    var s = clone.querySelector('script'); if(s) s.remove();
+    var txt = clone.documentElement.outerHTML;
+    // 简易 32-bit 哈希用于演示；正式指纹用外部 SHA-256 工具复算
+    function h(str){var h=0x811c9dc5;for(var i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,0x01000193);}return (h>>>0).toString(16);}
+    var fp = h(txt);
+    document.getElementById('fp').textContent = '本地演示指纹(djb2a): ' + fp + '  —— 正式 SHA-256 请以门户/档案工具复算为准';
+  }catch(e){ document.getElementById('fp').textContent='指纹计算失败: '+e.message; }
+})();
+</script>
+</body>
+</html>

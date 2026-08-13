@@ -1,0 +1,172 @@
+# -*- coding: utf-8 -*-
+"""生成《事现鉴/SXJ 组织架构与统一域名方案》自包含门户 SXJ-org-structure.html。
+- 内联 SVG 组织架构图（白玺决定层 → 四AI平台联合委员会 → 五部门 → 内容频道）
+- 五部门职责表 + 统一域名方案
+- 署名 WorkBuddy（AI 协作工程师）
+输出: sxj-verify/SXJ-org-structure.html
+"""
+import os
+
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "SXJ-org-structure.html")
+AUTHOR = "WorkBuddy（AI 协作工程师）"
+DATE = "2026-08-02"
+STATUS = "DRAFT · 待决定层（白玺）批准"
+
+# ---- 组织架构图 SVG（手工布局，绝对坐标）----
+# 画布 920 x 560
+W, H = 920, 560
+BLUE="#2F6FED"; GOLD="#C9A24B"; RED="#A32D2D"; INK="#1a1a1a"; LINE="#9aa3b2"
+
+def box(x, y, w, h, title, sub, fill, tcolor="#fff", scolor="rgba(255,255,255,.9)"):
+    return f'''<g>
+  <rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{fill}" stroke="rgba(0,0,0,.12)"/>
+  <text x="{x+w/2}" y="{y+30}" text-anchor="middle" font-size="15" font-weight="700" fill="{tcolor}">{title}</text>
+  <text x="{x+w/2}" y="{y+50}" text-anchor="middle" font-size="11.5" fill="{scolor}">{sub}</text>
+</g>'''
+
+# 节点坐标
+xi, yi, wi, hi = 28, 270, 168, 74
+xs = [xi + i*(wi+13) for i in range(5)]   # 5 部门 x
+cx = 460  # 中线
+
+nodes = []
+# 白玺
+nodes.append(box(360, 30, 200, 62, "白玺", "主理人 / 决定层", GOLD, "#3a2c00", "rgba(58,44,0,.8)"))
+# 委员会
+nodes.append(box(280, 140, 360, 62, "四AI平台联合委员会", "治理中枢 · 人类在环", BLUE))
+# 五部门
+dept_subs = ["theory.hygzz.top","collab.hygzz.top","tech.hygzz.top","gov.hygzz.top","review.hygzz.top"]
+dept_names = ["理论研发部","平台协作部","技术与产品部","治理与审计部","协议审核部（新）"]
+for i,(x,sub,nm) in enumerate(zip(xs, dept_subs, dept_names)):
+    nodes.append(box(x, yi, wi, hi, nm, sub, BLUE))
+# 内容频道带
+band = f'''<g>
+  <rect x="28" y="408" width="864" height="86" rx="10" fill="#eef1f8" stroke="{LINE}"/>
+  <text x="46" y="434" font-size="13.5" font-weight="700" fill="{INK}">统一门户与内容频道（原四域降为频道，根域 hygzz.top）</text>
+  <text x="46" y="458" font-size="12" fill="#444">国际 hygzz.com　·　国内官网 hygzz.cn　·　CV 履历 cv.hygzz.top　·　案例库 hygzz.中国</text>
+  <text x="46" y="480" font-size="11.5" fill="#666">品牌统一为「事现鉴 / SXJ」；四域不再各自为战，由五部门按职能统辖</text>
+</g>'''
+
+# 连接线
+def vline(x, y1, y2): return f'<line x1="{x}" y1="{y1}" x2="{x}" y2="{y2}" stroke="{LINE}" stroke-width="2"/>'
+def hline(y, x1, x2): return f'<line x1="{x1}" y1="{y}" x2="{x2}" y2="{y}" stroke="{LINE}" stroke-width="2"/>'
+
+edges = []
+edges.append(vline(cx, 92, 140))                         # 白玺 -> 委员会
+edges.append(vline(cx, 202, 240))                        # 委员会 -> 总线
+bus_y = 240
+left = xs[0] + wi/2; right = xs[-1] + wi/2
+edges.append(hline(bus_y, left, right))                  # 总线
+for x in xs:
+    edges.append(vline(x+wi/2, bus_y, yi))              # 总线 -> 各部门
+edges.append(vline(cx, yi+hi, 408))                      # 部门 -> 内容带
+
+svg = f'''<svg viewBox="0 0 {W} {H}" width="100%" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+  {"".join(edges)}
+  {"".join(nodes)}
+  {band}
+  <text x="{cx}" y="380" text-anchor="middle" font-size="11" fill="#888">↑ 五部门按职能统辖下方内容频道；保留事项 R-1..R-6 经治理与审计部上浮白玺决定层</text>
+</svg>'''
+
+# ---- 部门职责表 ----
+dept_rows = [
+ ("理论研发部", "theory.hygzz.top", "共创论演进、MAIP 协议维护与版本、三值模型/权重公式、学术对接与论文、七命题/五大公理维护", "Kimi（讨论中“理论研发部承接”）"),
+ ("平台协作部（对外协作部）", "collab.hygzz.top", "对接六家 AI 平台 + 冷方（DuMate/Gemini/Claude）、圆桌质证编排（ORC 角色）、跨平台交互、冷方诱饵池运营", "元宝（编排 Agent 候选）"),
+ ("技术与产品部", "tech.hygzz.top", "Android App / 微信小程序 / 门户 / 校验器(maip_check.py) / 数据层（双层账本）/ 四域网站运维", "WorkBuddy（工程落地）"),
+ ("治理与审计部", "gov.hygzz.top", "人类在环终审支持、负贡献归责、化债触发、审计日志、合规（UDHR22–25 / 社保法规）、保留事项 R-1..R-6 流程", "白玺决定层直辖"),
+ ("协议审核部（新增）", "review.hygzz.top", "协议（MAIP 等）修订稿的形式/学术/一致性预审，出具审核意见后提交白玺 enact；不替代决定层终审", "待定（建议由理论研发部+冷方联合初审）"),
+]
+rows_html = "\n".join(
+ f"<tr><td><b>{n}</b><br><span style='color:#2F6FED;font-size:12px'>{d}</span></td><td>{r}</td><td>{l}</td></tr>"
+ for (n,d,r,l) in dept_rows)
+
+# ---- 域名方案 ----
+domain_html = """
+<ul>
+  <li><b>统一根域：hygzz.top</b>（用户裁定）。原 CV 用途迁移至 <code>cv.hygzz.top</code>，hygzz.top 升为统一门户/根。</li>
+  <li><b>部门子域（混合制主干）</b>：theory / collab / tech / gov / review <code>.hygzz.top</code>，五部门各一。</li>
+  <li><b>原四域降为内容频道</b>：hygzz.com（国际）、hygzz.cn（国内官网）、cv.hygzz.top（CV 履历）、hygzz.中国（案例库）——统一在「事现鉴 / SXJ」品牌下，由五部门按职能统辖，不再各自为战。</li>
+  <li><b>原则</b>：对外只亮一个品牌（事现鉴/SXJ）+ 一个根域（hygzz.top）；子域表达职能，频道表达内容。避免四域口径撕裂。</li>
+</ul>"""
+
+PAGE = f'''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>事现鉴/SXJ · 组织架构与统一域名方案</title>
+<style>
+  :root {{ --blue:#2F6FED; --gold:#C9A24B; --red:#A32D2D; --ink:#1a1a1a; --bg:#f5f3ee; --card:#fff; --line:#e4e0d8; }}
+  * {{ box-sizing:border-box; }}
+  body {{ margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif; line-height:1.75; }}
+  header {{ background:linear-gradient(135deg,var(--blue),#1d4fb0); color:#fff; padding:28px 22px; }}
+  header .kicker {{ letter-spacing:2px; font-size:12px; opacity:.85; }}
+  header h1 {{ margin:6px 0 10px; font-size:22px; }}
+  header .meta {{ font-size:13px; opacity:.95; }}
+  .badge {{ display:inline-block; background:var(--gold); color:#3a2c00; border-radius:4px; padding:1px 9px; font-size:12px; font-weight:600; }}
+  main {{ max-width:980px; margin:0 auto; padding:20px; }}
+  .card {{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 22px; margin:16px 0; box-shadow:0 1px 3px rgba(0,0,0,.04); }}
+  .card h2 {{ color:var(--blue); font-size:18px; border-left:4px solid var(--gold); padding-left:10px; margin-top:0; }}
+  .warn {{ background:#fff4e6; border:1px solid #ffd8a8; border-radius:8px; padding:11px 15px; color:#7a4b00; font-size:13.5px; }}
+  table {{ border-collapse:collapse; width:100%; font-size:13.5px; }}
+  th,td {{ border:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top; }}
+  th {{ background:#eef1f8; }}
+  svg {{ width:100%; height:auto; }}
+  code {{ background:#eef1f8; color:#1d4fb0; padding:1px 5px; border-radius:4px; font-size:12.5px; }}
+  footer {{ text-align:center; color:#888; font-size:12.5px; padding:26px 16px; line-height:1.9; }}
+  footer a {{ color:var(--blue); }}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">SXJ · ORG STRUCTURE</div>
+  <h1>事现鉴 / SXJ · 组织架构与统一域名方案</h1>
+  <div class="meta">
+    起草 / 汇编：<b>{AUTHOR}</b>　·　日期 {DATE}<br>
+    状态：<span class="badge">{STATUS}</span><br>
+    依据：用户裁定「混合制 + 新增协议审核部 + 统一根域 hygzz.top」
+  </div>
+</header>
+<main>
+
+<div class="card">
+  <h2>0. 组织架构图</h2>
+  <div class="warn">本图为草案：白玺（决定层）居顶，四AI平台联合委员会为治理中枢，其下为混合制五部门（职能为主干），最下为统一门户与内容频道（原四域）。任何结构性变更须经白玺批准（属 R-6 协议/组织修订）。</div>
+  {svg}
+</div>
+
+<div class="card">
+  <h2>1. 五部门职责表（混合制：职能为主干 + 原四域降为频道）</h2>
+  <table>
+    <tr><th>部门（子域）</th><th>核心职责</th><th>牵头 / 归属</th></tr>
+    {rows_html}
+  </table>
+</div>
+
+<div class="card">
+  <h2>2. 统一域名方案</h2>
+  {domain_html}
+</div>
+
+<div class="card">
+  <h2>3. 治理与人类在环边界</h2>
+  <ul>
+    <li><b>白玺（决定层）</b>：唯一高风险事项终审主体，拥有三值终审、负贡献归责、化债触发、部门设立/变更、协议生效的最终裁定权。</li>
+    <li><b>四AI平台联合委员会</b>：治理中枢，由内核四家（DeepSeek/豆包/Kimi/元宝）+ 冷方（DuMate，待补 Gemini/Claude）组成，负责圆桌质证与跨平台协调，不替代白玺终审。</li>
+    <li><b>协议审核部（新增）</b>：在协议提交白玺 enact 前做形式/学术/一致性预审，是 R-6 流程的“前置闸门”，但不削弱决定层终审权。</li>
+    <li><b>保留事项 R-1..R-6</b>：负贡献归责 / 三值新类型裁定(含D1) / 化债触发 / 社保资格 / 发布撤回 / 协议自身修订——AI 不得终裁，须经治理与审计部上浮白玺。</li>
+  </ul>
+</div>
+
+</main>
+<footer>
+  本文档由 <b>{AUTHOR}</b> 起草与汇编 · {DATE}<br>
+  状态：{STATUS} · 本页为自包含静态文件，可离线打开并转发
+</footer>
+</body>
+</html>'''
+
+open(OUT, "w", encoding="utf-8").write(PAGE)
+print("WROTE", OUT, len(PAGE), "bytes")
+print("AUTHOR:", AUTHOR)
+print("DEPTS:", len(dept_rows))

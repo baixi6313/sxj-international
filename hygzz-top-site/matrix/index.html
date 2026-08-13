@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>事现鉴 · 三元坐标场 — 自然 / 人文 / 数字</title>
+<meta name="description" content="事现鉴（SXJ）按三元（自然·人文·数字）× 三档（上·中·下）× 法域 j 组织全部内容。四视图：坐标轴 / 维基 / 地图 / 热力密度图，同源于一套矩阵数据模型。">
+<meta name="keywords" content="事现鉴,SXJ,三元,坐标场,可验证密度,光锥坐标,共济值,贡献值">
+<link rel="canonical" href="https://hygzz.top/matrix/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23A32D2D'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='%23F5F0E6'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23A32D2D'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{background:linear-gradient(180deg,#fafaf9 0%,#fef8e8 55%,#f7f3f0 100%);
+  padding:48px 22px 42px;text-align:center;border-bottom:1px solid var(--border)}
+.hero .badge{display:inline-block;background:var(--red);color:#fff;padding:5px 15px;border-radius:20px;
+  font-size:.76rem;font-weight:600;letter-spacing:.5px;margin-bottom:18px}
+.hero h1{font-size:clamp(1.7rem,4.6vw,2.9rem);font-weight:800;line-height:1.25;letter-spacing:-.6px}
+.hero h1 span{color:var(--red)}
+.hero .sub{color:var(--text-dim);max-width:640px;margin:14px auto 0;font-size:clamp(.92rem,2vw,1.05rem)}
+.coordline{display:inline-flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:20px;
+  font-family:var(--mono);font-size:.82rem}
+.coordline b{background:#fff;border:1px solid var(--border);border-radius:7px;padding:5px 11px;font-weight:600;color:var(--text-dim)}
+.coordline b em{font-style:normal;color:var(--red);font-weight:700}
+
+/* 四视图 */
+.views{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:6px}
+.vcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;
+  display:flex;flex-direction:column;gap:7px;transition:.18s;position:relative;overflow:hidden}
+.vcard::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);opacity:0;transition:.18s}
+.vcard:hover{border-color:var(--red);box-shadow:var(--shadow);transform:translateY(-2px)}
+.vcard:hover::after{opacity:1}
+.vcard .ico{font-size:1.5rem;line-height:1}
+.vcard .vt{font-size:1.05rem;font-weight:700}
+.vcard .vp{font-size:.75rem;color:var(--gold);font-weight:700;font-family:var(--mono)}
+.vcard .vd{font-size:.83rem;color:var(--text-dim);flex:1}
+.vcard .go{font-size:.83rem;font-weight:700;color:var(--red);margin-top:6px}
+
+/* 三元三枝 */
+.branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.branch{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.branch .bh{padding:16px 18px;color:#fff;display:flex;align-items:center;gap:10px}
+.branch .bh .bi{font-size:1.5rem}
+.branch .bh .bn{font-size:1.1rem;font-weight:800;letter-spacing:.5px}
+.branch .bh .bx{font-size:.72rem;opacity:.88;font-family:var(--mono)}
+.branch .bs{padding:11px 18px;font-size:.8rem;background:var(--bg-warm);border-bottom:1px solid var(--border);color:var(--text-dim)}
+.branch .bs .anchor{display:block;margin-top:4px;color:var(--text-faint);font-size:.75rem}
+.tiers{padding:6px 0;flex:1}
+.tierrow{padding:12px 18px;border-bottom:1px dashed var(--border)}
+.tierrow:last-child{border-bottom:none}
+.tierrow .tl{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.tierrow .tg{font-size:.68rem;font-weight:800;color:#fff;background:var(--text-faint);border-radius:4px;padding:1px 7px;font-family:var(--mono)}
+.tierrow .tn{font-size:.85rem;font-weight:700}
+.tierrow .tdesc{font-size:.78rem;color:var(--text-dim);margin-bottom:7px}
+.tierrow .links{display:flex;flex-wrap:wrap;gap:6px}
+.tierrow .links a{font-size:.76rem;background:var(--bg-warm);border:1px solid var(--border);border-radius:6px;
+  padding:3px 9px;color:var(--text-dim)}
+.tierrow .links a:hover{background:var(--red-light);border-color:var(--red);color:var(--red);text-decoration:none}
+.tierrow .links .empty{font-size:.76rem;color:var(--text-faint);font-style:italic}
+.tierrow .cnt{margin-left:auto;font-size:.72rem;font-family:var(--mono);color:var(--text-faint)}
+.tierrow .cnt b{color:var(--red)}
+.branch .bf{padding:10px 18px;font-size:.74rem;background:var(--bg-warm);border-top:1px solid var(--border);color:var(--text-faint)}
+.branch .bf .hold{color:#a8630f;font-weight:700}
+
+/* 诚实读数 */
+.reads{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.read{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:15px;text-align:center}
+.read .n{font-size:1.7rem;font-weight:800;font-family:var(--mono);color:var(--red);line-height:1.1}
+.read .n.dim{color:var(--text-faint)}
+.read .l{font-size:.75rem;color:var(--text-dim);margin-top:4px}
+
+/* 搜索栏 */
+.searchbox{max-width:560px;margin:22px auto 0;text-align:left}
+.searchbox input{width:100%;box-sizing:border-box;padding:12px 16px;font-size:.95rem;
+  border:2px solid var(--red);border-radius:10px;background:#fff;color:var(--text);outline:none}
+.searchbox input::placeholder{color:#a99}
+.searchres{margin-top:10px;display:grid;gap:8px}
+.searchres .grp{font-size:.74rem;font-weight:700;color:var(--gold);font-family:var(--mono);margin-top:6px}
+.searchres a{display:block;background:var(--card);border:1px solid var(--border);border-radius:9px;
+  padding:9px 13px;text-decoration:none;color:var(--text);transition:.15s}
+.searchres a:hover{border-color:var(--red);background:var(--red-light)}
+.searchres .si{font-family:var(--mono);font-size:.7rem;color:var(--red);font-weight:700}
+.searchres .st{font-size:.86rem;font-weight:600}
+.searchres .sm{font-size:.74rem;color:var(--text-faint);font-family:var(--mono)}
+.searchres .empty{font-size:.82rem;color:var(--text-dim);padding:8px 2px}
+</style>
+</head>
+<body>
+
+<nav class="sxj-nav">
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/><circle cx="12" cy="12" r="7.4" fill="#A32D2D"/><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
+    事现鉴 · 坐标场
+  </a>
+  <a href="index.html" class="on">三元总览</a>
+  <a href="axis.html">坐标轴</a>
+  <a href="wiki.html">事现维基</a>
+  <a href="map.html">光锥地图</a>
+  <a href="heat.html">热力密度</a>
+  <a href="sca.html">SCA确权</a>
+  <a href="../index.html" class="sp">← 返回主站</a>
+</nav>
+
+<section class="hero">
+  <div class="badge">统一数据模型 · 坐标系优先</div>
+  <h1>同一套事现数据<br><span>三元分类 · 四种视图</span></h1>
+  <div class="sub">事现鉴不另建维基或地图 App。全部内容按 <b>三元（自然 / 人文 / 数字）× 三档（上 / 中 / 下）× 法域 j</b> 落到坐标格，再由四个视图投影渲染。</div>
+  <div class="coordline">
+    <b>x = <em>三元</em></b><b>y = <em>三档</em></b><b>z = <em>组织层级</em></b>
+    <b>j = <em>法域</em></b><b>t = <em>时间</em></b>    <b>ρ = <em>可验证密度</em></b>
+  </div>
+  <div class="searchbox">
+    <input id="sxjSearch" type="search" placeholder="搜索事现 / 三元内容：事件编号、标题、当事人、来源、坐标…" autocomplete="off" aria-label="三元内容搜索">
+    <div id="sxjSearchRes" class="searchres"></div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="sec-title">四视图 · 同源投影</div>
+  <div class="views">
+    <a class="vcard" href="axis.html">
+      <div class="ico">🧭</div>
+      <div class="vp">投影 (x, y, z, j)</div>
+      <div class="vt">坐标轴</div>
+      <div class="vd">3 × 3 坐标场浏览器。每格显示度量锚点、验证组织、开放状态与落在其中的事现。</div>
+      <div class="go">进入坐标场 →</div>
+    </a>
+    <a class="vcard" href="wiki.html">
+      <div class="ico">📖</div>
+      <div class="vp">投影 条目层</div>
+      <div class="vt">事现维基</div>
+      <div class="vd">每条事现＝一份带公证的卷宗：条目坐标 + 多当事人三值归因 + 验证包裹 + 来源链 + 版本史。</div>
+      <div class="go">进入维基 →</div>
+    </a>
+    <a class="vcard" href="map.html">
+      <div class="ico">🗺️</div>
+      <div class="vp">投影 (j, t)</div>
+      <div class="vt">光锥地图</div>
+      <div class="vd">法域 j 落地 + 时间轴 t 回放 + 验证节点标注：一眼看出谁已在桌上、谁还没来。</div>
+      <div class="go">进入地图 →</div>
+    </a>
+    <a class="vcard" href="heat.html">
+      <div class="ico">🔥</div>
+      <div class="vp">投影 ρ</div>
+      <div class="vt">热力密度图</div>
+      <div class="vd">ρ 为色与大小；平衡区蓝金、交叉区红。可按三元 × 三档任意切片。</div>
+      <div class="go">进入热力图 →</div>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>坐标系优先原则</b>：本阶段只定义「坐标 + 落点 + 量 ρ」的 spec，<b>不预置任何聚合或计分</b>。
+    权重、公式、跨国换算全部留给查询时的投影，由各法域、各组织自行计算 —— 这正是 root→spec、功成身退。
+  </div>
+
+  <div class="sec-title">三元分类 · 全站内容归位</div>
+  <div class="sub" style="margin:-6px 0 14px">每一枝下按三档（上 · 系统制度级 / 中 · 专业组织级 / 下 · 个人日常级）列出对应内容与已落点事现数。</div>
+  <div class="branches" id="branches"></div>
+
+  <div class="sec-title">诚实读数</div>
+  <div class="reads" id="reads"></div>
+  <div class="note red" id="honest"></div>
+
+</div>
+
+<footer class="sxj-foot">
+  <p>
+    <a href="axis.html">坐标轴</a><a href="wiki.html">事现维基</a>
+    <a href="map.html">光锥地图</a><a href="heat.html">热力密度</a>
+  </p>
+  <p style="margin-top:8px">© 2026 事现鉴 SXJ · 基于 UDHR 第 22 条的可验证公共事实协议 · spec 依据 SXJ-wiki-map-design.md §8</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var brColor={natural:'linear-gradient(135deg,#2d8a4e,#1e6338)',
+               human:'linear-gradient(135deg,#A32D2D,#7a1f1f)',
+               digital:'linear-gradient(135deg,#4a5c8a,#33405f)'};
+
+  /* 全站内容按三元 × 三档归位 */
+  var CONTENT={
+    'natural:up':[{n:'GEP 度量对接说明',u:'../贡献值-社会资源三元-讨论稿.md'}],
+    'natural:mid':[],
+    'natural:low':[],
+    'human:up':[{n:'共创论总论',u:'../co_creation.html'},{n:'白皮书',u:'../whitepaper.html'},
+                 {n:'概念树',u:'../concept_tree.html'},{n:'知识树',u:'../knowledge_tree.html'},
+                 {n:'组织架构',u:'../org.html'},{n:'发展历史',u:'../history.html'}],
+    'human:mid':[{n:'质性研究分析',u:'../qualitative_analysis.html'},
+                 {n:'批判性综合报告',u:'../critical_synthesis_report.html'}],
+    'human:low':[{n:'事件簿（原扁平列表）',u:'../events.html'},{n:'我的 CV',u:'../cv.html'}],
+    'digital:up':[{n:'SXJ-MAIP 协议 v1.0',u:'wiki.html?e=evt_009'},{n:'进度可验证模型',u:'../sxj-progress-model.html'}],
+    'digital:mid':[{n:'事现鉴 App',u:'../app/index.html'}],
+    'digital:low':[]
+  };
+
+  var elB=document.getElementById('branches'), html='';
+  SXJ.TRIAD.forEach(function(tri){
+    var tiersHtml='';
+    SXJ.TIER.forEach(function(ti){
+      var cell=SXJ.getCell(tri.key,ti.key);
+      var d=SXJ.cellDensity(tri.key,ti.key);
+      var links=CONTENT[tri.key+':'+ti.key]||[];
+      var lh=links.length
+        ? links.map(function(l){return '<a href="'+l.u+'">'+l.n+'</a>';}).join('')
+        : '<span class="empty">尚无对应内容 — 待补</span>';
+      tiersHtml+='<div class="tierrow">'
+        +'<div class="tl"><span class="tg">'+ti.short+'</span><span class="tn">'+ti.name.split(' · ')[1]+'</span>'
+        +'<span class="cnt">事现 <b>'+d.count+'</b></span></div>'
+        +'<div class="tdesc">'+cell.title+'</div>'
+        +'<div class="links">'+lh+'</div>'
+        +'</div>';
+    });
+    html+='<div class="branch">'
+      +'<div class="bh" style="background:'+brColor[tri.key]+'">'
+        +'<span class="bi">'+tri.icon+'</span>'
+        +'<div><div class="bn">'+tri.name+'</div><div class="bx">x = '+tri.key+'</div></div>'
+      +'</div>'
+      +'<div class="bs">'+tri.scope+'<span class="anchor">度量锚点：'+tri.anchor+'</span></div>'
+      +'<div class="tiers">'+tiersHtml+'</div>'
+      +'<div class="bf">'+(tri.open?'✅ ':'<span class="hold">⏸ 挂起 · </span>')+tri.openNote+'</div>'
+      +'</div>';
+  });
+  elB.innerHTML=html;
+
+  /* 诚实读数 */
+  var s=SXJ.stats();
+  document.getElementById('reads').innerHTML=[
+    ['已落点事现',s.total,''],
+    ['已量测 ρ',s.measured,''],
+    ['未量测 ρ',s.unmeasured,'dim'],
+    ['ρ ≥ '+SXJ.META.rhoMin,s.aboveRhoMin,'dim'],
+    ['占用坐标格',s.cellsOccupied+' / 9',''],
+    ['时间跨度',s.minYear+'–'+s.maxYear,'']
+  ].map(function(r){
+    return '<div class="read"><div class="n '+r[2]+'">'+r[1]+'</div><div class="l">'+r[0]+'</div></div>';
+  }).join('');
+
+  document.getElementById('honest').innerHTML=
+    '<b>不美化证据</b>：'+s.total+' 条已落点事现中，仅 <b>'+s.measured+'</b> 条按 MAIP 信封量测出 ρ，'
+    +'且<b>无一条</b>达到门槛 ρ_min = '+SXJ.META.rhoMin+'。另有 <b>'+s.placeholder+'</b> 条被明确标注为占位示例、非真实事现，不计入总数。'
+    +'9 个坐标格中仅占 <b>'+s.cellsOccupied+'</b> 格 —— 自然枝已有国家权威度量却<b>一条落点都没有</b>，这是当前最大的空缺。';
+
+  /* 全局搜索：事件 + 三元内容 */
+  var box=document.getElementById('sxjSearch'), res=document.getElementById('sxjSearchRes');
+  function runSearch(){
+    var term=box.value.trim();
+    if(!term){ res.innerHTML=''; return; }
+    var evts=SXJ.search(term);
+    var t=term.toLowerCase();
+    var content=[];
+    Object.keys(CONTENT).forEach(function(k){
+      CONTENT[k].forEach(function(c){
+        if((c.n+' '+c.u).toLowerCase().indexOf(t)>=0) content.push({k:k,n:c.n,u:c.u});
+      });
+    });
+    var h='';
+    if(evts.length){
+      h+='<div class="grp">事现 ('+evts.length+')</div>';
+      h+=evts.map(function(e){
+        var tri=SXJ.triad(e.x), ti=SXJ.tier(e.y);
+        return '<a href="wiki.html?e='+e.id+'"><span class="si">'+e.id+(e.placeholder?' · 占位':'')+'</span> '
+          +'<span class="st">'+e.title+'</span> <span class="sm">('+tri.short+','+ti.short+')</span></a>';
+      }).join('');
+    }
+    if(content.length){
+      h+='<div class="grp">三元内容 ('+content.length+')</div>';
+      h+=content.map(function(c){
+        return '<a href="'+c.u+'"><span class="sm">'+c.k+'</span> <span class="st">'+c.n+'</span></a>';
+      }).join('');
+    }
+    res.innerHTML=h||'<div class="empty">没有匹配「'+term+'」的事现或内容。</div>';
+  }
+  box.addEventListener('input', runSearch);
+})();
+</script>
+</body>
+</html>

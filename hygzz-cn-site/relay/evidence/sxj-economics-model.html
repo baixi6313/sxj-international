@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴 · 经济学建模 v0.7</title>
+<style>
+  :root{
+    --bg:#14100e; --panel:#231615; --panel2:#2c1d1b; --line:#3a2724;
+    --gold:#D99A2B; --red:#C0392B; --blue:#2F6FED; --coral:#D85A30;
+    --ink:#f0e6d2; --ink2:#b7a89a; --jade:#3fae8e;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.6}
+  header{padding:26px 22px 18px;border-bottom:2px solid var(--gold);
+    background:linear-gradient(180deg,#2a1412,#14100e)}
+  header h1{margin:0;font-size:22px;color:var(--gold);letter-spacing:1px}
+  header p{margin:6px 0 0;color:var(--ink2);font-size:13px}
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px 60px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:18px 18px 20px;margin:16px 0;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+  .card h2{margin:0 0 4px;font-size:17px;color:var(--gold)}
+  .card .sub{color:var(--ink2);font-size:12.5px;margin:0 0 14px}
+  canvas{width:100%;height:240px;display:block;background:#1b1210;border-radius:6px}
+  .ctrl{display:flex;flex-wrap:wrap;gap:16px;margin:12px 0}
+  .ctrl label{font-size:13px;color:var(--ink2);display:flex;flex-direction:column;gap:6px;min-width:200px;flex:1}
+  input[type=range]{width:100%;accent-color:var(--gold)}
+  .val{color:var(--gold);font-weight:700}
+  .readout{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .pill{background:var(--panel2);border:1px solid var(--line);border-radius:20px;
+    padding:6px 13px;font-size:12.5px}
+  .pill b{color:var(--gold)}
+  .badge{display:inline-block;padding:5px 14px;border-radius:6px;font-weight:700;font-size:13px;margin-top:6px}
+  .badge.on{background:var(--jade);color:#06231b}
+  .badge.off{background:#4a2a12;color:#f0c98a}
+  .pools{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+  .pool{flex:1;min-width:180px;background:var(--panel2);border-radius:8px;padding:14px;border-top:3px solid}
+  .pool.a{border-color:var(--blue)} .pool.b{border-color:var(--gold)} .pool.c{border-color:var(--coral)}
+  .pool h3{margin:0 0 6px;font-size:14px}
+  .pool .num{font-size:26px;font-weight:800}
+  .pool.a .num{color:var(--blue)} .pool.b .num{color:var(--gold)} .pool.c .num{color:var(--coral)}
+  .pool p{margin:6px 0 0;font-size:11.5px;color:var(--ink2)}
+  .risk{height:14px;border-radius:7px;background:#3a1c14;overflow:hidden;margin-top:8px;border:1px solid var(--line)}
+  .risk>i{display:block;height:100%;background:linear-gradient(90deg,#3fae8e,#D99A2B,#C0392B)}
+  details{margin-top:12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+  summary{cursor:pointer;color:var(--gold);font-size:13px;font-weight:700}
+  details ul{margin:10px 0 4px;padding-left:18px;font-size:12.5px;color:var(--ink2)}
+  details li{margin:4px 0}
+  .note{font-size:11.5px;color:var(--ink2);border-left:3px solid var(--gold);padding:8px 12px;margin-top:12px;background:var(--panel2);border-radius:0 6px 6px 0}
+  .axis-tip{font-size:11px;color:var(--ink2);margin-top:4px}
+  .netbars{margin-top:10px;display:flex;flex-direction:column;gap:9px}
+  .netrow{display:flex;align-items:center;gap:10px;font-size:12.5px}
+  .netrow>span{width:104px;color:var(--ink2)}
+  .nbar{flex:1;height:15px;background:#3a1c14;border-radius:7px;overflow:hidden;border:1px solid var(--line)}
+  .nbar>i{display:block;height:100%;background:linear-gradient(90deg,#2F6FED,#D99A2B)}
+  .netrow>b{width:46px;text-align:right;color:var(--gold);font-size:13px}
+  .tri-wrap{margin-top:12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:10px 14px}
+  .tri-title{font-size:12.5px;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .tri-n{background:linear-gradient(90deg,#4e9a6b,#3f7d52)!important}
+  .tri-h{background:linear-gradient(90deg,#c08a4a,#a06f30)!important}
+  .tri-d{background:linear-gradient(90deg,#7a6cc4,#5f4ea0)!important}
+  .rcol.act{border-top:3px solid var(--gold)}
+  .rcol.pas{border-top:3px solid #4e9a6b}
+  code{background:#3a2724;padding:1px 5px;border-radius:4px;color:#f0c98a;font-size:12px}
+  .lvl{font-size:14px;color:var(--ink);margin:14px 0 6px;border-left:3px solid var(--blue);padding-left:10px}
+  .scalebtns{display:flex;gap:8px;margin:10px 0 4px;flex-wrap:wrap}
+  .sbtn{background:var(--panel2);color:var(--ink2);border:1px solid var(--line);border-radius:6px;padding:6px 16px;cursor:pointer;font-size:13px}
+  .sbtn.active{background:var(--gold);color:#231615;border-color:var(--gold);font-weight:700}
+  .ruling{background:linear-gradient(180deg,#2f1c19,#241614);border:1px solid var(--gold);
+    border-radius:9px;padding:14px 16px;margin:6px 0 14px}
+  .ruling>b{color:var(--gold);font-size:13px;letter-spacing:.5px}
+  .rgrid{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px}
+  .rcol{flex:1;min-width:250px;background:var(--panel2);border-radius:8px;padding:12px 14px;border-top:3px solid}
+  .rcol.act{border-color:var(--gold)} .rcol.pas{border-color:var(--blue)}
+  .rcol h4{margin:0 0 7px;font-size:13.5px}
+  .rcol.act h4{color:var(--gold)} .rcol.pas h4{color:#7ea6ff}
+  .rcol ul{margin:0;padding-left:17px;font-size:12px;color:var(--ink2)}
+  .rcol li{margin:4px 0}
+  .rfoot{margin:11px 0 0;font-size:12.5px;color:var(--ink)}
+  /* v0.7 新增：双轨置换读数 */
+  .dual-track{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+  .track-card{flex:1;min-width:160px;background:var(--panel2);border-radius:8px;padding:12px;border-left:4px solid}
+  .track-card.coral{border-color:var(--coral)}
+  .track-card.gold{border-color:var(--gold)}
+  .track-card.netv{border-color:var(--jade)}
+  .track-card h4{margin:0 0 4px;font-size:12.5px}
+  .track-card .tval{font-size:22px;font-weight:800}
+  .track-card.coral .tval{color:var(--coral)}
+  .track-card.gold .tval{color:var(--gold)}
+  .track-card.netv .tval{color:var(--jade)}
+  .track-card p{margin:4px 0 0;font-size:11px;color:var(--ink2)}
+  .displace-bar{height:20px;border-radius:10px;background:#3a1c14;overflow:hidden;margin-top:8px;border:1px solid var(--line);position:relative}
+  .displace-bar>i{display:block;height:100%;background:linear-gradient(90deg,#D85A30,#D99A2B,#3fae8e);transition:width .3s}
+  .displace-bar .lbl{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:10px;color:var(--ink2);white-space:nowrap}
+</style>
+</head>
+<body>
+<header>
+  <h1>事现鉴 · 经济学建模（讨论稿 v0.7 · ④化债核心闭环版）</h1>
+  <p>骨架：D 机制演化 · 三值流量 · ③热密度（治理指标）· ④债务→贡献 双轨转换（**v0.7 核心闭环版：负贡献核算 ∥ 新贡献生成 并行 → 置换现有债务 → 贡献净值**）· ⑤净值动态均衡＝<b style="color:#D99A2B">本人·主动抉择 ＋ 环境三元·被动承担</b>｜核心闭环（白玺 2026-08-10 08:13 裁定）已升 spec（见 MAIP-spec-化债核心闭环.md）；CV 公式 / 推翻资本修辞仍隔离。</p>
+</header>
+<div class="wrap">
+
+  <!-- ===== 1. D 机制 ===== -->
+  <div class="card">
+    <h2>① D 机制演化：共济值基值 → 货币消失阈值</h2>
+    <p class="sub">D 机制自演化终点：共济值基值（生存层底）逐步升至「全球中位数 50% 以上」；跨过该阈值 → 货币消失（生存层普遍覆盖，为生存之交换不再必要，贡献值转为自由行动层）。本模型用逻辑斯蒂增长刻画基值趋近阈值的过程。</p>
+    <div class="ctrl">
+      <label>采纳率 α（多平台/法域采纳 MAIP 的速度）<span class="val" id="aAlpha">0.60</span>
+        <input type="range" id="alpha" min="0.1" max="1.5" step="0.05" value="0.6"></label>
+      <label>验证网络密度 ρ̄（多当事人复测的常态密度）<span class="val" id="aRho">0.70</span>
+        <input type="range" id="rho" min="0.1" max="1" step="0.05" value="0.7"></label>
+    </div>
+    <canvas id="cD" width="900" height="240"></canvas>
+    <div class="axis-tip">纵轴 = 共济值基值占「全球中位数生存成本」的百分比（指数 100 = 中位数）。红线 = 50% 阈值（货币消失触发线）。</div>
+    <div class="readout">
+      <span class="pill">当前基值（第 <b id="rYear">0</b> 年）：<b id="rBase">8</b>%</span>
+      <span class="pill">阈值：<b>50%</b></span>
+      <span class="pill">预计跨越年份：<b id="rCross">—</b></span>
+      <span class="badge off" id="rBadge">货币未消失</span>
+    </div>
+    <div class="note">模型假设：基值初值 8%，饱和上限 60%（故可越过 50%）；年增速 <code>r = 0.20 × α × (0.5 + 0.5ρ̄)</code>。数值为示意，用于呈现「采纳越快、跨越越早」的动态，非预测。</div>
+  </div>
+
+  <!-- ===== 2. 三值流量 ===== -->
+  <div class="card">
+    <h2>② 三值流量：共济值 A / 贡献值 B / 负贡献</h2>
+    <p class="sub">A = 按需·生存权·非物（蓝）；B = 按劳·净值=正−负·物质（金）；负贡献 = 追责（珊瑚）。先天残衰病 ≠ 负贡献；归责须主体性+因果性+可避免性+修复性。</p>
+    <div class="pools">
+      <div class="pool a"><h3>共济值 A（生存层）</h3><div class="num" id="pA">8</div><p>覆盖日常支出的比例，随 D 机制基值同步上升。</p></div>
+      <div class="pool b"><h3>贡献值 B（自由行动层）</h3><div class="num" id="pB">0</div><p>当期净贡献积累。货币消失后，B 由「生存交换」转为「兴趣/自由行动」层。</p></div>
+      <div class="pool c"><h3>负贡献（追责）</h3><div class="num" id="pC">0</div><p>须满足四要件方成立；非先天残衰病。</p></div>
+    </div>
+    <div class="readout">
+      <span class="pill">体系状态：<b id="stateLbl">生存交换阶段</b></span>
+    </div>
+    <div class="note">本面板与 ① 联动：基值跨越 50% 后，A 覆盖生存层，B 的含义从「换取生存」切换为「自由行动记录」，这正是 D 机制「货币消失」的语义落地。<br><b style="color:#D99A2B">A / B 的分界线即「环境三元·被动承担 ／ 本人·主动抉择」</b>：不由本人选择、不可避免的部分（环境三元·被动承担）→ 归 <b style="color:#2F6FED">共济值 A</b> 社会共担，且<b>不构成负贡献</b>（不满足归责四要件）；由本人选择、可避免、有主体性的部分（主动抉择）→ 归 <b style="color:#D99A2B">贡献值 B</b> 的净值，正负皆由本人承受。注意：自然 / 人文 / 数字「三元」既是本人主动行动的媒介，也是被动承载其上之环境——详见 ⑤。</div>
+  </div>
+
+  <!-- ===== 3. 热密度 ===== -->
+  <div class="card">
+    <h2>③ 热密度：治理指标（与"中位数/超平均"理论层分离）</h2>
+    <p class="sub">关键分层：<b>热密度</b>是<b>治理层面</b>的操作指标——治理拿它判断"这件事此刻有多热、验证多密"，是"<b>用</b>"的；<b>中位数 / 超平均</b>是<b>理论讨论层面</b>的概念锚点——讨论系统应为谁设计、是否代表中位数的人，是"<b>想</b>"的。二者层级不同，不可焊进同一公式。</p>
+
+    <h3 class="lvl">A. 热密度 = 热度 × 密度ρ（治理操作指标）</h3>
+    <div class="ctrl">
+      <label>热度 H（验证人数 / 单位时间）<span class="val" id="hHeat">120</span>
+        <input type="range" id="heat" min="5" max="300" step="5" value="120"></label>
+      <label>可验证密度 ρ<span class="val" id="hRho">0.75</span>
+        <input type="range" id="hrho" min="0.1" max="1" step="0.05" value="0.75"></label>
+    </div>
+    <canvas id="cHeat" width="900" height="190"></canvas>
+    <div class="axis-tip">热密度 H_d = 热度 × ρ。这是治理拿来"用"的：判断此刻验证网络的活跃度与密度，<b>不裁决代表谁</b>。</div>
+    <div class="readout">
+      <span class="pill">热密度 H_d：<b id="rHd">—</b></span>
+      <span class="badge off" id="rHeatBadge">—</span>
+    </div>
+
+    <h3 class="lvl">B. 中位数 / 超平均（理论讨论层）</h3>
+    <p class="sub" style="margin-top:6px">这是概念性讨论：系统是否服务于<b>中位数的人</b>？<b>超平均</b>者是否被代表？它是 D 机制"全球中位数 50% 以上"阈值的理论锚点——一种关于"什么是普遍 / 公平"的主张，<b>不由热密度计算得出</b>。</p>
+    <canvas id="cMed" width="900" height="190"></canvas>
+    <div class="axis-tip">示意分布：横轴=资源百分位；红虚线=中位数(50)；金色阴影=超平均区间(50–100)。这是理论透镜（用于讨论"系统为谁"），<b>不是治理操作输出</b>。</div>
+    <div class="note">分层小结：<b>热密度管"此刻如何治理"</b>（操作指标，治理据此升级复核），<b>中位数 / 超平均管"系统应当为谁设计"</b>（理论锚点）。D 机制以"全球中位数 50% 以上"为货币消失阈值，是理论主张；热密度只反映当下验证网络的活跃度。前者是"想"，后者是"用"，不可混淆。</div>
+  </div>
+
+  <!-- ===== 4. 债务→贡献 双轨转换（v0.7 核心闭环版） ===== -->
+  <div class="card">
+    <h2>④ 债务 → 贡献 双轨转换（v0.7 · 核心闭环版）</h2>
+    <p class="sub"><b style="color:var(--jade)">★ v0.7 核心（白玺 2026-08-10 08:13 裁定）</b>：化债真正内核＝<b>负贡献核算（珊瑚·归责四要件）∥ 生成新贡献（金·B）并行 → 置换现有债务 → 贡献净值 N(t)</b>。货币消失(D机制 c→1)是置换完成的终态结果而非手段。在事现鉴坐标场内，用<b>田忌赛马</b>把盈余格余量匹配缺口格、<b>财政直销</b>注入基石(共济值 A 基值)、<b>热度密度</b>闸控节奏；选一个场景看双轨如何并行运作。</p>
+
+    <!-- 裁定要点框 -->
+    <div class="ruling">
+      <b>v0.7 核心闭环裁定要点（白玺 2026-08-10 08:13）</b>
+      <div class="rgrid">
+        <div class="rcol act" style="border-color:var(--coral)">
+          <h4 style="color:var(--coral)">珊瑚轨道 · 负贡献核算</h4>
+          <ul>
+            <li>用归责四要件锁定：谁、因何、可避免、可修复地制造/放大了债务</li>
+            <li>记入<strong>负贡献</strong>（珊瑚），只影响净值(B)，不抵销生存权(A)</li>
+            <li>≠ 被动承担（被动承担归 A 且不构成负贡献）</li>
+            <li>对应口号：<b>打资本</b>（锁定责任方/资本性债务源头）</li>
+          </ul>
+        </div>
+        <div class="rcol act">
+          <h4>金色轨道 · 新贡献生成</h4>
+          <ul>
+            <li>植树造林/修路/数据供给等可验证 ρ → 记入<strong>贡献值 B</strong>(金)</li>
+            <li>"主动抉择"的兑现（净值↔动态均衡裁定）</li>
+            <li>Gzz 验证包裹确保 ρ 真实、不可虚记</li>
+            <li>对应口号：<b>分数据</b>（数字枝数据被承认为价值）</li>
+          </ul>
+        </div>
+      </div>
+      <p class="rfoot" style="margin-top:8px"><b>∥ 并行（非串行）</b>：两条轨道同时跑——边记账追责(珊瑚)、边注入新贡献(金)。当「新贡献累计 − 负贡献累计 ≥ 旧债残量」→ <b style="color:var(--jade)">旧货币债被贡献净值置换</b> → N(t) 转正。这就是口号末段：<b>化解债务 = 置换 → 净值</b>。货币消失(c→1)是这套置换跑完的自然伴随结果。</p>
+    </div>
+
+    <div class="scalebtns" id="scnBtns">
+      <button class="sbtn active" data-scn="A">场景A·慢/冷启动</button>
+      <button class="sbtn" data-scn="B">场景B·稳</button>
+      <button class="sbtn" data-scn="C">场景C·盈余</button>
+      <button class="sbtn" data-scn="D">场景D·崩(冲击)</button>
+    </div>
+
+    <div class="ctrl">
+      <label>财政直销强度 φ（注入基石/期）<span class="val" id="bPhi">0.020</span>
+        <input type="range" id="phi" min="0" max="0.08" step="0.005" value="0.02"></label>
+      <label>田忌赛马匹配 m（盈余→缺口）<span class="val" id="bM">0.50</span>
+        <input type="range" id="matchM" min="0" max="1" step="0.05" value="0.5"></label>
+      <label>热度密度闸 H_thr（超则阻尼）<span class="val" id="bHthr">120</span>
+        <input type="range" id="hthr" min="40" max="300" step="10" value="120"></label>
+      <label>初始采纳率 θ₀<span class="val" id="bTheta">0.10</span>
+        <input type="range" id="theta" min="0.01" max="0.4" step="0.01" value="0.1"></label>
+      <label><b style="color:var(--coral)">★ 负贡献核算强度 λ</b>（归责四要件锁定的负贡献/期）<span class="val" id="bLambda">0.50</span>
+        <input type="range" id="lambda" min="0" max="1.5" step="0.05" value="0.5" style="accent-color:var(--coral)"></label>
+    </div>
+    <canvas id="cABM" width="900" height="280"></canvas>
+    <div class="axis-tip">
+      <b style="color:var(--coral)">● 珊瑚线</b>=负贡献核算累计（归责四要件锁定）；<b style="color:var(--gold)">● 金线</b>=新贡献生成累计（B值）；蓝线=旧债务存量；<b style="color:var(--jade)">● 绿线</b>=覆盖率 c；红虚线=50%货币消失阈值；
+      <b style="color:#f0e6d2">○ 白线</b>=净值 N(t)=新贡献−负贡献−被动残量（转正=置换完成）；底条=热度密度 H。
+    </div>
+
+    <!-- ★ v0.7 新增：双轨置换读数 -->
+    <div class="dual-track">
+      <div class="track-card coral">
+        <h4>🔴 负贡献核算(珊瑚)</h4>
+        <div class="tval" id="tNeg">0</div>
+        <p>归责四要件锁定累计</p>
+      </div>
+      <div class="track-card gold">
+        <h4>🟡 新贡献生成(金/B)</h4>
+        <div class="tval" id="tNew">0</div>
+        <p>三元枝ρ 可验证贡献累计</p>
+      </div>
+      <div class="track-card netv">
+        <h4>🟢 贡献净值 N(t)</h4>
+        <div class="tval" id="tNet">−</div>
+        <p id="tNetLbl">新贡献 − 负贡献 − 被动残量</p>
+      </div>
+    </div>
+    <div class="displace-bar">
+      <i id="dispBar" style="width:0%"></i>
+      <span class="lbl" id="dispLbl">置换进度 0%</span>
+    </div>
+
+    <div class="readout">
+      <span class="pill">末期信任 τ：<b id="rTau">—</b></span>
+      <span class="pill">覆盖率 c@末：<b id="rCov">—</b></span>
+      <span class="pill">货币消失：<b id="rMoney">—</b></span>
+      <span class="pill">系统韧性：<b id="rRes">—</b></span>
+      <span class="pill" style="border-color:var(--jade)" id="pDispPill"><b id="rDisp">—</b></span>
+    </div>
+    <div class="risk"><i id="riskBar" style="width:10%"></i></div>
+    <div class="axis-tip" id="riskLbl">系统性风险（债务-通缩 / 切换冲击 / 过热）：低</div>
+
+    <details>
+      <summary>参考：千问拆解的「债务→贡献」9 层变量（本模型已置于化债引擎下重述）</summary>
+      <ul>
+        <li><b>存量/流量</b>：旧债存量、贡献总量 CV/分布、法币↔贡献兑换、净流量平衡。</li>
+        <li><b>信任演化</b>：初始信任；信任自增强飞轮；跨群体信任差异。</li>
+        <li><b>制度治理</b>：发行权结构、争议仲裁、与现有法律兼容（→ 事现鉴 R-1…R-6 熔断）。</li>
+        <li><b>动态路径</b>：双轨并行窗口、临界质量 Tipping Point、退出机制。</li>
+        <li><b>外部/地缘</b>：经济周期、跨境资本套利、主权货币竞争。</li>
+      </ul>
+      <div class="note">注：千问「CV 公式 / 五卡 / 推翻资本」经白玺 2026-08-10 裁定**已升为 spec**（见 `化债引擎→canon映射.md`）：五卡=三值操作化卡片层，财政直销=注入共济值 A 基值，消费=纳税+化债=贡献值 B 流通闭环。本卡把债务→贡献双轨置于该引擎下重述。<br><b>v0.7 升级</b>：新增珊瑚色负贡献核算轨道 ∥ 金色新贡献轨道 并行可视化 + 置换闭合读数 N(t) + 置换进度条（白玺 2026-08-10 08:13 裁定要点）。</div>
+    </details>
+    <div class="note">模型假设（透明）：旧债按 τ 比例核销；新贡献随覆盖率 c 升高而加速发行；负贡献按 λ 强度从存量旧债中核算锁定（满足归责四要件的部分）；财政直销 φ 每期注入基石；田忌赛马 m 把盈余格余量导给缺口格；热度密度 H=流×ρ 超限则阻尼。仅呈现「双轨并行 / 置换 / 临界质量 / 货币消失 / 过热闸」五类行为，非经济预测。</div>
+  </div>
+
+  <!-- ===== 5. 净值 ===== -->
+  <div class="card">
+    <h2>⑤ 净值 ↔ 动态均衡：其关系在于「本人·主动抉择」＋「环境三元·被动承担」</h2>
+    <p class="sub">净值不是一个静态数字，动态均衡也不是泛泛的收益减损失。二者的接口是<b>同一件事里两种性质不同的分量，且构成耦合系统</b>：当事人<b>本人</b>的<b>主动抉择</b>（有主体性、可避免、可归责），与其所嵌入的<b>环境三元</b>（自然 / 人文 / 数字）的<b>被动承担</b>（无主体性、不可避免、非其过）。「<b>本人 + 环境三元</b>」才是完整的分析单位——净值从来不是纯个人事实。</p>
+
+    <div class="ruling">
+      <b>裁定要点（白玺 2026-08-10 修正）</b>
+      <div class="rgrid">
+        <div class="rcol act">
+          <h4>本人 · 主动抉择 → 计入贡献值 B 的净值</h4>
+          <ul>
+            <li>本人选择投入的时间、精力、意志、资源</li>
+            <li>满足归责四要件：主体性 + 因果性 + 可避免性 + 修复性</li>
+            <li>收益归己（正贡献），代价亦自担；若造成可归责损害 → 负贡献</li>
+            <li>是「生存之上为兴趣」的行动空间</li>
+          </ul>
+        </div>
+        <div class="rcol pas">
+          <h4>环境三元 · 被动承担 → 转入共济值 A，不作负贡献</h4>
+          <ul>
+            <li><b style="color:#4e9a6b">自然枝</b>：先天残衰、灾害、生态约束</li>
+            <li><b style="color:#c08a4a">人文枝</b>：社会结构、他人过错、体制 / 周期波动</li>
+            <li><b style="color:#7a6cc4">数字枝</b>：系统规则、数据偏差、技术依赖</li>
+            <li>三者皆不满足归责四要件 → <b>不得记为负贡献</b>；由社会共担（A 覆盖）</li>
+          </ul>
+        </div>
+      </div>
+      <p class="rfoot">一句话：<b>净值只对本人主动抉择负责；环境三元的被动承担由共济承接</b>。动态均衡 = 这条界线在时间轴上的移动过程——共济覆盖率越高，压在个人净值上的环境被动分量越少，净值越纯粹地反映其自由选择。<br>关键耦合：同一「三元」既是本人主动行动所借的<b>媒介</b>（贡献值 B 经此产生，见 ② 社会资源三元），也是被动承载于其上的<b>环境</b>——将二者拆开看，才是完整的「本人 + 环境三元」。</p>
+    </div>
+
+    <div class="scalebtns" id="scaleBtns">
+      <button class="sbtn active" data-s="person">个人</button>
+      <button class="sbtn" data-s="org">团体组织</button>
+      <button class="sbtn" data-s="state">国家</button>
+      <button class="sbtn" data-s="intl">国际</button>
+    </div>
+
+    <div class="ctrl">
+      <label>效率 η（主动抉择的单位时间产出率）<span class="val" id="nEta">0.90</span>
+        <input type="range" id="eta" min="0.3" max="1.4" step="0.05" value="0.9"></label>
+      <label>共济覆盖率 c（被动承担被社会吸收的比例，联动 ① 基值）<span class="val" id="nC">0.20</span>
+        <input type="range" id="cov" min="0" max="1" step="0.05" value="0.2"></label>
+      <label>决策时点 T（在此尺度上判断是否继续）<span class="val" id="nT">3</span>
+        <input type="range" id="netT" min="1" max="12" step="1" value="3"></label>
+    </div>
+    <canvas id="cNet" width="900" height="240"></canvas>
+    <div class="axis-tip">金色 = 本人主动抉择净收益（η·g·t − L₀ − l·t）；珊瑚红 = 环境（三元）被动承担累计 P(t)；蓝色阴影 = 共济吸收 c·P(t)；白线 = 个人实际净值 N(t) = 主动净收益 − (1−c)·P(t)；绿虚线 = 平衡点；蓝竖线 = 决策时点 T。珊瑚红之下分解为自然 / 人文 / 数字三元，见下方「环境构成」。</div>
+    <div class="readout">
+      <span class="pill">尺度：<b id="rScale">个人</b></span>
+      <span class="pill">主动净收益@T：<b id="rAct">—</b></span>
+      <span class="pill">被动承担@T：<b id="rPas">—</b></span>
+      <span class="pill">共济吸收@T：<b id="rAbs">—</b></span>
+      <span class="pill">个人实际净值@T：<b id="rNetT">—</b></span>
+      <span class="pill">平衡点：<b id="rBreakeven">—</b></span>
+      <span class="badge off" id="rNetBadge">—</span>
+    </div>
+    <div class="netbars">
+      <div class="netrow"><span>主动抉择占比</span><div class="nbar"><i id="bAct" style="width:0%"></i></div><b id="vAct">—</b></div>
+      <div class="netrow"><span>被动承担占比</span><div class="nbar"><i id="bPas" style="width:0%;background:linear-gradient(90deg,#D85A30,#C0392B)"></i></div><b id="vPas">—</b></div>
+    </div>
+    <div class="tri-wrap">
+      <div class="tri-title">被动承担的环境构成（三元 · 当前尺度 @T 的未承接残量）</div>
+      <div class="netrow"><span>自然枝</span><div class="nbar"><i id="bN" class="tri-n" style="width:0%"></i></div><b id="vN">—</b></div>
+      <div class="netrow"><span>人文枝</span><div class="nbar"><i id="bH" class="tri-h" style="width:0%"></i></div><b id="vH">—</b></div>
+      <div class="netrow"><span>数字枝</span><div class="nbar"><i id="bD" class="tri-d" style="width:0%"></i></div><b id="vD">—</b></div>
+      <div class="rfoot" style="margin-top:8px">自然枝 = 生态 / 灾害 / 先天；人文枝 = 社会结构 / 他人 / 体制；数字枝 = 系统规则 / 数据偏差。三者皆属「不由本人选择」的环境，应归共济值 A（且不构成负贡献）。</div>
+    </div>
+    <div class="note">
+      公式：<code>N(t) = [η·g·t − L₀ − l·t] − (1−c)·P(t)</code>。方括号内是<b>主动抉择</b>分量（归 B）；<code>(1−c)·P(t)</code> 是尚未被共济吸收、仍压在当事人身上的<b>被动承担</b>残量（应归 A 却尚未覆盖的部分）。<br>
+      • <b>动态在哪里</b>：拉高 c（共济覆盖率）→ 白线抬升、平衡点提前——同一个人、同样的努力，仅因社会承接了被动分量，净值就转正。这说明「个人净值」从来不是纯个人事实。<br>
+      • <b>与 ① 的联动</b>：c 的现实取值由 D 机制基值决定。基值 8% → c 极低；基值跨过中位数 50% → c → 1，被动承担几乎完全社会化，此时净值 = 纯粹主动抉择的记录，贡献值 B 正式成为自由行动层。<br>
+      • <b>v0.7 衔接</b>：④ 卡的「置换 → 净值」即本公式的化债操作化——`η·g·t` 对应新贡献生成(金轨)、`L₀+l·t` 对应负贡献核算(珊瑚轨)、`(1−c)·P(t)` 对应尚待共济承接的被动残量。两卡共用同一净值式，④ 是化债场景特化，⑤ 是通用净值模型。<br>
+      • <b>三轴仍在其中</b>：主动与被动两侧各自可分解为物质 / 时间 / 意志·兴趣三轴，非货币量（花的时间、耗的心力）同样计入，只是归属不同侧。<br>
+      • <b>尺度放大</b>：个人层的被动承担是疾病与失业；国家层是外部冲击与历史负债；国际层是气候与体系性风险。层级越高，P(t) 越是结构性的，越需要更长时域与更高 η 才能穿越。<br>
+      • <b>本人 + 环境三元（2026-08-10 修正）</b>：被动承担并非笼统的"社会"，而是事现鉴 canon 的「社会资源三元」——自然 / 人文 / 数字。这同一三元既是本人主动行动所借的<b>媒介</b>（贡献值 B 经此产生），也是被动承载于其上的<b>环境</b>；将二者拆开看，才完整。下方「环境构成」按当前尺度给出三元各自的未承接残量。
+    </div>
+  </div>
+
+  <div class="note">
+    <b>建模边界声明</b>：本模型术语随白玺裁定演进。③ 热密度=治理指标(热度×ρ)与中位数/超平均理论层分离；⑤ 净值=动态均衡=本人·主动抉择＋环境三元·被动承担，接回三值（被动承担→共济值 A 且不构成负贡献，主动抉择→贡献值 B 净值），同一三元兼具「行动媒介」与「承载环境」双重身份。④ 已升级至 v0.7 **核心闭环版**（白玺 2026-08-10 08:13 裁定）：新增珊瑚色负贡献核算轨道 ∥ 金色新贡献生成轨道 并行可视化 + 置换闭合读数 N(t) + 置换进度条；引擎三件套(多元矩阵/田忌赛马/热度密度)+范式四件套(五卡/财政直销/消费=纳税+化债/货币消失)均经白玺裁定纳入 spec（见 MAIP-spec-化债核心闭环.md）。仍严格隔离者：千问「CV=Output×Vf×Wj−…」公式与「废除债务/推翻资本」修辞（创始人补充思路，未入 spec）。
+  </div>
+</div>
+
+<script>
+// ---------- 1. D 机制 ----------
+const cD = document.getElementById('cD'), xD = cD.getContext('2d');
+const YEARS = 40, A0 = 8, K = 60, THRESH = 50, rBase = 0.20;
+function simD(alpha, rho){
+  const r = rBase * alpha * (0.5 + 0.5*rho);
+  let A = A0, series = [A];
+  for(let y=1;y<=YEARS;y++){ A += r * A * (K - A)/K; if(A>K)A=K; series.push(A); }
+  let cross = series.findIndex(v=>v>=THRESH);
+  return {series, cross: cross<0?null:cross};
+}
+function drawD(alpha, rho){
+  const {series, cross} = simD(alpha, rho);
+  const W=cD.width,H=cD.height,pad=34;
+  xD.clearRect(0,0,W,H);
+  const x=i=>pad+(W-2*pad)*i/YEARS, y=v=>H-pad-(H-2*pad)*v/70;
+  // grid
+  xD.strokeStyle='#3a2724';xD.fillStyle='#b7a89a';xD.font='10px sans-serif';
+  for(let v=0;v<=70;v+=10){xD.beginPath();xD.moveTo(pad,y(v));xD.lineTo(W-pad,y(v));xD.stroke();xD.fillText(v+'%',4,y(v)+3);}
+  // threshold
+  xD.strokeStyle='#C0392B';xD.setLineDash([5,4]);xD.beginPath();xD.moveTo(pad,y(THRESH));xD.lineTo(W-pad,y(THRESH));xD.stroke();xD.setLineDash([]);
+  xD.fillStyle='#C0392B';xD.fillText('阈值 50%',W-pad-46,y(THRESH)-5);
+  // line
+  xD.strokeStyle='#D99A2B';xD.lineWidth=2.4;xD.beginPath();
+  series.forEach((v,i)=>{const px=x(i),py=y(v);i?xD.lineTo(px,py):xD.moveTo(px,py);});xD.stroke();
+  // cross marker
+  if(cross!==null){xD.fillStyle='#3fae8e';const px=x(cross),py=y(THRESH);xD.beginPath();xD.arc(px,py,5,0,7);xD.fill();}
+  // axis
+  xD.fillStyle='#b7a89a';xD.fillText('0',pad-4,H-pad+14);xD.fillText(YEARS+'年',W-pad-22,H-pad+14);
+  // readouts
+  document.getElementById('rYear').textContent=YEARS;
+  document.getElementById('rCross').textContent = cross===null? '40年内未达' : (cross+' 年');
+  const badge=document.getElementById('rBadge');
+  if(cross!==null){badge.textContent='货币消失（第 '+cross+' 年跨越阈值）';badge.className='badge on';}
+  else{badge.textContent='货币未消失（基值未达 50%）';badge.className='badge off';}
+  const endBase = series[YEARS];
+  document.getElementById('pA').textContent = endBase.toFixed(0);
+  const crossed = cross!==null;
+  document.getElementById('pB').textContent = crossed? '自由层' : '0';
+  document.getElementById('pC').textContent = '0';
+  document.getElementById('stateLbl').textContent = crossed? '货币消失 · 贡献自由行动阶段' : '生存交换阶段';
+}
+// ---------- 4. 化债引擎 v0.7 · 核心闭环版 ----------
+const cA=document.getElementById('cABM'),xA=cA.getContext('2d');
+const SCN={
+  A:{base:12,surplus:0,rho:0.30,shock:0},
+  B:{base:45,surplus:0,rho:0.60,shock:0},
+  C:{base:62,surplus:34,rho:0.90,shock:0},
+  D:{base:45,surplus:0,rho:0.60,shock:0.05}
+};
+let curScn='A';
+function simEngine(phi,m,Hthr,theta0,lambda){
+  const P=SCN[curScn]; const N=40;
+  let base=P.base, surplus=P.surplus, rho=P.rho, theta=theta0, tau=0.3;
+  let debt=100, contrib=2;
+  let negContrib=0;                              // ★ v0.7: 负贡献核算累计(珊瑚)
+  const dS=[],cS=[],covS=[],hS=[],nS=[],netS=[];   // ★ nS=珊瑚, netS=净值N(t)
+  for(let p=0;p<=N;p++){
+    dS.push(debt);cS.push(contrib);covS.push(base/100);
+    // 财政直销 + 田忌赛马
+    base += phi*100;
+    let transfer=0;
+    if(surplus>0){transfer=m*surplus*0.15; base+=transfer; surplus-=transfer; if(surplus<0)surplus=0;}
+    if(base>100)base=100;
+    // ★ v0.7: 负贡献核算(珊瑚) — 从存量旧债中按λ强度锁定(归责四要件)
+    const negDelta = lambda * debt * 0.02 * (1 - base/150);  // c越高→越少新负贡献(更多已被处理)
+    negContrib += negDelta;
+    nS.push(negContrib);
+    // 热度密度
+    const flow = phi*100 + transfer + debt*0.03;
+    const Hd = flow*rho; hS.push(Hd);
+    const damp = Hd>Hthr ? 0.5 : 1;
+    // 旧债核销 + 新贡献生成
+    const delta=0.03*damp, gamma=(0.03+(base/100)*0.05)*damp;
+    debt -= delta*tau*debt; if(debt<0)debt=0;
+    contrib += gamma*tau*100;
+    // ★ v0.7: 净值 N(t) = 新贡献 - 负贡献 - 被动残量(1-c)*P(t)
+    const passiveResidual = (1 - base/100) * 20 * (1 + 0.3*Math.sqrt(p+1));  // 近似被动残量
+    const netV = contrib - negContrib - passiveResidual;
+    netS.push(netV);
+    // 信任演化
+    const T=0.35;
+    const shock=(P.shock>0 && p>15 && p<22)?P.shock:0;
+    tau += 0.08*(theta-T)*(1-tau) - shock;
+    if(tau<0)tau=0; if(tau>1)tau=1;
+    theta += 0.04*tau*(1-theta)+0.005; if(theta>0.98)theta=0.98;
+  }
+  return {dS,cS,covS,hS,nS,netS,tau,negContrib};
+}
+function drawEngine(){
+  const phi=+$('phi').value,m=+$('matchM').value,Hthr=+$('hthr').value,theta0=+$('theta').value,lambda=+$('lambda').value;
+  $('bPhi').textContent=phi.toFixed(3);$('bM').textContent=m.toFixed(2);$('bHthr').textContent=Hthr;$('bTheta').textContent=theta0.toFixed(2);
+  $('bLambda').textContent=lambda.toFixed(2);  // ★ v0.7
+  const {dS,cS,covS,hS,nS,netS,tau}=simEngine(phi,m,Hthr,theta0,lambda);
+  const W=cA.width,Hc=cA.height,pad=34;xA.clearRect(0,0,W,Hc);
+  const x=i=>pad+(W-2*pad)*i/(dS.length-1);
+  const maxV=Math.max(...dS,...cS,...nS,100);
+  const y=v=>Hc-pad-(Hc-2*pad)*v/(maxV*1.08);
+  // grid
+  xA.strokeStyle='#3a2724';xA.fillStyle='#b7a89a';xA.font='10px sans-serif';
+  for(let g=0;g<=maxV*1.08;g+=20){xA.beginPath();xA.moveTo(pad,y(g));xA.lineTo(W-pad,y(g));xA.stroke();xA.fillText(g.toFixed(0),4,y(g)+3);}
+  // ① 旧债存量（蓝）
+  xA.strokeStyle='#2F6FED';xA.lineWidth=2.2;xA.beginPath();dS.forEach((v,i)=>{const px=x(i),py=y(v);i?xA.lineTo(px,py):xA.moveTo(px,py);});xA.stroke();
+  // ★ ② 负贡献核算累计（珊瑚）
+  xA.strokeStyle='#D85A30';xA.lineWidth=2.2;xA.beginPath();nS.forEach((v,i)=>{const px=x(i),py=y(v);i?xA.lineTo(px,py):xA.moveTo(px,py);});xA.stroke();
+  // ③ 新贡献生成累计（金）
+  xA.strokeStyle='#D99A2B';xA.lineWidth=2.2;xA.beginPath();cS.forEach((v,i)=>{const px=x(i),py=y(v);i?xA.lineTo(px,py):xA.moveTo(px,py);});xA.stroke();
+  // ★ ④ 净值 N(t)（白/奶油色）
+  xA.strokeStyle='#f0e6d2';xA.lineWidth=2.6;xA.setLineDash([3,3]);xA.beginPath();netS.forEach((v,i)=>{const px=x(i),py=y(Math.max(v,-maxV*0.3));i?xA.lineTo(px,py):xA.moveTo(px,py);});xA.stroke();xA.setLineDash([]);
+  // ⑤ 覆盖率 c（绿，右轴缩放）
+  xA.strokeStyle='#3fae8e';xA.lineWidth=1.6;xA.beginPath();covS.forEach((v,i)=>{const px=x(i),py=y(v*maxV*1.08);i?xA.lineTo(px,py):xA.moveTo(px,py);});xA.stroke();
+  // ⑥ 50% 货币消失阈值（红虚线）
+  xA.strokeStyle='#C0392B';xA.setLineDash([5,4]);xA.beginPath();xA.moveTo(pad,y(maxV*0.5));xA.lineTo(W-pad,y(maxV*0.5));xA.stroke();xA.setLineDash([]);
+  xA.fillStyle='#C0392B';xA.fillText('50% 货币消失阈值',W-pad-120,y(maxV*0.5)-4);
+  // ★ ⑦ N(t)=0 置换线（绿虚线，标记净值转正点）
+  let tDisp=null;
+  for(let i=0;i<netS.length;i++){if(netS[i]>=0){tDisp=i;break;}}
+  if(tDisp!==null&&tDisp>0){
+    xA.strokeStyle='#3fae8e';xA.lineWidth=1.4;xA.setLineDash([6,3]);xA.beginPath();
+    xA.moveTo(x(tDisp),pad);xA.lineTo(x(tDisp),Hc-pad);xA.stroke();xA.setLineDash([]);
+    xA.fillStyle='#3fae8e';xA.font='10px sans-serif';
+    xA.fillText('置换完成 N(t)≥0',x(tDisp)+4,pad+11);
+  }
+  // axis labels
+  xA.fillStyle='#b7a89a';xA.font='10px sans-serif';
+  xA.fillText('0',pad-4,Hc-pad+14);xA.fillText('40期',W-pad-22,Hc-pad+14);
+  // 图例
+  xA.font='9.5px sans-serif';
+  xA.fillStyle='#2F6FED';xA.fillText('━ 旧债',pad,14);
+  xA.fillStyle='#D85A30';xA.fillText('━ 负贡献(珊瑚)',70,14);
+  xA.fillStyle='#D99A2B';xA.fillText('━ 新贡献(金)',165,14);
+  xA.fillStyle='#f0e6d2';xA.fillText('┄ 净值N(t)',255,14);
+  xA.fillStyle='#3fae8e';xA.fillText('━ 覆盖率c',340,14);
+
+  // ★ v0.7: 双轨置换读数
+  const last=nS.length-1;
+  const finalNeg=nS[last], finalNew=cS[last], finalNet=netS[last], finalCov=covS[last];
+  $('tNeg').textContent=finalNeg.toFixed(1);
+  $('tNew').textContent=finalNew.toFixed(1);
+  $('tNet').textContent=(finalNet>=0?'+'+finalNet.toFixed(1):finalNet.toFixed(1));
+  $('tNetLbl').textContent=finalNet>=0?
+    '✓ 置换完成：新贡献已覆盖负债' :
+    '新贡献 − 负贡献 − 被动残量（待继续）';
+  // 置换进度条
+  const totalDebtInitial=100;  // 初始旧债
+  const dispProgress=Math.max(0,Math.min(100,
+    ((finalNew - finalNeg) / totalDebtInitial * 100)));
+  $('dispBar').style.width=dispProgress.toFixed(0)+'%';
+  $('dispLbl').textContent='置换进度 '+dispProgress.toFixed(0)+'%'
+    +(tDisp!==null?' (第'+tDisp+'期转正)':'');
+
+  // 原有读数
+  $('rTau').textContent=tau.toFixed(2);
+  $('rCov').textContent=(finalCov*100).toFixed(0)+'%';
+  $('rMoney').textContent=finalCov>=0.5?'已发生':'未发生';
+  $('rRes').textContent=finalCov>=0.5?'货币消失·贡献自由行动':'生存交换阶段·依赖外部推力';
+  $('rDisp').textContent=tDisp!==null?
+    '✓ 第'+tDisp+'期 N(t)≥0 置换完成':
+    '✗ 本期内未完成置换';
+
+  const minCov=Math.min(...covS), maxH=Math.max(...hS);
+  let riskPct=Math.max(0,Math.min(100,(1-minCov)*100*0.7));
+  if(theta0<0.05)riskPct=Math.min(100,riskPct+10);
+  if(maxH>Hthr)riskPct=Math.min(100,riskPct+10);
+  if(lambda>1.0)riskPct=Math.min(100,riskPct+8);  // ★ 负贡献核算过激也加风险
+  $('riskBar').style.width=riskPct.toFixed(0)+'%';
+  const lbl=riskPct<30?'低':riskPct<60?'中':'高';
+  $('riskLbl').textContent='系统性风险（债务-通缩 / 切换冲击 / 过热 / 追责压力）：'+lbl+(minCov<0.15?' · 早期覆盖脆弱':'')+(lambda>1.0?' · 追核激进':'');
+}
+// ---------- 3. 热密度 ----------
+const cH=document.getElementById('cHeat'),xH=cH.getContext('2d');
+function drawHeat(H,rho){
+  const Hd=H*rho;
+  const W=cH.width,Hc=cH.height,pad=20;xH.clearRect(0,0,W,Hc);
+  const maxHd=300, frac=Math.min(1,Hd/maxHd);
+  const bx=pad,by=Hc*0.40,bw=W-2*pad,bh=26;
+  xH.fillStyle='#3a1c14';xH.fillRect(bx,by,bw,bh);
+  const grad=xH.createLinearGradient(bx,0,bx+bw,0);
+  grad.addColorStop(0,'#2F6FED');grad.addColorStop(0.5,'#D99A2B');grad.addColorStop(1,'#C0392B');
+  xH.fillStyle=grad;xH.fillRect(bx,by,bw*frac,bh);
+  xH.strokeStyle='#3a2724';xH.strokeRect(bx,by,bw,bh);
+  xH.fillStyle='#b7a89a';xH.font='10px sans-serif';
+  xH.fillText('0',bx,by+bh+12);xH.fillText('热密度 H_d = 热度 × ρ',bx+6,by-6);
+  xH.fillText(maxHd.toFixed(0),bx+bw-22,by+bh+12);
+  const mx=bx+bw*frac;xH.strokeStyle='#f0e6d2';xH.beginPath();xH.moveTo(mx,by-4);xH.lineTo(mx,by+bh+4);xH.stroke();
+  $('rHd').textContent=Hd.toFixed(0);
+  const badge=$('rHeatBadge');
+  if(Hd<60){badge.textContent='常规记录（热度低，常规入台账）';badge.className='badge off';}
+  else if(Hd<180){badge.textContent='需多当事人复测（治理升级）';badge.className='badge off';}
+  else{badge.textContent='升级至人类裁定层 R-1…R-6 复核';badge.className='badge on';}
+}
+// ---------- 3b. 中位数 / 超平均 ----------
+const cM=document.getElementById('cMed'),xM=cM.getContext('2d');
+function drawMed(){
+  const W=cM.width,Hc=cM.height,pad=34;xM.clearRect(0,0,W,Hc);
+  const x=i=>pad+(W-2*pad)*i/10;
+  const pop=[6,7,9,11,13,12,10,8,7,17];
+  const maxP=Math.max(...pop), y=v=>Hc-pad-(Hc-2*pad)*v/(maxP*1.15);
+  for(let i=0;i<10;i++){const h=y(0)-y(pop[i]);
+    xM.fillStyle=i>=5?'rgba(217,154,43,0.85)':'#3a2724';
+    xM.fillRect(x(i)+6,Hc-pad-h,(W-2*pad)/10-12,h);}
+  xM.strokeStyle='#C0392B';xM.setLineDash([5,4]);xM.beginPath();xM.moveTo(x(5),pad);xM.lineTo(x(5),Hc-pad);xM.stroke();xM.setLineDash([]);
+  xM.fillStyle='#C0392B';xM.fillText('中位数 50',x(5)+4,pad+10);
+  xM.fillStyle='#b7a89a';xM.fillText('0 低资源',pad-4,Hc-pad+14);xM.fillText('100 高资源',W-pad-30,Hc-pad+14);
+  xM.fillStyle='#D99A2B';xM.fillText('↑ 超平均区间（理论讨论层·非治理输出）',x(5)+6,Hc-pad+30);
+}
+// ---------- 5. 净值 ----------
+const cN=document.getElementById('cNet'),xN=cN.getContext('2d');
+const SCALES={
+  person:{name:'个人',horizon:12,T:3,L0:20,g:10,l:4,p:5,eta:0.9,
+    act:'兴趣 / 技能 / 时间自主',pas:'疾病 / 失业 / 照护',eff:'个人专注度',
+    tri:{n:0.45,h:0.40,d:0.15}},
+  org:{name:'团体组织',horizon:48,T:12,L0:60,g:8,l:5,p:4,eta:0.8,
+    act:'协作产出 / 协同网络',pas:'行业波动 / 政策变动',eff:'组织运转效率',
+    tri:{n:0.25,h:0.50,d:0.25}},
+  state:{name:'国家',horizon:240,T:60,L0:200,g:6,l:5,p:3.2,eta:0.75,
+    act:'公共福祉 / 社保可持续',pas:'外部冲击 / 历史负债',eff:'政策执行效率',
+    tri:{n:0.45,h:0.40,d:0.15}},
+  intl:{name:'国际',horizon:600,T:150,L0:500,g:5,l:4.5,p:3,eta:0.7,
+    act:'全球社保 / 跨国协调',pas:'气候 / 体系性风险',eff:'多边机制效率',
+    tri:{n:0.50,h:0.35,d:0.15}}
+};
+let curScale='person';
+const passive=(t,p)=>p*t*(1+0.35*Math.sqrt(t));
+function drawNetEq(){
+  const s=SCALES[curScale];
+  const eta=+$('eta').value, T=+$('netT').value, c=+$('cov').value;
+  $('nEta').textContent=eta.toFixed(2);$('nT').textContent=T;$('nC').textContent=c.toFixed(2);
+  const {L0,g,l,p,horizon}=s;
+  const W=cN.width,Hc=cN.height,pad=34;xN.clearRect(0,0,W,Hc);
+  const x=t=>pad+(W-2*pad)*t/horizon;
+  const act=t=>eta*g*t-L0-l*t;
+  const net=t=>act(t)-(1-c)*passive(t,p);
+  let lo=0,hi=0;
+  for(let t=0;t<=horizon;t++){
+    [act(t),net(t),passive(t,p)].forEach(v=>{if(v<lo)lo=v;if(v>hi)hi=v;});
+  }
+  const span=Math.max(hi-lo,10);
+  const y=v=>Hc-pad-(Hc-2*pad)*(v-lo)/(span*1.06);
+  const step=Math.max(1,Math.floor(horizon/220));
+  const line=(fn,color,w,dash)=>{
+    xN.strokeStyle=color;xN.lineWidth=w;xN.setLineDash(dash||[]);xN.beginPath();
+    for(let t=0;t<=horizon;t+=step){const px=x(t),py=y(fn(t));t?xN.lineTo(px,py):xN.moveTo(px,py);}
+    xN.stroke();xN.setLineDash([]);
+  };
+  xN.strokeStyle='#4a3430';xN.lineWidth=1;xN.beginPath();xN.moveTo(pad,y(0));xN.lineTo(W-pad,y(0));xN.stroke();
+  if(c>0){
+    xN.fillStyle='rgba(47,111,237,0.22)';xN.beginPath();
+    for(let t=0;t<=horizon;t+=step){const px=x(t),py=y(act(t)-passive(t,p));t?xN.lineTo(px,py):xN.moveTo(px,py);}
+    for(let t=horizon;t>=0;t-=step){xN.lineTo(x(t),y(net(t)));}
+    xN.closePath();xN.fill();
+  }
+  line(t=>passive(t,p),'#D85A30',2);
+  line(act,'#D99A2B',2.2);
+  line(net,'#f0e6d2',2.6);
+  let tstar=null;
+  for(let t=0;t<=horizon;t+=Math.max(0.25,horizon/2000)){if(net(t)>=0){tstar=t;break;}}
+  if(tstar!==null&&tstar>0){
+    xN.strokeStyle='#3fae8e';xN.setLineDash([5,4]);xN.beginPath();
+    xN.moveTo(x(tstar),pad);xN.lineTo(x(tstar),Hc-pad);xN.stroke();xN.setLineDash([]);
+    xN.fillStyle='#3fae8e';xN.font='11px sans-serif';xN.fillText('平衡点 '+tstar.toFixed(0),x(tstar)+4,pad+11);
+  }
+  xN.strokeStyle='#2F6FED';xN.lineWidth=1.4;xN.beginPath();xN.moveTo(x(T),pad);xN.lineTo(x(T),Hc-pad);xN.stroke();
+  xN.fillStyle='#2F6FED';xN.font='11px sans-serif';xN.fillText('T='+T,x(T)+4,Hc-pad-6);
+  xN.fillStyle='#b7a89a';xN.font='10px sans-serif';
+  xN.fillText('时间 → ('+s.name+' · 主动：'+s.act+'　被动：'+s.pas+')',pad,Hc-pad+14);
+  const aT=act(T),pT=passive(T,p),absT=c*pT,nT=aT-(1-c)*pT;
+  $('rScale').textContent=s.name;
+  $('rAct').textContent=(aT>=0?'+':'')+aT.toFixed(0);
+  $('rPas').textContent='−'+pT.toFixed(0);
+  $('rAbs').textContent='+'+absT.toFixed(0)+'（社会承接）';
+  $('rNetT').textContent=(nT>=0?'+':'')+nT.toFixed(0);
+  $('rBreakeven').textContent=(tstar===null)?'本时域内不转正':tstar.toFixed(0)+' 期';
+  const badge=$('rNetBadge');
+  if(nT>=0){badge.textContent='净值为正 · 主动抉择已穿越被动承担';badge.className='badge on';}
+  else if(aT>=0){badge.textContent='主动为正、总体仍负 · 缺口来自被动承担（应由共济承接，非负贡献）';badge.className='badge off';}
+  else{badge.textContent='仍处投入期 · 需更长时域或更高效率';badge.className='badge off';}
+  const magA=Math.abs(aT),magP=(1-c)*pT,tot=magA+magP||1;
+  $('bAct').style.width=(100*magA/tot).toFixed(0)+'%';$('vAct').textContent=(100*magA/tot).toFixed(0)+'%';
+  $('bPas').style.width=(100*magP/tot).toFixed(0)+'%';$('vPas').textContent=(100*magP/tot).toFixed(0)+'%';
+  const tri=s.tri,res=(1-c)*pT;
+  $('bN').style.width=(100*tri.n).toFixed(0)+'%';$('vN').textContent='−'+(tri.n*res).toFixed(0)+'（'+(100*tri.n).toFixed(0)+'%）';
+  $('bH').style.width=(100*tri.h).toFixed(0)+'%';$('vH').textContent='−'+(tri.h*res).toFixed(0)+'（'+(100*tri.h).toFixed(0)+'%）';
+  $('bD').style.width=(100*tri.d).toFixed(0)+'%';$('vD').textContent='−'+(tri.d*res).toFixed(0)+'（'+(100*tri.d).toFixed(0)+'%）';
+}
+// ---------- bindings ----------
+const $=id=>document.getElementById(id);
+$('alpha').oninput=e=>{const v=+e.target.value;$('aAlpha').textContent=v.toFixed(2);drawD(v,+$('rho').value);};
+$('rho').oninput=e=>{const v=+e.target.value;$('aRho').textContent=v.toFixed(2);drawD(+$('alpha').value,v);};
+document.querySelectorAll('#scnBtns .sbtn').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('#scnBtns .sbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');curScn=b.dataset.scn;drawEngine();
+  };
+});
+$('phi').oninput=drawEngine;
+$('matchM').oninput=drawEngine;
+$('hthr').oninput=drawEngine;
+$('theta').oninput=drawEngine;
+$('lambda').oninput=drawEngine;  // ★ v0.7
+$('heat').oninput=e=>{const v=+e.target.value;$('hHeat').textContent=v;drawHeat(v,+$('hrho').value);};
+$('hrho').oninput=e=>{const v=+e.target.value;$('hRho').textContent=v.toFixed(2);drawHeat(+$('heat').value,v);};
+document.querySelectorAll('#scaleBtns .sbtn').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('#scaleBtns .sbtn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');curScale=b.dataset.s;
+    const s=SCALES[curScale];$('netT').max=s.horizon;$('netT').step=Math.max(1,Math.round(s.horizon/60));
+    $('netT').value=s.T;$('eta').value=s.eta;drawNetEq();
+  };
+});
+$('eta').oninput=drawNetEq;
+$('netT').oninput=drawNetEq;
+$('cov').oninput=drawNetEq;
+// init
+drawD(0.6,0.7);
+drawEngine();
+drawHeat(120,0.75);
+drawMed();
+drawNetEq();
+</script>
+</body>
+</html>

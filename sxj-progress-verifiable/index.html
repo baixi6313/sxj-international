@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>事现鉴 · 进度汇报可验证事件 | evt_progress_20260810</title>
+<style>
+:root{
+  --paper:#fff8f0; --ink:#2b2b2b; --red:#a23b32; --gold:#c9a24b;
+  --c-ubv:#2f6f8f; --c-cv:#3a7d44; --c-ncv:#a23b32; --line:#e3d6c2; --muted:#8a7d68;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;background:var(--paper);color:var(--ink);line-height:1.65}
+a{color:var(--red);text-decoration:none}
+.wrap{max-width:960px;margin:0 auto;padding:18px 16px 70px}
+header.top{border-bottom:3px double var(--gold);padding-bottom:14px;margin-bottom:18px}
+header.top h1{margin:0 0 4px;font-size:25px;letter-spacing:.5px}
+header.top h1 .seal{color:var(--red)}
+header.top p{margin:0;color:var(--muted);font-size:14px}
+.banner{background:linear-gradient(135deg,#A32D2D,#7a1f1f);color:#fff;text-align:center;padding:9px 20px;font-size:.86rem;line-height:1.45;border-bottom:2px solid var(--gold)}
+.banner b{color:#f4e9c9;letter-spacing:1px}
+.def{background:#fffdf8;border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:10px 14px;margin:14px 0;font-size:13.5px;color:#5a4f3e}
+.def b{color:var(--red)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.metagrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:6px}
+.metagrid .m{background:#fffdf8;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.metagrid .m .k{font-size:11.5px;color:var(--muted)}
+.metagrid .m .v{font-size:14px;font-weight:600}
+.badge{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:20px;color:#fff;background:var(--c-ubv);font-weight:600}
+.tag{display:inline-block;background:#f3e9d8;color:#6a5b3e;border-radius:6px;padding:1px 7px;font-size:11px;margin-right:4px}
+.claim{border-left:4px solid var(--c-cv);background:#fffdf8;border-radius:0 10px 10px 0;padding:10px 14px;margin:10px 0}
+.claim .n{font-weight:700;color:var(--c-cv)}
+.claim .st{font-size:13.5px;margin:4px 0}
+.claim .ev{font-size:12px;color:var(--muted);margin-top:4px}
+.claim .ev a{font-family:ui-monospace,Menlo,monospace;font-size:11.5px}
+.claim .vy{font-size:12px;color:#5a4f3e;margin-top:4px;background:#faf4e8;border-radius:6px;padding:5px 8px}
+.hashev{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--muted);word-break:break-all}
+.btn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.btn.ghost{background:#fff;border:1px solid var(--red);color:var(--red)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.ok{color:var(--c-cv);font-weight:600}
+footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--muted)}
+h2{font-size:18px;border-bottom:2px solid var(--line);padding-bottom:6px;margin-top:24px}
+pre{background:#2b2b2b;color:#f4e9c9;padding:12px;border-radius:8px;overflow:auto;font-size:11.5px}
+</style>
+</head>
+<body>
+
+<div class="banner"><b>✦ 创始完成</b>&nbsp;&nbsp;白玺已经完成所有创始内容，剩下的交给世界和时间了。</div>
+
+<div class="wrap">
+  <header class="top">
+    <h1><span class="seal">事现鉴</span> · 进度汇报可验证事件</h1>
+    <p>SXJ Verifiable Progress Event — evt_progress_20260810 · 供其他 AI agent 逐项复验</p>
+  </header>
+
+  <div class="def">
+    <b>这是什么：</b>这是《事现鉴整体进度汇报》的<b>可验证化封装</b>。每条进度陈述被拆成结构化 claim，附 <b>SHA-256 证据指纹</b> 与 <b>验证方法</b>；其他 AI agent 可落同一坐标（SXJ 协议域·元层治理）复测 ρ、比对指纹，完成交互验证。人类裁定签名层（R-0 / 白玺）待补，未签名前状态为「验证中」。<a href="claim.json">claim.json（机器可读）</a>
+  </div>
+
+  <div class="card">
+    <span class="badge">共济值 · 项目状态陈述</span>
+    <div class="metagrid">
+      <div class="m"><div class="k">事件 ID</div><div class="v">evt_progress_20260810</div></div>
+      <div class="m"><div class="k">记录部门</div><div class="v">光锥运维部</div></div>
+      <div class="m"><div class="k">坐标 (x,y,z,j,t)</div><div class="v" style="font-size:12px">人文/数字·上·协议层·SXJ·2026-08-10</div></div>
+      <div class="m"><div class="k">可验证密度 ρ</div><div class="v">0.85（初估·待校准）</div></div>
+      <div class="m"><div class="k">状态</div><div class="v" style="color:var(--c-ubv)">验证中</div></div>
+      <div class="m"><div class="k">人类签名 R-0</div><div class="v" style="color:var(--muted)">Pending</div></div>
+    </div>
+    <div class="hashev" style="margin-top:8px">整包完整性 SHA-256：<span id="wholeHash">（点下方「计算整包指纹」）</span></div>
+  </div>
+
+  <div class="bar">
+    <button class="btn" id="hashBtn">计算整包指纹</button>
+    <button class="btn ghost" id="copyBtn">复制 claim.json 链接</button>
+  </div>
+
+  <h2>结构化 Claims（11 条 · 可逐项复验）</h2>
+  <div id="claims"></div>
+
+  <h2>验证指引（给其他 AI agent）</h2>
+  <div class="card" style="font-size:13.5px">
+    <p><b>步骤：</b></p>
+    <p>① 取本页 claims 列表或 <a href="claim.json">claim.json</a>。<br>
+    ② 对每条 claim，按其 <b>evidence</b> 指针打开 <code>evidence/</code> 下源文件，比对 SHA-256 指纹是否一致。<br>
+    ③ 外部证据（claim 9 GitHub / claim 11 DPG）访问给定 URL 核对。<br>
+    ④ 落同一坐标（SXJ 协议域·元层治理）复测可验证密度 ρ。<br>
+    ⑤ 确认人类裁定签名层（R-0 / 白玺）状态。</p>
+    <p class="vy">任何一条 evidence 的 SHA-256 不符或缺失，则该 claim <b>不成立</b>。本事件为「项目状态陈述」，可信度来自证据源的可交叉验证性，而非权威背书。</p>
+  </div>
+
+  <h2>证据包（evidence/）</h2>
+  <div class="card" style="font-size:13px">
+    <a href="evidence/SXJ-MAIP-v1.0.md">SXJ-MAIP-v1.0.md（含第十五章）</a> ·
+    <a href="evidence/化债引擎→canon映射.md">化债引擎→canon映射.md</a> ·
+    <a href="evidence/MAIP-spec-化债核心闭环.md">MAIP-spec-化债核心闭环.md</a> ·
+    <a href="evidence/事现鉴-化债-待发展城市与实物债务重定义-讨论.md">第4稿·待发展城市与实物债务</a> ·
+    <a href="evidence/sxj-economics-model.html">sxj-economics-model.html (v0.7)</a> ·
+    <a href="evidence/事现鉴-整体进度汇报-2026-08-10.md">整体进度汇报</a>
+  </div>
+
+  <footer>
+    事现鉴 · 光锥运维部（记录 · 审查 · 优化）· 2026-08-10<br>
+    回到：<a href="../index.html">项目根</a> · 本事件源：<a href="claim.json">claim.json</a>
+  </footer>
+</div>
+
+<script>
+const CLAIMS = [
+ {n:1,st:"事现鉴=基于《世界人权宣言》第22条的可验证公共事实协议；终极目标=建立并可持续运行全球社保；MAIP 为统一度量衡、不取代各国社保；当前阶段=坐标系优先。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"],["整体进度汇报","evidence/事现鉴-整体进度汇报-2026-08-10.md"]],vy:"打开 MAIP 第一章核对定位；进度汇报第一节核对。"},
+ {n:2,st:"已裁定 canon 体系 8 项全部生效：三值 / 坐标系优先 / 净值↔动态均衡 / 交互验证vs相互验证 / R-1…R-6 / D机制 / 光锥舟Gzz / 三元双重身份。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"]],vy:"打开 MAIP 第二节『已裁定 canon 体系』表格（8 行全为 canon）。"},
+ {n:3,st:"化债引擎线已全部升 spec：引擎三件套＋范式四件套＋核心闭环＋两议题＋口号总纲。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"],["化债引擎→canon映射","evidence/化债引擎→canon映射.md"],["MAIP-spec-化债核心闭环","evidence/MAIP-spec-化债核心闭环.md"]],vy:"打开 MAIP 第十五章；打开化债引擎→canon映射.md 核对映射总表。"},
+ {n:4,st:"化债核心闭环(08:13裁定)：负贡献核算(珊瑚·归责四要件) ∥ 生成新贡献(金·B·三元ρ) 并行 → 置换现有债务 → 贡献净值 N(t)；货币消失是置换完成的终态结果、非手段。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"],["模型v0.7","evidence/sxj-economics-model.html"]],vy:"MAIP §15.1 五步闭环；模型 v0.7 ④卡双轨与置换进度条。"},
+ {n:5,st:"两议题升 spec：待发展城市三元体系重定义；实物/公共工程债务重定义为三元ρ缺口、经动态均衡(Gzz)闭合，参照共创论而非旧工分制。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"],["第4稿","evidence/事现鉴-化债-待发展城市与实物债务重定义-讨论.md"]],vy:"MAIP §15.2/§15.3；第4稿 §2/§3。"},
+ {n:6,st:"口号→机制映射已入 spec：打资本=负贡献核算；分数据=新贡献生成通道；化解债务=置换→净值。『打资本/推翻资本』修辞仍隔离。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"]],vy:"MAIP §15.4 映射表与边界声明。"},
+ {n:7,st:"化债核心闭环 spec 已于 2026-08-10 正式并入主 MAIP 文档第十五章（源稿件保留）；附录 C/E 已同步。",ev:[["MAIP-v1.0","evidence/SXJ-MAIP-v1.0.md"],["MAIP-spec-化债核心闭环","evidence/MAIP-spec-化债核心闭环.md"]],vy:"MAIP 搜索『第十五章』确认并入；核对附录 C/E。"},
+ {n:8,st:"模型 v0.5→v0.6(④卡引擎版)→v0.7(双轨版：负贡献∥新贡献+置换闭合)；JS 校验通过、旧id残留0。",ev:[["模型v0.7","evidence/sxj-economics-model.html"]],vy:"模型标题含 v0.7、④卡含珊瑚/金/白三轨与 λ 控件、置换进度条。"},
+ {n:9,st:"首轮 GitHub 备份 5/5 推 baixi6313/sxj-2026-08-08 @ main 并核验(HTTP 201)；该批为 v0.6 时代产物，v0.7/第4稿/spec章节因③叫停未二次推。",ev:[["GitHub仓库","https://github.com/baixi6313/sxj-2026-08-08"]],vy:"访问仓库核对 5 文件存在（3讨论稿+映射+v0.6模型）。",ext:true},
+ {n:10,st:"未决/待办：②分数据机制(叫停待讨论)；③二次GitHub备份(叫停)；concept_tree节点(§15.6未入树)；试点/量化公式(仅框架)；口号修辞隔离；DPG线上对齐。",ev:[["整体进度汇报","evidence/事现鉴-整体进度汇报-2026-08-10.md"]],vy:"进度汇报第七节、第九节。"},
+ {n:11,st:"DPG 提名(2026-08-09)：Application ID 14641 → DPG ID GID0094044，UNDER REVIEW；最早结果 2026-09-06；9/9 指标绿。",ev:[["DPG平台","https://app.digitalpublicgoods.net/"]],vy:"DPG 平台查 GID0094044 核对状态与日期。",ext:true},
+];
+
+const box=document.getElementById('claims');
+CLAIMS.forEach(c=>{
+  const d=document.createElement('div'); d.className='claim';
+  const evs=c.ev.map(e=>{
+    if(c.ext) return `<a href="${e[1]}" target="_blank">${e[0]}（外部）</a>`;
+    return `<a href="${e[1]}">${e[0]}</a>`;
+  }).join(' · ');
+  d.innerHTML=`<div class="n">#${c.n}</div><div class="st">${c.st}</div><div class="ev">证据：${evs}</div><div class="vy">验证：${c.vy}</div>`;
+  box.appendChild(d);
+});
+
+async function sha256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+document.getElementById('hashBtn').onclick=async()=>{
+  const payload=JSON.stringify(CLAIMS,null,0);
+  const h=await sha256(payload);
+  document.getElementById('wholeHash').textContent=h;
+  alert('整包 claims 指纹(供交叉比对)：\n'+h);
+};
+document.getElementById('copyBtn').onclick=()=>{
+  const u=location.href.replace(/index\.html$/,'')+'claim.json';
+  navigator.clipboard?.writeText(u).then(()=>alert('已复制 claim.json 链接：\n'+u),()=>prompt('复制此链接：',u));
+};
+</script>
+</body>
+</html>

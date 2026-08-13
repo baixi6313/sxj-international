@@ -61,6 +61,10 @@ footer{margin-top:30px;border-top:1px solid var(--line);padding-top:14px;font-si
 </head>
 <body>
 
+<!-- 创始完成声明 · 白玺 -->
+<div style="background:linear-gradient(135deg,#A32D2D,#7a1f1f);color:#fff;padding:9px 20px;text-align:center;font-family:-apple-system,Segoe UI,Roboto,'PingFang SC','Microsoft YaHei',sans-serif;border-bottom:2px solid #C9A24B;font-size:0.9rem;line-height:1.45;">
+  <span style="color:#f4e9c9;font-weight:700;letter-spacing:1px;">✦ 创始完成</span>&nbsp;&nbsp;白玺已经完成所有创始内容，剩下的交给世界和时间了。
+</div>
 
 <div class="wrap">
   <header class="top">
@@ -174,6 +178,15 @@ function seed(){
                 {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]});
       save();
     }
+    if(!events.find(e=>e.id==='seed7')){
+      events.push({id:'seed7',seq:events.length+1,prevHash:'',type:'共济值',date:'2026-08-02',
+       title:'百度搭子（百度 AI）对话分享链接生成失败',
+       desc:'白玺在百度搭子平台尝试生成对话分享链接时，系统提示「Share url is missing」，无法获得可携带、可审计的链接。该事件与 seed5 Kimi 分享链接异常同类，进一步证明：若 AI 平台不开放可分享链接，则无法作为事现鉴交互验证的独立节点；跨平台备份、本地存档与去中心化验证机制因此成为必要。',
+       evidence:['evidence/baidu-dazi-share-url-missing-2026-08-02.png'],
+       recorder:'白玺',createdAt:now-500,status:'记录中',
+       updates:[{ts:now-500,text:'截图留存：百度搭子无法生成分享链接，平台能力缺陷导致其不能作为事现鉴交互验证节点。',prevHash:'seed7',hash:''}]});
+      save();
+    }
     return;
   }
   events=[
@@ -213,7 +226,13 @@ function seed(){
        recorder:'白玺',createdAt:now-1000,status:'记录中',
        updates:[{ts:now-1000,text:'负贡献原型入册：政府第三方尺，让内部想干事的人有尺可量。',prevHash:'seed6',hash:''},
               {ts:now-500,text:'状态更正：由「已验证」降回「记录中」。理由：仅有记录人单方口述，无当事人独立举证、无第三方核查。事现鉴不能自证。',prevHash:'seed6',hash:''},
-                {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]}
+                {ts:now,text:'亲历举证：2025 年 12 月，白玺陪同母亲（彬县卷烟厂买断职工）及母亲的几位同事，从咸阳坐地铁前往陕西省中烟工业公司反映情况；现场由对方工作人员接待了带头人，具体答复内容不详；白玺本人仅在场陪同，未参与交涉；已知后续多次前往，目前尚未取得可记录结果。群聊线索：微信群「烟厂买断职工群」截图显示，2025 年 12 月 19-22 日间成员持续讨论省中烟公司、咸阳卷烟厂、破产公司相关话题，可证明该群体真实存在并在持续跟进同一事件。',prevHash:'seed6',hash:''}]},
+    {id:'seed7',seq:7,prevHash:'',type:'共济值',date:'2026-08-02',
+     title:'百度搭子（百度 AI）对话分享链接生成失败',
+     desc:'白玺在百度搭子平台尝试生成对话分享链接时，系统提示「Share url is missing」，无法获得可携带、可审计的链接。该事件与 seed5 Kimi 分享链接异常同类，进一步证明：若 AI 平台不开放可分享链接，则无法作为事现鉴交互验证的独立节点；跨平台备份、本地存档与去中心化验证机制因此成为必要。',
+     evidence:['evidence/baidu-dazi-share-url-missing-2026-08-02.png'],
+     recorder:'白玺',createdAt:now-500,status:'记录中',
+     updates:[{ts:now-500,text:'截图留存：百度搭子无法生成分享链接，平台能力缺陷导致其不能作为事现鉴交互验证节点。',prevHash:'seed7',hash:''}]}
   ];
   // fill prevHash chain + hashes
   events[1].prevHash=events[0].id;
@@ -221,6 +240,7 @@ function seed(){
   events[3].prevHash=events[2].id;
   events[4].prevHash=events[3].id;
   events[5].prevHash=events[4].id;
+  events[6].prevHash=events[5].id;
   save();
 }
 

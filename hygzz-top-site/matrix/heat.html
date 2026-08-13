@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>热力密度图 · ρ 可验证密度分布 — 事现鉴 SXJ</title>
+<meta name="description" content="事现鉴热力密度图：把 ρ（可验证密度）投影到三元 × 三档坐标场，可按法域 j、组织层级 z、时间 t 任意切片。平衡区蓝、交叉区红、未量测灰 —— 只显示读数，不排名、不计分。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23A32D2D'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='%23F5F0E6'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23A32D2D'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---- 热力网格 ---- */
+.heatwrap{display:grid;grid-template-columns:92px repeat(3,1fr) 104px;gap:8px;align-items:stretch}
+.hh{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  font-size:.82rem;font-weight:700;color:var(--text-dim);padding:7px 3px}
+.hh .k{font-family:var(--mono);font-size:.66rem;color:var(--text-faint);font-weight:400;margin-top:2px}
+.hh.corner{background:var(--bg-warm);border:1px dashed var(--border);border-radius:9px;
+  font-size:.7rem;color:var(--text-faint);line-height:1.35;padding:8px 5px}
+.hrow-h{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+  border-radius:9px;color:#fff;padding:10px 5px;font-weight:800;font-size:.9rem}
+.hrow-h .ic{font-size:1.25rem;margin-bottom:2px}
+.hrow-h .sm{font-size:.63rem;font-weight:400;opacity:.9;font-family:var(--mono);margin-top:3px}
+
+.hcell{position:relative;border-radius:10px;border:1px solid var(--border);min-height:112px;
+  padding:11px;display:flex;flex-direction:column;justify-content:space-between;
+  cursor:pointer;transition:.18s;overflow:hidden;text-align:left;font-family:inherit;background:#fff}
+.hcell:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--red)}
+.hcell.sel{border-color:var(--red);border-width:2px;box-shadow:0 0 0 3px var(--red-light)}
+.hcell .paint{position:absolute;inset:0;z-index:0;transition:.35s}
+.hcell .inner{position:relative;z-index:1;display:flex;flex-direction:column;height:100%;gap:6px}
+.hcell .big{font-family:var(--mono);font-size:1.5rem;font-weight:800;line-height:1}
+.hcell .cap{font-size:.68rem;opacity:.92;line-height:1.35}
+.hcell .sub{font-family:var(--mono);font-size:.66rem;opacity:.86;margin-top:auto}
+.hcell .hold{position:absolute;top:0;right:0;z-index:2;font-size:.6rem;background:#f5e6cc;color:#8a5a10;
+  border-radius:0 9px 0 7px;padding:2px 7px;font-weight:700}
+.hcell.dark .inner{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.22)}
+.hcell.hatch .paint{background:repeating-linear-gradient(135deg,#f2eee7,#f2eee7 7px,#e6ded2 7px,#e6ded2 14px)}
+
+/* 边际读数 */
+.marg{background:var(--bg-warm);border:1px dashed var(--border);border-radius:9px;
+  padding:9px 7px;display:flex;flex-direction:column;justify-content:center;gap:3px;text-align:center}
+.marg .mv{font-family:var(--mono);font-size:1.05rem;font-weight:800;color:var(--red)}
+.marg .mv.zero{color:var(--text-faint);font-weight:400}
+.marg .ml{font-size:.62rem;color:var(--text-faint);line-height:1.3}
+
+/* ρ 分布轴 */
+.rhoaxis{position:relative;height:74px;margin:16px 0 4px;background:linear-gradient(90deg,#9aa0a6,#c9a24b 50%,#d85a30);
+  border-radius:8px;opacity:.94}
+.rhoaxis .gate{position:absolute;top:-6px;bottom:-6px;width:2px;background:#111;opacity:.72}
+.rhoaxis .gate span{position:absolute;top:-19px;left:50%;transform:translateX(-50%);white-space:nowrap;
+  font-family:var(--mono);font-size:.63rem;background:#111;color:#fff;padding:1px 6px;border-radius:4px}
+.rhoaxis .pt{position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;border:2.5px solid #111;
+  transform:translate(-50%,-50%);cursor:pointer;transition:.15s}
+.rhoaxis .pt:hover{width:21px;height:21px;z-index:5}
+.rhoticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.66rem;color:var(--text-faint)}
+
+/* 时间轴 */
+.tline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;background:var(--bg-warm);
+  border:1px solid var(--border);border-radius:10px;padding:11px 14px;margin:14px 0}
+.tline input[type=range]{flex:1;min-width:190px;accent-color:var(--red)}
+.tline .ty{font-family:var(--mono);font-weight:800;color:var(--red);min-width:52px}
+.tline button{background:var(--red);color:#fff;border:0;border-radius:7px;padding:6px 13px;
+  cursor:pointer;font-size:.78rem;font-family:inherit}
+.tline button.ghost{background:#fff;color:var(--text-dim);border:1px solid var(--border)}
+
+/* 切片表 */
+.htable{width:100%;border-collapse:collapse;font-size:.82rem;margin-top:6px}
+.htable th{background:var(--bg-warm);text-align:left;padding:8px 9px;font-size:.73rem;
+  color:var(--text-dim);border-bottom:2px solid var(--border);white-space:nowrap}
+.htable td{padding:8px 9px;border-bottom:1px solid var(--border);vertical-align:top}
+.htable td.m{font-family:var(--mono)}
+.htable tr.zero td{color:var(--text-faint)}
+.rpill{display:inline-block;font-size:.68rem;padding:1px 8px;border-radius:9px;color:#fff;font-weight:700}
+.swatch{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+.modes{display:flex;gap:0;flex-wrap:wrap;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.modes button{background:#fff;border:0;border-right:1px solid var(--border);padding:7px 13px;
+  font-size:.78rem;cursor:pointer;font-family:inherit;color:var(--text-dim)}
+.modes button:last-child{border-right:0}
+.modes button.on{background:var(--red);color:#fff;font-weight:700}
+
+.detailbox{margin-top:18px}
+.evline{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border)}
+.evline:last-child{border-bottom:0}
+.evline .eid{font-family:var(--mono);font-size:.7rem;color:var(--text-faint);flex:0 0 62px;padding-top:2px}
+.evline .etl{flex:1;font-size:.84rem;line-height:1.5}
+.evline .etl a{color:var(--red);text-decoration:none}
+.evline .etl a:hover{text-decoration:underline}
+@media(max-width:860px){
+  .heatwrap{grid-template-columns:64px repeat(3,1fr);gap:6px}
+  .marg,.margh{display:none}
+  .hcell{min-height:96px;padding:8px}
+  .hcell .big{font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="sxj-nav">
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/><circle cx="12" cy="12" r="7.4" fill="#A32D2D"/><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
+    事现鉴 · 热力密度
+  </a>
+  <a href="index.html">三元总览</a>
+  <a href="axis.html">坐标轴</a>
+  <a href="wiki.html">事现维基</a>
+  <a href="map.html">光锥地图</a>
+  <a href="heat.html" class="on">热力密度</a>
+  <a href="../index.html" class="sp">← 返回主站</a>
+</nav>
+
+<div class="topsearch">
+  <input id="jumpSearch" type="search" placeholder="搜事现（编号 / 标题 / 当事人）→ 跳转事现维基" onkeydown="if(event.key==='Enter'){var v=this.value.trim();if(v)location.href='wiki.html?q='+encodeURIComponent(v)}">
+  <button onclick="var v=document.getElementById('jumpSearch').value.trim();if(v)location.href='wiki.html?q='+encodeURIComponent(v)">搜</button>
+</div>
+
+<main class="wrap">
+
+  <header class="page-head">
+    <div class="eyebrow">投影四 · ρ 密度层</div>
+    <h1>热力密度图</h1>
+    <p class="lead">
+      把 <b>ρ（可验证密度）</b> 投影到三元 × 三档坐标场。颜色 = 区域判据，数字 = 诚实读数。
+      可按 <b>法域 j</b>、<b>组织层级 z</b>、<b>时间 t</b> 任意切片。
+    </p>
+    <div class="note red">
+      <b>这不是排行榜。</b>颜色深不代表「好」，颜色浅也不代表「差」。热力只回答一个问题：
+      <b>这一格的事实，被验算到什么程度了？</b>格子空 = 还没人落点；灰 = 落了点但还没按 MAIP 量 ρ；
+      <b>「未量测」≠「ρ 低」</b>。本图不产生任何总分。
+    </div>
+  </header>
+
+  <!-- 切片控件 -->
+  <section class="card">
+    <div class="sec-title">切片</div>
+    <div class="filters">
+      <div class="fgroup">
+        <label>法域 j</label>
+        <div class="chips" id="fj"></div>
+      </div>
+      <div class="fgroup">
+        <label>组织层级 z</label>
+        <div class="chips" id="fz"></div>
+      </div>
+      <div class="fgroup">
+        <label>读数口径</label>
+        <div class="modes" id="fm">
+          <button data-m="rhoAvg" class="on">ρ 均值</button>
+          <button data-m="rhoMax">ρ 峰值</button>
+          <button data-m="count">落点密度</button>
+          <button data-m="H">H 治理闸</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tline">
+      <span style="font-size:.8rem;color:var(--text-dim)">累计到</span>
+      <span class="ty" id="tyear">2026</span>
+      <input type="range" id="trange" min="1998" max="2026" value="2026" step="1">
+      <button id="tplay">▶ 回放</button>
+      <button id="treset" class="ghost">全部</button>
+      <span style="font-size:.72rem;color:var(--text-faint)">时间是坐标的一维，不是过滤器的附属</span>
+    </div>
+
+    <p class="note" id="modenote"></p>
+  </section>
+
+  <!-- 热力网格 -->
+  <section class="card">
+    <div class="sec-title">ρ 热力场 · 三元（列）× 三档（行）</div>
+    <div class="heatwrap" id="grid"></div>
+
+    <div class="legend" style="margin-top:16px" id="legend"></div>
+  </section>
+
+  <!-- ρ 分布轴 -->
+  <section class="card">
+    <div class="sec-title">ρ 一维分布 · 每个点 = 一条已量测事现</div>
+    <div class="rhoaxis" id="rhoaxis">
+      <div class="gate" id="gate"><span>ρ_min = 0.85</span></div>
+    </div>
+    <div class="rhoticks"><span>ρ=0 无法复核</span><span>0.5</span><span>ρ=1 完全可复核</span></div>
+    <p class="note" id="rhonote"></p>
+  </section>
+
+  <!-- 切片读数表 -->
+  <section class="card">
+    <div class="sec-title">切片读数表（当前切片下的九格）</div>
+    <div style="overflow-x:auto">
+      <table class="htable">
+        <thead><tr>
+          <th>坐标 (x:y)</th><th>格位</th><th>落点</th><th>已量测</th><th>ρ̄</th><th>ρmax</th><th>H</th><th>区域</th><th>验证开放</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="stat" id="totals" style="margin-top:14px"></div>
+  </section>
+
+  <!-- 点格详情 -->
+  <section class="card detailbox" id="detail" style="display:none">
+    <div class="sec-title" id="dtitle"></div>
+    <div id="dbody"></div>
+  </section>
+
+</main>
+
+<footer class="sxj-foot">
+  <p><a href="index.html">三元总览</a><a href="axis.html">坐标轴</a><a href="wiki.html">事现维基</a><a href="map.html">光锥地图</a></p>
+  <p style="margin-top:8px">© 2026 事现鉴 SXJ · 坐标系优先：只定义坐标 + 落点 + 量 ρ，不预置聚合与计分</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  var state={j:'all',z:'all',mode:'rhoAvg',year:null,sel:null};
+  var st=SXJ.stats();
+  var MINY=st.minYear||1998, MAXY=st.maxYear||2026;
+
+  var MODE_NOTE={
+    rhoAvg:'<b>ρ 均值</b>：该格已量测事现的 ρ 平均。反映「这一格的事实平均能被复核到什么程度」。未量测的格不参与平均，也不补零 —— 补零就是造假。',
+    rhoMax:'<b>ρ 峰值</b>：该格最高的一条 ρ。用来看「这一格最好的一条证据做到了多少」，避免均值把单条强证据稀释掉。',
+    count:'<b>落点密度</b>：该格的事现条数（不含占位）。只数落点，不看质量 —— 落点多 ≠ 可信，这正是必须同时看 ρ 的原因。',
+    H:'<b>H = 落点数 × ρ̄</b>（canon 治理闸）。H 只用于回答「先验哪一格」，是<b>可见性闸门</b>，不是价值排名、不是计分、不可用于分配。未量测格 H 无定义（显示 —）。'
+  };
+
+  /* ---------- 控件 ---------- */
+  function chips(el,list,key){
+    var h='<button class="chip'+(state[key]==='all'?' on':'')+'" data-v="all">全部</button>';
+    list.forEach(function(o){
+      h+='<button class="chip'+(state[key]===o.key?' on':'')+'" data-v="'+o.key+'">'+o.name+'</button>';
+    });
+    el.innerHTML=h;
+    el.querySelectorAll('.chip').forEach(function(b){
+      b.onclick=function(){ state[key]=b.dataset.v; state.sel=null; render(); };
+    });
+  }
+
+  document.getElementById('fm').querySelectorAll('button').forEach(function(b){
+    b.onclick=function(){
+      state.mode=b.dataset.m;
+      document.getElementById('fm').querySelectorAll('button').forEach(function(o){o.classList.remove('on');});
+      b.classList.add('on');
+      render();
+    };
+  });
+
+  var tr=document.getElementById('trange');
+  tr.min=MINY; tr.max=MAXY; tr.value=MAXY;
+  tr.oninput=function(){ state.year=parseInt(tr.value,10); document.getElementById('tyear').textContent=tr.value; render(); };
+  document.getElementById('treset').onclick=function(){ state.year=null; tr.value=MAXY; document.getElementById('tyear').textContent=MAXY; render(); };
+
+  var timer=null;
+  document.getElementById('tplay').onclick=function(){
+    var btn=this;
+    if(timer){ clearInterval(timer); timer=null; btn.textContent='▶ 回放'; return; }
+    btn.textContent='■ 停止';
+    var y=MINY;
+    tr.value=y; state.year=y; document.getElementById('tyear').textContent=y; render();
+    timer=setInterval(function(){
+      y++;
+      if(y>MAXY){ clearInterval(timer); timer=null; btn.textContent='▶ 回放'; state.year=null; return; }
+      tr.value=y; state.year=y; document.getElementById('tyear').textContent=y; render();
+    },300);
+  };
+
+  /* ---------- 读数 ---------- */
+  function dens(x,y){
+    return SXJ.cellDensity(x,y,{j:state.j,z:state.z,untilYear:state.year});
+  }
+  function metric(d){
+    if(state.mode==='count') return d.count||null;
+    if(state.mode==='rhoMax') return d.rhoMax;
+    if(state.mode==='H') return (d.rhoAvg===null)?null:d.count*d.rhoAvg;
+    return d.rhoAvg;
+  }
+  function fmt(v){
+    if(v===null||v===undefined) return '—';
+    if(state.mode==='count') return String(v);
+    return v.toFixed(state.mode==='H'?2:4);
+  }
+
+  /* ---------- 渲染 ---------- */
+  function render(){
+    chips(document.getElementById('fj'),SXJ.JURIS,'j');
+    chips(document.getElementById('fz'),SXJ.ORG_LEVEL,'z');
+    document.getElementById('modenote').innerHTML=MODE_NOTE[state.mode];
+
+    // 归一化基准
+    var vals=[];
+    SXJ.CELLS.forEach(function(c){ var v=metric(dens(c.x,c.y)); if(typeof v==='number') vals.push(v); });
+    var vmax=vals.length?Math.max.apply(null,vals):0;
+
+    // 网格
+    var h='<div class="hh corner">y 三档 ↓<br>x 三元 →</div>';
+    SXJ.TRIAD.forEach(function(t){
+      h+='<div class="hh">'+t.short+'<div class="k">'+t.key+'</div></div>';
+    });
+    h+='<div class="hh corner margh" style="font-size:.62rem">行边际<br>（三档小计）</div>';
+
+    SXJ.TIER.forEach(function(ti){
+      var tcolor = ti.key==='up' ? '#8a2727' : (ti.key==='mid' ? '#A32D2D' : '#c05353');
+      h+='<div class="hrow-h" style="background:'+tcolor+'"><div class="ic">'
+        + (ti.key==='up'?'▲':ti.key==='mid'?'◆':'▼')
+        +'</div>'+ti.short+'<div class="sm">'+ti.key+'</div></div>';
+
+      var rowCount=0,rowRho=[],rowMeasured=0;
+      SXJ.TRIAD.forEach(function(t){
+        var cell=SXJ.getCell(t.key,ti.key);
+        var d=dens(t.key,ti.key);
+        var v=metric(d);
+        var rc=SXJ.regionColor(d.region);
+        rowCount+=d.count; rowMeasured+=d.measured;
+        if(d.rhoAvg!==null) rowRho.push(d.rhoAvg);
+
+        var alpha=0, paint='', dark=false, hatch=false;
+        if(d.region==='empty'){ paint='background:#f7f4ef'; }
+        else if(d.region==='unmeasured'){
+          // 「落点密度」口径下，未量测格仍按条数着灰阶 —— 因为这一口径本来就只数落点、不看 ρ
+          if(state.mode==='count' && typeof v==='number'){
+            alpha = vmax>0 ? (0.18 + 0.72*(v/vmax)) : 0.18;
+            paint='background:#8f877b;opacity:'+alpha.toFixed(3);
+            dark = alpha>0.5;
+          } else { hatch=true; }
+        }
+        else {
+          alpha = vmax>0 ? (0.18 + 0.72*(v/vmax)) : 0.18;
+          paint='background:'+rc.fill+';opacity:'+alpha.toFixed(3);
+          dark = alpha>0.5;
+        }
+
+        var label = state.mode==='count' ? '条落点'
+                  : state.mode==='H' ? 'H 闸读数'
+                  : state.mode==='rhoMax' ? 'ρ 峰值' : 'ρ 均值';
+
+        h+='<button class="hcell'+(dark?' dark':'')+(hatch?' hatch':'')
+          +(state.sel===t.key+':'+ti.key?' sel':'')+'" data-x="'+t.key+'" data-y="'+ti.key+'">'
+          +'<div class="paint" style="'+paint+'"></div>'
+          + (cell&&cell.status==='hold'?'<div class="hold">挂起</div>':'')
+          +'<div class="inner">'
+            +'<div class="big">'+fmt(v)+'</div>'
+            +'<div class="cap">'+label+' · '+rc.label+'</div>'
+            +'<div class="sub">n='+d.count+' · 已量测 '+d.measured+'</div>'
+          +'</div></button>';
+      });
+
+      var ravg=rowRho.length?(rowRho.reduce(function(a,b){return a+b;},0)/rowRho.length):null;
+      h+='<div class="marg"><div class="mv'+(rowCount?'':' zero')+'">'+rowCount+'</div>'
+        +'<div class="ml">落点</div>'
+        +'<div class="mv" style="font-size:.82rem;color:'+(ravg===null?'#b9b2a6':'#2F6FED')+'">'
+        + (ravg===null?'ρ —':'ρ̄ '+ravg.toFixed(3))+'</div>'
+        +'<div class="ml">已量测 '+rowMeasured+'</div></div>';
+    });
+
+    // 列边际
+    h+='<div class="hh corner margh" style="font-size:.62rem">列边际<br>（三元小计）</div>';
+    SXJ.TRIAD.forEach(function(t){
+      var cc=0,cm=0,cr=[];
+      SXJ.TIER.forEach(function(ti){
+        var d=dens(t.key,ti.key);
+        cc+=d.count; cm+=d.measured;
+        if(d.rhoAvg!==null) cr.push(d.rhoAvg);
+      });
+      var ca=cr.length?(cr.reduce(function(a,b){return a+b;},0)/cr.length):null;
+      h+='<div class="marg" style="min-height:0;flex-direction:row;justify-content:center;gap:12px;align-items:center">'
+        +'<span class="mv'+(cc?'':' zero')+'">'+cc+'</span>'
+        +'<span class="ml">落点 · 已量测 '+cm+'</span>'
+        +'<span class="mv" style="font-size:.82rem;color:'+(ca===null?'#b9b2a6':'#2F6FED')+'">'
+        +(ca===null?'ρ —':'ρ̄ '+ca.toFixed(3))+'</span></div>';
+    });
+    h+='<div class="marg" style="min-height:0"><div class="ml">总落点</div>'
+      +'<div class="mv">'+SXJ.project({j:state.j,z:state.z,untilYear:state.year,includePlaceholder:false}).length+'</div></div>';
+
+    var g=document.getElementById('grid');
+    g.innerHTML=h;
+    g.querySelectorAll('.hcell').forEach(function(b){
+      b.onclick=function(){
+        var k=b.dataset.x+':'+b.dataset.y;
+        state.sel=(state.sel===k)?null:k;
+        render();
+      };
+    });
+
+    renderLegend();
+    renderRho();
+    renderTable();
+    renderDetail();
+  }
+
+  function renderLegend(){
+    var items=[
+      {r:'balance',t:'平衡区 ρ̄ ≥ 0.85'},
+      {r:'cross',t:'交叉区 ρ̄ < 0.85'},
+      {r:'unmeasured',t:'已落点 · 未量 ρ'},
+      {r:'empty',t:'空格 · 无落点'}
+    ];
+    var h='';
+    items.forEach(function(i){
+      var c=SXJ.regionColor(i.r);
+      h+='<span><i style="background:'+c.fill+'"></i>'+i.t+'<em style="color:var(--text-faint);font-style:normal;font-size:.7rem"> — '+c.desc+'</em></span>';
+    });
+    h+='<span><i style="background:repeating-linear-gradient(135deg,#fff,#fff 4px,#f5e6cc 4px,#f5e6cc 8px);border:1px solid #e0d6c6"></i>挂起格（数字枝上/中 · 无跨国共识，主动挂起）</span>';
+    h+='<span style="color:var(--text-faint)">色深浅 = 该口径下的相对强度（每次切片重新归一化，不跨切片可比）</span>';
+    document.getElementById('legend').innerHTML=h;
+  }
+
+  function renderRho(){
+    var list=SXJ.project({j:state.j,z:state.z,untilYear:state.year,includePlaceholder:false})
+      .filter(function(e){return typeof e.rho==='number';});
+    var ax=document.getElementById('rhoaxis');
+    ax.querySelectorAll('.pt').forEach(function(p){p.remove();});
+    document.getElementById('gate').style.left=(SXJ.META.rhoMin*100)+'%';
+
+    list.forEach(function(e,i){
+      var p=document.createElement('div');
+      p.className='pt';
+      p.style.left=(e.rho*100)+'%';
+      p.style.top=(28+(i%3)*16)+'px';
+      p.style.borderColor=SXJ.rhoColor(e.rho);
+      p.title=e.id+' · ρ='+e.rho.toFixed(4)+'\n'+e.title;
+      p.onclick=function(){ location.href='wiki.html?e='+e.id; };
+      ax.appendChild(p);
+    });
+
+    var above=list.filter(function(e){return e.rho>=SXJ.META.rhoMin;}).length;
+    document.getElementById('rhonote').innerHTML=
+      '当前切片已量测 <b>'+list.length+'</b> 条，其中跨过门槛 ρ≥0.85 的 <b>'+above+'</b> 条。'
+      + (above===0 ? ' <b style="color:var(--red)">目前没有任何一条事现跨过门槛</b> —— 这是真实读数，不是失败：门槛本来就是给未来的复核者定的，不是给现在的自己发奖的。' : '')
+      + ' 点任一圆点跳到该事现的维基条目。';
+  }
+
+  function renderTable(){
+    var h='';
+    SXJ.CELLS.forEach(function(c){
+      var d=dens(c.x,c.y);
+      var rc=SXJ.regionColor(d.region);
+      var H=(d.rhoAvg===null)?null:d.count*d.rhoAvg;
+      h+='<tr class="'+(d.count?'':'zero')+'">'
+        +'<td class="m">'+c.x+':'+c.y+'</td>'
+        +'<td style="min-width:210px">'+c.title+'</td>'
+        +'<td class="m">'+d.count+'</td>'
+        +'<td class="m">'+d.measured+'</td>'
+        +'<td class="m">'+(d.rhoAvg===null?'—':d.rhoAvg.toFixed(4))+'</td>'
+        +'<td class="m">'+(d.rhoMax===null?'—':d.rhoMax.toFixed(4))+'</td>'
+        +'<td class="m">'+(H===null?'—':H.toFixed(2))+'</td>'
+        +'<td><span class="rpill" style="background:'+rc.fill+'">'+rc.label+'</span></td>'
+        +'<td style="font-size:.75rem;color:var(--text-dim)">'+c.statusText+'</td>'
+        +'</tr>';
+    });
+    document.getElementById('tbody').innerHTML=h;
+
+    var all=SXJ.project({j:state.j,z:state.z,untilYear:state.year,includePlaceholder:false});
+    var mm=all.filter(function(e){return typeof e.rho==='number';});
+    var occ=SXJ.CELLS.filter(function(c){return dens(c.x,c.y).count>0;}).length;
+    var sum=mm.reduce(function(a,e){return a+e.rho;},0);
+    document.getElementById('totals').innerHTML=
+       stat(all.length,'切片落点')
+      +stat(mm.length,'已量测 ρ')
+      +stat(all.length-mm.length,'未量测')
+      +stat(mm.length?(sum/mm.length).toFixed(4):'—','切片 ρ̄')
+      +stat(mm.filter(function(e){return e.rho>=SXJ.META.rhoMin;}).length,'ρ ≥ 0.85')
+      +stat(occ+' / 9','占格');
+  }
+  function stat(v,l){ return '<div><b>'+v+'</b><span>'+l+'</span></div>'; }
+
+  function renderDetail(){
+    var box=document.getElementById('detail');
+    if(!state.sel){ box.style.display='none'; return; }
+    var p=state.sel.split(':');
+    var cell=SXJ.getCell(p[0],p[1]);
+    var d=dens(p[0],p[1]);
+    var rc=SXJ.regionColor(d.region);
+    var tr_=SXJ.triad(p[0]), ti=SXJ.tier(p[1]);
+    box.style.display='';
+    document.getElementById('dtitle').innerHTML=
+      '<span class="swatch" style="background:'+rc.fill+'"></span>'
+      +tr_.short+' · '+ti.short+' <span style="font-family:var(--mono);font-size:.72rem;color:var(--text-faint)">('+state.sel+')</span>';
+
+    var ev='';
+    if(!d.events.length){
+      ev='<p class="note">当前切片下此格<b>没有落点</b>。空格不是「没价值」，是「还没有人把事实放上桌」。<a href="wiki.html">→ 看已有事现怎么写</a></p>';
+    }else{
+      d.events.forEach(function(e){
+        ev+='<div class="evline"><div class="eid">'+e.id+'</div>'
+          +'<div class="etl"><a href="wiki.html?e='+e.id+'">'+e.title+'</a>'
+          +'<div style="font-size:.74rem;color:var(--text-faint);font-family:var(--mono);margin-top:2px">'
+          + 't='+(e.t||'—')+' · j='+e.j+' · z='+e.z+' · '
+          + (typeof e.rho==='number'
+              ? '<span style="color:'+SXJ.rhoColor(e.rho)+';font-weight:700">ρ='+e.rho.toFixed(4)+'</span>'
+              : '<span style="color:#b9b2a6">ρ 未量测</span>')
+          +'</div></div></div>';
+      });
+    }
+
+    document.getElementById('dbody').innerHTML=
+       '<p style="font-size:.9rem;line-height:1.65;margin-bottom:10px"><b>'+cell.title+'</b></p>'
+      +'<div class="stat" style="margin-bottom:12px">'
+        +stat(d.count,'落点')+stat(d.measured,'已量测')
+        +stat(d.rhoAvg===null?'—':d.rhoAvg.toFixed(4),'ρ̄')
+        +stat(d.rhoMax===null?'—':d.rhoMax.toFixed(4),'ρmax')
+        +stat(rc.label,'区域判据')
+      +'</div>'
+      +'<p class="note"><b>度量锚点：</b>'+tr_.anchor+'　|　<b>验证组织：</b>'+cell.verifier
+      +'<br><b>开放状态：</b>'+cell.statusText+(cell.status==='hold'?'　<span style="color:#8a5a10">（田忌赛马「下马」：主动挂起，不挡全局）</span>':'')+'</p>'
+      +'<div class="sec-title" style="margin:16px 0 2px">此格落点事现</div>'+ev;
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

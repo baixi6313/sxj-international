@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>事现鉴事件簿 · SXJ Verification Ledger</title>
+<style>
+  :root {
+    --bg: #fafafa; --card: #ffffff; --text: #1a1a1a; --muted: #555;
+    --blue: #2F6FED; --gold: #D99A2B; --coral: #D85A30; --border: #e0e0e0;
+  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 2rem; }
+  h1 { font-size: 1.6rem; margin-bottom: .5rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; }
+  .event { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+  .event h2 { margin-top: 0; font-size: 1.25rem; }
+  .tag { display: inline-block; font-size: .75rem; padding: .15rem .6rem; border-radius: 999px; background: #eef4ff; color: var(--blue); margin-right: .5rem; }
+  .tag.coral { background: #fdede8; color: var(--coral); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .9rem; }
+  th, td { border: 1px solid var(--border); padding: .6rem .8rem; text-align: left; }
+  th { background: #f5f5f5; font-weight: 600; }
+  .rho-box { background: #f8fafc; border-left: 4px solid var(--gold); padding: 1rem; margin: 1rem 0; }
+  .rho-box code { background: #eef; padding: .1rem .3rem; border-radius: 4px; }
+  .hash { font-family: "SFMono-Regular", Consolas, monospace; font-size: .8rem; word-break: break-all; color: var(--muted); }
+  .meta { color: var(--muted); font-size: .85rem; margin: .3rem 0; }
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- 创始完成声明 · 白玺 -->
+<div style="background:linear-gradient(135deg,#A32D2D,#7a1f1f);color:#fff;padding:9px 20px;text-align:center;font-family:-apple-system,Segoe UI,Roboto,'PingFang SC','Microsoft YaHei',sans-serif;border-bottom:2px solid #C9A24B;font-size:0.9rem;line-height:1.45;">
+  <span style="color:#f4e9c9;font-weight:700;letter-spacing:1px;">✦ 创始完成</span>&nbsp;&nbsp;白玺已经完成所有创始内容，剩下的交给世界和时间了。
+</div>
+
+<h1>事现鉴事件簿 <span style="font-size:.65em;color:#888;font-weight:400;">SXJ Verification Ledger</span></h1>
+<p class="subtitle">只记录可验证的事实。每个事件都带有时空坐标 (x, y, z, t) 与可验证密度 ρ。</p>
+
+<!-- evt_009: G-9 跨平台链接不可用性 -->
+<section class="event" id="evt_009">
+  <h2>evt_009 · 跨平台 AI 分享链接不可用性</h2>
+  <p>
+    <span class="tag">G-9</span>
+    <span class="tag coral">已记录事现</span>
+  </p>
+
+  <h3>时空坐标</h3>
+  <table>
+    <tr><th>维度</th><th>值</th><th>说明</th></tr>
+    <tr><td>x（平台）</td><td>微博 + 百度搭子 + 腾讯元宝 + 阿里千问 + DeepSeek + Kimi + 豆包 + WorkBuddy</td><td>多平台公共 Feed / 分享链接系统</td></tr>
+    <tr><td>y（主体）</td><td>白玺-寰宇光锥舟（人类记录者）</td><td>跨平台观测并汇总</td></tr>
+    <tr><td>z（上下文）</td><td>MAIP/1.0 圆桌互见依赖分享链接作为广播载体</td><td>直接关联 §6.1 圆桌机制</td></tr>
+    <tr><td>t（时间）</td><td>2026-08-02</td><td>观测与记录日期</td></tr>
+  </table>
+
+  <h3>主张（claims）</h3>
+  <ol>
+    <li><strong>C1</strong>：6 个主流 AI 平台中至少 5 个出现过分享链接无法生成、无法打开或内容渲染失败。</li>
+    <li><strong>C2</strong>：该现象不是单一用户电脑卡顿可解释（卡顿不会导致不同平台的 JS 空壳、API 失败、链接生成失败）。</li>
+    <li><strong>C3</strong>：因此，依靠各平台原生分享链接作为跨 AI 验证通道，在当前基础设施下不可行。</li>
+  </ol>
+
+  <h3>证据（evidence）</h3>
+  <table>
+    <tr><th>编号</th><th>类型</th><th>来源</th><th>SHA-256</th><th>说明</th></tr>
+    <tr>
+      <td>E1</td>
+      <td>截图（原始视觉记录）</td>
+      <td>百度搭子 · App URL 分享</td>
+      <td class="hash">3aa92f4bb0da5842f57fcb12f77c416542ea6c825b6af39d90e952e5c53848ea</td>
+      <td>表格列示六平台"之前确认 / 本次新增确认 / 综合状态"</td>
+    </tr>
+    <tr>
+      <td>E2</td>
+      <td>截图（原始视觉记录）</td>
+      <td>快速模式 · 共创论白皮书解读</td>
+      <td class="hash">d7e89d905418113477fa20577d24ff8070d8efe86f969fb07e32a8009596b4a6</td>
+      <td>表格列示七平台"链接可访问性 / 具体表现 / 记录时间"</td>
+    </tr>
+  </table>
+
+  <h3>可验证密度 ρ 计算（第一版）</h3>
+  <div class="rho-box">
+    <p>按 MAIP 映射：<code>ρ = conf × 来源独立度 × 证据等级 × 角色权重</code></p>
+    <ul>
+      <li><code>conf</code> = 0.85（两个独立来源的表格相互印证，结论一致）</li>
+      <li><code>来源独立度</code> = 0.90（两个不同 AI 系统独立生成汇总表）</li>
+      <li><code>证据等级</code> = 0.70（E2 截图 0.6 与 E3 结构化表格 0.8 的加权平均）</li>
+      <li><code>角色权重</code> = 1.00（人类记录者白玺，无 AI 单方面生成）</li>
+    </ul>
+    <p><strong>ρ = 0.85 × 0.90 × 0.70 × 1.00 = 0.5355</strong></p>
+    <p><em>注：ρ 计算方法是第一版操作化尝试，ρ_min = 0.85 尚未经真实数据校准。该值低于阈值，说明截图+表格虽然是真实事现，但可复现性和机器可读性仍受限。</em></p>
+  </div>
+
+  <h3>元数据</h3>
+  <p class="hash">ledger_id: evt_009_G9_cross_platform_link_failure_20260802</p>
+  <p class="hash">prev_hash: 0000000000000000000000000000000000000000000000000000000000000000（事件簿首条）</p>
+  <p class="hash">ledger_sha256: 0b1c70b3d6c2bde9e3d03701cb6439c4a710d9337b1e9d96815898887b5002f1（evt_009 章节内容 SHA-256）</p>
+  <p class="meta">记录人：白玺-寰宇光锥舟 · 汇编：WorkBuddy（AI 协作工程师）</p>
+  <p class="meta">状态：已记录 · 待后续独立复核</p>
+</section>
+
+<!-- evt_010: 境外朋友委托复测 G-9（跨境验证模式出现，低置信度辅助事现） -->
+<section class="event" id="evt_010">
+  <h2>evt_010 · 境外委托复测 G-9（跨境验证模式首现）</h2>
+  <p>
+    <span class="tag">G-9</span>
+    <span class="tag">跨境验证</span>
+    <span class="tag coral">辅助事现 · 低置信度</span>
+  </p>
+
+  <h3>时空坐标</h3>
+  <table>
+    <tr><th>维度</th><th>值</th><th>说明</th></tr>
+    <tr><td>x（平台）</td><td>境外大模型（朋友转述；含 Microsoft Copilot 链接读取尝试）</td><td>非平台直接截图，经转述</td></tr>
+    <tr><td>y（主体）</td><td>白玺-寰宇光锥舟（委托方）→ 境外朋友（执行方）</td><td>间接链：我→朋友→境外AI→朋友→我</td></tr>
+    <tr><td>z（上下文）</td><td>国际桌验证尝试 /「验证模式」向境外延伸</td><td>呼应 App 方案 j 法域维度</td></tr>
+    <tr><td>t（时间）</td><td>2026-08-02</td><td>委托与记录日期</td></tr>
+    <tr><td>j（法域）</td><td>国外</td><td>首次出现的境外法域维度样本</td></tr>
+  </table>
+
+  <h3>主张（claims）</h3>
+  <ol>
+    <li><strong>C1</strong>：事现鉴的验证模式已实际向境外延伸——白玺委托境外朋友在外国大模型上复测 G-9（跨平台链接生成/渲染不可用性）。</li>
+    <li><strong>C2</strong>：朋友转述其境外复测结论与国内一致；但因证据链含「我→朋友→境外AI→朋友→我」多个不可复核跳转，该结论不能直接作为境外平台的直接生成物证据。</li>
+    <li><strong>C3</strong>：取证过程中，朋友尝试将 <code>agentos-app.net</code> 链接交给 Microsoft Copilot 读取、要求「给网站站主一个回应」，首次结果不满意需换对话框重来——再次印证 G-9「链接作为交付载体不稳定」。</li>
+  </ol>
+
+  <h3>证据（evidence）</h3>
+  <table>
+    <tr><th>编号</th><th>类型</th><th>来源</th><th>SHA-256</th><th>说明</th></tr>
+    <tr>
+      <td>E1</td>
+      <td>截图（微信对话，原始视觉记录）</td>
+      <td>白玺-寰宇光锥舟 ↔ 境外朋友（Copilot 链接读取尝试）</td>
+      <td class="hash">ca13ab2e70d6d312df2fd792e0a6cb0d6ccfd4be4206c59360c82485aa083963</td>
+      <td>对话显示「把这个链接发给 Copilot」「不要这个 copilot，试一下在新对话框直接输入」</td>
+    </tr>
+    <tr>
+      <td>E2</td>
+      <td>转述陈述（利害关系方）</td>
+      <td>境外朋友 → 白玺（口头/文字转述）</td>
+      <td class="hash">—（转述未附平台直接截图）</td>
+      <td>朋友称境外大模型复测结论与国内 G-9 一致；无直接平台生成物佐证</td>
+    </tr>
+  </table>
+
+  <h3>可验证密度 ρ 计算（诚实降档）</h3>
+  <div class="rho-box">
+    <p>按 MAIP 映射：<code>ρ = conf × 来源独立度 × 证据等级 × 角色权重</code></p>
+    <ul>
+      <li><code>conf</code> = 0.75（转述结论一致 + 截图部分印证机制，但经多跳转述）</li>
+      <li><code>来源独立度</code> = 0.80（境外朋友独立于国内平台，但非独立直接观测）</li>
+      <li><code>证据等级</code> = 0.45（E1 截图约 0.6 + E2 转述 0.3 加权；主张本身间接）</li>
+      <li><code>角色权重</code> = 1.00（人类记录者白玺，无 AI 单方面生成）</li>
+    </ul>
+    <p><strong>ρ = 0.75 × 0.80 × 0.45 × 1.00 = 0.2700</strong></p>
+    <p><em>注：本事件明确为低置信度辅助事现，<b>不并入也不升级 evt_009</b>。其价值在于记录了「跨境验证模式」的出现，以及事现鉴「只记录可验证事实、不美化证据」的自我约束机制。ρ 远低于 ρ_min = 0.85，须待取得境外平台直接截图（带账号/时间戳/URL）方可提升。</em></p>
+  </div>
+
+  <h3>元数据</h3>
+  <p class="hash">ledger_id: evt_010_G9_overseas_friend_recheck_20260802</p>
+  <p class="hash">prev_hash: 0b1c70b3d6c2bde9e3d03701cb6439c4a710d9337b1e9d96815898887b5002f1（evt_009 ledger_sha256）</p>
+  <p class="hash">ledger_sha256: c7cbefc4a5934bcdeceba26d819a82039cd546ec06c24e09c36937087766d19b（evt_010 章节内容 SHA-256）</p>
+  <p class="meta">记录人：白玺-寰宇光锥舟 · 汇编：WorkBuddy（AI 协作工程师）</p>
+  <p class="meta">状态：已记录 · 低置信度辅助事现 · 待境外平台直接复核</p>
+</section>
+
+<footer style="margin-top:3rem;color:#888;font-size:.85rem;border-top:1px solid #e0e0e0;padding-top:1rem;">
+  事现鉴事件簿 · 基于 SXJ-MAIP/1.0 · 不替代任何国家法律或社会保障制度
+</footer>
+
+</body>
+</html>

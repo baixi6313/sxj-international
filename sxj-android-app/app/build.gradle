@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'cn.hygzz.sxj'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "cn.hygzz.sxj"
+        minSdk 21
+        targetSdk 34
+        versionCode 6
+        versionName "1.1.2"
+    }
+
+    signingConfigs {
+        release {
+            def ks = System.getenv("SXJ_KEYSTORE_BASE64")
+            if (ks != null && !ks.isEmpty()) {
+                def kf = file("$buildDir/sxj-release.keystore")
+                kf.delete()
+                kf.bytes = java.util.Base64.getDecoder().decode(ks)
+                storeFile kf
+                storePassword System.getenv("SXJ_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("SXJ_KEY_ALIAS")
+                keyPassword System.getenv("SXJ_KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+}

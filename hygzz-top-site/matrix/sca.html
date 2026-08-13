@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SCA 社会确权资产 — 事现鉴 SXJ</title>
+<meta name="description" content="SCA（Social Confirmation Asset / 社会确权资产）：使财政直接兑换价值发挥作用的的关键机制。三维度：生存复原力35% / 创新贡献30% / 全民福利35%。">
+<link rel="stylesheet" href="style.css">
+<style>
+.sca-hero{background:linear-gradient(180deg,#fafaf9 0%,#fef8e8 55%,#f7f3f0 100%);
+  padding:48px 22px 42px;text-align:center;border-bottom:1px solid var(--border)}
+.sca-hero .badge{display:inline-block;background:var(--red);color:#fff;padding:5px 15px;border-radius:20px;
+  font-size:.76rem;font-weight:600;letter-spacing:.5px;margin-bottom:18px}
+.sca-hero h1{font-size:clamp(1.7rem,4.6vw,2.9rem);font-weight:800;line-height:1.25;letter-spacing:-.6px}
+.sca-hero h1 span{color:var(--red)}
+.sca-hero .sub{color:var(--text-dim);max-width:700px;margin:14px auto 0;font-size:clamp(.92rem,2vw,1.05rem);line-height:1.65}
+
+/* 公式卡片 */
+.formula-box{background:var(--card);border:2px solid var(--gold);border-radius:16px;padding:24px;
+  margin:28px auto;max-width:720px;text-align:center}
+.formula-box .label{font-size:.78rem;color:var(--gold);font-weight:700;font-family:var(--mono);
+  letter-spacing:1px;margin-bottom:10px}
+.formula-box .expr{font-size:clamp(1rem,2.5vw,1.35rem);font-weight:700;color:var(--text);
+  font-family:var(--mono);padding:14px;background:#fff;border-radius:10px;border:1px solid var(--border);
+  word-break:break-all;line-height:1.6}
+.formula-box .note{font-size:.8rem;color:var(--text-dim);margin-top:12px;line-height:1.55}
+.formula-box .trigger{display:inline-block;margin-top:14px;padding:8px 20px;background:var(--red);color:#fff;
+  border-radius:20px;font-size:.82rem;font-weight:700}
+
+/* 三维度卡（对标截图） */
+.dims-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;
+  max-width:960px;margin:28px auto}
+.dim-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  transition:.2s}
+.dim-card:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.dim-card .dh{padding:18px 20px;display:flex;align-items:center;gap:12px}
+.dim-card .dh .di{font-size:2rem}
+.dim-card .dh .dn{font-size:1.15rem;font-weight:800}
+.dim-card .dh .dw{margin-left:auto;font-size:.82rem;font-weight:800;font-family:var(--mono);
+  background:var(--bg-warm);padding:4px 10px;border-radius:8px}
+.dim-card .dd{padding:0 20px 16px;font-size:.85rem;color:var(--text-dim);line-height:1.6}
+.dim-card .dd .scope{margin-bottom:10px;padding-left:12px;border-left:3px solid var(--gold)}
+.dim-card .dindicators{margin-top:10px}
+.dim-card .dindicators .tag{display:inline-block;font-size:.72rem;background:var(--bg-warm);
+  border:1px solid var(--border);border-radius:6px;padding:3px 9px;margin:2px 4px 2px 0;
+  color:var(--text-dim)}
+.dim-card .dmap{margin-top:10px;font-size:.76rem;padding:8px 12px;background:var(--bg-warm);
+  border-radius:8px;display:flex;align-items:center;gap:6px}
+.dim-card .dmap .arrow{color:var(--gold);font-weight:700}
+
+/* 交互计算器 */
+.calc-section{max-width:720px;margin:36px auto;background:var(--card);
+  border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.calc-section .ch{background:var(--red);color:#fff;padding:14px 20px;font-size:1.05rem;font-weight:800}
+.calc-section .cb{padding:20px}
+.calc-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.calc-row label{min-width:110px;font-size:.85rem;font-weight:700;color:var(--text)}
+.calc-row input[type=range]{flex:1;min-width:120px;accent-color:var(--red)}
+.calc-row .val{min-width:50px;text-align:right;font-family:var(--mono);font-weight:700;
+  color:var(--red);font-size:.95rem}
+.calc-result{margin-top:18px;padding:18px;background:linear-gradient(135deg,#fef8e8,#f7f3f0);
+  border:1px solid var(--gold);border-radius:12px;text-align:center}
+.calc-result .total{font-size:2rem;font-weight:800;font-family:var(--mono);color:var(--red)}
+.calc-result .breakdown{display:flex;justify-content:center;gap:16px;margin-top:10px;flex-wrap:wrap}
+.calc-result .bd-item{text-align:center}
+.calc-result .bd-item .bn{font-size:.72rem;color:var(--text-dim)}
+.calc-result .bd-item .bv{font-size:1rem;font-weight:700;font-family:var(--mono)}
+.calc-result .verdict{margin-top:12px;font-size:.9rem;font-weight:700}
+.calc-result .verdict.yes{color:#2d8a4e}
+.calc-result .verdict.no{color:#D85A30}
+
+/* 城市映射 */
+.city-section{max-width:960px;margin:36px auto}
+.city-section h2{font-size:1.25rem;font-weight:800;margin-bottom:16px;color:var(--text)}
+.city-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:16px}
+.city-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.city-card .cn{font-size:1.1rem;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.city-card .bars{display:flex;gap:8px;margin:12px 0;height:28px;align-items:flex-end}
+.city-card .bar{flex:1;border-radius:4px 4px 0 0;position:relative;min-width:30px;
+  transition:.3s}
+.city-card .bar .bl{position:absolute;top:-22px;left:50%;transform:translateX(-50%);
+  font-size:.7rem;font-family:var(--mono);font-weight:700;color:var(--text-dim)}
+.city-card .cdesc{font-size:.8rem;color:var(--text-dim);line-height:1.55}
+.city-card .clink{display:inline-block;margin-top:10px;font-size:.8rem;color:var(--red);
+  font-weight:700;text-decoration:none}
+
+/* 化债引擎衔接 */
+.engine-link{max-width:720px;margin:28px auto;padding:20px;
+  background:linear-gradient(135deg,#fff5f0,#fef8e8);border:1px dashed var(--red);
+  border-radius:14px;text-align:center}
+.engine-link h3{font-size:1.05rem;color:var(--red);margin-bottom:8px}
+.engine-link p{font-size:.85rem;color:var(--text-dim);line-height:1.6;max-width:600px;margin:0 auto}
+
+/* 来源与状态 */
+.source-bar{max-width:960px;margin:28px auto;padding:14px 20px;
+  background:var(--bg-warm);border-radius:10px;font-size:.76rem;color:var(--text-faint);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+</style>
+</head>
+<body>
+
+<!-- 导航 -->
+<nav class="nav"><div class="nav-inner">
+  <a href="index.html" class="nv">三元总览</a>
+  <a href="axis.html" class="nv">坐标轴</a>
+  <a href="wiki.html" class="nv">维基</a>
+  <a href="map.html" class="nv">地图</a>
+  <a href="heat.html" class="nv">热力密度</a>
+  <a href="sca.html" class="nv active">SCA确权</a>
+</div></nav>
+
+<div class="sca-hero">
+  <div class="badge">SPEC · 正式规范 v1.0</div>
+  <h1>SCA：<span>社会确权资产</span></h1>
+  <p class="sub">
+    Social Confirmation Asset — 使财政直接兑换价值发挥作用的<strong>关键机制</strong>。<br>
+    将一个人的全部核实贡献——劳动产出、生态修复、社区服务、信用亮度——<br>
+    量化为单一的资产指标。当 <strong>SCA ≥ 债务</strong> 时，系统自动触发补偿，无需资金实际流动。
+  </p>
+</div>
+
+<!-- 公式 -->
+<div class="formula-box">
+  <div class="label">━━━ 核心公式 ━━━</div>
+  <div class="expr" id="formulaDisplay">
+    f<sub>SCA</sub> = Σ (优点卡积分 × V) + 生态卡资产 + 信用卡亮度 × 乘数
+  </div>
+  <div class="note">
+    这就是共创论解决「无新债债务解决」悖论的方式：<br>
+    正贡献价值直接抵消负贡献价值。<strong>没有空转，没有中间人。</strong>
+  </div>
+  <div class="trigger">⚡ 触发条件：SCA ≥ 债务 → 自动补偿</div>
+</div>
+
+<!-- 三维度卡 -->
+<div class="dims-grid" id="dimsGrid"></div>
+
+<!-- 交互计算器 -->
+<div class="calc-section">
+  <div class="ch">🧮 SCA 计算器（演示）</div>
+  <div class="cb">
+    <div class="calc-row">
+      <label>🛡️ 生存复原力</label>
+      <input type="range" id="inR" min="0" max="100" value="40">
+      <span class="val" id="valR">40</span>
+    </div>
+    <div class="calc-row">
+      <label>💡 创新贡献</label>
+      <input type="range" id="inI" min="0" max="100" value="30">
+      <span class="val" id="valI">30</span>
+    </div>
+    <div class="calc-row">
+      <label>🤝 全民福利</label>
+      <input type="range" id="inW" min="0" max="100" value="35">
+      <span class="val" id="valW">35</span>
+    </div>
+    <div class="calc-row">
+      <label>⭐ 信用亮度</label>
+      <input type="range" id="inC" min="0" max="100" value="60">
+      <span class="val" id="valC">0.60</span>
+    </div>
+    <div class="calc-row">
+      <label>📊 债务阈值</label>
+      <input type="range" id="inD" min="0" max="100" value="50">
+      <span class="val" id="valD">50</span>
+    </div>
+    <div class="calc-result" id="calcResult">
+      <div class="total" id="scaTotal">0.000</div>
+      <div class="breakdown" id="breakdown"></div>
+      <div class="verdict" id="verdict">—</div>
+    </div>
+  </div>
+</div>
+
+<!-- 城市映射 -->
+<div class="city-section">
+  <h2>🏙️ 城市级 SCA 映射（待量测 ρ）</h2>
+  <div class="city-grid" id="cityGrid"></div>
+</div>
+
+<!-- 化债引擎衔接 -->
+<div class="engine-link">
+  <h3>🔗 化债引擎核心闭环</h3>
+  <p>
+    SCA 是化债引擎的<strong>度量尺</strong>。核心闭环：<br>
+    <strong>负贡献核算(C) ∥ 新贡献生成(B/SCA) 并行 → 置换现有债务 → 贡献净值 N(t)</strong><br>
+    详见 MAIP-spec-化债核心闭环.md §1 五步操作化。
+  </p>
+</div>
+
+<!-- 来源 -->
+<div class="source-bar">
+  <span>来源：白玺 2026-08-11 AI 跨平台对话验证（DeepSeek + DuMate 截图存证）</span>
+  <span>状态：<b style="color:var(--red)">spec</b> · 待实地 ρ 量测校准</span>
+</div>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  /* 渲染三维度卡 */
+  var dims = SXJ.SCA.dimensions;
+  var grid = document.getElementById('dimsGrid');
+  dims.forEach(function(d){
+    var indHTML = d.indicators.map(function(i){
+      return '<span class="tag">' + i + '</span>';
+    }).join('');
+    var mapTo = d.mapsTo === 'A' ? '共济值 A' : SXJ.triad(d.mapsTo) ? SXJ.triad(d.mapsTo).name : d.mapsTo;
+    grid.innerHTML += '<div class="dim-card">' +
+      '<div class="dh" style="border-left:4px solid ' + d.color + '">' +
+        '<span class="di">' + d.icon + '</span>' +
+        '<span class="dn" style="color:' + d.color + '">' + d.name + '</span>' +
+        '<span class="dw">' + (d.weight * 100) + '%</span>' +
+      '</div>' +
+      '<div class="dd">' +
+        '<div class="scope">' + d.scope + '</div>' +
+        '<div class="dindicators">' + indHTML + '</div>' +
+        '<div class="dmap"><span class="arrow">→</span> SXJ 映射：<b>' + mapTo + '</b> 枝</div>' +
+        '<div style="margin-top:8px;font-size:.76rem;color:var(--text-faint)">' + d.note + '</div>' +
+      '</div>';
+  });
+
+  /* 计算器 */
+  var inputs = {
+    R: document.getElementById('inR'), I: document.getElementById('inI'),
+    W: document.getElementById('inW'), C: document.getElementById('inC'), D: document.getElementById('inD')
+  };
+  var vals = {
+    R: document.getElementById('valR'), I: document.getElementById('valI'),
+    W: document.getElementById('valW'), C: document.getElementById('valC'), D: document.getElementById('valD')
+  };
+
+  function recalc() {
+    var r = parseInt(inputs.R.value) / 100;
+    var i = parseInt(inputs.I.value) / 100;
+    var w = parseInt(inputs.W.value) / 100;
+    var c = parseInt(inputs.C.value) / 100;
+    var debt = parseInt(inputs.D.value) / 100;
+
+    vals.R.textContent = Math.round(r * 100);
+    vals.I.textContent = Math.round(i * 100);
+    vals.W.textContent = Math.round(w * 100);
+    vals.C.textContent = c.toFixed(2);
+    vals.D.textContent = Math.round(debt * 100);
+
+    var dimR = r * 0.35, dimI = i * 0.30, dimW = w * 0.35;
+    var base = dimR + dimI + dimW;
+    var creditBonus = c * 1.0;
+    var total = base + creditBonus;
+
+    document.getElementById('scaTotal').textContent = total.toFixed(3);
+    document.getElementById('breakdown').innerHTML =
+      '<div class="bd-item"><div class="bn">生存复原力×35%</div><div class="bv" style="color:#2d8a4e">' + dimR.toFixed(3) + '</div></div>' +
+      '<div class="bd-item"><div class="bn">创新贡献×30%</div><div class="bv" style="color:#A32D2D">' + dimI.toFixed(3) + '</div></div>' +
+      '<div class="bd-item"><div class="bn">全民福利×35%</div><div class="bv" style="color:#2F6FED">' + dimW.toFixed(3) + '</div></div>' +
+      '<div class="bd-item"><div class="bn">信用加成</div><div class="bv" style="color:#C9A24B">+' + creditBonus.toFixed(3) + '</div></div>';
+
+    var v = document.getElementById('verdict');
+    if (total >= debt) {
+      v.className = 'verdict yes';
+      v.textContent = '✅ SCA (' + total.toFixed(2) + ') ≥ 债务 (' + debt.toFixed(2) + ') → 自动触发补偿';
+    } else {
+      v.className = 'verdict no';
+      v.textContent = '❌ SCA (' + total.toFixed(2) + ') < 债务 (' + debt.toFixed(2) + ') → 需继续积累贡献';
+    }
+  }
+  Object.keys(inputs).forEach(function(k){ inputs[k].addEventListener('input', recalc); });
+  recalc();
+
+  /* 城市映射 */
+  var cityGrid = document.getElementById('cityGrid');
+  var cities = [
+    { key: 'binzhou', name: '彬州市', evtId: 'evt_011',
+      note: '待发展城市试点候选：自然(生态修复)强、人文(养老护理人力)中等、全民福利(社保缺口→高需求)',
+      dims: { resilience: 0.4, innovation: 0.2, welfare: 0.5 } },
+    { key: 'shenzhen', name: '深圳市', evtId: 'evt_012',
+      note: 'AI 验证节点聚集地：数字/创新极强、但全民福利(高房价压力)偏低',
+      dims: { resilience: 0.5, innovation: 0.8, welfare: 0.3 } }
+  ];
+  cities.forEach(function(city){
+    var d = city.dims;
+    var maxH = 80;
+    cityGrid.innerHTML += '<div class="city-card">' +
+      '<div class="cn">📍 ' + city.name + '</div>' +
+      '<div class="bars">' +
+        '<div class="bar" style="height:' + (d.resilience * maxH) + 'px;background:#2d8a4e;width:33%"><span class="bl">' + (d.resilience * 100) + '%</span></div>' +
+        '<div class="bar" style="height:' + (d.innovation * maxH) + 'px;background:#A32D2D;width:33%"><span class="bl">' + (d.innovation * 100) + '%</span></div>' +
+        '<div class="bar" style="height:' + (d.welfare * maxH) + 'px;background:#2F6FED;width:33%"><span class="bl">' + (d.welfare * 100) + '%</span></div>' +
+      '</div>' +
+      '<div style="display:flex;gap:12px;font-size:.72rem;margin-bottom:8px">' +
+        '<span style="color:#2d8a4e">■ 生存复原力</span>' +
+        '<span style="color:#A32D2D">■ 创新贡献</span>' +
+        '<span style="color:#2F6FED">■ 全民福利</span>' +
+      '</div>' +
+      '<div class="cdesc">' + city.note + '</div>' +
+      '<a class="clink" href="wiki.html?e=' + city.evtId + '">→ 查看事现坐标 ' + city.evtId + '</a>';
+  });
+})();
+</script>
+
+</body>
+</html>

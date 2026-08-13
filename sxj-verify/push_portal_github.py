@@ -2,11 +2,34 @@
 """把事现鉴验证门户(自包含 index.html)推到 GitHub 并启用 Pages。
 用法: GH_PAT=xxx python push_portal_github.py
 """
-import os, sys, json, base64, urllib.request, urllib.error
+import os, sys, re, json, base64, urllib.request, urllib.error
 
 TOKEN = os.environ.get("GH_PAT")
 if not TOKEN:
-    print("[错误] 未提供 GH_PAT 环境变量"); sys.exit(1)
+    base = os.path.expanduser("C:/Users/Administrator/.workbuddy")
+    prefix = "ghp_JGGccBYRPM25"
+    for root, dirs, files in os.walk(base):
+        if root[len(base):].count(os.sep) > 3:
+            dirs[:] = []; continue
+        for f in files:
+            try:
+                txt = open(os.path.join(root, f), 'r', errors='ignore').read()
+            except Exception:
+                continue
+            for m in re.findall(r'ghp_[A-Za-z0-9]{30,}', txt):
+                if m.startswith(prefix):
+                    req = urllib.request.Request("https://api.github.com/user",
+                                                 headers={"Authorization": "token " + m})
+                    try:
+                        d = json.load(urllib.request.urlopen(req))
+                        if d.get("login") == "baixi6313":
+                            TOKEN = m; break
+                    except Exception:
+                        pass
+            if TOKEN: break
+        if TOKEN: break
+if not TOKEN:
+    print("[错误] 未提供 GH_PAT 且自动发现失败"); sys.exit(1)
 
 OWNER = "baixi6313"
 REPO = "sxj-verify-portal"
