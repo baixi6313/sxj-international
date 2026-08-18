@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560" font-family="-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">
+  <defs>
+    <style>
+      .box{fill:#fff;stroke:#A32D2D;stroke-width:2;rx:8}
+      .founder{fill:#A32D2D;stroke:#7d2020}
+      .pm{fill:#C9A24B;stroke:#9c7a2f}
+      .dept{fill:#fff;stroke:#2F6FED;stroke-width:2}
+      .sub{fill:#f4f1e8;stroke:#bba;}
+      .t{fill:#1c1c1c;font-size:14px;font-weight:600;text-anchor:middle}
+      .ts{fill:#fff;font-size:11px;text-anchor:middle}
+      .tsd{fill:#3a2d12;font-size:11px;text-anchor:middle}
+      .ln{stroke:#555;stroke-width:1.5;fill:none}
+      .note{fill:#555;font-size:12px;text-anchor:middle}
+      .tag{fill:#2F6FED;font-size:10px;text-anchor:middle;font-weight:700}
+    </style>
+  </defs>
+
+  <!-- Founder / Decision Layer -->
+  <rect class="box founder" x="250" y="20" width="260" height="56" rx="8"/>
+  <text class="ts" x="380" y="42">FOUNDER · BAI XI</text>
+  <text class="ts" x="380" y="60">(始创者-白玺)</text>
+  <text class="tag" x="380" y="78">DECISION LAYER · 决定层</text>
+
+  <!-- arrow founder->pm -->
+  <path class="ln" d="M380,78 L380,96"/>
+  <text class="note" x="430" y="92">approves</text>
+
+  <!-- PM / Executive Layer -->
+  <rect class="box pm" x="250" y="100" width="260" height="56" rx="8"/>
+  <text class="tsd" x="380" y="122">PM · PROJECT MANAGER</text>
+  <text class="tsd" x="380" y="140">(项目经理 · 编排执行)</text>
+  <text class="tag" x="380" y="158">EXECUTIVE LAYER · 决策层</text>
+
+  <!-- arrow pm->bus -->
+  <path class="ln" d="M380,158 L380,182 L380,196"/>
+
+  <!-- Departments -->
+  <!-- Lightcone Ops -->
+  <rect class="dept" x="14" y="200" width="132" height="58" rx="8"/>
+  <text class="t" x="80" y="224">Lightcone Ops</text>
+  <text class="t" x="80" y="242" style="font-size:11px;fill:#2F6FED">光锥运维部</text>
+  <rect class="sub" x="22" y="266" width="116" height="40" rx="6"/>
+  <text class="t" x="80" y="284" style="font-size:10px">hygzz01·02·03</text>
+  <text class="t" x="80" y="298" style="font-size:10px">记录·审查·优化</text>
+
+  <!-- Security -->
+  <rect class="dept" x="162" y="200" width="132" height="58" rx="8"/>
+  <text class="t" x="228" y="224">Security &amp;</text>
+  <text class="t" x="228" y="242" style="font-size:11px;fill:#2F6FED">安全合规部</text>
+
+  <!-- Verification -->
+  <rect class="dept" x="310" y="200" width="132" height="58" rx="8"/>
+  <text class="t" x="376" y="224">Event</text>
+  <text class="t" x="376" y="242" style="font-size:11px;fill:#2F6FED">事现验证部</text>
+
+  <!-- Theory -->
+  <rect class="dept" x="458" y="200" width="132" height="58" rx="8"/>
+  <text class="t" x="524" y="224">Theory R&amp;D</text>
+  <text class="t" x="524" y="242" style="font-size:11px;fill:#2F6FED">理论研发部</text>
+
+  <!-- External -->
+  <rect class="dept" x="606" y="200" width="132" height="58" rx="8"/>
+  <text class="t" x="672" y="224">External</text>
+  <text class="t" x="672" y="242" style="font-size:11px;fill:#2F6FED">对外协作部</text>
+
+  <!-- bus line + connectors -->
+  <path class="ln" d="M80,196 L80,196 M228,196 L228,196 M376,196 L376,196 M524,196 L524,196 M672,196 L672,196"/>
+  <path class="ln" d="M80,196 L672,196"/>
+  <path class="ln" d="M80,200 L80,200"/>
+  <path class="ln" d="M228,196 L228,200 M376,196 L376,200 M524,196 L524,200 M672,196 L672,200"/>
+
+  <!-- flow note -->
+  <rect class="sub" x="120" y="340" width="520" height="70" rx="8"/>
+  <text class="t" x="380" y="366" style="font-size:13px">Decision Layer approves → Executive Layer executes</text>
+  <text class="t" x="380" y="386" style="font-size:11px;fill:#666">决定层同意 → 决策层执行</text>
+  <text class="t" x="380" y="402" style="font-size:10px;fill:#666">New agents require Founder's permission · 新建 agent 须经始创者许可</text>
+
+  <text class="note" x="380" y="450">Four domains: hygzz.com (intl) · hygzz.cn (CN) · hygzz.top (CV) · hygzz.中国 (cases)</text>
+  <text class="note" x="380" y="472">SXJ = verifiable public-fact protocol grounded in UDHR Art.22 · ultimate goal: global social security</text>
+  <text class="note" x="380" y="500" style="fill:#A32D2D;font-weight:700">三值 Three Values: 共济值 A · 贡献值 B · 负贡献 (accountability)</text>
+</svg>

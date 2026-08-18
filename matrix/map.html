@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>光锥地图 · 法域 j × 时间轴 t — 事现鉴 SXJ</title>
+<meta name="description" content="事现鉴光锥坐标层：法域 j 落地、时间轴 t 回放、ρ 热力着色、验证节点标注。台湾、香港、澳门是中国的一部分。">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23A32D2D'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='%23F5F0E6'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23A32D2D'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<style>
+.mapbox{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;overflow:hidden}
+#world{width:100%;height:auto;display:block;border-radius:8px;background:#eef3f8}
+.dot-ev{cursor:pointer;transition:.15s}
+.dot-ev:hover{stroke:#1a1a2e;stroke-width:1.5}
+.dot-node{cursor:pointer}
+.maplabel{font-family:var(--font);font-size:9px;font-weight:700;fill:#fff;pointer-events:none}
+.mapnote{font-family:var(--font);font-size:8px;fill:#8A8170;pointer-events:none}
+.grat{stroke:#d6e0ea;stroke-width:.5;fill:none}
+.land{fill:#dfe7ee;stroke:#c9d4de;stroke-width:.6}
+.cn{stroke:#5e1414;stroke-width:.9}
+
+/* 时间轴 */
+.timeline{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-top:14px}
+.tl-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.tl-head .yr{font-family:var(--mono);font-size:1.5rem;font-weight:800;color:var(--red);min-width:74px}
+.tl-head .cnt{font-size:.82rem;color:var(--text-dim)}
+.tl-head .cnt b{color:var(--red);font-family:var(--mono)}
+.tl-btn{border:1px solid var(--border);background:#fff;border-radius:7px;padding:5px 13px;cursor:pointer;
+  font-family:inherit;font-size:.82rem;font-weight:600;color:var(--text-dim);transition:.15s}
+.tl-btn:hover{border-color:var(--red);color:var(--red)}
+.tl-btn.play{background:var(--red);border-color:var(--red);color:#fff}
+input[type=range]{width:100%;accent-color:#A32D2D;height:22px}
+.tl-marks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;color:var(--text-faint);margin-top:-2px}
+
+/* 节点表 */
+.nodes{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.nd{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 13px;
+  display:flex;gap:10px;align-items:flex-start}
+.nd .ni{width:10px;height:10px;border-radius:50%;flex:0 0 auto;margin-top:5px}
+.nd .nn{font-size:.88rem;font-weight:700}
+.nd .nk{font-size:.7rem;color:var(--text-faint);font-family:var(--mono)}
+.nd .nt{font-size:.76rem;color:var(--text-dim);margin-top:3px;line-height:1.5}
+
+/* 选中事现 */
+.pick{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--red);
+  border-radius:10px;padding:14px 16px;margin-top:14px}
+.pick .pid{font-family:var(--mono);font-size:.72rem;color:var(--red);font-weight:700}
+.pick h4{font-size:1rem;font-weight:700;margin:3px 0 6px}
+.pick .pm{display:flex;flex-wrap:wrap;gap:10px;font-size:.76rem;color:var(--text-faint);margin-bottom:7px}
+.pick .ps{font-size:.83rem;color:var(--text-dim);line-height:1.65}
+.pick .pa{margin-top:9px;display:flex;gap:7px;flex-wrap:wrap}
+
+.nogeo{background:var(--bg-warm);border:1px dashed var(--border);border-radius:10px;padding:12px 14px;
+  font-size:.82rem;color:var(--text-dim);margin-top:12px}
+.nogeo b{color:var(--red)}
+.compliance{font-size:.74rem;color:var(--text-faint);text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+
+<nav class="sxj-nav">
+  <a class="brand" href="index.html">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#fff"/><circle cx="12" cy="12" r="7.4" fill="#A32D2D"/><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
+    事现鉴 · 坐标场
+  </a>
+  <a href="index.html">三元总览</a>
+  <a href="axis.html">坐标轴</a>
+  <a href="wiki.html">事现维基</a>
+  <a href="map.html" class="on">光锥地图</a>
+  <a href="heat.html">热力密度</a>
+  <a href="../index.html" class="sp">← 返回主站</a>
+</nav>
+
+<div class="page-head">
+  <h1>光锥地图 · <em>法域 j × 时间轴 t</em></h1>
+  <div class="lead">把事现钉到时空位置。地理经纬度在此不是类型轴，而是<b>法域 j 内部的空间细节</b>。拖动时间轴可回放事现的出现顺序。</div>
+  <div class="spec">投影 (j, t) + ρ 着色 · spec: SXJ-wiki-map-design.md §4</div>
+</div>
+
+<div class="wrap">
+
+  <div class="filters">
+    <div class="fgroup"><label>j · 法域</label><div class="chips" id="f-j"></div></div>
+    <div class="fgroup"><label>x · 三元</label><div class="chips" id="f-x"></div></div>
+    <div class="fgroup"><label>显示</label><div class="chips" id="f-layer"></div></div>
+  </div>
+
+  <div class="mapbox">
+    <svg id="world" viewBox="0 0 720 372" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="compliance">示意图 · 非精确国界 · 台湾、香港、澳门是中国的一部分</div>
+  </div>
+
+  <div class="legend">
+    <span><i style="background:#2F6FED"></i>平衡区 ρ ≥ 0.85</span>
+    <span><i style="background:#D85A30"></i>交叉区 ρ &lt; 0.85</span>
+    <span><i style="background:#b9b2a6"></i>已落点 · 未量测 ρ</span>
+    <span><i style="background:#2d8a4e;border-radius:50%"></i>验证节点 · 已坐上桌</span>
+    <span><i style="background:#C9A24B;border-radius:50%"></i>部分参与</span>
+    <span><i style="background:#4a5c8a;border-radius:50%"></i>审核中</span>
+    <span><i style="background:#b9b2a6;border-radius:50%"></i>未到场</span>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-head">
+      <span class="yr" id="tl-year"></span>
+      <button class="tl-btn play" id="tl-play">▶ 回放</button>
+      <button class="tl-btn" id="tl-reset">全部</button>
+      <span class="cnt" id="tl-cnt"></span>
+    </div>
+    <input type="range" id="tl-range" min="1998" max="2026" step="1" value="2026">
+    <div class="tl-marks"><span>1998</span><span>2005</span><span>2012</span><span>2019</span><span>2026</span></div>
+  </div>
+
+  <div id="pickbox"></div>
+  <div id="nogeo"></div>
+
+  <div class="sec-title">验证节点 · 谁在桌上</div>
+  <div class="sub" style="margin:-6px 0 10px">一眼看出「谁来了、谁还没来」—— 这直接服务催化剂拉新，也如实记录失败的接入尝试。</div>
+  <div class="nodes" id="nodes"></div>
+
+  <div class="note">
+    <b>区域判据</b>：平衡区 = 光锥内部高 ρ 的稳定轨迹（蓝 / 金）；交叉区 = 光锥边界低或过渡 ρ 的碰撞（红）。
+    推论：事现鉴的地图本质上是一张<b>社会稳定性热力图</b> —— 红点密集处不是「坏地方」，是「可验证度还不够、正在碰撞」的地方。
+  </div>
+
+</div>
+
+<footer class="sxj-foot">
+  <p><a href="index.html">三元总览</a><a href="axis.html">坐标轴</a><a href="wiki.html">事现维基</a><a href="heat.html">热力密度</a></p>
+  <p style="margin-top:8px">© 2026 事现鉴 SXJ · 地图为 spec 渲染示例，SXJ 不持有中央内容库</p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  /* ---------- 世界示意轮廓（等距圆柱投影） ---------- */
+  var LAND={
+    greenland:[[-45,60],[-52,64],[-53,68],[-58,72],[-55,76],[-45,80],[-30,82],[-20,78],[-22,72],[-30,68],[-38,64]],
+    namerica:[[-168,66],[-160,71],[-140,70],[-128,70],[-115,69],[-100,69],[-95,74],[-85,73],[-75,68],[-65,60],
+      [-56,52],[-64,47],[-70,45],[-76,38],[-81,32],[-80,25],[-84,30],[-90,29],[-97,26],[-105,22],[-92,15],
+      [-84,10],[-78,8],[-83,15],[-95,17],[-110,24],[-114,31],[-120,34],[-124,42],[-125,49],[-135,57],[-150,60],[-165,55]],
+    samerica:[[-78,8],[-72,12],[-62,10],[-52,5],[-45,-2],[-35,-6],[-38,-13],[-48,-25],[-54,-34],[-58,-38],
+      [-62,-40],[-65,-45],[-68,-52],[-73,-52],[-75,-46],[-73,-37],[-71,-30],[-70,-18],[-77,-6],[-81,0]],
+    africa:[[-17,15],[-16,22],[-10,30],[0,36],[10,37],[20,32],[32,31],[35,23],[38,18],[43,12],[51,12],[49,5],
+      [42,-1],[40,-10],[36,-18],[35,-24],[31,-30],[25,-34],[18,-34],[15,-26],[12,-17],[9,-1],[9,4],[3,6],[-5,5],[-13,8]],
+    eurasia:[[-9,37],[-9,43],[-1,46],[-4,48],[2,51],[4,53],[8,54],[5,58],[5,62],[12,65],[18,70],[28,71],
+      [40,68],[55,68],[60,70],[70,73],[80,74],[100,77],[110,76],[130,73],[140,73],[160,70],[175,68],[180,65],
+      [170,60],[160,60],[155,57],[150,59],[142,54],[142,45],[135,44],[130,42],[127,39],[129,35],[126,34],
+      [122,40],[118,39],[121,32],[122,30],[117,24],[110,21],[108,18],[106,10],[104,1],[100,6],[99,10],[98,16],
+      [94,18],[90,21],[87,21],[80,15],[77,8],[72,21],[67,24],[62,25],[57,25],[48,29],[43,29],[35,32],[36,36],
+      [30,41],[28,41],[20,40],[14,38],[16,41],[12,44],[7,44],[3,42],[-2,36]],
+    uk:[[-5,50],[-3,54],[-5,58],[-2,58],[0,53],[1,51]],
+    japan:[[130,32],[132,34],[136,35],[139,36],[141,40],[141,45],[139,42],[135,36],[131,33]],
+    indonesia:[[95,5],[104,1],[112,-3],[120,-5],[130,-3],[141,-4],[135,-8],[124,-9],[113,-8],[103,-6]],
+    australia:[[113,-22],[114,-26],[115,-34],[118,-35],[123,-34],[129,-32],[135,-35],[138,-35],[141,-38],
+      [146,-39],[150,-37],[153,-29],[153,-25],[146,-19],[142,-11],[136,-12],[131,-11],[129,-15],[125,-14],[122,-17],[117,-21]],
+    nz:[[166,-46],[168,-44],[173,-41],[175,-37],[178,-38],[174,-41],[171,-44]]
+  };
+  var CN_MAIN=[[73,39],[75,37],[78,35],[80,32],[84,28],[88,27],[92,27],[97,28],[98,24],[102,22],[106,22],
+    [108,21],[110,21],[112,22],[117,24],[120,27],[122,30],[121,34],[119,35],[122,37],[122,40],[120,40],
+    [118,39],[120,41],[122,41],[124,43],[128,43],[131,45],[134,48],[131,48],[127,50],[125,53],[120,53],
+    [117,50],[115,48],[111,45],[107,42],[103,42],[97,43],[95,45],[91,47],[87,49],[85,47],[82,45],[80,45],[80,42],[76,41]];
+  var CN_TW=[[120,22.5],[120.5,25.3],[121.9,25.1],[121.6,22.4],[120.7,21.9]];
+  var CN_HAINAN=[[108.6,19.9],[110.6,20.1],[111,18.5],[109,18.2]];
+
+  var W=720,H=360,TOP=6;
+  function P(lon,lat){ return [ (lon+180)*2, (90-lat)*2 + TOP ]; }
+  function poly(pts){ return pts.map(function(p){var q=P(p[0],p[1]);return q[0].toFixed(1)+','+q[1].toFixed(1);}).join(' '); }
+
+  var state={j:'all',x:'all',layer:'both',year:2026,pick:null,timer:null};
+
+  function chips(el,items,key,useShort){
+    var h='<button class="chip'+(state[key]==='all'?' on':'')+'" data-v="all">全部</button>';
+    items.forEach(function(it){
+      h+='<button class="chip'+(state[key]===it.key?' on':'')+'" data-v="'+it.key+'">'+(useShort?it.short:it.name)+'</button>';
+    });
+    el.innerHTML=h;
+    el.querySelectorAll('.chip').forEach(function(b){ b.onclick=function(){ state[key]=b.dataset.v; render(); }; });
+  }
+  function layerChips(){
+    var opts=[['both','事现 + 节点'],['events','只看事现'],['nodes','只看验证节点']];
+    var el=document.getElementById('f-layer');
+    el.innerHTML=opts.map(function(o){
+      return '<button class="chip'+(state.layer===o[0]?' on gold':'')+'" data-v="'+o[0]+'">'+o[1]+'</button>';
+    }).join('');
+    el.querySelectorAll('.chip').forEach(function(b){ b.onclick=function(){ state.layer=b.dataset.v; render(); }; });
+  }
+
+  function visibleEvents(){
+    return SXJ.project({j:state.j,x:state.x,includePlaceholder:false,untilYear:state.year});
+  }
+  function visibleNodes(){
+    return SXJ.NODES.filter(function(n){ return state.j==='all'||n.j===state.j; });
+  }
+
+  function render(){
+    chips(document.getElementById('f-j'),SXJ.JURIS,'j',false);
+    chips(document.getElementById('f-x'),SXJ.TRIAD,'x',true);
+    layerChips();
+
+    var evs=visibleEvents();
+    var s='';
+
+    /* 经纬网格 */
+    for(var gx=0;gx<=W;gx+=60) s+='<line class="grat" x1="'+gx+'" y1="'+TOP+'" x2="'+gx+'" y2="'+(H+TOP)+'"/>';
+    for(var gy=TOP;gy<=H+TOP;gy+=30) s+='<line class="grat" x1="0" y1="'+gy+'" x2="'+W+'" y2="'+gy+'"/>';
+    s+='<line class="grat" style="stroke:#b9c8d6;stroke-dasharray:4 3" x1="0" y1="'+(90*2+TOP)+'" x2="'+W+'" y2="'+(90*2+TOP)+'"/>';
+
+    /* 陆地 */
+    for(var k in LAND) s+='<polygon class="land" points="'+poly(LAND[k])+'"/>';
+
+    /* 中国（含港澳台）高亮 */
+    s+='<polygon class="cn" fill="url(#cng)" points="'+poly(CN_MAIN)+'"/>';
+    s+='<polygon class="cn" fill="url(#cng)" points="'+poly(CN_TW)+'"/>';
+    s+='<polygon class="cn" fill="url(#cng)" points="'+poly(CN_HAINAN)+'"/>';
+    var hk=P(114.17,22.32), mo=P(113.55,22.19);
+    s+='<circle cx="'+hk[0].toFixed(1)+'" cy="'+hk[1].toFixed(1)+'" r="2.4" fill="url(#cng)" stroke="#5e1414" stroke-width=".7"/>';
+    s+='<circle cx="'+mo[0].toFixed(1)+'" cy="'+mo[1].toFixed(1)+'" r="2" fill="url(#cng)" stroke="#5e1414" stroke-width=".7"/>';
+    var cnc=P(103,35);
+    s+='<text class="maplabel" x="'+cnc[0].toFixed(1)+'" y="'+cnc[1].toFixed(1)+'" text-anchor="middle">中国</text>';
+
+    /* 验证节点 */
+    if(state.layer!=='events'){
+      visibleNodes().forEach(function(n){
+        var p=P(n.lon,n.lat), c=SXJ.NODE_STATE[n.state];
+        s+='<g class="dot-node"><title>'+n.name+' · '+c.name+'\n'+n.note+'</title>'
+          +'<rect x="'+(p[0]-3.6).toFixed(1)+'" y="'+(p[1]-3.6).toFixed(1)+'" width="7.2" height="7.2" rx="1.6" '
+          +'fill="'+c.color+'" stroke="#fff" stroke-width="1" opacity=".92"/></g>';
+      });
+    }
+
+    /* 事现落点 */
+    if(state.layer!=='nodes'){
+      evs.forEach(function(e){
+        if(!e.geo) return;
+        var p=P(e.geo.lon,e.geo.lat);
+        var measured=typeof e.rho==='number';
+        var fill = measured ? (e.rho>=SXJ.META.rhoMin?'#2F6FED':'#D85A30') : '#b9b2a6';
+        var r = measured ? (5+e.rho*7) : 5;
+        var dash = (e.geo.precision==='approx')?' stroke-dasharray="2 2"':'';
+        s+='<g class="dot-ev" data-id="'+e.id+'"><title>'+e.id+' · '+e.title
+          +'\nρ = '+(measured?e.rho.toFixed(4):'未量测')+'\nt = '+(e.t||'—')+'</title>'
+          +'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(r+5).toFixed(1)+'" fill="'+fill+'" opacity=".16"/>'
+          +'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+r.toFixed(1)+'" fill="'+fill+'" opacity=".55" stroke="#fff" stroke-width="1"'+dash+'/>'
+          +'<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="2.4" fill="'+fill+'"/>'
+          +'</g>';
+      });
+    }
+
+    s+='<text class="mapnote" x="6" y="'+(H+TOP-4)+'">等距圆柱投影 · 虚线圈 = 位置为示意非精确落点</text>';
+
+    document.getElementById('world').innerHTML=
+      '<defs><linearGradient id="cng" x1="0" y1="0" x2="1" y2="1">'
+      +'<stop offset="0" stop-color="#C9A24B"/><stop offset="1" stop-color="#8E1F1F"/></linearGradient></defs>'
+      +'<rect x="0" y="'+TOP+'" width="'+W+'" height="'+H+'" fill="#eef3f8" rx="6"/>'+s;
+
+    document.querySelectorAll('.dot-ev').forEach(function(g){
+      g.onclick=function(){ state.pick=g.dataset.id; renderPick(); };
+    });
+
+    /* 时间轴读数 */
+    document.getElementById('tl-year').textContent=state.year;
+    var geoCnt=evs.filter(function(e){return e.geo;}).length;
+    document.getElementById('tl-cnt').innerHTML='截至此刻可见事现 <b>'+evs.length+'</b> 条，其中 <b>'+geoCnt+'</b> 条有地理落点';
+    document.getElementById('tl-range').value=state.year;
+
+    /* 无地理落点提示 */
+    var nog=evs.filter(function(e){return !e.geo;});
+    document.getElementById('nogeo').innerHTML = nog.length
+      ? '<div class="nogeo"><b>不臆造落点：</b>以下 '+nog.length+' 条事现无可确认的地理位置，因此不在地图上显示 —— '
+        +nog.map(function(e){return '<a href="wiki.html?e='+e.id+'">'+e.id+' '+e.title+'</a>（'+(e.geoNote||'位置未指明')+'）';}).join('；')+'。</div>'
+      : '';
+
+    renderPick();
+    renderNodes();
+  }
+
+  function renderPick(){
+    var box=document.getElementById('pickbox');
+    if(!state.pick){ box.innerHTML=''; return; }
+    var e=SXJ.byId(state.pick);
+    if(!e){ box.innerHTML=''; return; }
+    var tri=SXJ.triad(e.x), ti=SXJ.tier(e.y), st=SXJ.STATUS[e.status];
+    var measured=typeof e.rho==='number';
+    box.innerHTML='<div class="pick"><div class="pid">'+e.id+'</div><h4>'+e.title+'</h4>'
+      +'<div class="pm"><span class="stat"><i style="background:'+st.color+'"></i>'+st.name+'</span>'
+      +'<span>('+tri.short+', '+ti.short+')</span><span>j = '+SXJ.juris(e.j).name+'</span>'
+      +'<span>t = '+(e.t||'—')+'</span>'
+      +'<span class="rho'+(measured?'':' none')+'">ρ = '+(measured?e.rho.toFixed(4):'未量测')+'</span>'
+      +'<span>'+(e.geo?e.geo.place:'位置未指明')+'</span></div>'
+      +'<div class="ps">'+e.summary+'</div>'
+      +'<div class="pa"><a class="chip" href="wiki.html?e='+e.id+'">查看完整卷宗 →</a>'
+      +'<a class="chip" href="heat.html">在热力图中定位 →</a></div></div>';
+  }
+
+  function renderNodes(){
+    document.getElementById('nodes').innerHTML=visibleNodes().map(function(n){
+      var c=SXJ.NODE_STATE[n.state];
+      return '<div class="nd"><span class="ni" style="background:'+c.color+'"></span><div>'
+        +'<div class="nn">'+n.name+'</div>'
+        +'<div class="nk">'+n.kind+' · '+n.place+' · '+c.name+'</div>'
+        +'<div class="nt">'+n.note+'</div></div></div>';
+    }).join('');
+  }
+
+  /* 时间轴交互 */
+  var rg=document.getElementById('tl-range');
+  rg.oninput=function(){ state.year=parseInt(rg.value,10); stop(); render(); };
+  document.getElementById('tl-reset').onclick=function(){ stop(); state.year=2026; render(); };
+  function stop(){ if(state.timer){clearInterval(state.timer);state.timer=null;
+    document.getElementById('tl-play').textContent='▶ 回放';} }
+  document.getElementById('tl-play').onclick=function(){
+    if(state.timer){ stop(); return; }
+    state.year=1998; render();
+    this.textContent='⏸ 暂停';
+    state.timer=setInterval(function(){
+      state.year++;
+      if(state.year>2026){ state.year=2026; stop(); }
+      render();
+    },260);
+  };
+
+  render();
+})();
+</script>
+</body>
+</html>

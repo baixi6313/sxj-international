@@ -1,0 +1,122 @@
+/* ============================================================
+ * 事现鉴 SXJ · 矩阵视图套件 共享样式
+ * 红金主题（与四域统一）
+ * ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#fafaf9;
+  --bg-warm:#f7f3f0;
+  --card:#fff;
+  --text:#1a1a2e;
+  --text-dim:#555;
+  --text-faint:#8892a0;
+  --border:#e8e0d8;
+  --red:#A32D2D;
+  --red-light:#fef0f0;
+  --red-hover:#8a2424;
+  --gold:#C9A24B;
+  --gold-light:#fef8e8;
+  --gold-hover:#b08a3a;
+  --green:#2d8a4e;
+  /* 三值权威配色 */
+  --val-a:#2F6FED;
+  --val-b:#D99A2B;
+  --val-c:#D85A30;
+  /* 三元轴色 */
+  --tri-nat:#2d8a4e;
+  --tri-hum:#A32D2D;
+  --tri-dig:#4a5c8a;
+  --shadow:0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg:0 8px 30px rgba(0,0,0,0.1);
+  --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--red);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ---------- 顶部导航 ---------- */
+.sxj-nav{position:sticky;top:0;z-index:900;display:flex;flex-wrap:wrap;gap:2px;align-items:center;
+  background:var(--red);padding:8px 14px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.sxj-nav .brand{color:#fff;font-weight:700;text-decoration:none;margin-right:12px;letter-spacing:.5px;
+  display:flex;align-items:center;gap:6px}
+.sxj-nav .brand svg{width:20px;height:20px}
+.sxj-nav a{color:#f4e9c9;text-decoration:none;padding:5px 9px;border-radius:5px;font-size:.86rem;transition:.15s;white-space:nowrap}
+.sxj-nav a:hover{background:rgba(255,255,255,.14);text-decoration:none}
+.sxj-nav a.on{background:var(--gold);color:#3a2a00;font-weight:700}
+.sxj-nav .sp{margin-left:auto}
+
+/* ---------- 页头 ---------- */
+.page-head{max-width:1180px;margin:0 auto;padding:34px 22px 14px}
+.page-head h1{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.4px}
+.page-head h1 em{font-style:normal;color:var(--red)}
+.page-head .lead{color:var(--text-dim);font-size:.95rem;margin-top:8px;max-width:760px}
+.page-head .spec{font-size:.76rem;color:var(--text-faint);margin-top:10px;font-family:var(--mono)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px 70px}
+
+/* ---------- 通用卡片 ---------- */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.card + .card{margin-top:14px}
+.sec-title{font-size:1.05rem;font-weight:700;margin:28px 0 12px;display:flex;align-items:center;gap:8px}
+.sec-title::before{content:'';width:3px;height:16px;background:var(--red);border-radius:2px}
+.sub{font-size:.82rem;color:var(--text-faint)}
+
+/* ---------- 筛选条 ---------- */
+.filters{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;background:var(--card);
+  border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:18px}
+.fgroup{display:flex;flex-direction:column;gap:6px}
+.fgroup > label{font-size:.72rem;color:var(--text-faint);font-weight:600;letter-spacing:.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--border);background:#fff;color:var(--text-dim);border-radius:999px;
+  padding:4px 12px;font-size:.8rem;cursor:pointer;transition:.15s;font-family:inherit}
+.chip:hover{border-color:var(--gold);color:var(--text)}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:600}
+.chip.on.gold{background:var(--gold);border-color:var(--gold);color:#3a2a00}
+
+/* ---------- 三值徽章 ---------- */
+.vbadge{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:700;
+  padding:2px 8px;border-radius:999px;color:#fff;white-space:nowrap}
+.vbadge.A{background:var(--val-a)}
+.vbadge.B{background:var(--val-b)}
+.vbadge.C{background:var(--val-c)}
+.vbadge.N{background:#9aa0a6}
+
+/* ---------- ρ 读数 ---------- */
+.rho{font-family:var(--mono);font-weight:700}
+.rho.none{color:var(--text-faint);font-weight:400;font-style:italic}
+
+/* ---------- 状态点 ---------- */
+.stat{display:inline-flex;align-items:center;gap:5px;font-size:.75rem;color:var(--text-dim)}
+.stat i{width:7px;height:7px;border-radius:50%;display:inline-block;flex:0 0 auto}
+
+/* ---------- 提示条 ---------- */
+.note{background:var(--gold-light);border-left:3px solid var(--gold);padding:10px 14px;
+  border-radius:0 8px 8px 0;font-size:.83rem;color:#6b5520;margin:12px 0}
+.note.red{background:var(--red-light);border-left-color:var(--red);color:#7a2020}
+.note b{font-weight:700}
+
+/* ---------- 图例 ---------- */
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.78rem;color:var(--text-dim);margin-top:12px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* ---------- 表格 ---------- */
+table.t{width:100%;border-collapse:collapse;font-size:.85rem}
+table.t th,table.t td{border-bottom:1px solid var(--border);padding:9px 10px;text-align:left;vertical-align:top}
+table.t th{background:var(--bg-warm);font-weight:700;font-size:.78rem;color:var(--text-dim);white-space:nowrap}
+table.t tr:hover td{background:#fdfcfb}
+
+/* ---------- 页脚 ---------- */
+.sxj-foot{border-top:1px solid var(--border);padding:26px 22px;text-align:center;
+  font-size:.78rem;color:var(--text-faint)}
+.sxj-foot a{color:var(--text-dim);margin:0 7px}
+.sxj-foot a:hover{color:var(--red)}
+
+/* ---------- 响应 ---------- */
+@media(max-width:720px){
+  .page-head{padding:24px 16px 10px}
+  .wrap{padding:0 16px 50px}
+  .filters{gap:12px;padding:12px}
+}
